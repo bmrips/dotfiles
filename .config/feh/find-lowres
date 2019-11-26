@@ -1,0 +1,27 @@
+#!/bin/sh
+# Recursively find images below a certain resolution
+#
+# Usage: find-lowres [-r] [directory [dimension]]
+#
+# directory defaults to . (the current working directory),
+# dimension defaults to 1000x800 pixels
+#
+# With -r: removes images instead of just listing them. Use at your own risk.
+
+remove=0
+
+while true
+do
+	case $1 in
+        -r) remove=(--action 'rm %F') ;;
+		-*) echo "option \"$1\" ignored" ;;
+		-|--) shift; break ;;
+		*) break ;;
+	esac
+	shift
+done
+
+dir=${1:-.}
+dimension=${2:-1000x800}
+
+feh "${remove[@]}" -rlV --max-dim "${dimension}" "${dir}"

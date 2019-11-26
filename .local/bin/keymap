@@ -1,0 +1,3 @@
+#!/usr/bin/bash
+
+xkbcomp -I$HOME/.local/share/xkb -I/etc/X11/xkb $HOME/.config/xkb/"$*".xkb $DISPLAY &>/dev/null

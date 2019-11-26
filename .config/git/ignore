@@ -1,0 +1,8 @@
+# KDE directory preferences
+.directory
+
+# Tag files
+tags
+
+# Neovim
+Session*.vim

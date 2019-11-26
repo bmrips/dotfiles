@@ -1,0 +1,1 @@
+.config/p10k/config

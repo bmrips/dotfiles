@@ -1,0 +1,81 @@
+[advice]
+    detachedHead = false
+    statusHints = false
+
+[alias]
+    a  = add
+    b  = branch
+    co = checkout
+    c  = commit
+    ca = commit --amend
+    cu = commit --amend --no-edit
+    d  = diff
+    ds = diff --staged
+    dt = difftool
+    l  = log
+    lo = log --oneline
+    lv = log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ar%C(reset)'
+    ls = ls-files
+    mc = diff --name-only --diff-filter=U
+    mt = mergetool
+    r  = reset
+    rb = rebase
+    s  = status --short
+    sw = switch
+
+[core]
+    pager = less --ignore-case --LONG-PROMPT --quiet --quit-if-one-screen --raw-control-chars
+    whitespace = tabwidth=4
+
+[color "diff"]
+    frag = magenta bold
+    meta = blue
+    whitespace = red reverse
+
+[color "status"]
+    nobranch = red bold
+    unmerged = blue
+
+[commit]
+    gpgSign = true
+    template = ~/.config/git/commit_template
+
+[diff]
+    algorithm = histogram
+    renames = copy
+    guitool = kompare
+
+[difftool "nvim"]
+    cmd = nvim -d $LOCAL $REMOTE
+
+[fetch]
+    prune = true
+
+[merge]
+    tool = nvim
+    guitool = kdiff3
+
+[mergetool "nvim"]
+    cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+    trustExitCode = false
+
+[pull]
+    rebase = true
+
+[push]
+    gpgSign = if-asked
+
+[stash]
+    showStat = true
+
+[status]
+    showStash = true
+
+[tag]
+    gpgSign = true
+
+[user]
+    name = Benedikt Rips
+    email = benedikt.rips@gmail.com
+
+# vi: ft=gitconfig

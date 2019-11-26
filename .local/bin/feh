@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+/usr/bin/feh \
+    --fontpath /usr/share/fonts/noto --font NotoSansDisplay-Regular/10 --menu-font NotoSansDisplay-Regular/10 --title-font NotoSansDisplay-Regular/10 \
+    --image-bg '#7c6f64' --bg $XDG_DATA_HOME/wallpaper/gruvbox_dark-bg4.png \
+    --conversion-timeout 5 \
+    --sort filename \
+    --cache-thumbnails \
+    --draw-tinted \
+    "$@"

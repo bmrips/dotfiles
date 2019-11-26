@@ -1,0 +1,36 @@
+#!/usr/bin/bash
+
+# Takes a screenshot using scrot.  You can specify which area to take a
+# screenshot of. Possible options are:
+# 	focus, select, multidisp
+# By default, an screenshot of the entire screen is taken.
+
+dir=$HOME/Pictures/Screenshots
+
+for arg in "$@"; do
+    case "$arg" in
+        -c|--clipboard)
+            clipboard=1
+            ;;
+        -t|--temporary)
+            dir=/tmp/screenshots
+            ;;
+        select)
+            mode="--select"
+            ;;
+        window)
+            mode="--window=$(xdotool getactivewindow)"
+            ;;
+        *)
+            ;;
+    esac
+done
+
+mkdir -p "$dir"
+file="$dir/$(date +%Y%m%d-%H%M%S).png"
+
+maim $mode "$file" --hidecursor
+
+if [[ -n $clipboard ]]; then
+    xclip -selection clipboard -in -target image/png "$file"
+fi

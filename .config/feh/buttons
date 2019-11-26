@@ -1,0 +1,10 @@
+# Switch menu and zoom keys
+menu 2
+zoom 3
+
+# Make scroll wheel (mousewheel up and down) zoo
+zoom_in 4
+zoom_out 5
+
+# Rotate with ctrl + right mouse button
+rotate C-3

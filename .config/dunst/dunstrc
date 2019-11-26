@@ -1,0 +1,55 @@
+[global]
+    # The geometry, padding and frame of the window
+    geometry = "300x3-7+33"
+    padding = 6
+    horizontal_padding = 6
+    frame_width = 2
+    frame_color = "#d79921"
+    corner_radius = 3
+
+    # Don't remove messages, if the user is idle (no mouse or keyboard input)
+    # for longer than idle_threshold seconds.
+    idle_threshold = 120
+
+    # Text
+    font = Noto Sans Display 9
+    markup = full
+    format = "<b>%s</b>\n%b"
+    word_wrap = true
+
+    # Icons
+    icon_position = left
+    icon_path = /usr/share/icons/Papirus/32x32/actions:/usr/share/icons/Papirus/32x32/apps:/usr/share/icons/Papirus/32x32/devices:/usr/share/icons/Papirus/32x32/emblems:/usr/share/icons/Papirus/32x32/emotes:/usr/share/icons/Papirus/32x32/mimetypes:/usr/share/icons/Papirus/32x32/places:/usr/share/icons/Papirus/32x32/status:/usr/share/icons/Papirus/24x24/actions:/usr/share/icons/Papirus/24x24/animations:/usr/share/icons/Papirus/24x24/apps:/usr/share/icons/Papirus/24x24/devices:/usr/share/icons/Papirus/24x24/emblems:/usr/share/icons/Papirus/24x24/emotes:/usr/share/icons/Papirus/24x24/mimetypes:/usr/share/icons/Papirus/24x24/panel:/usr/share/icons/Papirus/24x24/places:/usr/share/icons/Papirus/24x24/status:/usr/share/icons/Papirus/22x22/actions:/usr/share/icons/Papirus/22x22/animations:/usr/share/icons/Papirus/22x22/apps:/usr/share/icons/Papirus/22x22/devices:/usr/share/icons/Papirus/22x22/emblems:/usr/share/icons/Papirus/22x22/emotes:/usr/share/icons/Papirus/22x22/mimetypes:/usr/share/icons/Papirus/22x22/panel:/usr/share/icons/Papirus/22x22/places:/usr/share/icons/Papirus/22x22/status:/usr/share/icons/Papirus/18x18/actions:/usr/share/icons/Papirus/16x16/actions:/usr/share/icons/Papirus/16x16/apps:/usr/share/icons/Papirus/16x16/devices:/usr/share/icons/Papirus/16x16/emblems:/usr/share/icons/Papirus/16x16/emotes:/usr/share/icons/Papirus/16x16/mimetypes:/usr/share/icons/Papirus/16x16/panel:/usr/share/icons/Papirus/16x16/places:/usr/share/icons/Papirus/16x16/status:
+
+    # dmenu
+    dmenu = dmenu -p dunst:
+
+    # Browser for opening urls in context menu
+    browser = xdg-open
+
+[shortcuts]
+    # Close (all) notifications
+    close = mod4+n
+    close_all = mod4+ctrl+n
+
+    # Redisplay last message(s)
+    history = mod4+grave
+
+    # Context menu
+    context = mod4+apostrophe
+
+[urgency_low]
+    background = "#32302f"
+    foreground = "#ebdbb2"
+
+[urgency_normal]
+    background = "#32302f"
+    foreground = "#ebdbb2"
+
+[urgency_critical]
+    background = "#cc241d"
+    foreground = "#ebdbb2"
+    frame_color = "#fb4934"
+    timeout = 0
+
+# vi: ft=cfg

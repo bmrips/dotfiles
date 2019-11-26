@@ -1,0 +1,9 @@
+#!/usr/bin/bash
+
+# Set the wallpaper
+feh --no-fehbg --bg-fill $XDG_DATA_HOME/wallpapers/gruvbox/dark/bg0_s.png
+
+# Relaunch all programs
+for prog in dunst picom polybar; do
+    source $XDG_CONFIG_HOME/$prog/launch.sh
+done

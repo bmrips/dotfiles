@@ -1,0 +1,39 @@
+# Vim-like keybindings
+
+# Menu navigation
+menu_parent h Left
+menu_child  l Right
+menu_down   j Down
+menu_up     k Up
+menu_select space Return
+
+# Image navigation
+next_img j Right space
+prev_img k Left  BackSpace
+jump_first g Home
+jump_last  G End
+
+# Image movement
+scroll_up    C-k C-Up
+scroll_down  C-j C-Down
+scroll_left  C-h C-Left
+scroll_right C-l C-Right
+
+# File deletion
+remove   d   Delete
+delete C-d C-Delete
+
+# Toggle show filenames
+toggle_filenames C-g
+
+# Zooming
+zoom_in  l Up
+zoom_out h Down
+zoom_default d
+zoom_fit z
+
+# Keep the current view
+toggle_keep_vp v
+
+# Save the file list
+save_filelist S

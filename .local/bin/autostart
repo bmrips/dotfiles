@@ -1,0 +1,10 @@
+#!/usr/bin/bash
+
+# Services
+pasystray &
+nm-applet &
+
+# Applications
+owncloud &
+keepassxc &
+telegram-desktop &

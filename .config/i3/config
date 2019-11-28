@@ -100,20 +100,6 @@ set $k2_outA udiaeresis
 set $k1_outB bracketright
 set $k2_outB plus
 
-# Mark keys
-set $k_mark1  F1
-set $k_mark2  F2
-set $k_mark3  F3
-set $k_mark4  F4
-set $k_mark5  F5
-set $k_mark6  F6
-set $k_mark7  F7
-set $k_mark8  F8
-set $k_mark9  F9
-set $k_mark10 F10
-set $k_mark11 F11
-set $k_mark12 F12
-
 # Screenshot mode key
 set $k1_mode_screenshot y
 set $k2_mode_screenshot z
@@ -123,9 +109,6 @@ set $k_telegram m
 
 # Media mode
 set $k_mode_media v
-
-# Borders mode
-set $k_mode_borders b
 
 # Gruvbox colors -----------------------------------------------------------------------------------
 
@@ -188,8 +171,8 @@ bindsym $mod+$secd+$k_kill kill
 bindsym $mod+$tert+$k_kill [workspace=__focused__] kill
 
 # Application launcher
-bindsym $mod+$k_launcher       exec --no-startup-id i3-dmenu-desktop
-bindsym $mod+$secd+$k_launcher exec --no-startup-id dmenu_run
+bindsym $mod+$k_launcher             exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+$secd+$k_launcher       exec --no-startup-id dmenu_run
 bindsym $mod+$tert+$k_launcher       exec --no-startup-id rofi -show drun
 bindsym $mod+$tert+$secd+$k_launcher exec --no-startup-id rofi -show run
 
@@ -295,7 +278,7 @@ bindsym --border button2 kill
 bindsym --border --whole-window $mod+button2 kill
 
 # Toggle floating mode
-bindsym --border button3 focus, floating toggle, border normal $border_size
+bindsym --border button3 focus, floating toggle
 
 # Layout -------------------------------------------------------------------------------------------
 
@@ -434,8 +417,8 @@ bindsym Group1+$tert+$mod+$k1_ws_baf move container to workspace back_and_forth
 bindsym Group2+$tert+$mod+$k2_ws_baf move container to workspace back_and_forth
 
 # Go to adjacent workspace
-bindsym $mod+$k_ws_next        workspace next
-bindsym $mod+$k_ws_prev        workspace prev
+bindsym $mod+$k_ws_next workspace next
+bindsym $mod+$k_ws_prev workspace prev
 
 # Move containers to adjacent workspace and follow it
 bindsym $mod+$secd+$k_ws_next        move container to workspace next; workspace next
@@ -491,67 +474,6 @@ bindsym Group1+$mod+$tert+$k1_outA move workspace to output $outA, focus output 
 bindsym Group2+$mod+$tert+$k2_outA move workspace to output $outA, focus output $outA
 bindsym Group1+$mod+$tert+$k1_outB move workspace to output $outB, focus output $outB
 bindsym Group2+$mod+$tert+$k2_outB move workspace to output $outB, focus output $outB
-
-# Marks --------------------------------------------------------------------------------------------
-
-# If marks are showm on the window titles (yes/no)
-show_marks yes
-
-# Identifiers and hotkeys
-set $mark1   1
-set $mark2   2
-set $mark3   3
-set $mark4   4
-set $mark5   5
-set $mark6   6
-set $mark7   7
-set $mark8   8
-set $mark9   9
-set $mark10 10
-set $mark11 11
-set $mark12 12
-
-# Focus marked container
-bindsym $mod+$k_mark1  [con_mark=$mark1]  focus
-bindsym $mod+$k_mark2  [con_mark=$mark2]  focus
-bindsym $mod+$k_mark3  [con_mark=$mark3]  focus
-bindsym $mod+$k_mark4  [con_mark=$mark4]  focus
-bindsym $mod+$k_mark5  [con_mark=$mark5]  focus
-bindsym $mod+$k_mark6  [con_mark=$mark6]  focus
-bindsym $mod+$k_mark7  [con_mark=$mark7]  focus
-bindsym $mod+$k_mark8  [con_mark=$mark8]  focus
-bindsym $mod+$k_mark9  [con_mark=$mark9]  focus
-bindsym $mod+$k_mark10 [con_mark=$mark10] focus
-bindsym $mod+$k_mark11 [con_mark=$mark11] focus
-bindsym $mod+$k_mark12 [con_mark=$mark12] focus
-
-# Move marked container to current workspace
-bindsym $mod+$secd+$k_mark1  [con_mark=$mark1]  move container to workspace current
-bindsym $mod+$secd+$k_mark2  [con_mark=$mark2]  move container to workspace current
-bindsym $mod+$secd+$k_mark3  [con_mark=$mark3]  move container to workspace current
-bindsym $mod+$secd+$k_mark4  [con_mark=$mark4]  move container to workspace current
-bindsym $mod+$secd+$k_mark5  [con_mark=$mark5]  move container to workspace current
-bindsym $mod+$secd+$k_mark6  [con_mark=$mark6]  move container to workspace current
-bindsym $mod+$secd+$k_mark7  [con_mark=$mark7]  move container to workspace current
-bindsym $mod+$secd+$k_mark8  [con_mark=$mark8]  move container to workspace current
-bindsym $mod+$secd+$k_mark9  [con_mark=$mark9]  move container to workspace current
-bindsym $mod+$secd+$k_mark10 [con_mark=$mark10] move container to workspace current
-bindsym $mod+$secd+$k_mark11 [con_mark=$mark11] move container to workspace current
-bindsym $mod+$secd+$k_mark12 [con_mark=$mark12] move container to workspace current
-
-# Mark window
-bindsym $mod+$tert+$k_mark1  mark --add --toggle $mark1
-bindsym $mod+$tert+$k_mark2  mark --add --toggle $mark2
-bindsym $mod+$tert+$k_mark3  mark --add --toggle $mark3
-bindsym $mod+$tert+$k_mark4  mark --add --toggle $mark4
-bindsym $mod+$tert+$k_mark5  mark --add --toggle $mark5
-bindsym $mod+$tert+$k_mark6  mark --add --toggle $mark6
-bindsym $mod+$tert+$k_mark7  mark --add --toggle $mark7
-bindsym $mod+$tert+$k_mark8  mark --add --toggle $mark8
-bindsym $mod+$tert+$k_mark9  mark --add --toggle $mark9
-bindsym $mod+$tert+$k_mark10 mark --add --toggle $mark10
-bindsym $mod+$tert+$k_mark11 mark --add --toggle $mark11
-bindsym $mod+$tert+$k_mark12 mark --add --toggle $mark12
 
 # Applications -------------------------------------------------------------------------------------
 
@@ -676,36 +598,11 @@ workspace_auto_back_and_forth yes
 # Font (furthermore determines the size of the window header)
 font pango:Noto Sans Display Regular 10
 
-# Border size
-set $border_size 2
-set $border_size_bold 5
-
 # Borders of new windows
-default_border normal $border_size
+default_border normal 2
 
 # Hide borders adjacent to screen edges (none/horizontal/vertical/both/smart)
 hide_edge_borders none
-
-# Change borders
-bindsym $mod+$k_mode_borders mode "borders"
-mode "borders" {
-    # Current container
-    bindsym n border none
-    bindsym t border pixel $border_size
-    bindsym b border pixel $border_size_bold
-    bindsym f border normal $border_size
-
-    # Whole workspace
-    bindsym $tert+n [workspace=__focused__] border none
-    bindsym $tert+t [workspace=__focused__] border pixel $iorder_size
-    bindsym $tert+b [workspace=__focused__] border pixel $border_size_bold
-    bindsym $tert+f [workspace=__focused__] border normal $border_size
-
-    # Back to default mode: Enter or Escape
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $secd+bracketleft mode "default"
-}
 
 # Class                 border      background  text    indicator   child_border
 client.focused          $gray       $gray       $black  $gray       $gray

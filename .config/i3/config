@@ -85,21 +85,6 @@ set $k_ws0 0
 set $k1_ws_baf semicolon
 set $k2_ws_baf odiaeresis
 
-# Output direction keys
-set $k_out_left  Left
-set $k_out_down  Down
-set $k_out_up    Up
-set $k_out_right Right
-
-# Primary output key
-set $k_outP p
-
-# Output keys
-set $k1_outA bracketleft
-set $k2_outA udiaeresis
-set $k1_outB bracketright
-set $k2_outB plus
-
 # Screenshot mode key
 set $k1_mode_screenshot y
 set $k2_mode_screenshot z
@@ -424,57 +409,6 @@ bindsym $mod+$k_ws_prev workspace prev
 bindsym $mod+$secd+$k_ws_next        move container to workspace next; workspace next
 bindsym $mod+$secd+$k_ws_prev        move container to workspace prev; workspace prev
 
-# Outputs ------------------------------------------------------------------------------------------
-
-# Focus output by direction
-bindsym $mod+$k_out_left  focus output left
-bindsym $mod+$k_out_down  focus output down
-bindsym $mod+$k_out_up    focus output up
-bindsym $mod+$k_out_right focus output right
-
-# Move focused container to output by direction and follow it
-bindsym $mod+$secd+$k_out_left  move container to output left, focus output left
-bindsym $mod+$secd+$k_out_right move container to output right, focus output right
-bindsym $mod+$secd+$k_out_down  move container to output down, focus output down
-bindsym $mod+$secd+$k_out_up    move container to output up, focus output up
-
-# Move current workspace to output by direction
-bindsym $mod+$tert+$k_out_left  move workspace to output left, focus output left
-bindsym $mod+$tert+$k_out_right move workspace to output right, focus output right
-bindsym $mod+$tert+$k_out_down  move workspace to output down, focus output down
-bindsym $mod+$tert+$k_out_up    move workspace to output up, focus output up
-
-# Outputs
-set $outA VGA-1
-set $outB HDMI-1
-
-# Default workspaces
-set $outputA_ws A
-workspace $outputA_ws output $outA
-set $outputB_ws B
-workspace $outputB_ws output $outB
-
-# Focus output
-bindsym $mod+$k_outP focus output primary
-bindsym Group1+$mod+$k1_outA focus output $outA
-bindsym Group2+$mod+$k2_outA focus output $outA
-bindsym Group1+$mod+$k1_outB focus output $outB
-bindsym Group2+$mod+$k2_outB focus output $outB
-
-# Move focused container to output and follow it
-bindsym $mod+$secd+$k_outP move container to output primary, focus output primary
-bindsym Group1+$mod+$secd+$k1_outA move container to output $outA, focus output $outA
-bindsym Group2+$mod+$secd+$k2_outA move container to output $outA, focus output $outA
-bindsym Group1+$mod+$secd+$k1_outB move container to output $outB, focus output $outB
-bindsym Group2+$mod+$secd+$k2_outB move container to output $outB, focus output $outB
-
-# Move current workspace to output and follow it
-bindsym $mod+$tert+$k_outP move workspace to output primary, focus output primary
-bindsym Group1+$mod+$tert+$k1_outA move workspace to output $outA, focus output $outA
-bindsym Group2+$mod+$tert+$k2_outA move workspace to output $outA, focus output $outA
-bindsym Group1+$mod+$tert+$k1_outB move workspace to output $outB, focus output $outB
-bindsym Group2+$mod+$tert+$k2_outB move workspace to output $outB, focus output $outB
-
 # Applications -------------------------------------------------------------------------------------
 
 # Start a terminal
@@ -620,6 +554,6 @@ title_align center
 
 # Startup
 exec_always --no-startup-id autostart_always
-exec --no-startup-id autostart
+exec        --no-startup-id autostart
 
 # vi: ft=conf tw=100

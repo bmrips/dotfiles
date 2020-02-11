@@ -24,6 +24,7 @@
     sw = switch
 
 [core]
+    hooksPath = ~/.config/git/templates/hooks
     pager = less --ignore-case --LONG-PROMPT --quiet --quit-if-one-screen --raw-control-chars
     whitespace = tabwidth=4
 
@@ -50,6 +51,9 @@
 
 [fetch]
     prune = true
+
+[init]
+    templateDir = ~/.config/git/templates
 
 [merge]
     tool = nvim

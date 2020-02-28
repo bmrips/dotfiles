@@ -1,3 +1,6 @@
 [submodule ".config/git/gitignore"]
 	path = .config/git/gitignore
 	url = https://github.com/github/gitignore.git
+[submodule ".local/src/goto"]
+	path = .local/src/goto
+	url = https://github.com/iridakos/goto.git

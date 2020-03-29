@@ -82,4 +82,8 @@
     name = Benedikt Rips
     email = benedikt.rips@gmail.com
 
+# Use HTTPS instead of plain Git for Github
+[url "https://github.com/"]
+    insteadOf = git://github.com/
+
 # vi: ft=gitconfig

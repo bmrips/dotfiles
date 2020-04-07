@@ -2,7 +2,7 @@
 
 [Appearance]
 ColorScheme=gruvbox-dark
-Font=Fira Code,10,-1,5,50,0,0,0,0,0,Regular
+Font=JetBrains Mono,10,-1,5,75,0,0,0,0,0,Bold
 LineSpacing=0
 UseFontLineChararacters=true
 

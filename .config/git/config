@@ -25,13 +25,19 @@
 
 [core]
     hooksPath = ~/.config/git/templates/hooks
-    pager = less --ignore-case --LONG-PROMPT --quiet --quit-if-one-screen --raw-control-chars
+    pager = /usr/share/git/diff-highlight/diff-highlight | less --tabs=4 -RFX
     whitespace = tabwidth=4
 
 [color "diff"]
     frag = magenta bold
     meta = blue
     whitespace = red reverse
+
+[color "diff-highlight"]
+    oldNormal = red
+    oldHighlight = red reverse
+    newNormal = green
+    newHighlight = green reverse
 
 [color "status"]
     nobranch = red bold

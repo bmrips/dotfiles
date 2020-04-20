@@ -25,7 +25,7 @@
 
 [core]
     hooksPath = ~/.config/git/templates/hooks
-    pager = /usr/share/git/diff-highlight/diff-highlight | less --tabs=4 -RFX
+    pager = diff-so-fancy | less
     whitespace = tabwidth=4
 
 [color "diff"]
@@ -54,6 +54,9 @@
 
 [difftool "nvim"]
     cmd = nvim -d $LOCAL $REMOTE
+
+[diff-so-fancy]
+    rulerWidth = 47
 
 [fetch]
     prune = true

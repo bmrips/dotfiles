@@ -6,10 +6,10 @@ Color=40,40,40
 [Background]
 Color=40,40,40
 
-[Color0Faint]
+[Color0]
 Color=40,40,40
 
-[Color0]
+[Color0Intense]
 Color=146,131,116
 
 [Color1Faint]

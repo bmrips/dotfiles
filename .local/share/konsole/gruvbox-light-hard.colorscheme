@@ -6,10 +6,10 @@ Color=249,245,215
 [Background]
 Color=249,245,215
 
-[Color0Faint]
+[Color0]
 Color=251,241,199
 
-[Color0]
+[Color0Intense]
 Color=146,131,116
 
 [Color1Faint]

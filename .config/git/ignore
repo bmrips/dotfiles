@@ -9,3 +9,6 @@ Session*.vim
 
 # Taskell kanban lists
 taskell.md
+
+# Lists of dependencies
+*.pkgs

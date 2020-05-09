@@ -111,6 +111,8 @@ cnoreabbrev tb  tab sb
 noremap m<CR>    <Cmd>make!<CR>
 noremap m<Space> :<C-U>make!<Space>
 
+noremap U <Cmd>MundoToggle<CR>
+
 " Create a fold start..end with the given level
 command! -bar -range -nargs=? Fold <line1>,<line2>call init#fold(<q-args>)
 nnoremap <expr> zF '<Cmd>Fold '.v:count.' \| silent! call repeat#set("zF", '.v:count.')<CR>'

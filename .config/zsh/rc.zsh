@@ -13,6 +13,8 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select  # Enable menu style completion
 _comp_option+=(globdots)            # Include hidden files
 
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
+
 # History
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE

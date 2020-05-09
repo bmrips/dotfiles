@@ -13,6 +13,13 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select  # Enable menu style completion
 _comp_option+=(globdots)            # Include hidden files
 
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"
+zstyle ':completion:*:messages' format '%d'
+zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
+zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+zstyle ':completion:*' group-name ''
+
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
 
 # History

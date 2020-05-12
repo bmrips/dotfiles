@@ -108,6 +108,10 @@ cnoreabbrev tf  tab sf
 cnoreabbrev tv  tab sv
 cnoreabbrev tb  tab sb
 
+nnoremap gs :%s/\v/g<LEFT><LEFT>
+xnoremap gs :s/\v/g<LEFT><LEFT>
+nnoremap S  :%s/\v\C<<C-r><C-w>>//g<LEFT><LEFT>
+
 nmap <BS> <Plug>(LoupeClearHighlight)
 
 noremap m<CR>    <Cmd>make!<CR>

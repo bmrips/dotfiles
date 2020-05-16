@@ -30,6 +30,12 @@ if !exists('g:no_plugin_maps') && !exists('g:no_tex_maps')
   endfunction
   noremap <buffer> <LocalLeader>o <Cmd>call <SID>SynctexForward()<CR>
 
+  function! s:CreateEnvironment()
+    let env = input('Environment: ')
+    return env !=# '' ? '\begin{'.env."}\n\\end{".env."}\<Up>\<C-o>A\<C-g>u" : ''
+  endfunction
+  execute 'inoremap <buffer> <expr> '.g:maplocalleader.'e <SID>CreateEnvironment()'
+
   let b:undo_ftplugin .= '| mapclear <buffer>'
 endif
 

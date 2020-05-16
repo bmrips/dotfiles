@@ -9,16 +9,8 @@ let b:undo_ftplugin .= '| set cindent< cinoptions< comments< commentstring< defi
                     \. ' include< path<'
 
 if !exists('g:no_plugin_maps') && !exists('g:no_c_maps')
-  " Add #include guard
-  function! s:IncludeGuard()
-    let name = '_' . substitute(toupper(expand('%:t:r')), '\U', '_', 'g') . '_H'
-    return '#ifndef ' . name . "\n" . '#define ' . name . "\n\n\n\n#endif"
-  endfunction
-
-  " Abbreviations
   inoreabbrev #i #include
   inoreabbrev #d #define
-  inoreabbrev #g <C-r>=<SID>IncludeGuard()<CR><Esc>2ki
 
   let b:undo_ftplugin .= '| abclear <buffer>'
 endif

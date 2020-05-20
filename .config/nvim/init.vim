@@ -119,6 +119,8 @@ noremap m<Space> :<C-U>make!<Space>
 
 noremap U <Cmd>MundoToggle<CR>
 
+map ga <Plug>(EasyAlign)
+
 " Replace the current line by the file under the cursor
 nnoremap <Leader>i <Cmd>call append('.', readfile(findfile(expand('<cfile>')))) \| delete<CR>
 

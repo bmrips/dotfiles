@@ -18,3 +18,11 @@ function! init#foldmark(line, marker, level)
   endif
   return substitute(line, '%s', a:marker.a:level, '')
 endfunction
+
+" Reindent from the old to the new shiftwidth
+function! init#reindent(old, new) range
+  let view = winsaveview()
+  execute 'keeppatterns keepjumps '.a:firstline.','.a:lastline.'s@\v^(\s*)@'
+        \.'\=repeat(" ", strdisplaywidth(submatch(1)) / '.a:old.' * '.a:new.')@'
+  call winrestview(view)
+endfunction

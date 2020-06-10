@@ -1,0 +1,11 @@
+#!/usr/bin/zsh
+
+cat $XDG_CACHE_HOME/zsh/history \
+    | tr '|;' "\n" \
+    | sed "s/^ //g" \
+    | cut -d " " -f 1 \
+    | sort \
+    | uniq -c \
+    | sort -n \
+    | tail -n 15 \
+    | tac

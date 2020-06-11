@@ -20,9 +20,6 @@ set textwidth=80
 set undofile
 set wildmode=longest:full " Complete till longest common string
 
-" Patterns that are ignored when doing tab completion for filenames
-set wildignore=*.exe,*.out,*.bin,.git,*.hc,*.hi,*.dyn_hi,*.p_hi,*.dyn_o,*.p_o,*.class,*.aux,*.toc,*.bbl,*.synctex.gz,*.png,*.jpg,*.jpeg,*.svg,*.pdf,*.o,*.pyc
-
 " Set the background according to the terminal background
 if exists('$BACKGROUND') && $BACKGROUND ==# 'light'
   set background=light

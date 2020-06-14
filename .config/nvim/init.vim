@@ -122,6 +122,8 @@ nnoremap <Leader><Leader> <Cmd>Files<CR>
 nnoremap <Leader>b        <Cmd>Buffers<CR>
 nnoremap <Leader>g        <Cmd>Grep<CR>
 
+noremap <Leader>s <Cmd>ToggleSession<CR>
+
 " Replace the current line by the file under the cursor
 nnoremap <Leader>i <Cmd>call append('.', readfile(findfile(expand('<cfile>')))) \| delete<CR>
 

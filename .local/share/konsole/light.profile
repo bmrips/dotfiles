@@ -8,7 +8,7 @@ UseFontLineChararacters=true
 
 [General]
 DimWhenInactive=false
-Environment=TERM=konsole-256color,COLORTERM=truecolor
+Environment=TERM=konsole-256color,COLORTERM=truecolor,BACKGROUND=light,FONT_SIZE=10
 Name=Light
 Parent=FALLBACK/
 ShowTerminalSizeHint=false

@@ -6,3 +6,6 @@ tags
 
 # Neovim
 Session*.vim
+
+# Taskell kanban lists
+taskell.md

@@ -111,11 +111,8 @@ cnoreabbrev tb  tab sb
 noremap m<CR>    <Cmd>make!<CR>
 noremap m<Space> :<C-U>make!<Space>
 
-" Goyo sets the window size to the text width
-autocmd init User GoyoEnter execute 'Goyo ' . &textwidth . 'x'
-noremap <Leader>g <Cmd>Goyo<CR>
-
-" Limelight
-noremap <Leader><C-g> <Cmd>Limelight!!<CR>
+" Focus
+noremap <Leader>f     <Cmd>Goyo<CR>
+noremap <Leader><C-f> <Cmd>Limelight!!<CR>
 
 let g:markdown_folding = 1

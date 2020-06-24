@@ -18,4 +18,19 @@ let b:AutoPairs = extend(g:AutoPairs, { '$':'$' }) " Automatically insert $ in a
 
 compiler! tex
 
+if !exists('g:no_plugin_maps') && !exists('g:no_tex_maps')
+  function! s:SynctexForward()
+    let win_id = system('xdotool getwindowfocus')
+    call jobstart(
+        \ ['okular', '--unique', expand('%:p:.:r').'.pdf#src:'.line('.').expand('%:p:.')],
+        \ {'detach' : 1})
+    sleep 500m
+    call system('xdotool windowfocus '.win_id)
+    call system('xdotool windowraise '.win_id)
+  endfunction
+  noremap <buffer> <LocalLeader>o <Cmd>call <SID>SynctexForward()<CR>
+
+  let b:undo_ftplugin .= '| mapclear <buffer>'
+endif
+
 let b:undo_ftplugin .= '| unlet b:AutoPairs'

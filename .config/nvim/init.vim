@@ -108,6 +108,8 @@ cnoreabbrev tf  tab sf
 cnoreabbrev tv  tab sv
 cnoreabbrev tb  tab sb
 
+nmap <BS> <Plug>(LoupeClearHighlight)
+
 noremap m<CR>    <Cmd>make!<CR>
 noremap m<Space> :<C-U>make!<Space>
 

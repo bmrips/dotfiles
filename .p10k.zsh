@@ -1,1 +1,1 @@
-.config/p10k/config
+.config/p10k/config.zsh

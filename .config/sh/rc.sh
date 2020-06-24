@@ -106,12 +106,4 @@ alias v=nvim
 
 # }}}1
 
-# Plugins
-PLUGIN_DIR="$HOME/.config/sh/rc.d"
-if [[ -d $PLUGIN_DIR ]]; then
-	for plugin in $PLUGIN_DIR/*.sh; do
-		[[ -r $plugin ]] && source "$plugin"
-	done
-	unset plugin
-fi
-unset PLUGIN_DIR
+load_plugins "$HOME/.config/sh/rc.d"

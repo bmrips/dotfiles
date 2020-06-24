@@ -46,14 +46,6 @@ GIT_PS1_SHOWUPSTREAM="on"           # <,>,<> behind, ahead of, or diverged from 
 
 # }}}1
 
-# Plugins
 setopt +o nomatch
-PLUGIN_DIR="$HOME/.config/zsh/rc.d"
-if [[ -d $PLUGIN_DIR ]]; then
-	for plugin in $PLUGIN_DIR/*.zsh; do
-		[[ -r $plugin ]] && source "$plugin"
-	done
-	unset plugin
-fi
-unset PLUGIN_DIR
+load_plugins "$HOME/.config/zsh/rc.d"
 setopt -o nomatch

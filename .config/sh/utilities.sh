@@ -19,3 +19,13 @@ prepend_path () {
 	esac
     export PATH
 }
+
+# Load plugins from the given path
+load_plugins () {
+    for plugin in $1/*; do
+        if [[ -r "$plugin" ]]; then
+            source "$plugin"
+        fi
+    done
+    unset plugin
+}

@@ -105,6 +105,11 @@ cnoreabbrev tf  tab sf
 cnoreabbrev tv  tab sv
 cnoreabbrev tb  tab sb
 
+cnoreabbrev sgr   sil gr
+cnoreabbrev sgr!  sil gr!
+cnoreabbrev slgr  sil lgr
+cnoreabbrev slgr! sil lgr!
+
 nnoremap gs :%s/\v/g<LEFT><LEFT>
 xnoremap gs :s/\v/g<LEFT><LEFT>
 nnoremap S  :%s/\v\C<<C-r><C-w>>//g<LEFT><LEFT>

@@ -96,15 +96,6 @@ noremap <expr> <A-Right> '<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 
-cnoreabbrev vh vert h
-cnoreabbrev vf vert sf
-cnoreabbrev vv vert sv
-cnoreabbrev vb vert sb
-cnoreabbrev th  tab h
-cnoreabbrev tf  tab sf
-cnoreabbrev tv  tab sv
-cnoreabbrev tb  tab sb
-
 cnoreabbrev sgr   sil gr
 cnoreabbrev sgr!  sil gr!
 cnoreabbrev slgr  sil lgr

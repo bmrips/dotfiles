@@ -96,6 +96,9 @@ noremap <expr> <A-Right> '<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'
 cnoremap <C-j> <Down>
 cnoremap <C-k> <Up>
 
+cnoremap <expr> <C-n> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-n>"
+cnoremap <expr> <C-p> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<C-p>"
+
 cnoreabbrev sgr   sil gr
 cnoreabbrev sgr!  sil gr!
 cnoreabbrev slgr  sil lgr

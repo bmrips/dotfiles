@@ -1,0 +1,5 @@
+#!/usr/bin/zsh
+
+pacman -Qii \
+    | rg '^MODIFIED' \
+    | cut -d$'\t' -f2

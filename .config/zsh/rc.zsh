@@ -30,6 +30,13 @@ setopt inc_append_history   # Share history between zsh instances
 setopt hist_ignore_all_dups # Remove duplicates
 setopt hist_reduce_blanks   # Remove superfluous blanks
 
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
+bindkey "^J" down-line-or-beginning-search # Down
+bindkey "^K" up-line-or-beginning-search # Up
+
 setopt +o nomatch
 load_plugins "$HOME/.config/zsh/rc.d"
 setopt -o nomatch

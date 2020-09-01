@@ -26,6 +26,7 @@ TrimTrailingSpacesInSelectedText=true
 
 [Scrolling]
 HistoryMode=1
+HistorySize=10000
 ScrollBarPosition=2
 
 [Terminal Features]

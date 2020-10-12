@@ -32,5 +32,5 @@ let s:grep['opts'] = '--border=sharp --phony --ansi --delimiter=: --nth=4 '
 let s:grep['src'] = s:grep.cmd.' .'
 let s:grep['sink'] = function('s:GrepSink')
 
-command! -bang -nargs=* Grep
+command! -bang Grep
     \ call fzf#run(fzf#wrap({ 'source': s:grep.src, 'sink*': s:grep.sink, 'options': s:grep.opts }))

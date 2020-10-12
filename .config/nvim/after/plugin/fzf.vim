@@ -7,7 +7,7 @@ let g:fzf_action = {
   \}
 
 command! -bar -complete=dir Files
-    \ call fzf#run(fzf#wrap({ 'options': '--border=sharp' }))
+    \ call fzf#run(fzf#wrap())
 
 function! s:Buffers()
   return sort(map(
@@ -16,7 +16,7 @@ function! s:Buffers()
 endfunction
 
 command! -bar -complete=buffer Buffers
-    \ call fzf#run(fzf#wrap({ 'source': s:Buffers(), 'options': '--border=sharp' }))
+    \ call fzf#run(fzf#wrap({ 'source': s:Buffers() }))
 
 function! s:GrepSink(lines)
   let [key, line] = a:lines
@@ -27,7 +27,7 @@ function! s:GrepSink(lines)
 endfunction
 
 let s:grep = { 'cmd' : 'rg --color=always --vimgrep' }
-let s:grep['opts'] = '--border=sharp --phony --ansi --delimiter=: --nth=4 '
+let s:grep['opts'] = '--phony --ansi --delimiter=: --nth=4 '
     \ .'--bind "change:reload('.s:grep.cmd.' {q} || true)" --expect='.join(keys(g:fzf_action), ',')
 let s:grep['src'] = s:grep.cmd.' .'
 let s:grep['sink'] = function('s:GrepSink')

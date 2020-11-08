@@ -138,4 +138,6 @@ noremap <Leader><C-f> <Cmd>Limelight!!<CR>
 " Reindent from the given shift width to the buffer's shift width
 command! -bar -range=% -nargs=1 Reindent <line1>,<line2>call init#reindent(<q-args>, shiftwidth())
 
+let g:polyglot_disabled = ['autoindent']
+
 let g:markdown_folding = 1

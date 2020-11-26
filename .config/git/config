@@ -13,6 +13,7 @@
     ds = diff --staged
     dt = difftool
     l  = log
+    lg = log --oneline --graph
     lo = log --oneline
     lv = log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ar%C(reset)'
     ls = ls-files

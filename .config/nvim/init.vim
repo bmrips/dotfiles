@@ -63,7 +63,6 @@ let maplocalleader = "\<C-\>"
 inoremap <silent> jk <Esc>
 
 noremap <Space> :
-nnoremap q<Space> q:
 
 noremap ' `
 

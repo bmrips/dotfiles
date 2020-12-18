@@ -81,6 +81,9 @@
 [push]
     gpgSign = if-asked
 
+[rebase]
+    missingCommitsCheck = error
+
 [stash]
     showStat = true
 

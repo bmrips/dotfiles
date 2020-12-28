@@ -8,7 +8,7 @@ setlocal suffixesadd=.tex,.sty,.cls
 setlocal textwidth=100
 let &l:define .= '\|DeclarePairedDelimiter\%(X\%(PP\)\=\)\=\s*{\=' " From the mathtools package
 let &l:define .= '\|\\\%(re\)\=new\%(operator\|field\)\s*{\=' " From my configuration
-let &l:include .= '\|\\\%(usepackage\|RequirePackage\|documentclass\|LoadClass\)'
+let &l:include .= '\|\\\%(input\|usepackage\|RequirePackage\|documentclass\|LoadClass\)'
 
 let b:undo_ftplugin .= '| set colorcolumn< comments< commentstring< define< include< iskeyword< '
                     \ .'path< suffixesadd< textwidth<'

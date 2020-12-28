@@ -1,1 +1,1 @@
-autocmd filetypedetect BufNewFile,BufReadPost *.cls setfiletype tex
+autocmd filetypedetect BufNewFile,BufReadPost *.cls,*.dtx,*.ltx setfiletype tex

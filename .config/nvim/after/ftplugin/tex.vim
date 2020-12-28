@@ -4,7 +4,7 @@ setlocal iskeyword-=_
 setlocal path+=/home/bmr/.texlive/texmf-config/tex/**
 setlocal path+=/home/bmr/.texlive/texmf-var/tex/**
 setlocal path+=/usr/share/texmf/tex/**
-setlocal suffixesadd=.tex,.sty,.cls
+setlocal suffixesadd=.tex,.sty,.cls,.ltx,.dtx
 setlocal textwidth=100
 let &l:define .= '\|DeclarePairedDelimiter\%(X\%(PP\)\=\)\=\s*{\=' " From the mathtools package
 let &l:define .= '\|\\\%(re\)\=new\%(operator\|field\)\s*{\=' " From my configuration

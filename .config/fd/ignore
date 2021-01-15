@@ -1,13 +1,11 @@
-# C {{{1
-
-# Prerequisites
-*.d
+## C/C++ {{{1
 
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
+*.slo
 
 # Linker output
 *.ilk
@@ -18,13 +16,14 @@
 *.gch
 *.pch
 
-# Libraries
+# Static Libraries
 *.lib
 *.a
 *.la
 *.lo
+*.lai
 
-# Shared objects (inc. Windows DLLs)
+# Dynamic Libraries
 *.dll
 *.so
 *.so.*
@@ -53,46 +52,15 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# C++ {{{1
-
-# Prerequisites
-*.d
-
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
-
-# Precompiled Headers
-*.gch
-*.pch
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-
 # Fortran module files
 *.mod
 *.smod
 
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Git {{{1
+## Git {{{1
 
 .git
 
-# Haskell {{{1
+## Haskell {{{1
 
 dist
 dist-*
@@ -118,21 +86,15 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 
-# Java {{{1
+## Java {{{1
 
 # Compiled class file
 *.class
 
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
-# Package Files #
+# Package Files
 *.jar
 *.war
 *.nar
@@ -144,12 +106,11 @@ cabal.project.local~
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# TeX {{{1
+## TeX {{{1
 
-## Core latex/pdflatex auxiliary files:
+# Core latex/pdflatex auxiliary files:
 *.aux
 *.lof
-*.log
 *.lot
 *.fls
 *.out
@@ -160,19 +121,15 @@ hs_err_pid*
 *.cb2
 .*.lb
 
-## Intermediate documents:
+# Intermediate documents:
 *.dvi
 *.xdv
 *-converted-to.*
-# these rules might exclude image files for figures etc.
-# *.ps
-# *.eps
-# *.pdf
+*.ps
+*.eps
+*.pdf
 
-## Generated if empty string is given at "Please type another file name for output:"
-.pdf
-
-## Bibliography auxiliary files (bibtex/biblatex/biber):
+# Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
 *.bcf
 *.blg
@@ -180,7 +137,7 @@ hs_err_pid*
 *-blx.bib
 *.run.xml
 
-## Build tool auxiliary files:
+# Build tool auxiliary files:
 *.fdb_latexmk
 *.synctex
 *.synctex(busy)
@@ -188,11 +145,11 @@ hs_err_pid*
 *.synctex.gz(busy)
 *.pdfsync
 
-## Build tool directories for auxiliary files
+# Build tool directories for auxiliary files
 # latexrun
 latex.out/
 
-## Auxiliary and intermediate files from other packages:
+# Auxiliary and intermediate files from other packages:
 # algorithms
 *.alg
 *.loa
@@ -423,7 +380,6 @@ TSWLatexianTemp*
 # Makeindex log files
 *.lpz
 
-# REVTeX puts footnotes in the bibliography by default, unless the nofootinbib
-# option is specified. Footnotes are the stored in a file with suffix Notes.bib.
-# Uncomment the next line to have this generated file ignored.
-#*Notes.bib
+# }}}1
+
+# vi: ft=gitignore

@@ -1,6 +1,6 @@
-export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='fd --type f --hidden'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND='fd --type d'
+export FZF_ALT_C_COMMAND='fd --type d --hidden'
 
 export FZF_DEFAULT_OPTS="--layout=reverse --border=horizontal --marker=❯ --prompt='❯ ' --pointer=❯\
  --color=bg+:0,info:8,border:8,prompt:13,pointer:12,marker:13,fg+:12,hl:9,hl+:9"

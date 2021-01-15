@@ -48,6 +48,9 @@
     gpgSign = true
     template = ~/.config/git/commit_template
 
+[credential]
+    helper = cache
+
 [diff]
     algorithm = histogram
     renames = copy

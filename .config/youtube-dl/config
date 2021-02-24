@@ -1,2 +1,2 @@
 # Save files to ~/Downloads by default
---output ~/Downloads/%(title)s.%(ext)s
+--output %(title)s.%(ext)s

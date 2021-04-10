@@ -1,1 +1,1 @@
-../../../.local/src/goto/goto.sh
+/usr/share/goto/goto.sh

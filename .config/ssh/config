@@ -13,6 +13,14 @@ Host *.uni-muenster.de quokka*
 Host quokka*
     HostName %h.uni-muenster.de
 
+# Arch Linux -----------------------------------------------------------------
+
+Host aur.archlinux.org aur
+    HostName aur.archlinux.org
+    User aur
+    IdentityFile ~/.ssh/aur/id_ed25519
+    AddKeysToAgent yes
+
 # Github ---------------------------------------------------------------------
 
 Host github.com github

@@ -137,3 +137,6 @@ command! -bar -range=% -nargs=1 Reindent <line1>,<line2>call init#reindent(<q-ar
 let g:polyglot_disabled = ['autoindent']
 
 let g:markdown_folding = 1
+
+" Read local configuration files, but with certain commands disabled
+set secure exrc

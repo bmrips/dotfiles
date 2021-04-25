@@ -138,5 +138,9 @@ let g:polyglot_disabled = ['autoindent']
 
 let g:markdown_folding = 1
 
+let g:matchup_matchparen_offscreen = { 'method': 'status_manual' }
+let g:matchup_matchparen_deferred = 1
+let g:matchup_transmute_enabled = 1
+
 " Read local configuration files, but with certain commands disabled
 set secure exrc

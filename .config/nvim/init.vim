@@ -69,9 +69,6 @@ noremap ' `
 noremap Q gq
 noremap gq gw
 
-inoremap <C-]> <C-x><C-]>
-inoremap <C-f> <C-x><C-f>
-
 noremap <C-N> <Esc><Cmd>bnext<CR>
 noremap <C-P> <Esc><Cmd>bprev<CR>
 noremap <expr> <CR> empty(&buftype) ? "\<C-^>" : "\<CR>"

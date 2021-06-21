@@ -100,9 +100,10 @@ cnoreabbrev sgr!  sil gr!
 cnoreabbrev slgr  sil lgr
 cnoreabbrev slgr! sil lgr!
 
-nnoremap gs :%s/\v/g<LEFT><LEFT>
-xnoremap gs :s/\v/g<LEFT><LEFT>
-nnoremap S  :%s/\v\C<<C-r><C-w>>//g<LEFT><LEFT>
+nnoremap gs :%s/\v/g<Left><Left>
+xnoremap gs :s/\v/g<Left><Left>
+nnoremap S  :%s/\v\C<<C-r><C-w>>//g<Left><Left>
+nnoremap gS :sil gr! <C-R><C-w><CR>
 
 nmap <BS> <Plug>(LoupeClearHighlight)
 

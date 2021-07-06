@@ -2,7 +2,7 @@ EDITOR=nvim
 VISUAL=nvim
 SYSTEMD_EDITOR=/usr/bin/nvim
 
-BROWSER="firefox"
+BROWSER=firefox
 
 # SSH agent socket
 SSH_AUTH_SOCK DEFAULT="${XDG_RUNTIME_DIR}/ssh-agent.socket"

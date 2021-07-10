@@ -19,6 +19,7 @@ TerminalRows=27
 
 [Interaction Options]
 AutoCopySelectedText=true
+ColorFilterEnabled=false
 DropUrlsAsText=false
 MiddleClickPasteMode=1
 OpenLinksByDirectClickEnabled=false

@@ -3,8 +3,7 @@
 
 source $HOME/.config/sh/rc.sh
 
-# Vi input mode
-bindkey -v
+setopt vi
 
 # Completion
 autoload -Uz compinit && compinit

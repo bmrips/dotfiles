@@ -24,9 +24,9 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
 HISTSIZE=10000
 SAVEHIST=$HISTSIZE
 HISTFILE="$XDG_CACHE_HOME/zsh/history"
-setopt inc_append_history   # Share history between zsh instances
-setopt hist_ignore_all_dups # Remove duplicates
-setopt hist_reduce_blanks   # Remove superfluous blanks
+setopt inc_append_history # Share history between zsh instances
+setopt extended_history   # Save timestamps and duration
+setopt hist_reduce_blanks # Remove superfluous blanks
 
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search

@@ -1,9 +1,7 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-setopt +o nomatch
 source $HOME/.config/sh/rc.sh
-setopt -o nomatch
 
 # Vi input mode
 bindkey -v
@@ -37,6 +35,4 @@ zle -N down-line-or-beginning-search
 bindkey "^J" down-line-or-beginning-search # Down
 bindkey "^K" up-line-or-beginning-search # Up
 
-setopt +o nomatch
 load_plugins "$HOME/.config/zsh/rc.d"
-setopt -o nomatch

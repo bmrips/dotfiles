@@ -7,7 +7,7 @@ augroup compiler
   autocmd!
   autocmd QuickFixCmdPre *
       \  let curbuf = bufnr('%')
-      \| execute 'bufdo if expand("%:e") =~# "tex\\|sty\\|cls" | update | endif'
+      \| execute 'bufdo if expand("%:e") =~# "tex\\|sty\\|cls\\|bib" | update | endif'
       \| execute 'buffer '.curbuf
 augroup END
 

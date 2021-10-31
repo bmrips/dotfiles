@@ -11,7 +11,7 @@ augroup compiler
       \| execute 'buffer '.curbuf
 augroup END
 
-" Do not show the quickfix or location list after compiling (see init.vim)
+" Do not show the quickfix or location list after compiling (see init.lua)
 autocmd! init QuickFixCmdPost
 
 " Choose LuaLaTeX only if there is no Makefile

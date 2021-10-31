@@ -16,7 +16,7 @@ autocmd! init QuickFixCmdPost
 
 " Choose LuaLaTeX only if there is no Makefile
 if !(filereadable('Makefile') || filereadable('makefile'))
-  CompilerSet makeprg=lualatex\ --halt-on-error\ --file-line-error\ --synctex=1\ --output-directory=\"%:h\"\ \"%\"
+  CompilerSet makeprg=latexmk\ \"%\"
 endif
 
 CompilerSet errorformat=%E!\ LaTeX\ %trror:\ %m,

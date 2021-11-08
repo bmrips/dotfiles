@@ -64,7 +64,7 @@ vim.cmd([[
     autocmd!
 
     " Remove trailing whitespace and empty lines before writing a file
-    autocmd BufWritePre * let view = winsaveview() | keepp keepj keepm %s/\v\s+$|\n^\s*\n*%$//e | call winrestview(view)
+    autocmd BufWritePre * let view = winsaveview() | keepp keepj keepm %s/\v\s+$|\s*%(\n\s*)+%$//e | call winrestview(view)
 
     " Open the quickfix and location list window automatically
     autocmd QuickFixCmdPost [^l]* nested cwindow

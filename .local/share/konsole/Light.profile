@@ -2,7 +2,7 @@
 
 [Appearance]
 ColorScheme=gruvbox-light
-Font=JetBrains Mono,10,-1,5,75,0,0,0,0,0,Bold
+Font=JetBrains Mono,10,-1,5,63,0,0,0,0,0,SemiBold
 LineSpacing=0
 UseFontLineChararacters=true
 

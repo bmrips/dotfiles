@@ -101,6 +101,11 @@ util.map("n", "<C-j>", "<Cmd>wincmd j<CR>")
 util.map("n", "<C-k>", "<Cmd>wincmd k<CR>")
 util.map("n", "<C-l>", "<Cmd>wincmd l<CR>")
 
+util.map("n", "<C-Left>",  "<C-w><")
+util.map("n", "<C-Down>",  "<C-w>-")
+util.map("n", "<C-Up>",    "<C-w>+")
+util.map("n", "<C-Right>", "<C-w>>")
+
 util.map("n", "<C-Left>",  "<Cmd>tabprevious<CR>")
 util.map("n", "<C-Right>", "<Cmd>tabnext<CR>")
 util.map("n", "<A-Left>",  "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'", {expr = true})

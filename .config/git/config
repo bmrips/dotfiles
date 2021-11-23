@@ -70,6 +70,9 @@
     defaultBranch = main
     templateDir = ~/.config/git/templates
 
+[log]
+    date = human
+
 [merge]
     ff = only
     tool = nvim

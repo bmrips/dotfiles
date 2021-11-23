@@ -15,7 +15,7 @@
     l  = log
     lg = log --oneline --graph
     lo = log --oneline
-    lv = log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ar%C(reset)'
+    lv = log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ad%C(reset)'
     ls = ls-files
     mc = diff --name-only --diff-filter=U
     mt = mergetool

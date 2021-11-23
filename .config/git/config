@@ -67,6 +67,9 @@
     defaultBranch = main
     templateDir = ~/.config/git/templates
 
+[interactive]
+    diffFilter = delta --color-only --diff-so-fancy
+
 [log]
     date = human
 

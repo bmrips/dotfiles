@@ -60,9 +60,6 @@
 [difftool "nvim"]
     cmd = nvim -d $LOCAL $REMOTE
 
-[diff-so-fancy]
-    rulerWidth = 47
-
 [fetch]
     prune = true
 

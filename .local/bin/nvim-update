@@ -1,0 +1,53 @@
+#!/usr/bin/runghc
+
+{-# LANGUAGE LambdaCase     #-}
+{-# LANGUAGE PackageImports #-}
+
+import           Control.Monad               (filterM, (>=>))
+import           System.Directory            (XdgDirectory (..),
+                                              doesDirectoryExist, doesFileExist,
+                                              getXdgDirectory, listDirectory,
+                                              removeFile, withCurrentDirectory)
+import           System.Environment          (getArgs)
+import           System.Exit                 (die)
+import           "Glob" System.FilePath.Glob (glob)
+import           System.IO                   (hPutStrLn, stderr)
+import           System.Process              (readProcessWithExitCode)
+
+updatePlugins :: FilePath -> IO ()
+updatePlugins dir =
+  withCurrentDirectory dir (glob "*/*" >>= filterM isRepo >>= mapM_ pull)
+  where
+    isRepo dir = doesDirectoryExist (dir ++ "/.git")
+    pull repo = do
+      putStrLn repo
+      (ec, out, err) <- readProcessWithExitCode "git" ["-C", repo, "pull"] ""
+      putStrLn (out ++ err)
+
+updateUndofiles :: FilePath -> IO ()
+updateUndofiles dir =
+  withCurrentDirectory dir
+    (listDirectory "."
+      >>= filterM (fmap not . doesFileExist . replace)
+      >>= mapM_ removeFile)
+  where replace = map (\c -> if c == '%' then '/' else c)
+
+main :: IO ()
+main =
+  getArgs >>= \ case
+    [] -> die "Error: argument missing"
+    as -> mapM_ parseArgument as
+
+parseArgument :: String -> IO ()
+parseArgument = \ case
+  "plugins" ->
+    sequence
+        [ getXdgDirectory XdgConfig "nvim/pack/local"
+        , getXdgDirectory XdgData   "nvim/site/pack/local" ]
+      >>= mapM_ updatePlugins
+  "undofiles" ->
+    getXdgDirectory XdgData "nvim/undo" >>= updateUndofiles
+  other ->
+    hPutStrLn stderr $ "Error: unknown argument: " ++ other
+
+-- vi: ft=haskell

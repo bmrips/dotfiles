@@ -6,7 +6,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \}
 
-command! -bar -complete=dir Files
+command! -bar -nargs=? -complete=dir Files
     \ call fzf#run(fzf#wrap())
 
 function! s:Buffers()
@@ -15,7 +15,7 @@ function! s:Buffers()
       \ 'bufname(v:val)'))
 endfunction
 
-command! -bar -complete=buffer Buffers
+command! -bar -nargs=? -complete=buffer Buffers
     \ call fzf#run(fzf#wrap({ 'source': s:Buffers() }))
 
 function! s:GrepSink(lines)
@@ -32,5 +32,5 @@ let s:grep['opts'] = '--phony --ansi --delimiter=: --nth=4 '
 let s:grep['src'] = s:grep.cmd.' .'
 let s:grep['sink'] = function('s:GrepSink')
 
-command! -bang Grep
+command! -bang -nargs=? -complete=dir Grep
     \ call fzf#run(fzf#wrap({ 'source': s:grep.src, 'sink*': s:grep.sink, 'options': s:grep.opts }))

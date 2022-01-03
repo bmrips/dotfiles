@@ -1,0 +1,9 @@
+#!/usr/bin/zsh
+
+if [[ -z $1 ]]; then
+    echo "Error: no argument given!" >&2
+    exit -1
+fi
+
+base="${1%.pdf}"
+gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$base.copy.pdf" "$base.pdf"

@@ -18,6 +18,7 @@ opt.shiftround = true
 opt.shiftwidth = 0
 opt.shortmess:remove("c") -- Do not print completion messages
 opt.showbreak = "↳"
+opt.signcolumn = "yes"
 opt.smartcase = true
 opt.spelllang = { "en", "de" }
 opt.spellsuggest:append("10") -- 10 suggestions max

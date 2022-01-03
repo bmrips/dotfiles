@@ -9,9 +9,7 @@ opt.foldmethod = "marker"
 opt.foldtext = "substitute(getline(v:foldstart), '\\s*$', ' ' , '')"
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
-opt.hidden = true
 opt.ignorecase = true
-opt.inccommand = "nosplit"
 opt.lazyredraw = true
 opt.linebreak = true
 opt.mouse:append("n")

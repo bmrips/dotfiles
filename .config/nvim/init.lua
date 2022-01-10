@@ -72,6 +72,7 @@ vim.cmd([[
 ]])
 
 vim.g.markdown_folding = 1
+vim.g.AutoPairsShortcutJump = ""
 
 require("colorizer").setup()
 require("virt-column").setup()
@@ -136,10 +137,14 @@ nest.applyKeymaps {
   }},
 
   { "<A-", {
+    { "n>", "<Cmd>tabnew<CR>" },
+    { "c>", "<Cmd>tabclose<CR>" },
     { "k>", "<Cmd>tabprev<CR>" },
     { "j>", "<Cmd>tabnext<CR>" },
     { "h>", "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'", options = {expr = true} },
     { "l>", "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'", options = {expr = true} },
+    { "Tab>", "g<Tab>" },
+    { "o>", "<Cmd>tabonly<CR>" },
   }},
 
   { "S",  ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>" },

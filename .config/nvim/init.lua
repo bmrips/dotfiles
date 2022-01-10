@@ -71,94 +71,10 @@ vim.cmd([[
   augroup END
 ]])
 
-vim.g.mapleader = "\\"
-vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-\\>", true, true, true)
-
-util.map("i", "jk", "<Esc>")
-
-util.map("", "<Space>", ":")
-
-util.map("", "'", "`")
-
-util.map("", "Q",  "gq")
-util.map("", "gq", "gw")
-
-util.map("", "Y", "y$")
-
-util.map("n", "<C-n>", "<Cmd>bnext<CR>")
-util.map("n", "<C-p>", "<Cmd>bprev<CR>")
-util.map("n", "<CR>",  "&buftype != 'quickfix' && &buftype != 'prompt' ? '<C-^>' : '<CR>'", {expr = true})
-
-util.map("n", "<C-W><CR>",  "<Cmd>wincmd ^<CR>")
-util.map("n", "<C-w><C-]>", "<Cmd>vertical wincmd ]<CR>")
-util.map("n", "<C-w><C-d>", "<Cmd>vertical wincmd d<CR>")
-util.map("n", "<C-w><C-f>", "<Cmd>vertical wincmd f<CR>")
-util.map("n", "<C-w><C-i>", "<Cmd>vertical wincmd i<CR>")
-
-util.map("n", "<C-h>", "<Cmd>wincmd h<CR>")
-util.map("n", "<C-j>", "<Cmd>wincmd j<CR>")
-util.map("n", "<C-k>", "<Cmd>wincmd k<CR>")
-util.map("n", "<C-l>", "<Cmd>wincmd l<CR>")
-
-util.map("n", "<C-Left>",  "<C-w><")
-util.map("n", "<C-Down>",  "<C-w>-")
-util.map("n", "<C-Up>",    "<C-w>+")
-util.map("n", "<C-Right>", "<C-w>>")
-
-util.map("n", "<C-Left>",  "<Cmd>tabprevious<CR>")
-util.map("n", "<C-Right>", "<Cmd>tabnext<CR>")
-util.map("n", "<A-Left>",  "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'", {expr = true})
-util.map("n", "<A-Right>", "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'", {expr = true})
-
-util.map("n", "gs", ":%s/\\v/g<Left><Left>")
-util.map("x", "gs", ":s/\\v/g<Left><Left>")
-util.map("n", "S",  ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>")
-util.map("n", "gS", ":sil gr! <C-R><C-w><CR>")
-
-util.map("n", "<BS>", "<Plug>(LoupeClearHighlight)", {noremap = false})
-
-util.map("n", "m<CR>",    "<Cmd>make!<CR>")
-util.map("n", "m<Space>", ":<C-U>make!<Space>")
-
-util.map("n", "U", "<Cmd>MundoToggle<CR>")
-
-util.map("", "ga", "<Plug>(EasyAlign)", {noremap = false})
-
-util.map("n", "<Leader><Leader>", "<Cmd>Files<CR>")
-util.map("n", "<Leader>b",        "<Cmd>Buffers<CR>")
-util.map("n", "<Leader>g",        "<Cmd>Grep<CR>")
-
--- Replace the current line by the file under the cursor
-util.map("n", "<Leader>i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>")
-
--- Create a fold start..end with the given level
-vim.cmd "command! -bar -range -nargs=? Fold <line1>,<line2>call init#fold(<q-args>)"
-util.map("n", "zF", "'<Cmd>Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'", {expr = true})
-util.map("x", "zF",     "':Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'", {expr = true})
-
-util.map("n", "<Leader>s", "<Cmd>ToggleSession<CR>")
-
--- Focus
-util.map("", "<Leader>f",     "<Cmd>Goyo<CR>")
-util.map("", "<Leader><C-f>", "<Cmd>Limelight!!<CR>")
-
--- Reindent from the given shift width to the buffer's shift width
-vim.cmd "command! -bar -range=% -nargs=1 Reindent <line1>,<line2>call init#reindent(<q-args>, shiftwidth())"
-
-util.map("c", "<C-j>", "<Down>")
-util.map("c", "<C-k>", "<Up>")
-
-util.map("c", "<C-n>", 'getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-n>"', {expr = true})
-util.map("c", "<C-p>", 'getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>?<C-r>/" : "<C-p>"', {expr = true})
-
-vim.cmd "cnoreabbrev sgr   sil gr"
-vim.cmd "cnoreabbrev sgr!  sil gr!"
-vim.cmd "cnoreabbrev slgr  sil lgr"
-vim.cmd "cnoreabbrev slgr! sil lgr!"
-
 vim.g.markdown_folding = 1
 
 require("colorizer").setup()
+require("virt-column").setup()
 
 -- Treesitter
 require("nvim-treesitter.configs").setup {
@@ -170,6 +86,116 @@ require("nvim-treesitter.configs").setup {
 
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
+
+-- Create a fold start..end with the given level
+vim.cmd "command! -bar -range -nargs=? Fold <line1>,<line2>call init#fold(<q-args>)"
+
+-- Reindent from the given shift width to the buffer's shift width
+vim.cmd "command! -bar -range=% -nargs=1 Reindent <line1>,<line2>call init#reindent(<q-args>, shiftwidth())"
+
+-- Mappings
+vim.g.mapleader = "\\"
+vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-\\>", true, true, true)
+
+nest = require("nest")
+nest.defaults.options.silent = false
+nest.applyKeymaps {
+  { "jk", "<Esc>", mode = "i" },
+
+  { mode = "_", {
+    { "<Space>", ":" },
+    { "'", "`" },
+    { "Q", "gq" },
+    { "gq", "gw" },
+    { "Y", "y$" },
+  }},
+
+  { "<CR>",  "&buftype != 'quickfix' && &buftype != 'prompt' ? '<C-^>' : '<CR>'", options = {expr = true} },
+
+  { "<C-", {
+    { "n>", "<Cmd>bnext<CR>" },
+    { "p>", "<Cmd>bprev<CR>" },
+
+    { "w>", {
+      { "<CR>",  "<Cmd>wincmd ^<CR>" },
+      { "<C-]>", "<Cmd>vertical wincmd ]<CR>" },
+      { "<C-d>", "<Cmd>vertical wincmd d<CR>" },
+      { "<C-f>", "<Cmd>vertical wincmd f<CR>" },
+      { "<C-i>", "<Cmd>vertical wincmd i<CR>" },
+    }},
+
+    { "h>", "<Cmd>wincmd h<CR>" },
+    { "j>", "<Cmd>wincmd j<CR>" },
+    { "k>", "<Cmd>wincmd k<CR>" },
+    { "l>", "<Cmd>wincmd l<CR>" },
+
+    { "Left>",  "<C-w><" },
+    { "Down>",  "<C-w>-" },
+    { "Up>",    "<C-w>+" },
+    { "Right>", "<C-w>>" },
+  }},
+
+  { "<A-", {
+    { "k>", "<Cmd>tabprev<CR>" },
+    { "j>", "<Cmd>tabnext<CR>" },
+    { "h>", "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'", options = {expr = true} },
+    { "l>", "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'", options = {expr = true} },
+  }},
+
+  { "S",  ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>" },
+
+  { 'g', {
+    { "s", ":%s/\\v/g<Left><Left>" },
+    { "s", ":s/\\v/g<Left><Left>", mode = "x" },
+    { "S", ":sil gr! <C-R><C-w><CR>" },
+
+    { "a", "<Plug>(EasyAlign)", options = {noremap = false} },
+  }},
+
+  { "<BS>", "<Plug>(LoupeClearHighlight)", options = {noremap = false} },
+
+  { "m", {
+    { "<CR>",    "<Cmd>make!<CR>" },
+    { "<Space>", ":<C-U>make!<Space>" },
+  }},
+
+  { "U", "<Cmd>MundoToggle<CR>" },
+
+  { "<Leader>", {
+    { "<Leader>", "<Cmd>Files<CR>" },
+    { "b",        "<Cmd>Buffers<CR>" },
+    { "g",        "<Cmd>Grep<CR>" },
+
+    -- Replace the current line by the file under the cursor
+    { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>" },
+
+    { "s", "<Cmd>ToggleSession<CR>" },
+
+    -- Focus
+    { "f",     "<Cmd>Goyo<CR>" },
+    { "<C-f>", "<Cmd>Limelight!!<CR>" },
+
+    { "t", "<Cmd>TroubleToggle<CR>" },
+  }},
+
+  { "z", options = {expr = true}, {
+    { "F", "'<Cmd>Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'" },
+    { "F",     "':Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'", mode = "x" },
+  }},
+
+  { mode = "c", "<C-", {
+    { "j>", "<Down>" },
+    { "k>", "<Up>" },
+
+    { "n>", 'getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-n>"', options = {expr = true} },
+    { "p>", 'getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>?<C-r>/" : "<C-p>"', options = {expr = true} },
+  }},
+}
+
+vim.cmd "cnoreabbrev sgr   sil gr"
+vim.cmd "cnoreabbrev sgr!  sil gr!"
+vim.cmd "cnoreabbrev slgr  sil lgr"
+vim.cmd "cnoreabbrev slgr! sil lgr!"
 
 -- Read local configuration files, but with certain commands disabled
 opt.secure = true

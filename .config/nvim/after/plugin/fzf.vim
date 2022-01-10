@@ -11,7 +11,9 @@ command! -bar -nargs=? -complete=dir Files
 
 function! s:Buffers()
   return sort(map(
-      \ filter(range(1, bufnr('$')), 'buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "qf"'),
+      \ filter(
+      \   range(1, bufnr('$')),
+      \   'buflisted(v:val) && getbufvar(v:val, "&filetype") !=# "qf" && !empty(bufname(v:val))'),
       \ 'bufname(v:val)'))
 endfunction
 

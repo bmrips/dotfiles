@@ -76,6 +76,7 @@ vim.g.AutoPairsShortcutJump = ""
 
 require("colorizer").setup()
 require("virt-column").setup()
+require("trouble").setup() -- LSP diagnostics
 
 -- Treesitter
 require("nvim-treesitter.configs").setup {

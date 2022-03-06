@@ -1,2 +1,2 @@
-# Enable smooth scrolling in firefox
-export MOZ_USE_XINPUT2=1
+# Enable Wayland support
+export MOZ_ENABLE_WAYLAND=1

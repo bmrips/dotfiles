@@ -80,9 +80,7 @@ require("trouble").setup() -- LSP diagnostics
 
 -- Treesitter
 require("nvim-treesitter.configs").setup {
-  highlight = {
-    enable = true,
-  },
+  highlight = { enable = true, },
   indent = { enable = true },
 }
 
@@ -97,7 +95,7 @@ vim.cmd "command! -bar -range=% -nargs=1 Reindent <line1>,<line2>call init#reind
 
 -- Mappings
 vim.g.mapleader = "\\"
-vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-\\>", true, true, true)
+vim.g.maplocalleader = util.tc("<C-\\>")
 
 nest = require("nest")
 nest.defaults.options.silent = false

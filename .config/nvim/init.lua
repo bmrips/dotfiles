@@ -177,10 +177,6 @@ nest.applyKeymaps {
   { "U", "<Cmd>MundoToggle<CR>" },
 
   { "<Leader>", {
-    { "<Leader>", "<Cmd>Files<CR>" },
-    { "b",        "<Cmd>Buffers<CR>" },
-    { "g",        "<Cmd>Grep<CR>" },
-
     -- Replace the current line by the file under the cursor
     { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>" },
 
@@ -191,6 +187,38 @@ nest.applyKeymaps {
     { "<C-f>", "<Cmd>Limelight!!<CR>" },
 
     { "t", "<Cmd>TroubleToggle<CR>" },
+  }},
+
+  -- Fzf
+  { "<C-_>", {
+    { ":",     "<Cmd>FzfLua command_history<CR>" },
+    { "/",     "<Cmd>FzfLua search_history<CR>" },
+    { "?",     "<Cmd>FzfLua search_history<CR>" },
+    { "a",     "<Cmd>FzfLua args<CR>" },
+    { "b",     "<Cmd>FzfLua buffers<CR>" },
+    { "c",     "<Cmd>FzfLua colorschemes<CR>" },
+    { "C",     "<Cmd>FzfLua commands<CR>" },
+    { "f",     "<Cmd>FzfLua files<CR>" },
+    { "F",     "<Cmd>FzfLua oldfiles<CR>" },
+    { "<C-f>", "<Cmd>FzfLua git_files<CR>" },
+    { "g",     "<Cmd>FzfLua live_grep<CR>" },
+    { "G",     "<Cmd>FzfLua live_grep_resume<CR>" },
+    { "<C-g>", "<Cmd>FzfLua live_grep_glob<CR>" },
+    { "h",     "<Cmd>FzfLua help_tags<CR>" },
+    { "H",     "<Cmd>FzfLua man_pages<CR>" },
+    { "j",     "<Cmd>FzfLua jumps<CR>" },
+    { "l",     "<Cmd>FzfLua lines<CR>" },
+    { "L",     "<Cmd>FzfLua blines<CR>" },
+    { "m",     "<Cmd>FzfLua marks<CR>" },
+    { "o",     "<Cmd>FzfLua grep_cword<CR>" },
+    { "O",     "<Cmd>FzfLua grep_cWORD<CR>" },
+    { "<C-o>", "<Cmd>FzfLua grep_visual<CR>" },
+    { "p",     "<Cmd>FzfLua packadd<CR>" },
+    { "q",     "<Cmd>FzfLua quickfix<CR>" },
+    { "Q",     "<Cmd>FzfLua loclist<CR>" },
+    { "r",     "<Cmd>FzfLua registers<CR>" },
+    { "s",     "<Cmd>FzfLua spell_suggest<CR>" },
+    { "t",     "<Cmd>FzfLua filetypes<CR>" },
   }},
 
   { "z", options = {expr = true}, {

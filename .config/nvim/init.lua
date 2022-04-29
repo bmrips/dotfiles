@@ -121,7 +121,7 @@ nest.applyKeymaps {
     { "'", "`" },
   }},
 
-  { "<CR>",  "&buftype !~ 'quickfix\\|prompt' ? '<C-^>' : '<CR>'", options = {expr = true} },
+  { "<CR>",  "&buftype !~ 'quickfix\\|prompt\\|nofile' ? '<C-^>' : '<CR>'", options = {expr = true} },
 
   { "<C-", {
     { "n>", "<Cmd>bnext<CR>" },

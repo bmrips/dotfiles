@@ -17,7 +17,7 @@ end
 
 -- An alias for vim.api.nvim_replace_termcodes.
 function M.tc(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
+  return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
 return M

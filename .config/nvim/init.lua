@@ -47,16 +47,16 @@ vim.g.LoupeCenterResults = 0
 -- Lightline configuration
 opt.showmode = false
 vim.g.lightline =
-    { colorscheme = "gruvbox"
-    , active =
-        { left  = { {"mode","paste"}, {"relativepath"}, {"modified"} }
-        , right = { {"lineinfo"}, {"percent"}, {"filetype"} }
-        }
-    , inactive =
-        { left  = { {"relativepath"}, {"modified"} }
-        , right = { {"lineinfo"}, {"percent"} }
-        }
+  { colorscheme = "gruvbox"
+  , active =
+    { left  = { {"mode","paste"}, {"relativepath"}, {"modified"} }
+    , right = { {"lineinfo"}, {"percent"}, {"filetype"} }
     }
+  , inactive =
+    { left  = { {"relativepath"}, {"modified"} }
+    , right = { {"lineinfo"}, {"percent"} }
+    }
+  }
 
 vim.cmd([[
   augroup init

@@ -110,7 +110,7 @@ nest.applyKeymaps {
     { "Y", "y$" },
   }},
 
-  { "<CR>",  "&buftype != 'quickfix' && &buftype != 'prompt' ? '<C-^>' : '<CR>'", options = {expr = true} },
+  { "<CR>",  "&buftype !~ 'quickfix\\|prompt' ? '<C-^>' : '<CR>'", options = {expr = true} },
 
   { "<C-", {
     { "n>", "<Cmd>bnext<CR>" },
@@ -191,8 +191,8 @@ nest.applyKeymaps {
     { "j>", "<Down>" },
     { "k>", "<Up>" },
 
-    { "n>", 'getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-n>"', options = {expr = true} },
-    { "p>", 'getcmdtype() == "/" || getcmdtype() == "?" ? "<CR>?<C-r>/" : "<C-p>"', options = {expr = true} },
+    { "n>", 'getcmdtype() =~ "[/?]" ? "<CR>/<C-r>/" : "<C-n>"', options = {expr = true} },
+    { "p>", 'getcmdtype() =~ "[/?]" ? "<CR>?<C-r>/" : "<C-p>"', options = {expr = true} },
   }},
 }
 

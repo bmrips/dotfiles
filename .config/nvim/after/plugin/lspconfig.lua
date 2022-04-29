@@ -9,7 +9,13 @@ lspconfig.bashls.setup {
 lspconfig.clangd.setup {}
 
 -- Haskell
-lspconfig.hls.setup {}
+lspconfig.hls.setup {
+  settings = {
+    haskell = {
+      formattingProvider = "stylish-haskell"
+    }
+  }
+}
 
 -- TeX
 lspconfig.texlab.setup {

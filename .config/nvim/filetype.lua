@@ -1,0 +1,16 @@
+vim.filetype.add {
+  extension = {
+    bash = "bash",
+    xkb = "xkb",
+
+    -- TeX
+    cls = "tex",
+    dtx = "tex",
+    ltx = "tex",
+    lco = "tex",
+  },
+  pattern = {
+    ["/etc/pacman.d/hooks/*"] = "dosini",
+    ["/usr/share/X11/xkb/*"] = "xkb",
+  }
+}

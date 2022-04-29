@@ -1,11 +1,9 @@
-util = require("util")
-
 local M = {}
 
 function M.createEnvironment()
-  env = vim.fn.input("Environment: ")
+  local env = vim.fn.input("Environment: ")
   if env ~= '' then
-    return "\\begin{" .. env .. "}\n\\end{" .. env .. util.tc("}<Up><C-o>A<C-g>u")
+    return "\\begin{"..env.."}\n\\end{"..env.."}<Up><C-o>A<C-g>u"
   else
     return ''
   end

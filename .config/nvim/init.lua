@@ -1,6 +1,7 @@
 opt = vim.opt
 util = require("util")
 
+opt.background = vim.env.BACKGROUND -- Background according to the terminal background
 opt.breakindentopt = { "shift:4", "sbr" }
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
@@ -32,46 +33,49 @@ opt.undofile = true
 opt.wildmode = "longest:full" -- Complete till longest common string
 opt.wrap = false
 
--- Set the background according to the terminal background
-if vim.env.BACKGROUND == "light" then opt.background = "light" end
-
-vim.cmd "filetype plugin indent on"
-
-vim.cmd "syntax on"
 vim.g.gruvbox_italic = 1
 vim.g.gruvbox_invert_selection = 0
 vim.cmd "colorscheme gruvbox"
 
-vim.g.LoupeCenterResults = 0
-
 -- Lightline configuration
 opt.showmode = false
-vim.g.lightline =
-  { colorscheme = "gruvbox"
-  , active =
-    { left  = { {"mode","paste"}, {"relativepath"}, {"modified"} }
-    , right = { {"lineinfo"}, {"percent"}, {"filetype"} }
-    }
-  , inactive =
-    { left  = { {"relativepath"}, {"modified"} }
-    , right = { {"lineinfo"}, {"percent"} }
-    }
-  }
+vim.g.lightline = {
+  colorscheme = "gruvbox",
+  active = {
+    left  = { {"mode","paste"}, {"relativepath"}, {"modified"} },
+    right = { {"lineinfo"}, {"percent"}, {"filetype"} },
+  },
+  inactive = {
+    left  = { {"relativepath"}, {"modified"} },
+    right = { {"lineinfo"}, {"percent"} },
+  },
+}
 
-vim.cmd([[
-  augroup init
-    autocmd!
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*",
+  desc = "Remove trailing whitespace and empty lines before writing a file",
+  callback = util.removeTrailingWhitespace,
+})
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = "[^l]*",
+  desc = "Open the quickfix window automatically",
+  nested = true,
+  command = "cwindow",
+})
+vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+  pattern = "l*",
+  desc = "Open the location list window automatically",
+  nested = true,
+  command = "lwindow",
+})
 
-    " Remove trailing whitespace and empty lines before writing a file
-    autocmd BufWritePre * let view = winsaveview() | keepp keepj keepm %s/\v\s+$|\s*%(\n\s*)+%$//e | call winrestview(view)
+-- Use Lua filetype detection only
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
 
-    " Open the quickfix and location list window automatically
-    autocmd QuickFixCmdPost [^l]* nested cwindow
-    autocmd QuickFixCmdPost    l* nested lwindow
-  augroup END
-]])
+vim.g.tex_flavor = "latex" -- Set Latex as my favoured TeX flavour
 
-vim.g.markdown_folding = 1
+vim.g.LoupeCenterResults = 0
 vim.g.AutoPairsShortcutJump = ""
 
 require("colorizer").setup()
@@ -88,10 +92,20 @@ opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 
 -- Create a fold start..end with the given level
-vim.cmd "command! -bar -range -nargs=? Fold <line1>,<line2>call init#fold(<q-args>)"
+vim.api.nvim_create_user_command("Fold", util.fold, {
+  bar = true,
+  range = true,
+  nargs = "?",
+  desc = "Create a fold start..end with the given level",
+})
 
--- Reindent from the given shift width to the buffer's shift width
-vim.cmd "command! -bar -range=% -nargs=1 Reindent <line1>,<line2>call init#reindent(<q-args>, shiftwidth())"
+-- Reindent the buffer to the given shift width
+vim.api.nvim_create_user_command("Reindent", util.reindent, {
+  bar = true,
+  range = "%",
+  nargs = 1,
+  desc = "Reindent the buffer to the given shift width",
+})
 
 -- Mappings
 vim.g.mapleader = "\\"
@@ -105,9 +119,6 @@ nest.applyKeymaps {
   { mode = "_", {
     { "<Space>", ":" },
     { "'", "`" },
-    { "Q", "gq" },
-    { "gq", "gw" },
-    { "Y", "y$" },
   }},
 
   { "<CR>",  "&buftype !~ 'quickfix\\|prompt' ? '<C-^>' : '<CR>'", options = {expr = true} },

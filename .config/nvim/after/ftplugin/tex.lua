@@ -5,6 +5,7 @@ opt.colorcolumn:append("+1")
 opt.comments = ":%"
 opt.commentstring = "% %s"
 opt.iskeyword:remove("_")
+opt.makeprg = "latexmk '%'"
 opt.path:append("/home/bmr/texmf/tex/**", "/usr/share/texmf/tex/**")
 opt.suffixesadd = { ".tex", ".sty", ".cls", ".ltx", ".dtx" , ".lco" }
 opt.textwidth = 100
@@ -15,23 +16,38 @@ opt.include:append("\\v" -- Use magic patterns
   .. "|\\\\(input|usepackage|documentclass"
   .. "|(RequirePackage|Load(Package|Class))(WithOptions)=)\\s*\\{=\\s*")
 
-vim.b.undo_ftplugin = vim.b.undo_ftplugin
-  .. "| set colorcolumn< comments< commentstring< define< include< iskeyword< path< suffixesadd<"
-  .. " textwidth<"
+vim.b.undo_ftplugin = vim.b.undo_ftplugin ..
+  "| set colorcolumn< comments< commentstring< define< include< iskeyword< path< suffixesadd<" ..
+  " textwidth<"
 
 -- Automatically insert $ in a pair
 vim.b.AutoPairs = vim.tbl_extend("force", vim.g.AutoPairs, { ['$'] = '$' })
 vim.b.undo_ftplugin = vim.b.undo_ftplugin .. "| unlet b:AutoPairs"
 
-vim.cmd "compiler! tex"
+-- Write all TeX buffers before compiling
+vim.api.nvim_create_augroup("tex", {})
+vim.api.nvim_create_autocmd("QuickFixCmdPre", {
+  group = "tex",
+  buffer = 0,
+  desc = "Write all TeX buffers before compiling",
+  callback =
+    function ()
+      local curbuf = vim.api.nvim_win_get_buf(0)
+      vim.cmd "bufdo if expand('%:e') =~# 'tex\\|sty\\|cls\\|bib' | update | endif"
+      vim.api.nvim_win_set_buf(curbuf)
+    end,
+})
 
-if vim.g.no_plugin_maps == nil and vim.g.no_tex_maps == nil then
+if not vim.g.no_plugin_maps then
+  require("nest").applyKeymaps {
+    { "<LocalLeader>", buffer = true, {
+      -- Open the generated PDF document.
+      { "o", "<Cmd>TexlabForward<CR>" },
 
-  -- Open the generated PDF document
-  util.buf_map("", "<LocalLeader>o", "<Cmd>TexlabForward<CR>")
-
-  -- Shortcut to create an environment
-  util.buf_map("i", "<LocalLeader>e", "luaeval('require\"tex\".createEnvironment()')", {expr = true})
+      -- Create an environment.
+      { "e", require("tex").createEnvironment, mode = "i", options = {expr = true} }
+    }}
+  }
 
   vim.b.undo_ftplugin = vim.b.undo_ftplugin .. "| mapclear <buffer>"
 end

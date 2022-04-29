@@ -9,11 +9,7 @@ lspconfig.bashls.setup {
 lspconfig.clangd.setup {}
 
 -- Haskell
-lspconfig.hls.setup {
-  root_dir = require('lspconfig/util').root_pattern(
-    "*.cabal", "stack.yaml", "cabal.project", "package.yaml", "hie.yaml", ".git"
-  )
-}
+lspconfig.hls.setup {}
 
 -- TeX
 lspconfig.texlab.setup {

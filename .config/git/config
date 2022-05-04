@@ -83,7 +83,6 @@
     trustExitCode = false
 
 [pull]
-    ff = only
     rebase = true
 
 [push]

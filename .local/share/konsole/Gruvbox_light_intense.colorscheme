@@ -1,8 +1,5 @@
 ; vi: ft=dosini
 
-[BackgroundFaint]
-Color=251,241,199
-
 [Background]
 Color=251,241,199
 
@@ -54,14 +51,10 @@ Color=168,153,132
 [Color7]
 Color=60,56,54
 
-[ForegroundFaint]
-Color=60,56,54
-
 [Foreground]
 Color=60,56,54
 
 [General]
-Description=Gruvbox Light
+Description=Gruvbox Light Intense
 Opacity=1
-Blur=false
 Wallpaper=

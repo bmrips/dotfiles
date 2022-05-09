@@ -1,7 +1,7 @@
 ; vi: ft=dosini
 
 [Appearance]
-ColorScheme=gruvbox-light
+ColorScheme=Gruvbox_light_intense
 Font=JetBrains Mono,11,-1,5,63,0,0,0,0,0,SemiBold
 LineSpacing=0
 UseFontLineChararacters=true

@@ -78,6 +78,7 @@ vim.g.tex_flavor = "latex" -- Set Latex as my favoured TeX flavour
 vim.g.LoupeCenterResults = 0
 vim.g.AutoPairsShortcutJump = ""
 
+require("stabilize").setup()
 require("colorizer").setup()
 require("virt-column").setup()
 require("trouble").setup() -- LSP diagnostics

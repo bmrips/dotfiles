@@ -130,6 +130,8 @@ nest.applyKeymaps {
 
     { "w>", {
       { "<CR>",  "<Cmd>wincmd ^<CR>" },
+      { "m",     "<Cmd>WinShift<CR>" },
+      { "X",     "<Cmd>WinShift swap<CR>" },
       { "<C-]>", "<Cmd>vertical wincmd ]<CR>" },
       { "<C-d>", "<Cmd>vertical wincmd d<CR>" },
       { "<C-f>", "<Cmd>vertical wincmd f<CR>" },

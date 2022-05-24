@@ -81,6 +81,7 @@ vim.g.AutoPairsShortcutJump = ""
 require("stabilize").setup()
 require("colorizer").setup()
 require("virt-column").setup()
+require("fold-cycle").setup { softwrap_movement_fix = true }
 require("trouble").setup() -- LSP diagnostics
 
 -- Treesitter
@@ -123,6 +124,10 @@ nest.applyKeymaps {
   }},
 
   { "<CR>",  "&buftype !~ 'quickfix\\|prompt\\|nofile' ? '<C-^>' : '<CR>'", options = {expr = true} },
+
+  { "<Tab>",   require("fold-cycle").open },
+  { "<S-Tab>", require("fold-cycle").close },
+  { "zC",      require("fold-cycle").close_all, {noremap = false} },
 
   { "<C-", {
     { "n>", "<Cmd>bnext<CR>" },

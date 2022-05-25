@@ -51,11 +51,14 @@ vim.g.lightline = {
   },
 }
 
+-- Remove trailing whitespace and empty lines before writing a file.
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
   desc = "Remove trailing whitespace and empty lines before writing a file",
   callback = util.removeTrailingWhitespace,
 })
+
+-- Open the quickfix and location list windows automatically.
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   pattern = "[^l]*",
   desc = "Open the quickfix window automatically",
@@ -67,6 +70,15 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   desc = "Open the location list window automatically",
   nested = true,
   command = "lwindow",
+})
+
+-- Highlight yanked text.
+vim.api.nvim_create_autocmd('TextYankPost', {
+  pattern = '*',
+  desc = "Highlight yanked text",
+  callback = function()
+    vim.highlight.on_yank()
+  end,
 })
 
 -- Use Lua filetype detection only

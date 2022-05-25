@@ -1,5 +1,6 @@
 opt = vim.opt_local
 util = require("util")
+tex = require("tex")
 
 opt.colorcolumn:append("+1")
 opt.comments = ":%"
@@ -17,8 +18,8 @@ opt.include:append("\\v" -- Use magic patterns
   .. "|(RequirePackage|Load(Package|Class))(WithOptions)=)\\s*\\{=\\s*")
 
 vim.b.undo_ftplugin = vim.b.undo_ftplugin ..
-  "| set colorcolumn< comments< commentstring< define< include< iskeyword< path< suffixesadd<" ..
-  " textwidth<"
+  "| set colorcolumn< comments< commentstring< define< include< iskeyword<" ..
+  " path< suffixesadd< textwidth<"
 
 -- Automatically insert $ in a pair
 vim.b.AutoPairs = vim.tbl_extend("force", vim.g.AutoPairs, { ['$'] = '$' })
@@ -45,7 +46,7 @@ if not vim.g.no_plugin_maps then
       { "o", "<Cmd>TexlabForward<CR>" },
 
       -- Create an environment.
-      { "e", require("tex").createEnvironment, mode = "i", options = {expr = true} }
+      { "e", tex.createEnvironment, mode = "i", options = {expr = true} }
     }}
   }
 

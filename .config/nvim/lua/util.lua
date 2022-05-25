@@ -28,7 +28,7 @@ function addFoldMark(linenr, fdm, level)
   vim.fn.setline(linenr, line)
 end
 
--- Reindent the buffer to the given shift width
+-- Reindent the buffer to the given shift width.
 function M.reindent(info)
   local old, new = vim.fn.shiftwidth(), info.args
   local view = vim.fn.winsaveview()

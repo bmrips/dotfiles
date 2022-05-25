@@ -1,5 +1,6 @@
 local M = {}
 
+-- Insert an environment, whose name is given interactively by the user.
 function M.createEnvironment()
   local env = vim.fn.input("Environment: ")
   if env ~= '' then

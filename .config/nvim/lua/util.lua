@@ -56,7 +56,7 @@ function M.buf_map(mode, lhs, rhs, opts)
 end
 
 -- An alias for vim.api.nvim_replace_termcodes.
-function M.tc(str)
+function M.termcode(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 

@@ -111,7 +111,7 @@ vim.api.nvim_create_user_command("Reindent", util.reindent, {
 
 -- Mappings
 vim.g.mapleader = "\\"
-vim.g.maplocalleader = util.tc("<C-\\>")
+vim.g.maplocalleader = util.termcode("<C-\\>")
 
 nest = require("nest")
 nest.defaults.options.silent = false

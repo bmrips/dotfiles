@@ -112,6 +112,9 @@ require("virt-column").setup()
 -- Cycle through folds.
 require("fold-cycle").setup()
 
+-- Enhanced notifications with `vim.ui.notify`.
+vim.notify = require("notify")
+
 -- Do not close the current markdown preview when changing the buffer.
 vim.g.mkdp_auto_close = 0
 

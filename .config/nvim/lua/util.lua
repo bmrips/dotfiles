@@ -2,14 +2,14 @@ local M = {}
 
 -- Remove trailing whitespace, i.e. whitespace at the end of a line or at the
 -- end of the file.
-function M.removeTrailingWhitespace()
+M.removeTrailingWhitespace = function()
   local view = vim.fn.winsaveview()
   vim.cmd "keeppatterns keepjumps keepmarks %s/\\v\\s+$|\\s*%(\\n\\s*)+%$//e"
   vim.fn.winrestview(view)
 end
 
 -- Create a fold for line1..line2 at the given level.
-function M.fold(info)
+M.fold = function(info)
   local fdm = vim.opt_local.foldmarker:get()
   local level = (info.args ~= "0" and info.args) or ''
   addFoldMark(info.line1, fdm[1], level)
@@ -29,7 +29,7 @@ function addFoldMark(linenr, fdm, level)
 end
 
 -- Reindent the buffer to the given shift width.
-function M.reindent(info)
+M.reindent = function(info)
   local old, new = vim.fn.shiftwidth(), info.args
   local view = vim.fn.winsaveview()
   vim.cmd(
@@ -41,7 +41,7 @@ function M.reindent(info)
 end
 
 -- An alias for vim.api.nvim_set_keymap, not remapping by default.
-function M.map(mode, lhs, rhs, opts)
+M.map = function(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_set_keymap(mode, lhs, rhs, options)
@@ -49,14 +49,14 @@ end
 
 -- An alias for vim.api.nvim_buf_set_keymap for the current buffer, not
 -- remapping by default.
-function M.buf_map(mode, lhs, rhs, opts)
+M.buf_map = function(mode, lhs, rhs, opts)
   local options = { noremap = true }
   if opts then options = vim.tbl_extend('force', options, opts) end
   vim.api.nvim_buf_set_keymap(0, mode, lhs, rhs, options)
 end
 
 -- An alias for vim.api.nvim_replace_termcodes.
-function M.termcode(str)
+M.termcode = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 

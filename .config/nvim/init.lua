@@ -81,22 +81,44 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Use Lua filetype detection only
+-- Use Lua filetype detection only.
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
 
-vim.g.tex_flavor = "latex" -- Set Latex as my favoured TeX flavour
+-- Set Latex as my preferred TeX flavour.
+vim.g.tex_flavor = "latex"
 
+-- Do not display off-screen matches
+vim.g.matchup_matchparen_offscreen = { method = 'status_manual' }
+-- Defer highlighting to improve performance
+vim.g.matchup_matchparen_deferred = 1
+vim.g.matchup_transmute_enabled = 1
+
+-- Do not center search results on n/N.
 vim.g.LoupeCenterResults = 0
+
+-- Do not create the <M-n> shortcut to map it myself later.
 vim.g.AutoPairsShortcutJump = ""
 
+-- Prevent window content to be shifted on split creation.
 require("stabilize").setup()
-require("colorizer").setup()
-require("virt-column").setup()
-require("fold-cycle").setup { softwrap_movement_fix = true }
-require("trouble").setup() -- LSP diagnostics
 
--- Treesitter
+-- Colorize colour tags.
+require("colorizer").setup()
+
+-- Display a character as the colorcolumn.
+require("virt-column").setup()
+
+-- Cycle through folds.
+require("fold-cycle").setup()
+
+-- Do not close the current markdown preview when changing the buffer.
+vim.g.mkdp_auto_close = 0
+
+-- Inspect LSP diagnostics.
+require("trouble").setup()
+
+-- Enable treesitter highlighting, indentation and folding.
 require("nvim-treesitter.configs").setup {
   highlight = { enable = true, },
   indent = { enable = true },
@@ -105,7 +127,21 @@ require("nvim-treesitter.configs").setup {
 opt.foldmethod = "expr"
 opt.foldexpr = "nvim_treesitter#foldexpr()"
 
--- Create a fold start..end with the given level
+-- Completion, with all sources enabled.
+require("compe").setup {
+  source = {
+    path = true,
+    buffer = true,
+    tags = true,
+    spell = true,
+    calc = true,
+    emoji = true,
+    nvim_lsp = true,
+    nvim_lua = true,
+  },
+}
+
+-- Create a fold with `:<range>Fold <level>`.
 vim.api.nvim_create_user_command("Fold", util.fold, {
   bar = true,
   range = true,
@@ -113,7 +149,7 @@ vim.api.nvim_create_user_command("Fold", util.fold, {
   desc = "Create a fold start..end with the given level",
 })
 
--- Reindent the buffer to the given shift width
+-- Reindent the buffer with `:<range>Reindent <new_shift_width>`.
 vim.api.nvim_create_user_command("Reindent", util.reindent, {
   bar = true,
   range = "%",

@@ -172,6 +172,7 @@ nest.applyKeymaps {
   { mode = "_", {
     { "<Space>", ":" },
     { "'", "`" },
+    { '<C-p>', "<C-i>" },
   }},
 
   { "<CR>",  "&buftype !~ 'quickfix\\|prompt\\|nofile' ? '<C-^>' : '<CR>'", options = {expr = true} },
@@ -181,9 +182,6 @@ nest.applyKeymaps {
   { "zC",      require("fold-cycle").close_all, {noremap = false} },
 
   { "<C-", {
-    { "n>", "<Cmd>bnext<CR>" },
-    { "p>", "<Cmd>bprev<CR>" },
-
     { "w>", {
       { "<CR>",  "<Cmd>wincmd ^<CR>" },
       { "m",     "<Cmd>WinShift<CR>" },

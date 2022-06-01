@@ -115,6 +115,26 @@ require("fold-cycle").setup()
 -- Enhanced notifications with `vim.ui.notify`.
 vim.notify = require("notify")
 
+-- Enhanced increment/decrement.
+local augend = require("dial.augend")
+require("dial.config").augends:register_group {
+  default = {
+    augend.integer.alias.decimal,
+    augend.integer.alias.hex,
+    augend.constant.alias.alpha,
+    augend.constant.alias.Alpha,
+    augend.date.alias["%Y/%m/%d"],
+    augend.date.alias["%Y-%m-%d"],
+    augend.date.alias["%d.%m.%Y"],
+    augend.date.alias["%d.%m.%y"],
+    augend.date.alias["%m/%d"],
+    augend.date.alias["%d.%m."],
+    augend.date.alias["%H:%M"],
+    augend.constant.alias.de_weekday,
+    augend.constant.alias.de_weekday_full,
+  }
+}
+
 -- Do not close the current markdown preview when changing the buffer.
 vim.g.mkdp_auto_close = 0
 
@@ -176,6 +196,14 @@ nest.applyKeymaps {
   }},
 
   { "<CR>",  "&buftype !~ 'quickfix\\|prompt\\|nofile' ? '<C-^>' : '<CR>'", options = {expr = true} },
+
+  -- Enhanced increment/decrement
+  { "<C-a>",  require("dial.map").inc_normal() },
+  { "<C-a>",  require("dial.map").inc_visual(), mode = "v" },
+  { "<C-x>",  require("dial.map").dec_normal() },
+  { "<C-x>",  require("dial.map").dec_visual(), mode = "v" },
+  { "g<C-a>", require("dial.map").inc_gvisual(), mode = "v" },
+  { "g<C-x>", require("dial.map").dec_gvisual(), mode = "v" },
 
   { "<Tab>",   require("fold-cycle").open },
   { "<S-Tab>", require("fold-cycle").close },

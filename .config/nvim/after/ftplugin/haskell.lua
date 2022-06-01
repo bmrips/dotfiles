@@ -1,5 +1,5 @@
-opt = vim.opt_local
-util = require("util")
+local opt = vim.opt_local
+local util = require("util")
 
 opt.includeexpr = "substitute(v:fname, '\\.', '/', 'g')"
 opt.iskeyword:append("'")

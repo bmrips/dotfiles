@@ -1,5 +1,5 @@
-opt = vim.opt
-util = require("util")
+local opt = vim.opt
+local util = require("util")
 
 opt.background = vim.env.BACKGROUND -- Background according to the terminal background
 opt.breakindentopt = { "shift:4", "sbr" }
@@ -184,7 +184,7 @@ vim.api.nvim_create_user_command("Reindent", util.reindent, {
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = util.termcode("<C-\\>")
 
-nest = require("nest")
+local nest = require("nest")
 nest.defaults.options.silent = false
 nest.applyKeymaps {
   { "jk", "<Esc>", mode = "i" },

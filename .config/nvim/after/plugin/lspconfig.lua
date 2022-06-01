@@ -1,4 +1,4 @@
-lspconfig = require("lspconfig")
+local lspconfig = require("lspconfig")
 
 -- Bash
 lspconfig.bashls.setup {

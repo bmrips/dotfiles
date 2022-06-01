@@ -1,6 +1,6 @@
-opt = vim.opt_local
-util = require("util")
-tex = require("tex")
+local opt = vim.opt_local
+local util = require("util")
+local tex = require("tex")
 
 opt.colorcolumn:append("+1")
 opt.comments = ":%"

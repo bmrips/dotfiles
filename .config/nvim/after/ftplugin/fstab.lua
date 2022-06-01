@@ -1,4 +1,4 @@
-opt = vim.opt_local
+local opt = vim.opt_local
 
 opt.formatoptions:remove("t")
 

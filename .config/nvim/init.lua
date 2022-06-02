@@ -193,6 +193,8 @@ nest.applyKeymaps {
     { "<Space>", ":" },
     { "'", "`" },
     { '<C-p>', "<C-i>" },
+
+    { "ga", "<Plug>(EasyAlign)", options = {noremap = false} },
   }},
 
   { "<CR>",  "&buftype !~ 'quickfix\\|prompt\\|nofile' ? '<C-^>' : '<CR>'", options = {expr = true} },
@@ -248,8 +250,6 @@ nest.applyKeymaps {
     { "s", ":%s/\\v/g<Left><Left>" },
     { "s", ":s/\\v/g<Left><Left>", mode = "x" },
     { "S", ":sil gr! <C-R><C-w><CR>" },
-
-    { "a", "<Plug>(EasyAlign)", options = {noremap = false} },
   }},
 
   { "<BS>", "<Plug>(LoupeClearHighlight)", options = {noremap = false} },

@@ -135,6 +135,10 @@ require("dial.config").augends:register_group {
   }
 }
 
+-- Enhanced :sort
+require("sort").setup()
+vim.cmd "cnoreabbrev sort Sort"
+
 -- Do not close the current markdown preview when changing the buffer.
 vim.g.mkdp_auto_close = 0
 
@@ -195,6 +199,8 @@ nest.applyKeymaps {
     { '<C-p>', "<C-i>" },
 
     { "ga", "<Plug>(EasyAlign)", options = {noremap = false} },
+
+    { "go", ":Sort<CR>" },
   }},
 
   { "<CR>",  "&buftype !~ 'quickfix\\|prompt\\|nofile' ? '<C-^>' : '<CR>'", options = {expr = true} },

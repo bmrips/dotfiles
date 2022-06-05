@@ -11,6 +11,7 @@ opt.foldtext = "substitute(getline(v:foldstart), '\\s*$', ' ' , '')"
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
+opt.joinspaces = true
 opt.lazyredraw = true
 opt.linebreak = true
 opt.mouse:append("n")

@@ -269,14 +269,16 @@ nest.applyKeymaps {
   { "U", "<Cmd>MundoToggle<CR>" },
 
   { "<Leader>", {
-    -- Replace the current line by the file under the cursor
-    { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>" },
-
-    { "s", "<Cmd>ToggleSession<CR>" },
+    { "c",     "<Cmd>Beacon<CR>" },
 
     -- Focus
     { "f",     "<Cmd>Goyo<CR>" },
     { "<C-f>", "<Cmd>Limelight!!<CR>" },
+
+    -- Replace the current line by the file under the cursor
+    { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>" },
+
+    { "s", "<Cmd>ToggleSession<CR>" },
 
     { "t", "<Cmd>TroubleToggle<CR>" },
   }},

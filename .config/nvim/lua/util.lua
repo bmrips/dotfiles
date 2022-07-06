@@ -8,16 +8,6 @@ M.removeTrailingWhitespace = function()
   vim.fn.winrestview(view)
 end
 
--- Create a fold for line1..line2 at the given level.
-M.fold = function(info)
-  local fdm = vim.opt_local.foldmarker:get()
-  local level = (info.args ~= "0" and info.args) or ''
-  addFoldMark(info.line1, fdm[1], level)
-  if info.line1 ~= info.line2 then
-    addFoldMark(info.line2, fdm[2], level)
-  end
-end
-
 -- Set the given fold mark with the given level the given line.
 local addFoldMark = function(linenr, fdm, level)
   local cms = vim.opt_local.commentstring:get()
@@ -26,6 +16,16 @@ local addFoldMark = function(linenr, fdm, level)
   local line = (line == '' and marker)
             or vim.fn.substitute(line, "\\s*$", " "..marker, "")
   vim.fn.setline(linenr, line)
+end
+
+-- Create a fold for line1..line2 at the given level.
+M.fold = function(info)
+  local fdm = vim.opt_local.foldmarker:get()
+  local level = (info.args ~= "0" and info.args) or ''
+  addFoldMark(info.line1, fdm[1], level)
+  if info.line1 ~= info.line2 then
+    addFoldMark(info.line2, fdm[2], level)
+  end
 end
 
 -- Reindent the buffer to the given shift width.

@@ -34,24 +34,6 @@ opt.undofile = true
 opt.wildmode = { "longest", "full" } -- Complete till longest common string
 opt.wrap = false
 
-vim.g.gruvbox_italic = 1
-vim.g.gruvbox_invert_selection = 0
-vim.cmd "colorscheme gruvbox"
-
--- Lightline configuration
-opt.showmode = false
-vim.g.lightline = {
-  colorscheme = "gruvbox",
-  active = {
-    left  = { {"mode","paste"}, {"relativepath"}, {"modified"} },
-    right = { {"lineinfo"}, {"percent"}, {"filetype"} },
-  },
-  inactive = {
-    left  = { {"relativepath"}, {"modified"} },
-    right = { {"lineinfo"}, {"percent"} },
-  },
-}
-
 -- Remove trailing whitespace and empty lines before writing a file.
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*",
@@ -81,92 +63,19 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+-- Recompile packer.
+vim.api.nvim_create_autocmd('BufWritePost', {
+  pattern = "plugins.lua",
+  desc = "Recompile packer",
+  command = "source <afile> | PackerCompile",
+})
+
 -- Use Lua filetype detection only.
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
 
 -- Set Latex as my preferred TeX flavour.
 vim.g.tex_flavor = "latex"
-
--- Do not display off-screen matches
-vim.g.matchup_matchparen_offscreen = { method = 'status_manual' }
--- Defer highlighting to improve performance
-vim.g.matchup_matchparen_deferred = 1
-vim.g.matchup_transmute_enabled = 1
-
--- Do not center search results on n/N.
-vim.g.LoupeCenterResults = 0
-
--- Do not create the <M-n> shortcut to map it myself later.
-vim.g.AutoPairsShortcutJump = ""
-
--- Prevent window content to be shifted on split creation.
-require("stabilize").setup()
-
--- Colorize colour tags.
-require("colorizer").setup()
-
--- Display a character as the colorcolumn.
-require("virt-column").setup()
-
--- Cycle through folds.
-require("fold-cycle").setup()
-
--- Enhanced notifications with `vim.ui.notify`.
-vim.notify = require("notify")
-
--- Enhanced increment/decrement.
-local augend = require("dial.augend")
-require("dial.config").augends:register_group {
-  default = {
-    augend.integer.alias.decimal,
-    augend.integer.alias.hex,
-    augend.constant.alias.alpha,
-    augend.constant.alias.Alpha,
-    augend.date.alias["%Y/%m/%d"],
-    augend.date.alias["%Y-%m-%d"],
-    augend.date.alias["%d.%m.%Y"],
-    augend.date.alias["%d.%m.%y"],
-    augend.date.alias["%m/%d"],
-    augend.date.alias["%d.%m."],
-    augend.date.alias["%H:%M"],
-    augend.constant.alias.de_weekday,
-    augend.constant.alias.de_weekday_full,
-  }
-}
-
--- Enhanced :sort
-require("sort").setup()
-vim.cmd "cnoreabbrev sort Sort"
-
--- Do not close the current markdown preview when changing the buffer.
-vim.g.mkdp_auto_close = 0
-
--- Inspect LSP diagnostics.
-require("trouble").setup()
-
--- Enable treesitter highlighting, indentation and folding.
-require("nvim-treesitter.configs").setup {
-  highlight = { enable = true, },
-  indent = { enable = true },
-}
-
-opt.foldmethod = "expr"
-opt.foldexpr = "nvim_treesitter#foldexpr()"
-
--- Completion, with all sources enabled.
-require("compe").setup {
-  source = {
-    path = true,
-    buffer = true,
-    tags = true,
-    spell = true,
-    calc = true,
-    emoji = true,
-    nvim_lsp = true,
-    nvim_lua = true,
-  },
-}
 
 -- Create a fold with `:<range>Fold <level>`.
 vim.api.nvim_create_user_command("Fold", util.fold, {
@@ -183,6 +92,8 @@ vim.api.nvim_create_user_command("Reindent", util.reindent, {
   nargs = 1,
   desc = "Reindent the buffer to the given shift width",
 })
+
+require("plugins")
 
 -- Mappings
 vim.g.mapleader = "\\"

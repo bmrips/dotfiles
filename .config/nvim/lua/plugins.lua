@@ -102,6 +102,20 @@ local plugins = {
       vim.g.AutoPairsShortcutJump = ""
     end,
   },
+  { "junegunn/goyo.vim",
+    config = function()
+      -- Fit the window size to the text width.
+      vim.api.nvim_create_autocmd("User", {
+        pattern = "GoyoEnter",
+        desc = "Fit the window size to the text width",
+        callback =
+          function ()
+            vim.cmd("Goyo " .. vim.opt_local.textwidth:get() .. "x")
+          end,
+      })
+    end,
+  },
+  { "junegunn/limelight.vim" },
   { "junegunn/vim-easy-align" },
   { "LionC/nest.nvim" },
   { "lukas-reineke/virt-column.nvim",

@@ -9,6 +9,7 @@ local config = {
 
 local plugins = {
   { "andymass/vim-matchup",
+    event = "VimEnter",
     config = function()
       -- Do not display off-screen matches
       vim.g.matchup_matchparen_offscreen = { method = 'status_manual' }
@@ -18,8 +19,11 @@ local plugins = {
       vim.g.matchup_transmute_enabled = 1
     end,
   },
-  { "direnv/direnv.vim" },
+  { "direnv/direnv.vim",
+    event = "VimEnter",
+  },
   { "ellisonleao/gruvbox.nvim",
+    event = "VimEnter",
     config = function()
       vim.g.gruvbox_italic = 1
       vim.g.gruvbox_invert_selection = 0
@@ -32,9 +36,14 @@ local plugins = {
       vim.g.LoupeCenterResults = 0
     end,
   },
-  { "f1rstlady/vim-unimpaired" },
+  { "f1rstlady/vim-unimpaired",
+    event = "VimEnter",
+  },
   { "folke/trouble.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
+    event = "VimEnter",
+    requires = {
+      { "kyazdani42/nvim-web-devicons", event = "VimEnter" },
+    },
     config = function()
       require("trouble").setup()
     end,
@@ -43,7 +52,10 @@ local plugins = {
     opt = true,
   },
   { "hrsh7th/nvim-compe",
-    requires = "GoldsteinE/compe-latex-symbols",
+    event = "VimEnter",
+    requires = {
+      { "GoldsteinE/compe-latex-symbols", event = "VimEnter" },
+    },
     config = function()
       require("compe").setup {
         source = {
@@ -70,12 +82,14 @@ local plugins = {
     end,
   },
   { "ibhagwan/fzf-lua",
+    event = "VimEnter",
     requires = {
-      "kyazdani42/nvim-web-devicons",
-      "vijaymarupudi/nvim-fzf",
+      { "kyazdani42/nvim-web-devicons", event = "VimEnter" },
+      { "vijaymarupudi/nvim-fzf", event = "VimEnter" },
     },
   },
   { "jghauser/fold-cycle.nvim",
+    event = "VimEnter",
     config = function()
       require("fold-cycle").setup()
     end,
@@ -87,6 +101,7 @@ local plugins = {
     end,
   },
   { "junegunn/goyo.vim",
+    event = "VimEnter",
     config = function()
       -- Fit the window size to the text width.
       vim.api.nvim_create_autocmd("User", {
@@ -99,21 +114,29 @@ local plugins = {
       })
     end,
   },
-  { "junegunn/limelight.vim" },
-  { "junegunn/vim-easy-align" },
+  { "junegunn/limelight.vim",
+    event = "VimEnter",
+  },
+  { "junegunn/vim-easy-align",
+    event = "VimEnter",
+  },
   { "LionC/nest.nvim" },
   { "lukas-reineke/virt-column.nvim",
+    event = "VimEnter",
     after = "gruvbox.nvim",
     config = function()
       require("virt-column").setup()
     end,
   },
   { "luukvbaal/stabilize.nvim",
+    event = "VimEnter",
     config = function()
       require("stabilize").setup()
     end,
   },
-  { "michaeljsmith/vim-indent-object" },
+  { "michaeljsmith/vim-indent-object",
+    event = "VimEnter",
+  },
   { "monaqa/dial.nvim",
     config = function()
       local augend = require("dial.augend")
@@ -136,8 +159,48 @@ local plugins = {
       }
     end,
   },
-  { "neovim/nvim-lspconfig" },
+  { "neovim/nvim-lspconfig",
+    event = "VimEnter",
+    config = function()
+      local lspconfig = require("lspconfig")
+
+      -- Bash
+      lspconfig.bashls.setup {
+        filetypes = { "bash", "sh" },
+      }
+
+      -- C, C++ and Objective C
+      lspconfig.clangd.setup {}
+
+      -- Haskell
+      lspconfig.hls.setup {
+        settings = {
+          haskell = {
+            formattingProvider = "stylish-haskell"
+          }
+        }
+      }
+
+      -- TeX
+      lspconfig.texlab.setup {
+        settings = {
+          texlab = {
+            build = {
+              -- Build with LuaLaTeX.
+              args = {"-lualatex", "-interaction=nonstopmode", "-synctex=1", "%f"},
+              onSave = true,
+            },
+            forwardSearch = {
+              executable = "okular",
+              args = { "--unique", "file:%p#src:%l%f" },
+            },
+          },
+        },
+      }
+    end,
+  },
   { "norcalli/nvim-colorizer.lua",
+    event = "VimEnter",
     config = function()
       require("colorizer").setup()
     end,
@@ -146,7 +209,10 @@ local plugins = {
     opt = true,
   },
   { "nvim-lualine/lualine.nvim",
-    requires = "kyazdani42/nvim-web-devicons",
+    event = "VimEnter",
+    requires = {
+      { "kyazdani42/nvim-web-devicons", event = "VimEnter" },
+    },
     config = function()
       vim.opt.showmode = false
       require('lualine').setup {
@@ -187,6 +253,7 @@ local plugins = {
     end,
   },
   { "nvim-treesitter/nvim-treesitter",
+    event = "VimEnter",
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup {
@@ -202,30 +269,56 @@ local plugins = {
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
     end,
   },
-  { "rafcamlet/nvim-luapad" },
-  { "rainbowhxch/beacon.nvim" },
+  { "rafcamlet/nvim-luapad",
+    event = "VimEnter",
+  },
+  { "rainbowhxch/beacon.nvim",
+    event = "VimEnter",
+  },
   { "rcarriga/nvim-notify",
+    event = "VimEnter",
     config = function()
       vim.notify = require("notify")
     end,
   },
   { "sQVe/sort.nvim",
+    event = "VimEnter",
     config = function()
       require("sort").setup()
       vim.cmd "cnoreabbrev sort Sort"
     end,
   },
-  { "simnalamburt/vim-mundo" },
-  { "sindrets/winshift.nvim" },
-  { "stefandtw/quickfix-reflector.vim" },
-  { "stevearc/dressing.nvim" },
-  { "tpope/vim-endwise" },
-  { "tpope/vim-repeat" },
-  { "tpope/vim-surround" },
-  { "tweekmonster/startuptime.vim" },
+  { "simnalamburt/vim-mundo",
+    event = "VimEnter",
+  },
+  { "sindrets/winshift.nvim",
+    event = "VimEnter",
+  },
+  { "stefandtw/quickfix-reflector.vim",
+    event = "VimEnter",
+  },
+  { "stevearc/dressing.nvim",
+    event = "VimEnter",
+  },
+  { "tpope/vim-endwise",
+    event = "VimEnter",
+  },
+  { "tpope/vim-repeat",
+    event = "VimEnter",
+  },
+  { "tpope/vim-surround",
+    event = "VimEnter",
+  },
+  { "tweekmonster/startuptime.vim",
+    event = "VimEnter",
+  },
   { "wbthomason/packer.nvim" },
-  { "wellle/targets.vim" },
-  { "zdharma-continuum/zinit-vim-syntax" },
+  { "wellle/targets.vim",
+    event = "VimEnter",
+  },
+  { "zdharma-continuum/zinit-vim-syntax",
+    event = "VimEnter",
+  },
 }
 
 return require("packer").startup { plugins, config = config }

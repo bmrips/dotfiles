@@ -133,9 +133,9 @@ nest.applyKeymaps {
   { "g<C-a>", require("dial.map").inc_gvisual(), mode = "v" },
   { "g<C-x>", require("dial.map").dec_gvisual(), mode = "v" },
 
-  { "<Tab>",   require("fold-cycle").open },
-  { "<S-Tab>", require("fold-cycle").close },
-  { "zC",      require("fold-cycle").close_all, {noremap = false} },
+  { "<Tab>",   function() require("fold-cycle").open() end },
+  { "<S-Tab>", function() require("fold-cycle").close() end },
+  { "zC",      function() require("fold-cycle").close_all() end, {noremap = false} },
 
   { "<C-", {
     { "w>", {

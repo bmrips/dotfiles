@@ -1,3 +1,12 @@
+local config = {
+  git = {
+    subcommands = {
+      -- Allow rebasing during updates.
+      update = "pull --progress",
+    },
+  },
+}
+
 local plugins = {
   { "andymass/vim-matchup",
     config = function()
@@ -181,4 +190,4 @@ local plugins = {
   { "zdharma-continuum/zinit-vim-syntax" },
 }
 
-return require("packer").startup { plugins }
+return require("packer").startup { plugins, config = config }

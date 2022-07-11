@@ -18,7 +18,6 @@ local plugins = {
       vim.g.matchup_transmute_enabled = 1
     end,
   },
-  { "cespare/vim-toml" },
   { "direnv/direnv.vim" },
   { "f1rstlady/gruvbox.nvim",
     config = function()

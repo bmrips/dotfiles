@@ -5,6 +5,11 @@ source $HOME/.config/sh/rc.sh
 
 setopt vi
 
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey          "^V" edit-command-line
+bindkey -M vicmd "^V" edit-command-line
+
 # Completion
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select  # Enable menu style completion

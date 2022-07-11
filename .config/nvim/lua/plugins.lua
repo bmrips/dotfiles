@@ -146,6 +146,8 @@ local plugins = {
         highlight = { enable = true, },
         indent = { enable = true },
 
+        ensure_installed = { "help", "lua", "vim" },
+
         -- Automatically install missing parsers when entering buffer.
         auto_install = false,
       }

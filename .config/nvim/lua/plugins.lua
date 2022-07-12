@@ -19,7 +19,7 @@ local plugins = {
     end,
   },
   { "direnv/direnv.vim" },
-  { "f1rstlady/gruvbox.nvim",
+  { "ellisonleao/gruvbox.nvim",
     config = function()
       vim.g.gruvbox_italic = 1
       vim.g.gruvbox_invert_selection = 0
@@ -74,22 +74,6 @@ local plugins = {
       "kyazdani42/nvim-web-devicons",
       "vijaymarupudi/nvim-fzf",
     },
-  },
-  { "itchyny/lightline.vim",
-    config = function()
-      vim.opt.showmode = false
-      vim.g.lightline = {
-        colorscheme = "gruvbox",
-        active = {
-          left  = { {"mode","paste"}, {"relativepath"}, {"modified"} },
-          right = { {"lineinfo"}, {"percent"}, {"filetype"} },
-        },
-        inactive = {
-          left  = { {"relativepath"}, {"modified"} },
-          right = { {"lineinfo"}, {"percent"} },
-        },
-      }
-    end,
   },
   { "jghauser/fold-cycle.nvim",
     config = function()
@@ -160,6 +144,47 @@ local plugins = {
   },
   { "nvim-lua/plenary.nvim",
     opt = true,
+  },
+  { "nvim-lualine/lualine.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      vim.opt.showmode = false
+      require('lualine').setup {
+        options = {
+          theme = "gruvbox",
+          component_separators = '|',
+          section_separators = '',
+        },
+        sections = {
+          lualine_b = { "diagnostics" },
+          lualine_c = {
+            { "filename",
+              path = 1,
+              symbols = {
+                modified = " +",
+                readonly = " -",
+              },
+            },
+          },
+          lualine_x = {
+            "filetype",
+            { "fileformat",
+              icons_enabled = true,
+              symbols = {
+                unix = "LF",
+                dos = "CRlF",
+                mac = "CR",
+              }
+            },
+          },
+        },
+        extensions = {
+          "man",
+          "mundo",
+          "quickfix",
+        }
+      }
+    end,
   },
   { "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",

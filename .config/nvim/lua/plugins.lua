@@ -290,6 +290,7 @@ local plugins = {
   },
   { "simnalamburt/vim-mundo",
     event = "VimEnter",
+    commit = "595ee33",
   },
   { "sindrets/winshift.nvim",
     event = "VimEnter",

@@ -135,7 +135,7 @@ nest.applyKeymaps {
 
   { "<Tab>",   function() require("fold-cycle").open() end },
   { "<S-Tab>", function() require("fold-cycle").close() end },
-  { "zC",      function() require("fold-cycle").close_all() end, {noremap = false} },
+  { "zC",      function() require("fold-cycle").close_all() end, options = {noremap = false} },
 
   { "<C-", {
     { "w>", {

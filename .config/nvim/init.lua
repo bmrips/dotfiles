@@ -329,10 +329,37 @@ nest.applyKeymaps {
   }},
 }
 
-vim.cmd "cnoreabbrev sgr   sil gr"
-vim.cmd "cnoreabbrev sgr!  sil gr!"
-vim.cmd "cnoreabbrev slgr  sil lgr"
-vim.cmd "cnoreabbrev slgr! sil lgr!"
+local abbreviations = {
+  -- Window splits.
+  { "san",      "sn" },
+  { "ta",   "tab sa" },
+  { "tan",  "tab sn" },
+  { "tb",   "tab sb" },
+  { "tbn",  "tab sbn" },
+  { "tf",   "tab sf" },
+  { "th",   "tab h" },
+  { "ttj",  "tab stj" },
+  { "tts",  "tab sts" },
+  { "tv",   "tab sv" },
+  { "va",  "vert sa" },
+  { "van", "vert sn" },
+  { "vb",  "vert sb" },
+  { "vbn", "vert sbn" },
+  { "vf",  "vert sf" },
+  { "vh",  "vert h" },
+  { "vtj", "vert stj" },
+  { "vts", "vert sts" },
+  { "vv",  "vert sv" },
+
+  -- Silent grep.
+  { "sgr  ", "sil gr" },
+  { "sgr! ", "sil gr!" },
+  { "slgr ", "sil lgr" },
+  { "slgr!", "sil lgr!" },
+}
+for _, abb in ipairs(abbreviations) do
+  vim.cmd("cnoreabbrev " .. abb[1] .. " " .. abb[2])
+end
 
 -- Read local configuration files, but with certain commands disabled
 opt.secure = true

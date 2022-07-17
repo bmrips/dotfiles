@@ -25,7 +25,7 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
 
 # History
-HISTSIZE=10000
+HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 HISTFILE="$XDG_CACHE_HOME/zsh/history"
 setopt inc_append_history # Share history between zsh instances

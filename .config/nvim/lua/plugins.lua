@@ -30,6 +30,11 @@ local plugins = {
       vim.cmd "colorscheme gruvbox"
     end,
   },
+  { "ethanholz/nvim-lastplace",
+    config = function()
+      require("nvim-lastplace").setup()
+    end,
+  },
   { "f1rstlady/loupe",
     config = function()
       -- Do not center search results on n/N.

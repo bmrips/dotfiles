@@ -16,5 +16,7 @@ vim.api.nvim_create_autocmd("InsertEnter", {
   group = "haskell",
   buffer = 0,
   desc = "Disable treesitter syntax highlighting in insert mode",
-  callback = function () require("nvim-treesitter.highlight").stop("%") end,
+  callback = function()
+    require("nvim-treesitter.highlight").stop("%")
+  end,
 })

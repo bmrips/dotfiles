@@ -1,7 +1,7 @@
 local opt = vim.opt
 local util = require("util")
 
-opt.background = vim.env.BACKGROUND -- Background according to the terminal background
+opt.background = vim.env.BACKGROUND or "dark" -- Adapt background to terminal background
 opt.breakindentopt = { "shift:4", "sbr" }
 opt.breakindent = true
 opt.clipboard = "unnamedplus"
@@ -31,7 +31,7 @@ opt.tabstop = 4
 opt.termguicolors = true -- Enable Truecolor support
 opt.textwidth = 80
 opt.undofile = true
-opt.wildmode = "longest:full" -- Complete till longest common string
+opt.wildmode = { "longest", "full" } -- Complete till longest common string
 opt.wrap = false
 
 vim.g.gruvbox_italic = 1

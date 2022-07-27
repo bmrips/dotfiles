@@ -34,13 +34,6 @@ opt.undofile = true
 opt.wildmode = { "longest", "full" } -- Complete till longest common string
 opt.wrap = false
 
--- Remove trailing whitespace and empty lines before writing a file.
-vim.api.nvim_create_autocmd("BufWritePre", {
-  pattern = "*",
-  desc = "Remove trailing whitespace and empty lines before writing a file",
-  callback = util.removeTrailingWhitespace,
-})
-
 -- Open the quickfix and location list windows automatically.
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {
   pattern = "[^l]*",

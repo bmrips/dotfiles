@@ -139,6 +139,12 @@ local plugins = {
       require("stabilize").setup()
     end,
   },
+  { "mcauley-penney/tidy.nvim",
+    event = "VimEnter",
+    config = function()
+      require("tidy").setup()
+    end
+  },
   { "michaeljsmith/vim-indent-object",
     event = "VimEnter",
   },

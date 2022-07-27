@@ -1,13 +1,5 @@
 local M = {}
 
--- Remove trailing whitespace, i.e. whitespace at the end of a line or at the
--- end of the file.
-M.removeTrailingWhitespace = function()
-  local view = vim.fn.winsaveview()
-  vim.cmd "keeppatterns keepjumps keepmarks %s/\\v\\s+$|\\s*%(\\n\\s*)+%$//e"
-  vim.fn.winrestview(view)
-end
-
 -- Set the given fold mark with the given level the given line.
 local addFoldMark = function(linenr, fdm, level)
   local cms = vim.opt_local.commentstring:get()

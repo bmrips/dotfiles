@@ -54,6 +54,9 @@ function git() {
     fi
 }
 
+# glab
+alias gl='glab'
+
 # grep
 alias grep='grep -I --color=auto'
 alias fgrep='fgrep -I --color=auto'

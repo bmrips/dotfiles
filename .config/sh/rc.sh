@@ -45,6 +45,15 @@ alias du='du -h'
 # free
 alias free='free -h'
 
+# git
+function git() {
+    if [[ -n $1 && $1 = "cd-root" ]]; then
+        cd "$(/usr/bin/git rev-parse --show-toplevel)" || return
+    else
+        /usr/bin/git "$@"
+    fi
+}
+
 # grep
 alias grep='grep -I --color=auto'
 alias fgrep='fgrep -I --color=auto'

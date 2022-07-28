@@ -338,9 +338,6 @@ local plugins = {
   { "wellle/targets.vim",
     event = "VimEnter",
   },
-  { "zdharma-continuum/zinit-vim-syntax",
-    event = "VimEnter",
-  },
 }
 
 return require("packer").startup { plugins, config = config }

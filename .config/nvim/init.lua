@@ -15,7 +15,7 @@ opt.joinspaces = true
 opt.lazyredraw = true
 opt.linebreak = true
 opt.mouse:append("n")
-opt.path:remove("/usr/include") -- Make the path independent of a language
+opt.path = { "", "." }
 opt.shiftround = true
 opt.shiftwidth = 0
 opt.shortmess:remove("c") -- Do not print completion messages

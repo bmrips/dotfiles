@@ -8,7 +8,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 
-# Aliases {{{1
+#[ Aliases ]# {{{1
 
 # chgrp
 alias chgrp='chgrp --preserve-root'
@@ -121,3 +121,5 @@ alias v=nvim
 # }}}1
 
 load_plugins "$HOME/.config/sh/rc.d"
+
+# vi: fdm=marker

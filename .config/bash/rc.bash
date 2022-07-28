@@ -31,7 +31,7 @@ HISTFILE="$XDG_CACHE_HOME/bash/history"
 HISTCONTROL=ignoreboth
 shopt -s histappend
 
-# Prompt {{{1
+#[ Prompt ]#
 
 # Set red color and '#' for root
 if [[ $(whoami) = root ]]; then
@@ -45,8 +45,7 @@ fi
 # First prompt
 PS1='$(tput sc; rightprompt; tput rc)${color}\u${RESET}@${BLUE}\h${RESET}:${MAGENTA}\w${RESET} ${suffix} '
 
-rightprompt()
-{
+rightprompt() {
     printf "%*s" $COLUMNS "$(__git_ps1 '(%s)') "
 }
 
@@ -57,11 +56,10 @@ GIT_PS1_SHOWUNTRACKEDFILES="on"     # % if there are untracked files.
 GIT_PS1_SHOWUPSTREAM="on"           # <,>,<> behind, ahead, or diverged from upstream.
 
 # Second prompt
-ps2()
-{
+ps2() {
     ps1="${USER}@${HOSTNAME}:${PWD/$HOME}${suffix} "
     printf "%${#ps1}s" "> "
 }
-PS2='$(ps2)' # }}}1
+PS2='$(ps2)'
 
 load_plugins "$HOME/.config/bash/rc.d"

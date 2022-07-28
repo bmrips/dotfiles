@@ -1,3 +1,5 @@
+// vi: fdm=marker
+
 // Enable hardware video acceleration via VAAPI
 user_pref ("media.ffmpeg.vaapi.enabled", true);
 
@@ -9,7 +11,7 @@ user_pref ("gfx.webrender.compositor.force-enabled", true);
 // browser integration plugin.
 user_pref ("media.hardwaremediakeys.enabled", false);
 
-// Scrolling -------------------------------------------------------------------
+// Scrolling // {{{1
 
 // Smooth scroll.
 user_pref ("general.smoothScroll", true);
@@ -31,7 +33,7 @@ user_pref ("mousewheel.system_scroll_override_on_root_content.vertical.factor", 
 user_pref ("toolkit.scrollbox.horizontalScrollDistance", 6);
 user_pref ("toolkit.scrollbox.verticalScrollDistance", 2);
 
-// Privacy ---------------------------------------------------------------------
+// Privacy // {{{1
 
 // Enable plugins on Mozilla's sites.
 user_pref ("extensions.webextensions.restrictedDomains", "");
@@ -146,7 +148,7 @@ user_pref ("javascript.use_us_english_locale", true);
 user_pref ("extensions.pocket.enabled", false);
 user_pref ("extensions.screenshots.disabled", true);
 
-// Security --------------------------------------------------------------------
+// Security // {{{1
 
 // Enforce punycode for internationalized domain names to eliminate possible
 // spoofing.

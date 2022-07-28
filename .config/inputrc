@@ -1,7 +1,7 @@
 # Include the system wide configuration
 $include /etc/inputrc
 
-# Input mode
+#[ Input mode ]#
 
 # Vi input mode
 set editing-mode vi
@@ -15,7 +15,7 @@ $else
 	set vi-cmd-mode-string \1\e[2 q\2
 $endif
 
-# Completion
+#[ Completion ]#
 
 # So completions immediately if there is no partial completion available
 set show-all-if-unmodified on

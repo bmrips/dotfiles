@@ -1,9 +1,11 @@
+# vi: ft=i3config fdm=marker
+
 # ~/.config/i3/config
 #
 # i3 config file
 # See http://i3wm.org/docs/userguide.html for a complete reference.
 
-# Keys ---------------------------------------------------------------------------------------------
+#[ Keys ]# {{{1
 
 # Main and floating modifier
 set $mod Mod4
@@ -95,7 +97,7 @@ set $k_telegram m
 # Media mode
 set $k_mode_media v
 
-# Gruvbox colors -----------------------------------------------------------------------------------
+#[ Gruvbox colors ]# {{{1
 
 # Background
 set $bg0 #2828288
@@ -149,7 +151,7 @@ set $orange_b #fe8019
 set $gray #a89984
 set $gray_b #ebdbb2
 
-# Basics -------------------------------------------------------------------------------------------
+#[ Basics ]# {{{1
 
 # Kill window/container (focused/all on ws)
 bindsym $mod+$secd+$k_kill kill
@@ -171,10 +173,10 @@ bindsym $mod+$secd+$k_reload reload
 bindsym $mod+$tert+$k_restart restart
 
 # Exit i3
-bindsym Group1+$mod+$secd+$k_exit exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do \
-    you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym Group1+$mod+$secd+$k_exit exec \
+    "i3-nagbar -t warning -m 'Do you really want to exit i3?' -b 'Yes, exit i3' 'i3-msg exit'"
 
-# Focus --------------------------------------------------------------------------------------------
+#[ Focus ]# {{{1
 
 # Focus by direction
 bindsym $mod+$k_left  focus left
@@ -202,7 +204,7 @@ bindsym $mod+$secd+$k_urgent [urgent="oldest"] focus
 # Focus scratchpad
 bindsym $mod+$k_scratchpad scratchpad show
 
-# Move ---------------------------------------------------------------------------------------------
+#[ Move ]# {{{1
 
 # Move focused window by direction
 bindsym $mod+$secd+$k_left  move left
@@ -256,7 +258,7 @@ mode "move" {
     bindsym $secd+bracketleft mode "default"
 }
 
-# Mouse --------------------------------------------------------------------------------------------
+#[ Mouse ]# {{{1
 
 # Kill container
 bindsym --border button2 kill
@@ -265,7 +267,7 @@ bindsym --border --whole-window $mod+button2 kill
 # Toggle floating mode
 bindsym --border button3 focus, floating toggle
 
-# Layout -------------------------------------------------------------------------------------------
+#[ Layout ]# {{{1
 
 # Change container layout (stacked, tabbed, toggle split)
 bindsym        $mod+$k_layout_stacked layout stacked
@@ -285,7 +287,7 @@ bindsym $mod+$k_fullscreen fullscreen toggle
 # Toggle floating
 bindsym $mod+$secd+$k_floating_toggle floating toggle
 
-# Resizing -----------------------------------------------------------------------------------------
+#[ Resizing ]# {{{1
 
 # Resizing mode hotkey
 bindsym $mod+$k_mode_resize mode "resize"
@@ -343,7 +345,7 @@ mode "resize" {
     bindsym $secd+bracketleft mode "default"
 }
 
-# Workspaces ---------------------------------------------------------------------------------------
+#[ Workspaces ]# {{{1
 
 # Workspace identifiers
 set $ws0 0
@@ -409,7 +411,7 @@ bindsym $mod+$k_ws_prev workspace prev
 bindsym $mod+$secd+$k_ws_next        move container to workspace next; workspace next
 bindsym $mod+$secd+$k_ws_prev        move container to workspace prev; workspace prev
 
-# Applications -------------------------------------------------------------------------------------
+#[ Applications ]# {{{1
 
 # Start a terminal
 bindsym $mod+$k_term exec konsole
@@ -451,7 +453,7 @@ for_window [class="Nm-connection-editor"] floating enable, border normal 2
 # Show Telegram
 bindsym $mod+$k_telegram [class="TelegramDesktop"] scratchpad show
 
-# Media control ------------------------------------------------------------------------------------
+#[ Media control ]# {{{1
 
 # Path to scripts
 set $mediactl exec --no-startup-id ~/.local/bin/mediactl
@@ -498,7 +500,7 @@ mode "media" {
     bindsym $secd+bracketleft mode "default"
 }
 
-# Miscellaneous options ----------------------------------------------------------------------------
+#[ Miscellaneous options ]# {{{1
 
 # The default orientation for new wss (auto/horizontal/vertical)
 default_orientation auto
@@ -527,7 +529,7 @@ workspace_layout default
 # Enable the option of going back to the previous workspace (yes/no)
 workspace_auto_back_and_forth yes
 
-# Colors, fonts and borders ------------------------------------------------------------------------
+#[ Colors, fonts and borders ]# {{{1
 
 # Font (furthermore determines the size of the window header)
 font pango:Noto Sans Display Regular 10
@@ -550,10 +552,8 @@ client.background       $bg0
 for_window [class=".*"] title_format "%title"
 title_align center
 
-# Startup ------------------------------------------------------------------------------------------
+#[ Startup ]# {{{1
 
 # Startup
 exec_always --no-startup-id autostart_always
 exec        --no-startup-id autostart
-
-# vi: ft=i3config tw=100

@@ -1,4 +1,4 @@
-## C/C++ {{{1
+#[ C/C++ ]# {{{1
 
 # Object files
 *.o
@@ -56,11 +56,11 @@ dkms.conf
 *.mod
 *.smod
 
-## Git {{{1
+#[ Git ]# {{{1
 
 .git
 
-## Haskell {{{1
+#[ Haskell ]# {{{1
 
 dist
 dist-*
@@ -86,7 +86,7 @@ cabal.project.local~
 .HTF/
 .ghc.environment.*
 
-## Java {{{1
+#[ Java ]# {{{1
 
 # Compiled class file
 *.class
@@ -106,7 +106,7 @@ cabal.project.local~
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-## TeX {{{1
+#[ TeX ]# {{{1
 
 # Core latex/pdflatex auxiliary files:
 *.aux

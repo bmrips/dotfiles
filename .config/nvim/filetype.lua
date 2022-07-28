@@ -1,6 +1,7 @@
 vim.filetype.add {
   extension = {
     bash = "bash",
+    plymouth = "dosini",
     xkb = "xkb",
 
     -- TeX

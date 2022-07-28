@@ -125,6 +125,7 @@ local plugins = {
   { "junegunn/vim-easy-align",
     event = "VimEnter",
   },
+  { 'lewis6991/impatient.nvim' },
   { "LionC/nest.nvim" },
   { "lukas-reineke/virt-column.nvim",
     event = "VimEnter",

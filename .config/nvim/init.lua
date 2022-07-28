@@ -1,3 +1,5 @@
+require("impatient")
+
 local opt = vim.opt
 local util = require("util")
 

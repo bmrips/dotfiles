@@ -56,3 +56,5 @@ set selection-clipboard "clipboard"
 # Navigate through pages with , and .
 map , navigate previous
 map . navigate next
+
+# vi: ft=conf

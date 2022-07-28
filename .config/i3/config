@@ -556,4 +556,4 @@ title_align center
 exec_always --no-startup-id autostart_always
 exec        --no-startup-id autostart
 
-# vi: ft=conf tw=100
+# vi: ft=i3config tw=100

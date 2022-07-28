@@ -8,3 +8,5 @@ zoom_out 5
 
 # Rotate with ctrl + right mouse button
 rotate C-3
+
+# vi: ft=conf

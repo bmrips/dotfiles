@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 # Find configuration file
-for colors in {$XDG_CONFIG_HOME,/etc}/ls_colors/ls_colors.conf; do
+for colors in {$XDG_CONFIG_HOME,/etc}/dircolors.conf; do
 	if [[ -r $colors ]]; then
 		COLORS="$colors"
 		break

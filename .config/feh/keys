@@ -37,3 +37,5 @@ toggle_keep_vp v
 
 # Save the file list
 save_filelist S
+
+# vi: ft=conf

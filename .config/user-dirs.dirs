@@ -1,1 +1,3 @@
 XDG_PUBLICSHARE_DIR="$HOME/public"
+
+# vi: ft=conf

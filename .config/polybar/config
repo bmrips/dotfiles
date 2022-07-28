@@ -165,4 +165,4 @@ format-foreground = ${colors.foreground-alt}
 format-background = ${root.background}
 format-padding = 4
 
-; vim:ft=dosini
+; vi: ft=dosini

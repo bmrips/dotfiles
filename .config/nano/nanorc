@@ -302,3 +302,5 @@ include "/usr/share/nano/*.nanorc"
 #unbind M-J main
 #unbind M-T main
 #set multibuffer
+
+# vi: ft=conf

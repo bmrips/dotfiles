@@ -1449,4 +1449,4 @@
 (( ${#p10k_config_opts} )) && setopt ${p10k_config_opts[@]}
 'builtin' 'unset' 'p10k_config_opts'
 
-# vi: ft=zsh sw=2
+# vi: sw=2

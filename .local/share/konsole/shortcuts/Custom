@@ -1,3 +1,5 @@
+<!-- vi: ft=xml -->
+
 <gui version="1" name="konsole">
   <ActionProperties>
     <Action shortcut="Ctrl+Shift+W" name="close-session"/>

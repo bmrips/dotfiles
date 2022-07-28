@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Append to the path
 append_path () {
 	case ":$PATH:" in
@@ -22,7 +24,7 @@ prepend_path () {
 
 # Load plugins from the given path
 load_plugins () {
-    for plugin in $1/*; do
+    for plugin in "$1"/*; do
         if [[ -r "$plugin" ]]; then
             source "$plugin"
         fi

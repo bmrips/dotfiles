@@ -29,7 +29,7 @@ done
 mkdir -p "$dir"
 file="$dir/$(date +%Y%m%d-%H%M%S).png"
 
-maim $mode "$file" --hidecursor
+maim "$mode" "$file" --hidecursor
 
 if [[ -n $clipboard ]]; then
     xclip -selection clipboard -in -target image/png "$file"

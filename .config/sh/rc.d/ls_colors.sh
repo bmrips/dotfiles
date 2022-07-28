@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Find configuration file
 for colors in {$XDG_CONFIG_HOME,/etc}/ls_colors/ls_colors.conf; do
 	if [[ -r $colors ]]; then
@@ -8,5 +10,5 @@ done
 
 # Exexcute dircolors if $COLORS file exists
 if [[ -n $COLORS ]]; then
-    eval "`dircolors --bourne-shell "$COLORS" 2>/dev/null`"
+    eval "$(dircolors --bourne-shell "$COLORS" 2>/dev/null)"
 fi

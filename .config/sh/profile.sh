@@ -1,3 +1,5 @@
+# shellcheck shell=bash
+
 # Import utilities
 source "$HOME/.config/sh/utilities.sh"
 

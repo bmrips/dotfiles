@@ -1,8 +1,8 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 
 if [[ -z $1 ]]; then
     echo "Error: no argument given!" >&2
-    exit -1
+    exit 1
 fi
 
 base="${1%.pdf}"

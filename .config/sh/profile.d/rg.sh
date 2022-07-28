@@ -1,1 +1,3 @@
+# shellcheck shell=bash
+
 export RIPGREP_CONFIG_PATH="$XDG_CONFIG_HOME/rg/rg.conf"

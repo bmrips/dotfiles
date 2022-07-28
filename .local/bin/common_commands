@@ -1,6 +1,6 @@
-#!/usr/bin/zsh
+#!/usr/bin/bash
 
-cat $XDG_CACHE_HOME/zsh/history \
+cat "$XDG_CACHE_HOME/zsh/history" \
     | tr '|;' "\n" \
     | sed "s/^ //g" \
     | cut -d " " -f 1 \

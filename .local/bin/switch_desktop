@@ -3,7 +3,7 @@
 # Handles diagonal desktop switching.  It takes the direction as an argument.
 # Whether and how the desktop is switched, depends then on the current desktop
 
-workspace=`xdotool get_desktop`
+workspace=$(xdotool get_desktop)
 
 case $1 in
 	upleft)

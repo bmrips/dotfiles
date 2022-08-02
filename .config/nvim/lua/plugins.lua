@@ -225,6 +225,9 @@ local plugins = {
         },
       }
 
+      -- Markdown
+      lspconfig.marksman.setup {}
+
       -- TeX
       lspconfig.texlab.setup {
         settings = {

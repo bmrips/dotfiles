@@ -75,7 +75,6 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 
 -- Highlight yanked text.
 vim.api.nvim_create_autocmd('TextYankPost', {
-  pattern = '*',
   desc = "Highlight yanked text",
   callback = function()
     vim.highlight.on_yank()

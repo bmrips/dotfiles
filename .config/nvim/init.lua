@@ -204,7 +204,16 @@ nest.applyKeymaps {
     { "go", ":Sort<CR>" },
   }},
 
-  { "<CR>",  "&buftype !~ 'quickfix\\|prompt\\|nofile' ? '<C-^>' : '<CR>'", options = {expr = true} },
+  { "<CR>", options = {expr = true},
+    function()
+      local type = vim.opt_local.buftype:get()
+      if type == "quickfix" or type == "prompt" or type == "nofile" then
+        return "<CR>"
+      else
+        return "<C-^>"
+      end
+    end,
+  },
 
   -- Enhanced increment/decrement
   { "<C-a>",  require("dial.map").inc_normal() },

@@ -183,7 +183,9 @@ nest.applyKeymaps {
   { "U", "<Cmd>MundoToggle<CR>" },
 
   { "<Leader>", {
-    { "c",     "<Cmd>Beacon<CR>" },
+    { "c", "<Cmd>Beacon<CR>" },
+
+    { "d", "<Cmd>TroubleToggle<CR>" },
     { "<C-d>", -- Toggle between inline and virtual line diagnostics
       function()
         local config = vim.diagnostic.config() or
@@ -206,7 +208,9 @@ nest.applyKeymaps {
 
     { "s", "<Cmd>ToggleSession<CR>" },
 
-    { "t", "<Cmd>TroubleToggle<CR>" },
+    { "t", "<Cmd>Drex<CR>" },
+    { "T", ":Drex" },
+    { "<C-t>", "<Cmd>DrexDrawerOpen<CR>" },
   }},
 
   -- Fzf

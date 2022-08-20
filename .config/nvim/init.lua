@@ -286,6 +286,8 @@ nest.applyKeymaps {
     -- Replace the current line by the file under the cursor
     { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>" },
 
+    { "n", function() require("notify").dismiss() end },
+
     { "s", "<Cmd>ToggleSession<CR>" },
 
     { "t", "<Cmd>TroubleToggle<CR>" },

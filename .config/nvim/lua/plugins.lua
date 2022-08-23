@@ -257,6 +257,7 @@ local plugins = {
   },
   { "nvim-lualine/lualine.nvim",
     event = "VimEnter",
+    after = "drex.nvim",
     requires = {
       { "kyazdani42/nvim-web-devicons", event = "VimEnter" },
     },

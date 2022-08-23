@@ -244,6 +244,26 @@ local plugins = {
           },
         },
       }
+
+      -- Set 'signcolumn' for filetypes with a language server.
+      vim.api.nvim_create_autocmd("FileType", {
+        pattern = {
+          "bash",
+          "c",
+          "cpp",
+          "haskell",
+          "lua",
+          "markdown",
+          "objc",
+          "objcpp",
+          "sh",
+          "tex"
+        },
+        desc = "Set 'signcolumn' for filetypes with a language server",
+        callback = function()
+          vim.opt_local.signcolumn = "yes"
+        end,
+      })
     end,
   },
   { "norcalli/nvim-colorizer.lua",

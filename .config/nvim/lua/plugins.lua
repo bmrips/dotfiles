@@ -157,16 +157,52 @@ local plugins = {
     config = function()
       local lspconfig = require("lspconfig")
 
+      local on_attach = function(_, bufnr)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+        require("nest").applyKeymaps {
+          { buffer = true, {
+            { "K", vim.lsp.buf.hover },
+            { "g", {
+              { "d", vim.lsp.buf.definition },
+              { "D", vim.lsp.buf.declaration },
+              { "i", vim.lsp.buf.implementation },
+              { "r", vim.lsp.buf.references },
+              { "t", vim.lsp.buf.type_definition },
+            }},
+            { "<Leader>", {
+              { "a", vim.lsp.buf.code_action },
+              { "f", vim.lsp.buf.formatting },
+              { "k", vim.lsp.buf.signature_help },
+              { "r", vim.lsp.buf.rename },
+              { "w", {
+                { "a", vim.lsp.buf.add_workspace_folder },
+                { "l", function()
+                  vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+                end,
+                },
+                { "r", vim.lsp.buf.remove_workspace_folder },
+              }},
+            }},
+          }}
+        }
+      end
+
       -- Bash
       lspconfig.bashls.setup {
+        on_attach = on_attach,
         filetypes = { "bash", "sh" },
       }
 
       -- C, C++ and Objective C
-      lspconfig.clangd.setup {}
+      lspconfig.clangd.setup {
+        on_attach = on_attach,
+      }
 
       -- Haskell
       lspconfig.hls.setup {
+        on_attach = on_attach,
         settings = {
           haskell = {
             formattingProvider = "stylish-haskell"
@@ -176,6 +212,7 @@ local plugins = {
 
       -- Lua
       require'lspconfig'.sumneko_lua.setup {
+        on_attach = on_attach,
         settings = {
           Lua = {
             runtime = {
@@ -197,10 +234,13 @@ local plugins = {
       }
 
       -- Markdown
-      lspconfig.marksman.setup {}
+      lspconfig.marksman.setup {
+        on_attach = on_attach,
+      }
 
       -- TeX
       lspconfig.texlab.setup {
+        on_attach = on_attach,
         settings = {
           texlab = {
             build = {

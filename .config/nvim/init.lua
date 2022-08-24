@@ -181,10 +181,14 @@ nest.applyKeymaps {
 
   { "U", "<Cmd>MundoToggle<CR>" },
 
+  { "[d", vim.diagnostic.goto_prev },
+  { "]d", vim.diagnostic.goto_next },
+
   { "<Leader>", {
     { "c", "<Cmd>Beacon<CR>" },
 
-    { "d", "<Cmd>TroubleToggle<CR>" },
+    { "d", vim.diagnostic.open_float },
+    { "D", "<Cmd>TroubleToggle<CR>" },
     { "<C-d>", -- Toggle between inline and virtual line diagnostics
       function()
         local config = vim.diagnostic.config() or

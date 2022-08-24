@@ -9,7 +9,6 @@ local config = {
 
 local plugins = {
   { "andymass/vim-matchup",
-    event = "VimEnter",
     config = function()
       -- Do not display off-screen matches
       vim.g.matchup_matchparen_offscreen = { method = 'status_manual' }
@@ -19,11 +18,8 @@ local plugins = {
       vim.g.matchup_transmute_enabled = 1
     end,
   },
-  { "direnv/direnv.vim",
-    event = "VimEnter",
-  },
+  { "direnv/direnv.vim" },
   { "ellisonleao/gruvbox.nvim",
-    event = "VimEnter",
     config = function()
       vim.g.gruvbox_italic = 1
       vim.g.gruvbox_invert_selection = 0
@@ -41,14 +37,9 @@ local plugins = {
       vim.g.LoupeCenterResults = 0
     end,
   },
-  { "f1rstlady/vim-unimpaired",
-    event = "VimEnter",
-  },
+  { "f1rstlady/vim-unimpaired" },
   { "folke/trouble.nvim",
-    event = "VimEnter",
-    requires = {
-      { "kyazdani42/nvim-web-devicons", event = "VimEnter" },
-    },
+    requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require("trouble").setup()
     end,
@@ -57,10 +48,7 @@ local plugins = {
     opt = true,
   },
   { "hrsh7th/nvim-compe",
-    event = "VimEnter",
-    requires = {
-      { "GoldsteinE/compe-latex-symbols", event = "VimEnter" },
-    },
+    requires = "GoldsteinE/compe-latex-symbols",
     config = function()
       require("compe").setup {
         source = {
@@ -87,14 +75,12 @@ local plugins = {
     end,
   },
   { "ibhagwan/fzf-lua",
-    event = "VimEnter",
     requires = {
-      { "kyazdani42/nvim-web-devicons", event = "VimEnter" },
-      { "vijaymarupudi/nvim-fzf", event = "VimEnter" },
+      { "kyazdani42/nvim-web-devicons" },
+      { "vijaymarupudi/nvim-fzf" },
     },
   },
   { "jghauser/fold-cycle.nvim",
-    event = "VimEnter",
     config = function()
       require("fold-cycle").setup()
     end,
@@ -106,7 +92,6 @@ local plugins = {
     end,
   },
   { "junegunn/goyo.vim",
-    event = "VimEnter",
     config = function()
       -- Fit the window size to the text width.
       vim.api.nvim_create_autocmd("User", {
@@ -119,23 +104,17 @@ local plugins = {
       })
     end,
   },
-  { "junegunn/limelight.vim",
-    event = "VimEnter",
-  },
-  { "junegunn/vim-easy-align",
-    event = "VimEnter",
-  },
+  { "junegunn/limelight.vim" },
+  { "junegunn/vim-easy-align" },
   { 'lewis6991/impatient.nvim' },
   { "LionC/nest.nvim" },
   { "lukas-reineke/virt-column.nvim",
-    event = "VimEnter",
     after = "gruvbox.nvim",
     config = function()
       require("virt-column").setup()
     end,
   },
   { "luukvbaal/stabilize.nvim",
-    event = "VimEnter",
     config = function()
       require("stabilize").setup()
     end,
@@ -151,14 +130,11 @@ local plugins = {
     end,
   },
   { "mcauley-penney/tidy.nvim",
-    event = "VimEnter",
     config = function()
       require("tidy").setup()
     end
   },
-  { "michaeljsmith/vim-indent-object",
-    event = "VimEnter",
-  },
+  { "michaeljsmith/vim-indent-object" },
   { "monaqa/dial.nvim",
     config = function()
       local augend = require("dial.augend")
@@ -182,7 +158,6 @@ local plugins = {
     end,
   },
   { "neovim/nvim-lspconfig",
-    event = "VimEnter",
     config = function()
       local lspconfig = require("lspconfig")
 
@@ -267,7 +242,6 @@ local plugins = {
     end,
   },
   { "norcalli/nvim-colorizer.lua",
-    event = "VimEnter",
     config = function()
       require("colorizer").setup()
     end,
@@ -276,11 +250,7 @@ local plugins = {
     opt = true,
   },
   { "nvim-lualine/lualine.nvim",
-    event = "VimEnter",
-    after = "drex.nvim",
-    requires = {
-      { "kyazdani42/nvim-web-devicons", event = "VimEnter" },
-    },
+    requires = "kyazdani42/nvim-web-devicons",
     config = function()
       vim.opt.showmode = false
       require('lualine').setup {
@@ -322,7 +292,6 @@ local plugins = {
     end,
   },
   { "nvim-treesitter/nvim-treesitter",
-    event = "VimEnter",
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup {
@@ -338,43 +307,27 @@ local plugins = {
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
     end,
   },
-  { "rafcamlet/nvim-luapad",
-    event = "VimEnter",
-  },
-  { "rainbowhxch/beacon.nvim",
-    event = "VimEnter",
-  },
+  { "rafcamlet/nvim-luapad" },
+  { "rainbowhxch/beacon.nvim" },
   { "rcarriga/nvim-notify",
-    event = "VimEnter",
     config = function()
       vim.notify = require("notify")
     end,
   },
   { "sQVe/sort.nvim",
-    event = "VimEnter",
     config = function()
       require("sort").setup()
       vim.cmd "cnoreabbrev sort Sort"
     end,
   },
   { "simnalamburt/vim-mundo",
-    event = "VimEnter",
     commit = "595ee33",
   },
-  { "sindrets/winshift.nvim",
-    event = "VimEnter",
-  },
-  { "stefandtw/quickfix-reflector.vim",
-    event = "VimEnter",
-  },
-  { "stevearc/dressing.nvim",
-    event = "VimEnter",
-  },
+  { "sindrets/winshift.nvim" },
+  { "stefandtw/quickfix-reflector.vim" },
+  { "stevearc/dressing.nvim" },
   { 'theblob42/drex.nvim',
-    event = "VimEnter",
-    requires = {
-      { 'kyazdani42/nvim-web-devicons', event = "VimEnter" }
-    },
+    requires = 'kyazdani42/nvim-web-devicons',
     config = function()
       require("drex.config").configure {
         hijack_netrw = true,
@@ -407,22 +360,12 @@ local plugins = {
       })
     end
   },
-  { "tpope/vim-endwise",
-    event = "VimEnter",
-  },
-  { "tpope/vim-repeat",
-    event = "VimEnter",
-  },
-  { "tpope/vim-surround",
-    event = "VimEnter",
-  },
-  { "tweekmonster/startuptime.vim",
-    event = "VimEnter",
-  },
+  { "tpope/vim-endwise" },
+  { "tpope/vim-repeat" },
+  { "tpope/vim-surround" },
+  { "tweekmonster/startuptime.vim" },
   { "wbthomason/packer.nvim" },
-  { "wellle/targets.vim",
-    event = "VimEnter",
-  },
+  { "wellle/targets.vim" },
 }
 
 return require("packer").startup { plugins, config = config }

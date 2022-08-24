@@ -197,8 +197,8 @@ nest.applyKeymaps {
     },
 
     -- Focus
-    { "f",     "<Cmd>Goyo<CR>" },
-    { "<C-f>", "<Cmd>Limelight!!<CR>" },
+    { "f",     "<Cmd>ZenMode<CR>" },
+    { "<C-f>", "<Cmd>Twilight<CR>" },
 
     -- Replace the current line by the file under the cursor
     { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>" },

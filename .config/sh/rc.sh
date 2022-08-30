@@ -105,6 +105,7 @@ alias trash='mv -t $XDG_DATA_HOME/Trash/files'
 
 # tree
 alias tree='tree -C --dirsfirst'
+alias gtree='tree --gitignore'
 
 # wget
 alias wget='wget -c'
@@ -115,7 +116,7 @@ alias c=cd
 alias g=git
 alias l=ll
 alias o=open
-alias t=tree
+alias t=gtree
 alias v=nvim
 
 # }}}1

@@ -8,7 +8,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse\
  --pointer=❯\
  --color=bg+:0,info:8,border:8,prompt:13,pointer:12,marker:13,fg+:12,hl:9,hl+:9\
  --preview-window=right,border,hidden\
- --bind='f3:toggle-preview-wrap,f4:toggle-preview,f5:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)'"
+ --bind='alt-a:toggle-all,f3:toggle-preview-wrap,f4:toggle-preview,f5:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)'"
 
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_CTRL_T_OPTS="--preview='bat --plain --color=always --paging=never {}'"

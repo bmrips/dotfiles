@@ -1,0 +1,49 @@
+#!/usr/bin/bash
+
+FZF_STATE_PREFIX=/tmp/fzf
+mkdir -p $FZF_STATE_PREFIX
+
+case $1 in
+    binds)
+        echo "alt-h:execute(fzf-state toggle hide-hidden-files)+reload($2),alt-i:execute(fzf-state toggle show-ignored-files)+reload($2)"
+        exit
+        ;;
+    get-source)
+        if [[ -f $FZF_STATE_PREFIX/hide-hidden-files ]]; then
+            unset hidden
+        else
+            hidden="--hidden"
+        fi
+        if [[ -f $FZF_STATE_PREFIX/show-ignored-files ]]; then
+            ignored="--no-ignore"
+        else
+            unset ignored
+        fi
+
+        case $2 in
+            files)
+                eval fd $hidden $ignored --type=file
+                ;;
+            directories)
+                eval fd $hidden $ignored --type=directory
+                ;;
+        esac
+        exit
+        ;;
+    toggle)
+        if [[ -z $2 ]]; then
+            echo "Error: no attribute given!" >&2
+            exit 1
+        fi
+
+        file="$FZF_STATE_PREFIX/$2"
+
+        if [[ -f $file ]]; then
+            rm "$file"
+        else
+            touch "$file"
+        fi
+
+        exit
+        ;;
+esac

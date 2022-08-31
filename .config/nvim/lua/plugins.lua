@@ -356,9 +356,7 @@ local plugins = {
       vim.cmd "cnoreabbrev sort Sort"
     end,
   },
-  { "simnalamburt/vim-mundo",
-    commit = "595ee33",
-  },
+  { "simnalamburt/vim-mundo" },
   { "sindrets/winshift.nvim" },
   { "stefandtw/quickfix-reflector.vim" },
   { "stevearc/dressing.nvim" },

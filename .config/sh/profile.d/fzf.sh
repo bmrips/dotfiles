@@ -17,6 +17,8 @@ export FZF_ALT_C_COMMAND="fzf-state get-source directories"
 export DIR_PREVIEW="ls -l --human-readable --color=always --group-directories-first --time-style=+t --literal {} | cut --delimiter=\" \" --fields=1,5- | sed \"s/ t / /\" | tail -n+2"
 export FZF_ALT_C_OPTS="--preview='$DIR_PREVIEW' --bind='$(fzf-state binds "$FZF_ALT_C_COMMAND")'"
 
+export FZF_COMPLETION_OPTS="--height=80%"
+
 # Path and directory completion, e.g. for `cd .config/**`
 _fzf_compgen_path() {
     fd --follow --hidden --exclude ".git" . "$1"

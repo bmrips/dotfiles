@@ -32,11 +32,22 @@ setopt inc_append_history # Share history between zsh instances
 setopt extended_history   # Save timestamps and duration
 setopt hist_reduce_blanks # Remove superfluous blanks
 
+# Next/previous history item which the command line is a prefix of
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey "^J" down-line-or-beginning-search # Down
 bindkey "^K" up-line-or-beginning-search # Up
+
+# vim-surround
+autoload -Uz surround
+zle -N delete-surround surround
+zle -N add-surround surround
+zle -N change-surround surround
+bindkey -a cs change-surround
+bindkey -a ds delete-surround
+bindkey -a ys add-surround
+bindkey -M visual S add-surround
 
 load_plugins "$HOME/.config/zsh/rc.d"

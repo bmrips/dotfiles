@@ -96,18 +96,7 @@ vim.g.maplocalleader = util.termcode("<C-\\>")
 local nest = require("nest")
 nest.defaults.options.silent = false
 nest.applyKeymaps {
-  { "jk", "<Esc>", mode = "i" },
-
-  { mode = "_", {
-    { "<Space>", ":" },
-    { "'", "`" },
-    { "<C-p>", "<C-i>" },
-
-    { "ga", "<Plug>(EasyAlign)", options = {noremap = false} },
-
-    { "go", ":Sort<CR>" },
-  }},
-
+  { "<BS>", "<Plug>(LoupeClearHighlight)", options = {noremap = false} },
   { "<CR>", options = {expr = true},
     function()
       local type = vim.opt_local.buftype:get()
@@ -118,72 +107,99 @@ nest.applyKeymaps {
       end
     end,
   },
-
-  -- Enhanced increment/decrement
-  { "<C-a>",  require("dial.map").inc_normal() },
-  { "<C-a>",  require("dial.map").inc_visual(), mode = "v" },
-  { "<C-x>",  require("dial.map").dec_normal() },
-  { "<C-x>",  require("dial.map").dec_visual(), mode = "v" },
-  { "g<C-a>", require("dial.map").inc_gvisual(), mode = "v" },
-  { "g<C-x>", require("dial.map").dec_gvisual(), mode = "v" },
-
+  { "<Space>", ":", mode = "_" },
   { "<Tab>",   function() require("fold-cycle").open() end },
   { "<S-Tab>", function() require("fold-cycle").close() end },
-  { "zC",      function() require("fold-cycle").close_all() end, options = {noremap = false} },
-
-  { "<C-", {
-    { "w>", {
-      { "<CR>",  "<Cmd>wincmd ^<CR>" },
-      { "m",     "<Cmd>WinShift<CR>" },
-      { "X",     "<Cmd>WinShift swap<CR>" },
-      { "<C-]>", "<Cmd>vertical wincmd ]<CR>" },
-      { "<C-d>", "<Cmd>vertical wincmd d<CR>" },
-      { "<C-f>", "<Cmd>vertical wincmd f<CR>" },
-      { "<C-i>", "<Cmd>vertical wincmd i<CR>" },
-    }},
-
-    { "h>", "<Cmd>wincmd h<CR>" },
-    { "j>", "<Cmd>wincmd j<CR>" },
-    { "k>", "<Cmd>wincmd k<CR>" },
-    { "l>", "<Cmd>wincmd l<CR>" },
-
-    { "Left>",  "<C-w><" },
-    { "Down>",  "<C-w>-" },
-    { "Up>",    "<C-w>+" },
-    { "Right>", "<C-w>>" },
-  }},
-
-  { "<A-", {
-    { "n>", "<Cmd>tabnew<CR>" },
-    { "c>", "<Cmd>tabclose<CR>" },
-    { "k>", "<Cmd>tabprev<CR>" },
-    { "j>", "<Cmd>tabnext<CR>" },
-    { "h>", "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'", options = {expr = true} },
-    { "l>", "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'", options = {expr = true} },
-    { "Tab>", "g<Tab>" },
-    { "o>", "<Cmd>tabonly<CR>" },
-  }},
-
-  { "S",  ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>" },
-
+  { "'", "`" },
+  { "[d", vim.diagnostic.goto_prev },
+  { "]d", vim.diagnostic.goto_next },
   { "g", {
+    { "a", "<Plug>(EasyAlign)", mode = "_", options = {noremap = false} },
+    { "o", ":Sort<CR>", mode = "_" },
     { "s", ":%s/\\v/g<Left><Left>" },
     { "s", ":s/\\v/g<Left><Left>", mode = "x" },
     { "S", ":sil gr! <C-R><C-w><CR>" },
+    { "<C-", {
+      { "a>", require("dial.map").inc_gvisual(), mode = "x" },
+      { "x>", require("dial.map").dec_gvisual(), mode = "x" },
+    }},
   }},
-
-  { "<BS>", "<Plug>(LoupeClearHighlight)", options = {noremap = false} },
-
   { "m", {
     { "<CR>",    "<Cmd>make!<CR>" },
     { "<Space>", ":<C-U>make!<Space>" },
   }},
-
+  { "S",  ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>" },
   { "U", "<Cmd>MundoToggle<CR>" },
-
-  { "[d", vim.diagnostic.goto_prev },
-  { "]d", vim.diagnostic.goto_next },
-
+  { "z", {
+    { "C", function() require("fold-cycle").close_all() end, options = {noremap = false} },
+    { "F", "':Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'", mode = "_", options = {expr = true} },
+  }},
+  { "<A-", {
+    { "c>", "<Cmd>tabclose<CR>" },
+    { "h>", "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'", options = {expr = true} },
+    { "j>", "<Cmd>tabnext<CR>" },
+    { "k>", "<Cmd>tabprev<CR>" },
+    { "l>", "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'", options = {expr = true} },
+    { "n>", "<Cmd>tabnew<CR>" },
+    { "o>", "<Cmd>tabonly<CR>" },
+    { "Tab>", "g<Tab>" },
+  }},
+  { "<C-", {
+    { "Left>",  "<C-w><" },
+    { "Down>",  "<C-w>-" },
+    { "Up>",    "<C-w>+" },
+    { "Right>", "<C-w>>" },
+    { "a>",  require("dial.map").inc_normal() },
+    { "a>",  require("dial.map").inc_visual(), mode = "x" },
+    { "h>", "<Cmd>wincmd h<CR>" },
+    { "j>", "<Cmd>wincmd j<CR>" },
+    { "k>", "<Cmd>wincmd k<CR>" },
+    { "l>", "<Cmd>wincmd l<CR>" },
+    { "p>", "<C-i>", mode = "_" },
+    { "w>", {
+      { "<CR>",  "<Cmd>wincmd ^<CR>" },
+      { "m",     "<Cmd>WinShift<CR>" },
+      { "X",     "<Cmd>WinShift swap<CR>" },
+      { "<C-", {
+        { "]>", "<Cmd>vertical wincmd ]<CR>" },
+        { "d>", "<Cmd>vertical wincmd d<CR>" },
+        { "f>", "<Cmd>vertical wincmd f<CR>" },
+        { "i>", "<Cmd>vertical wincmd i<CR>" },
+      }},
+    }},
+    { "x>",  require("dial.map").dec_normal() },
+    { "x>",  require("dial.map").dec_visual(), mode = "x" },
+    { "_>", {
+      { ":",     "<Cmd>FzfLua command_history<CR>" },
+      { "/",     "<Cmd>FzfLua search_history<CR>" },
+      { "?",     "<Cmd>FzfLua search_history<CR>" },
+      { "a",     "<Cmd>FzfLua args<CR>" },
+      { "b",     "<Cmd>FzfLua buffers<CR>" },
+      { "c",     "<Cmd>FzfLua commands<CR>" },
+      { "C",     "<Cmd>FzfLua colorschemes<CR>" },
+      { "f",     "<Cmd>FzfLua files<CR>" },
+      { "F",     "<Cmd>FzfLua oldfiles<CR>" },
+      { "<C-f>", "<Cmd>FzfLua git_files<CR>" },
+      { "g",     "<Cmd>FzfLua live_grep<CR>" },
+      { "G",     "<Cmd>FzfLua live_grep_resume<CR>" },
+      { "<C-g>", "<Cmd>FzfLua live_grep_glob<CR>" },
+      { "h",     "<Cmd>FzfLua help_tags<CR>" },
+      { "H",     "<Cmd>FzfLua man_pages<CR>" },
+      { "j",     "<Cmd>FzfLua jumps<CR>" },
+      { "l",     "<Cmd>FzfLua lines<CR>" },
+      { "L",     "<Cmd>FzfLua blines<CR>" },
+      { "m",     "<Cmd>FzfLua marks<CR>" },
+      { "o",     "<Cmd>FzfLua grep_cword<CR>" },
+      { "O",     "<Cmd>FzfLua grep_cWORD<CR>" },
+      { "<C-o>", "<Cmd>FzfLua grep_visual<CR>" },
+      { "p",     "<Cmd>FzfLua packadd<CR>" },
+      { "q",     "<Cmd>FzfLua quickfix<CR>" },
+      { "Q",     "<Cmd>FzfLua loclist<CR>" },
+      { "r",     "<Cmd>FzfLua registers<CR>" },
+      { "s",     "<Cmd>FzfLua spell_suggest<CR>" },
+      { "t",     "<Cmd>FzfLua filetypes<CR>" },
+    }},
+  }},
   { "<Leader>", {
     { "c", "<Cmd>Beacon<CR>" },
 
@@ -216,41 +232,8 @@ nest.applyKeymaps {
     { "<C-t>", "<Cmd>DrexDrawerOpen<CR>" },
   }},
 
-  -- Fzf
-  { "<C-_>", {
-    { ":",     "<Cmd>FzfLua command_history<CR>" },
-    { "/",     "<Cmd>FzfLua search_history<CR>" },
-    { "?",     "<Cmd>FzfLua search_history<CR>" },
-    { "a",     "<Cmd>FzfLua args<CR>" },
-    { "b",     "<Cmd>FzfLua buffers<CR>" },
-    { "c",     "<Cmd>FzfLua commands<CR>" },
-    { "C",     "<Cmd>FzfLua colorschemes<CR>" },
-    { "f",     "<Cmd>FzfLua files<CR>" },
-    { "F",     "<Cmd>FzfLua oldfiles<CR>" },
-    { "<C-f>", "<Cmd>FzfLua git_files<CR>" },
-    { "g",     "<Cmd>FzfLua live_grep<CR>" },
-    { "G",     "<Cmd>FzfLua live_grep_resume<CR>" },
-    { "<C-g>", "<Cmd>FzfLua live_grep_glob<CR>" },
-    { "h",     "<Cmd>FzfLua help_tags<CR>" },
-    { "H",     "<Cmd>FzfLua man_pages<CR>" },
-    { "j",     "<Cmd>FzfLua jumps<CR>" },
-    { "l",     "<Cmd>FzfLua lines<CR>" },
-    { "L",     "<Cmd>FzfLua blines<CR>" },
-    { "m",     "<Cmd>FzfLua marks<CR>" },
-    { "o",     "<Cmd>FzfLua grep_cword<CR>" },
-    { "O",     "<Cmd>FzfLua grep_cWORD<CR>" },
-    { "<C-o>", "<Cmd>FzfLua grep_visual<CR>" },
-    { "p",     "<Cmd>FzfLua packadd<CR>" },
-    { "q",     "<Cmd>FzfLua quickfix<CR>" },
-    { "Q",     "<Cmd>FzfLua loclist<CR>" },
-    { "r",     "<Cmd>FzfLua registers<CR>" },
-    { "s",     "<Cmd>FzfLua spell_suggest<CR>" },
-    { "t",     "<Cmd>FzfLua filetypes<CR>" },
-  }},
-
-  { "z", options = {expr = true}, {
-    { "F", "'<Cmd>Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'" },
-    { "F",     "':Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'", mode = "x" },
+  { mode = "i", {
+    { "jk", "<Esc>" },
   }},
 
   { mode = "c", "<C-", {

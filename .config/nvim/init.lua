@@ -50,7 +50,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 })
 
 -- Highlight yanked text.
-vim.api.nvim_create_autocmd('TextYankPost', {
+vim.api.nvim_create_autocmd("TextYankPost", {
   desc = "Highlight yanked text",
   callback = function()
     vim.highlight.on_yank()
@@ -58,7 +58,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 })
 
 -- Recompile packer.
-vim.api.nvim_create_autocmd('BufWritePost', {
+vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "plugins.lua",
   desc = "Recompile packer",
   command = "source <afile> | PackerCompile",
@@ -101,7 +101,7 @@ nest.applyKeymaps {
   { mode = "_", {
     { "<Space>", ":" },
     { "'", "`" },
-    { '<C-p>', "<C-i>" },
+    { "<C-p>", "<C-i>" },
 
     { "ga", "<Plug>(EasyAlign)", options = {noremap = false} },
 
@@ -166,7 +166,7 @@ nest.applyKeymaps {
 
   { "S",  ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>" },
 
-  { 'g', {
+  { "g", {
     { "s", ":%s/\\v/g<Left><Left>" },
     { "s", ":s/\\v/g<Left><Left>", mode = "x" },
     { "S", ":sil gr! <C-R><C-w><CR>" },

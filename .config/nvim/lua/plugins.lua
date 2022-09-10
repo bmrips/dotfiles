@@ -11,7 +11,7 @@ local plugins = {
   { "andymass/vim-matchup",
     config = function()
       -- Do not display off-screen matches
-      vim.g.matchup_matchparen_offscreen = { method = 'status_manual' }
+      vim.g.matchup_matchparen_offscreen = { method = "status_manual" }
 
       -- Defer highlighting to improve performance
       vim.g.matchup_matchparen_deferred = 1
@@ -102,7 +102,7 @@ local plugins = {
     end,
   },
   { "junegunn/vim-easy-align" },
-  { 'lewis6991/impatient.nvim' },
+  { "lewis6991/impatient.nvim" },
   { "LionC/nest.nvim" },
   { "lukas-reineke/virt-column.nvim",
     after = "gruvbox.nvim",
@@ -211,7 +211,7 @@ local plugins = {
       }
 
       -- Lua
-      require'lspconfig'.sumneko_lua.setup {
+      require("lspconfig").sumneko_lua.setup {
         on_attach = on_attach,
         settings = {
           Lua = {
@@ -289,11 +289,11 @@ local plugins = {
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       vim.opt.showmode = false
-      require('lualine').setup {
+      require("lualine").setup {
         options = {
           theme = "gruvbox",
-          component_separators = '|',
-          section_separators = '',
+          component_separators = "|",
+          section_separators = "",
         },
         sections = {
           lualine_b = { "diagnostics" },
@@ -360,21 +360,21 @@ local plugins = {
   { "sindrets/winshift.nvim" },
   { "stefandtw/quickfix-reflector.vim" },
   { "stevearc/dressing.nvim" },
-  { 'theblob42/drex.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+  { "theblob42/drex.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
     config = function()
       require("drex.config").configure {
         hijack_netrw = true,
         keybindings = {
           ["n"] = {
-            ['<CR>'] = "<C-^>",
-            ['o'] = function() -- open a file
+            ["<CR>"] = "<C-^>",
+            ["o"] = function() -- open a file
                 local line = vim.api.nvim_get_current_line()
-                local element = require('drex.utils').get_element(line)
+                local element = require("drex.utils").get_element(line)
                 vim.fn.jobstart("xdg-open '" .. element .. "' &", { detach = true })
             end,
-            ['L'] = function() require("drex").open_directory() end,
-            ['H'] = function() require("drex").open_parent_directory() end,
+            ["L"] = function() require("drex").open_directory() end,
+            ["H"] = function() require("drex").open_parent_directory() end,
             ["<C-h>"] = "<C-w>h",
             ["<C-l>"] = "<C-w>l",
             ["<C-s>"] = function() require("drex").open_file("sp") end,

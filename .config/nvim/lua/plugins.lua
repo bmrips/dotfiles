@@ -300,10 +300,6 @@ local plugins = {
           lualine_c = {
             { "filename",
               path = 1,
-              symbols = {
-                modified = " +",
-                readonly = " -",
-              },
             },
           },
           lualine_x = {

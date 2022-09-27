@@ -6,7 +6,7 @@ opt.colorcolumn:append("+1")
 opt.comments = ":%"
 opt.commentstring = "% %s"
 opt.iskeyword:remove("_")
-opt.makeprg = "latexmk '%'"
+opt.makeprg = util.makeOr("latexmk '%'")
 opt.path = vim.fn.system("kpsepath tex | sed 's/!!//g;s#/*\\(:\\|$\\)#/**\\1#g;s/:/,/g'")
 opt.suffixesadd = { ".tex", ".sty", ".cls", ".ltx", ".dtx" , ".lco" }
 opt.textwidth = 100

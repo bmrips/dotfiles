@@ -52,4 +52,22 @@ M.termcode = function(str)
   return vim.api.nvim_replace_termcodes(str, true, true, true)
 end
 
+M.existsFile = function(name)
+  local f = io.open(name, "r")
+  if f ~= nil then
+    io.close(f)
+    return true
+  else
+    return false
+  end
+end
+
+M.makeOr = function(str)
+  if M.existsFile("makefile") or M.existsFile("Makefile") then
+    return ""
+  else
+    return str
+  end
+end
+
 return M

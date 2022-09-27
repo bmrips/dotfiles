@@ -34,7 +34,7 @@ vim.api.nvim_create_autocmd("QuickFixCmdPre", {
   callback =
     function ()
       local curbuf = vim.api.nvim_get_current_buf()
-      vim.cmd "bufdo if expand('%:e') =~# 'tex\\|sty\\|cls\\|bib' | update | endif"
+      vim.cmd "bufdo if expand('%:e') =~# 'tex|sty|cls|bib' | update | endif"
       vim.api.nvim_set_current_buf(curbuf)
     end,
 })

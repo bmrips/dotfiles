@@ -26,9 +26,9 @@ vim.b.AutoPairs = vim.tbl_extend("force", vim.g.AutoPairs, { ['$'] = '$' })
 vim.b.undo_ftplugin = vim.b.undo_ftplugin .. "| unlet b:AutoPairs"
 
 -- Write all TeX buffers before compiling
-vim.api.nvim_create_augroup("tex", {})
+local augroup = vim.api.nvim_create_augroup("tex", {})
 vim.api.nvim_create_autocmd("QuickFixCmdPre", {
-  group = "tex",
+  group = augroup,
   buffer = 0,
   desc = "Write all TeX buffers before compiling",
   callback = function (args)

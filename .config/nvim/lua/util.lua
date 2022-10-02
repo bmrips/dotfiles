@@ -6,7 +6,7 @@ local addFoldMark = function(linenr, fdm, level)
   local marker = vim.fn.substitute(cms, "%s", " "..fdm..level, "")
   local line = vim.fn.getline(linenr)
   local line = (line == '' and marker)
-            or vim.fn.substitute(line, "\\s*$", " "..marker, "")
+            or vim.fn.substitute(line, "\\s*$", marker, "")
   vim.fn.setline(linenr, line)
 end
 

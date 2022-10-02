@@ -23,7 +23,7 @@ local plugins = {
     config = function()
       vim.g.gruvbox_italic = 1
       vim.g.gruvbox_invert_selection = 0
-      vim.cmd "colorscheme gruvbox"
+      vim.cmd.colorscheme "gruvbox"
     end,
   },
   { "ethanholz/nvim-lastplace",
@@ -157,52 +157,54 @@ local plugins = {
     config = function()
       local lspconfig = require("lspconfig")
 
-      local on_attach = function(_, bufnr)
-        -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+      local augroup = vim.api.nvim_create_augroup("lspconfig", { clear = false })
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = augroup,
+        desc = "Set settings specific to buffers with attached language server",
+        nested = true,
+        callback = function()
+          -- Set 'signcolumn' for filetypes with a language server.
+          vim.opt_local.signcolumn = "yes"
 
-        require("nest").applyKeymaps {
-          { buffer = true, {
-            { "K", vim.lsp.buf.hover },
-            { "g", {
-              { "d", vim.lsp.buf.definition },
-              { "D", vim.lsp.buf.declaration },
-              { "i", vim.lsp.buf.implementation },
-              { "r", vim.lsp.buf.references },
-              { "t", vim.lsp.buf.type_definition },
-            }},
-            { "<Leader>", {
-              { "a", vim.lsp.buf.code_action },
-              { "f", vim.lsp.buf.formatting },
-              { "k", vim.lsp.buf.signature_help },
-              { "r", vim.lsp.buf.rename },
-              { "w", {
-                { "a", vim.lsp.buf.add_workspace_folder },
-                { "l", function()
-                  vim.pretty_print(vim.lsp.buf.list_workspace_folders())
-                end,
-                },
-                { "r", vim.lsp.buf.remove_workspace_folder },
+          require("nest").applyKeymaps {
+            { buffer = true, {
+              { "K", vim.lsp.buf.hover },
+              { "g", {
+                { "d", vim.lsp.buf.definition },
+                { "D", vim.lsp.buf.declaration },
+                { "i", vim.lsp.buf.implementation },
+                { "r", vim.lsp.buf.references },
+                { "t", vim.lsp.buf.type_definition },
               }},
-            }},
-          }}
-        }
-      end
+              { "<Leader>", {
+                { "a", vim.lsp.buf.code_action },
+                { "f", vim.lsp.buf.formatting },
+                { "k", vim.lsp.buf.signature_help },
+                { "r", vim.lsp.buf.rename },
+                { "w", {
+                  { "a", vim.lsp.buf.add_workspace_folder },
+                  { "l", function()
+                    vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+                  end,
+                  },
+                  { "r", vim.lsp.buf.remove_workspace_folder },
+                }},
+              }},
+            }}
+          }
+        end
+      })
 
       -- Bash
       lspconfig.bashls.setup {
-        on_attach = on_attach,
         filetypes = { "bash", "sh" },
       }
 
       -- C, C++ and Objective C
-      lspconfig.clangd.setup {
-        on_attach = on_attach,
-      }
+      lspconfig.clangd.setup {}
 
       -- Haskell
       lspconfig.hls.setup {
-        on_attach = on_attach,
         settings = {
           haskell = {
             formattingProvider = "stylish-haskell"
@@ -212,7 +214,6 @@ local plugins = {
 
       -- Lua
       require("lspconfig").sumneko_lua.setup {
-        on_attach = on_attach,
         settings = {
           Lua = {
             runtime = {
@@ -234,13 +235,10 @@ local plugins = {
       }
 
       -- Markdown
-      lspconfig.marksman.setup {
-        on_attach = on_attach,
-      }
+      lspconfig.marksman.setup {}
 
       -- TeX
       lspconfig.texlab.setup {
-        on_attach = on_attach,
         settings = {
           texlab = {
             build = {
@@ -255,26 +253,6 @@ local plugins = {
           },
         },
       }
-
-      -- Set 'signcolumn' for filetypes with a language server.
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "bash",
-          "c",
-          "cpp",
-          "haskell",
-          "lua",
-          "markdown",
-          "objc",
-          "objcpp",
-          "sh",
-          "tex"
-        },
-        desc = "Set 'signcolumn' for filetypes with a language server",
-        callback = function()
-          vim.opt_local.signcolumn = "yes"
-        end,
-      })
     end,
   },
   { "norcalli/nvim-colorizer.lua",
@@ -349,7 +327,7 @@ local plugins = {
   { "sQVe/sort.nvim",
     config = function()
       require("sort").setup()
-      vim.cmd "cnoreabbrev sort Sort"
+      vim.cmd.cnoreabbrev { "sort", "Sort" }
     end,
   },
   { "simnalamburt/vim-mundo" },

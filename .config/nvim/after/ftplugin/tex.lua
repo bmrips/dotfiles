@@ -31,12 +31,10 @@ vim.api.nvim_create_autocmd("QuickFixCmdPre", {
   group = "tex",
   buffer = 0,
   desc = "Write all TeX buffers before compiling",
-  callback =
-    function ()
-      local curbuf = vim.api.nvim_get_current_buf()
-      vim.cmd "bufdo if expand('%:e') =~# 'tex|sty|cls|bib' | update | endif"
-      vim.api.nvim_set_current_buf(curbuf)
-    end,
+  callback = function (args)
+    vim.cmd.bufdo "if expand('%:e') =~# 'tex|sty|cls|bib' | update | endif"
+    vim.api.nvim_set_current_buf(args.buf)
+  end,
 })
 
 if not vim.g.no_plugin_maps then

@@ -14,6 +14,7 @@ opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.ignorecase = true
 opt.joinspaces = true
+opt.jumpoptions:append("view")
 opt.lazyredraw = true
 opt.linebreak = true
 opt.mouse:append("n")
@@ -63,10 +64,6 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   desc = "Recompile packer",
   command = "source <afile> | PackerCompile",
 })
-
--- Use Lua filetype detection only.
-vim.g.do_filetype_lua = 1
-vim.g.did_load_filetypes = 0
 
 -- Set Latex as my preferred TeX flavour.
 vim.g.tex_flavor = "latex"
@@ -274,7 +271,7 @@ local abbreviations = {
   { "slgr!", "sil lgr!" },
 }
 for _, abb in ipairs(abbreviations) do
-  vim.cmd("cnoreabbrev " .. abb[1] .. " " .. abb[2])
+  vim.cmd.cnoreabbrev { abb[1], abb[2] }
 end
 
 -- Read local configuration files, but with certain commands disabled

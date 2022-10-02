@@ -305,8 +305,18 @@ local plugins = {
     run = ":TSUpdate",
     config = function()
       require("nvim-treesitter.configs").setup {
-        highlight = { enable = true, },
+        highlight = { enable = true },
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection = "gni",
+            node_decremental = "gn[",
+            node_incremental = "gn]",
+            scope_incremental = "gns",
+          },
+        },
         indent = { enable = true },
+        matchup = { enable = true },
 
         ensure_installed = { "help", "lua", "vim" },
 

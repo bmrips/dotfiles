@@ -36,6 +36,15 @@ local plugins = {
     end,
   },
   { "f1rstlady/vim-unimpaired" },
+  { "folke/which-key.nvim",
+    config = function()
+      require("which-key").setup {
+        operators = {
+          ga = "Align"
+        },
+      }
+    end
+  },
   { "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()

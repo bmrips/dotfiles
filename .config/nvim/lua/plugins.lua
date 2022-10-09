@@ -172,13 +172,13 @@ local plugins = {
                 { "d", vim.lsp.buf.definition },
                 { "D", vim.lsp.buf.declaration },
                 { "i", vim.lsp.buf.implementation },
-                { "r", vim.lsp.buf.references },
                 { "t", vim.lsp.buf.type_definition },
               }},
-              { "<Leader>", {
+              { "<LocalLeader>", {
                 { "a", vim.lsp.buf.code_action },
                 { "f", vim.lsp.buf.formatting },
                 { "k", vim.lsp.buf.signature_help },
+                { "r", vim.lsp.buf.references },
                 { "w", {
                   { "a", vim.lsp.buf.add_workspace_folder },
                   { "l", function()

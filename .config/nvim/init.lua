@@ -203,19 +203,6 @@ nest.applyKeymaps {
   { "<Leader>", {
     { "c", "<Cmd>Beacon<CR>" },
 
-    { "d", vim.diagnostic.open_float },
-    { "D", "<Cmd>TroubleToggle<CR>" },
-    { "<C-d>", -- Toggle between inline and virtual line diagnostics
-      function()
-        local config = vim.diagnostic.config() or
-                       { virtual_text = true, virtual_lines = false }
-        vim.diagnostic.config {
-          virtual_text = not config.virtual_text,
-          virtual_lines = not config.virtual_lines,
-        }
-      end
-    },
-
     -- Focus
     { "z",     "<Cmd>ZenMode<CR>" },
     { "<C-z>", "<Cmd>Twilight<CR>" },
@@ -230,6 +217,20 @@ nest.applyKeymaps {
     { "t", "<Cmd>Drex<CR>" },
     { "T", ":Drex" },
     { "<C-t>", "<Cmd>DrexDrawerOpen<CR>" },
+  }},
+  { "<LocalLeader>", {
+    { "d", vim.diagnostic.open_float },
+    { "D", "<Cmd>TroubleToggle<CR>" },
+    { "<C-d>", -- Toggle between inline and virtual line diagnostics
+      function()
+        local config = vim.diagnostic.config() or
+                       { virtual_text = true, virtual_lines = false }
+        vim.diagnostic.config {
+          virtual_text = not config.virtual_text,
+          virtual_lines = not config.virtual_lines,
+        }
+      end
+    },
   }},
 
   { mode = "i", {

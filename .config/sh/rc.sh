@@ -88,6 +88,9 @@ alias make='make -j`nproc`'
 # mv
 alias mv='mv -i'
 
+# neovide
+alias neovide='neovide --maximized --notabs'
+
 # nvim
 alias vi='nvim'
 alias vim='nvim'

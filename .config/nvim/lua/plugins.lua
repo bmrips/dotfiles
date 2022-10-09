@@ -39,17 +39,17 @@ local plugins = {
   { "folke/trouble.nvim",
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
-      require("trouble").setup()
+      require("trouble").setup {}
     end,
   },
   { "folke/twilight.nvim",
     config = function()
-      require("twilight").setup()
+      require("twilight").setup {}
     end
   },
   { "folke/zen-mode.nvim",
     config = function()
-      require("zen-mode").setup()
+      require("zen-mode").setup {}
     end
   },
   { "hrsh7th/nvim-cmp",
@@ -90,7 +90,7 @@ local plugins = {
   },
   { "jghauser/fold-cycle.nvim",
     config = function()
-      require("fold-cycle").setup()
+      require("fold-cycle").setup {}
     end,
   },
   { "jiangmiao/auto-pairs",
@@ -105,12 +105,12 @@ local plugins = {
   { "lukas-reineke/virt-column.nvim",
     after = "gruvbox.nvim",
     config = function()
-      require("virt-column").setup()
+      require("virt-column").setup {}
     end,
   },
   { "luukvbaal/stabilize.nvim",
     config = function()
-      require("stabilize").setup()
+      require("stabilize").setup {}
     end,
   },
   { "Maan2003/lsp_lines.nvim",
@@ -125,7 +125,7 @@ local plugins = {
   },
   { "mcauley-penney/tidy.nvim",
     config = function()
-      require("tidy").setup()
+      require("tidy").setup {}
     end
   },
   { "michaeljsmith/vim-indent-object" },
@@ -217,7 +217,7 @@ local plugins = {
   },
   { "norcalli/nvim-colorizer.lua",
     config = function()
-      require("colorizer").setup()
+      require("colorizer").setup {}
     end,
   },
   { "nvim-lua/plenary.nvim",
@@ -302,7 +302,7 @@ local plugins = {
   },
   { "sQVe/sort.nvim",
     config = function()
-      require("sort").setup()
+      require("sort").setup {}
       vim.cmd.cnoreabbrev { "sort", "Sort" }
     end,
   },

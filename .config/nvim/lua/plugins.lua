@@ -177,8 +177,12 @@ local plugins = {
               { "<LocalLeader>", {
                 { "a", vim.lsp.buf.code_action },
                 { "f", vim.lsp.buf.formatting },
+                { "i", vim.lsp.buf.incoming_calls },
                 { "k", vim.lsp.buf.signature_help },
+                { "o", vim.lsp.buf.outgoing_calls },
                 { "r", vim.lsp.buf.references },
+                { "s", vim.lsp.buf.workspace_symbol },
+                { "S", vim.lsp.buf.document_symbol },
                 { "w", {
                   { "a", vim.lsp.buf.add_workspace_folder },
                   { "l", function()

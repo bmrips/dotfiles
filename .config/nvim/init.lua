@@ -167,6 +167,7 @@ nest.applyKeymaps {
     { "x>",  require("dial.map").dec_normal() },
     { "x>",  require("dial.map").dec_visual(), mode = "x" },
     { "_>", {
+      { "<C-_>", "<Cmd>FzfLua resume<CR>" },
       { ":",     "<Cmd>FzfLua command_history<CR>" },
       { "/",     "<Cmd>FzfLua search_history<CR>" },
       { "?",     "<Cmd>FzfLua search_history<CR>" },

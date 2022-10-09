@@ -167,6 +167,7 @@ local plugins = {
           require("nest").applyKeymaps {
             { buffer = true, {
               { "K", vim.lsp.buf.hover },
+              { "S", vim.lsp.buf.rename },
               { "g", {
                 { "d", vim.lsp.buf.definition },
                 { "D", vim.lsp.buf.declaration },
@@ -178,12 +179,11 @@ local plugins = {
                 { "a", vim.lsp.buf.code_action },
                 { "f", vim.lsp.buf.formatting },
                 { "k", vim.lsp.buf.signature_help },
-                { "r", vim.lsp.buf.rename },
                 { "w", {
                   { "a", vim.lsp.buf.add_workspace_folder },
                   { "l", function()
-                    vim.pretty_print(vim.lsp.buf.list_workspace_folders())
-                  end,
+                      vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+                    end,
                   },
                   { "r", vim.lsp.buf.remove_workspace_folder },
                 }},

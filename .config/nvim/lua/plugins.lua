@@ -191,6 +191,12 @@ local plugins = {
                   },
                   { "r", vim.lsp.buf.remove_workspace_folder },
                 }},
+                { "<C-", {
+                  { "c>i", "<Cmd>FzfLua lsp_incoming_calls<CR>" },
+                  { "c>o", "<Cmd>FzfLua lsp_outgoing_calls<CR>" },
+                  { "r>",  "<Cmd>FzfLua lsp_references<CR>" },
+                  { "s>",  "<Cmd>FzfLua lsp_workspace_symbols<CR>" },
+                }},
               }},
             }}
           }

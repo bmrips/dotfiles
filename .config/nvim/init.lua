@@ -278,6 +278,52 @@ for _, abb in ipairs(abbreviations) do
   vim.cmd.cnoreabbrev { abb[1], abb[2] }
 end
 
+vim.api.nvim_create_autocmd("LspAttach", {
+  desc = "Set settings specific to buffers with attached language server",
+  nested = true,
+  callback = function()
+    -- Set 'signcolumn' for filetypes with a language server.
+    vim.opt_local.signcolumn = "yes"
+
+    nest.applyKeymaps {
+      { buffer = true, {
+        { "K", vim.lsp.buf.hover },
+        { "S", vim.lsp.buf.rename },
+        { "g", {
+          { "d", vim.lsp.buf.definition },
+          { "D", vim.lsp.buf.declaration },
+          { "i", vim.lsp.buf.implementation },
+          { "t", vim.lsp.buf.type_definition },
+        }},
+        { "<LocalLeader>", {
+          { "a", vim.lsp.buf.code_action },
+          { "f", vim.lsp.buf.formatting },
+          { "i", vim.lsp.buf.incoming_calls },
+          { "k", vim.lsp.buf.signature_help },
+          { "o", vim.lsp.buf.outgoing_calls },
+          { "r", vim.lsp.buf.references },
+          { "s", vim.lsp.buf.workspace_symbol },
+          { "S", vim.lsp.buf.document_symbol },
+          { "w", {
+            { "a", vim.lsp.buf.add_workspace_folder },
+            { "l", function()
+                vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+              end,
+            },
+            { "r", vim.lsp.buf.remove_workspace_folder },
+          }},
+          { "<C-", {
+            { "c>i", "<Cmd>FzfLua lsp_incoming_calls<CR>" },
+            { "c>o", "<Cmd>FzfLua lsp_outgoing_calls<CR>" },
+            { "r>",  "<Cmd>FzfLua lsp_references<CR>" },
+            { "s>",  "<Cmd>FzfLua lsp_workspace_symbol<CR>" },
+          }},
+        }},
+      }}
+    }
+  end
+})
+
 -- Read local configuration files, but with certain commands disabled
 opt.secure = true
 opt.exrc = true

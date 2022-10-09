@@ -227,6 +227,7 @@ local plugins = {
     requires = "kyazdani42/nvim-web-devicons",
     config = function()
       vim.opt.showmode = false
+      local filename = { "filename", path = 1 }
       require("lualine").setup {
         options = {
           theme = "gruvbox",
@@ -235,11 +236,7 @@ local plugins = {
         },
         sections = {
           lualine_b = { "diagnostics" },
-          lualine_c = {
-            { "filename",
-              path = 1,
-            },
-          },
+          lualine_c = { filename },
           lualine_x = {
             "filetype",
             { "fileformat",
@@ -251,6 +248,9 @@ local plugins = {
               }
             },
           },
+        },
+        inactive_sections = {
+          lualine_c = { filename },
         },
         extensions = {
           "drex",

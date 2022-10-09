@@ -326,7 +326,13 @@ local plugins = {
     end,
   },
   { "rafcamlet/nvim-luapad" },
-  { "rainbowhxch/beacon.nvim" },
+  { "rainbowhxch/beacon.nvim",
+    config = function()
+      if vim.g.neovide then
+        require("beacon").setup { enable = false }
+      end
+    end,
+  },
   { "rcarriga/nvim-notify",
     config = function()
       vim.notify = require("notify")

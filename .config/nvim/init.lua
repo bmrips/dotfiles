@@ -12,6 +12,7 @@ opt.foldmethod = "marker"
 opt.foldtext = "substitute(getline(v:foldstart), '\\s*$', ' ' , '')"
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
+opt.guifont = "JetBrains Mono:h10" -- For Neovide
 opt.ignorecase = true
 opt.joinspaces = true
 opt.jumpoptions:append("view")
@@ -166,8 +167,9 @@ nest.applyKeymaps {
     }},
     { "x>",  require("dial.map").dec_normal() },
     { "x>",  require("dial.map").dec_visual(), mode = "x" },
-    { "_>", {
-      { "<C-_>", "<Cmd>FzfLua resume<CR>" },
+    { (vim.g.neovide and "/" or "_") .. ">", {
+      { "<C-"..(vim.g.neovide and "/" or "_")..">",
+                 "<Cmd>FzfLua resume<CR>" },
       { ":",     "<Cmd>FzfLua command_history<CR>" },
       { "/",     "<Cmd>FzfLua search_history<CR>" },
       { "?",     "<Cmd>FzfLua search_history<CR>" },

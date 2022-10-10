@@ -36,10 +36,6 @@ M.reindent = function(info)
   vim.fn.winrestview(view)
 end
 
--- An alias for vim.api.nvim_replace_termcodes.
-M.termcode = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
 
 M.existsFile = function(name)
   local f = io.open(name, "r")

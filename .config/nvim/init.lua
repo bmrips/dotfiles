@@ -89,7 +89,7 @@ require("plugins")
 
 -- Mappings
 vim.g.mapleader = "\\"
-vim.g.maplocalleader = util.termcode("<C-\\>")
+vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-\\>", true, true, true)
 
 local nest = require("nest")
 nest.defaults.options.silent = false

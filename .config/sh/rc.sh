@@ -90,6 +90,7 @@ alias mv='mv -i'
 
 # neovide
 alias neovide='neovide --maximized --notabs'
+alias nv=neovide
 
 # nvim
 alias vi='nvim'

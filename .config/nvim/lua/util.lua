@@ -2,12 +2,12 @@ local M = {}
 
 -- Set the given fold mark with the given level the given line.
 local addFoldMark = function(linenr, fdm, level)
-  local cms = vim.opt_local.commentstring:get()
-  local marker = vim.fn.substitute(cms, "%s", " "..fdm..level, "")
-  local line = vim.fn.getline(linenr)
-  local line = (line == '' and marker)
-            or vim.fn.substitute(line, "\\s*$", marker, "")
-  vim.fn.setline(linenr, line)
+  local marker = vim.opt_local.commentstring:get():gsub("%%s", fdm..level)
+  local line = vim.api.nvim_buf_get_lines(0, linenr-1, linenr, true)[1]
+  local new_line = line == ""
+    and marker
+    or  line:gsub("%s*$", " "..marker)
+  vim.api.nvim_buf_set_lines(0, linenr-1, linenr, true, { new_line })
 end
 
 -- Create a fold for line1..line2 at the given level.
@@ -36,7 +36,7 @@ M.reindent = function(info)
   vim.fn.winrestview(view)
 end
 
-
+-- Check whether a file exists.
 M.existsFile = function(name)
   local f = io.open(name, "r")
   if f ~= nil then
@@ -47,6 +47,8 @@ M.existsFile = function(name)
   end
 end
 
+-- Returns the given string if there is no Makefile, otherwise returns the empty
+-- string.
 M.makeOr = function(str)
   if M.existsFile("makefile") or M.existsFile("Makefile") then
     return ""

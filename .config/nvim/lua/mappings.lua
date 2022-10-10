@@ -311,13 +311,10 @@ return {
       }},
     }},
     { "<LocalLeader>", {
-      { "d", vim.diagnostic.open_float, options = {
-        desc = "Show diagnostic under cursor",
-      }},
-      { "D", "<Cmd>TroubleToggle<CR>", options = {
+      { "d", "<Cmd>TroubleToggle<CR>", options = {
         desc = "Toggle diagnostics list",
       }},
-      { "<C-d>",
+      { "D",
         function()
           local config = vim.diagnostic.config() or
                         { virtual_text = true, virtual_lines = false }
@@ -330,6 +327,9 @@ return {
           desc = "Toggle inline/virtual diagnostics"
         },
       },
+      { "<C-d>", "<Cmd>FzfLua diagnostics_workspace<CR>", options = {
+        desc = "Fzf: diagnostics",
+      }},
     }},
 
     { mode = "i", {

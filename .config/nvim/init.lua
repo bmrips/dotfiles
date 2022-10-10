@@ -330,6 +330,9 @@ nest.applyKeymaps {
       { "j", "<Cmd>FzfLua jumps<CR>", options = {
         desc = "Jumps",
       }},
+      { "k", "<Cmd>FzfLua keymaps<CR>", options = {
+        desc = "Keymaps",
+      }},
       { "l", "<Cmd>FzfLua lines<CR>", options = {
         desc = "Buffer lines",
       }},

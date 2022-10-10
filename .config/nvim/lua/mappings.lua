@@ -380,9 +380,14 @@ return {
       { "a", vim.lsp.buf.code_action, options = {
         desc = "Invoke a code action",
       }},
-      { "f", vim.lsp.buf.formatting, options = {
-        desc = "Format the buffer",
-      }},
+      { "f",
+        function()
+          vim.lsp.buf.format {async = false}
+        end,
+        options = {
+          desc = "Format the buffer",
+        },
+      },
       { "i", vim.lsp.buf.incoming_calls, options = {
         desc = "List incoming calls",
       }},

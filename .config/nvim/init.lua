@@ -22,7 +22,7 @@ opt.mouse:append("n")
 opt.path = { "", "." }
 opt.shiftround = true
 opt.shiftwidth = 0
-opt.shortmess:remove("c") -- Do not print completion messages
+opt.shortmess:append("c") -- Do not print completion messages
 opt.showbreak = "↳"
 opt.smartcase = true
 opt.spelllang = { "en", "de" }

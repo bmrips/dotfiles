@@ -28,11 +28,31 @@ return {
       desc = "Close folds under cursor",
     }},
     { "'", "`" },
-    { "[d", vim.diagnostic.goto_prev, options = {
-      desc = "Previous diagnostic",
+    { "[", {
+      { "d", vim.diagnostic.goto_prev, options = {
+        desc = "Previous diagnostic",
+      }},
+      { "D",
+        function()
+          vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+        end,
+        options = {
+          desc = "Previous error",
+        },
+      },
     }},
-    { "]d", vim.diagnostic.goto_next, options = {
-      desc = "Next diagnostic",
+    { "]", {
+      { "d", vim.diagnostic.goto_prev, options = {
+        desc = "Next diagnostic",
+      }},
+      { "D",
+        function()
+          vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+        end,
+        options = {
+          desc = "Next error",
+        },
+      },
     }},
     { "g", {
       { "a", "<Plug>(EasyAlign)", mode = "_", options = {

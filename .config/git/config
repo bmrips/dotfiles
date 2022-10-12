@@ -8,6 +8,7 @@
     co = checkout
     c  = commit
     ca = commit --amend
+    cf = commit --fixup
     cp = cherry-pick
     cu = commit --amend --no-edit
     d  = diff

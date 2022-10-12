@@ -1,5 +1,15 @@
 local M = {}
 
+-- The text shown for a closed fold starting in the given line.
+M.foldtext = function(linenr)
+  local line = vim.api.nvim_buf_get_lines(0, linenr-1, linenr, true)[1]
+  local tabInSpaces = ""
+  for _ = 1, vim.opt.tabstop:get() do
+    tabInSpaces = tabInSpaces .. " "
+  end
+  return line:gsub("%s*$", ""):gsub("\t", tabInSpaces)
+end
+
 -- Set the given fold mark with the given level the given line.
 local addFoldMark = function(linenr, fdm, level)
   local marker = vim.opt_local.commentstring:get():gsub("%%s", fdm..level)

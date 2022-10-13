@@ -29,7 +29,7 @@ local plugins = {
       require("nvim-lastplace").setup()
     end,
   },
-  { "f1rstlady/loupe",
+  { "f1rstlady/vim-loupe",
     config = function()
       -- Do not center search results on n/N.
       vim.g.LoupeCenterResults = 0

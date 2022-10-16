@@ -282,15 +282,6 @@ return {
       }},
     }},
     { "<Leader>", {
-      { "c", "<Cmd>Beacon<CR>", options = {
-        desc = "Highlight cursor",
-      }},
-      { "z", "<Cmd>ZenMode<CR>", options = {
-        desc = "Toggle zen mode",
-      }},
-      { "<C-z>", "<Cmd>Twilight<CR>", options = {
-        desc = "Toggle inactive text dimming",
-      }},
       { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>", options = {
         desc = "Include file under cursor",
       }},

@@ -51,15 +51,7 @@ local plugins = {
       require("trouble").setup {}
     end,
   },
-  { "folke/twilight.nvim",
     config = function()
-      require("twilight").setup {}
-    end
-  },
-  { "folke/zen-mode.nvim",
-    config = function()
-      require("zen-mode").setup {}
-    end
   },
   { "hrsh7th/nvim-cmp",
     opt = true,
@@ -297,13 +289,6 @@ local plugins = {
     end,
   },
   { "rafcamlet/nvim-luapad" },
-  { "rainbowhxch/beacon.nvim",
-    config = function()
-      if vim.g.neovide then
-        require("beacon").setup { enable = false }
-      end
-    end,
-  },
   { "rcarriga/nvim-notify",
     config = function()
       vim.notify = require("notify")

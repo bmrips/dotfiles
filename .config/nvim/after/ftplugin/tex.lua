@@ -4,7 +4,6 @@ local tex = require("tex")
 
 opt.colorcolumn:append("+1")
 opt.comments = ":%"
-opt.commentstring = "% %s"
 opt.iskeyword:remove("_")
 opt.makeprg = util.makeOr("latexmk '%'")
 opt.path = vim.fn.system("kpsepath tex | sed 's/!!//g;s#/*\\(:\\|$\\)#/**\\1#g;s/:/,/g'")
@@ -18,8 +17,8 @@ opt.include:append("\\v" -- Use magic patterns
   .. "|(RequirePackage|Load(Package|Class))(WithOptions)=)\\s*\\{=\\s*")
 
 vim.b.undo_ftplugin = vim.b.undo_ftplugin ..
-  "| set colorcolumn< comments< commentstring< define< include< iskeyword<" ..
-  " path< suffixesadd< textwidth<"
+  "| set colorcolumn< comments< define< include< iskeyword< path<" ..
+  " suffixesadd< textwidth<"
 
 -- Automatically insert $ in a pair
 vim.b.AutoPairs = vim.tbl_extend("force", vim.g.AutoPairs, { ['$'] = '$' })

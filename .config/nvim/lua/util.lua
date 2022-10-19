@@ -12,7 +12,7 @@ end
 
 -- Set the given fold mark with the given level the given line.
 local addFoldMark = function(linenr, fdm, level)
-  local marker = vim.opt_local.commentstring:get():gsub("%%s", fdm..level)
+  local marker = vim.opt_local.commentstring:get():gsub("%%s", " "..fdm..level)
   local line = vim.api.nvim_buf_get_lines(0, linenr-1, linenr, true)[1]
   local new_line = line == ""
     and marker

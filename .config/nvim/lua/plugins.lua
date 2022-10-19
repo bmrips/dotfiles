@@ -51,8 +51,6 @@ local plugins = {
       require("trouble").setup {}
     end,
   },
-    config = function()
-  },
   { "hrsh7th/nvim-cmp",
     opt = true,
   },

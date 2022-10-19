@@ -219,6 +219,11 @@ local plugins = {
       require("colorizer").setup {}
     end,
   },
+  { "numToStr/Comment.nvim",
+    config = function()
+      require("Comment").setup {}
+    end
+  },
   { "nvim-lua/plenary.nvim",
     opt = true,
   },

@@ -255,6 +255,7 @@ local plugins = {
         },
         extensions = {
           "drex",
+          "fzf",
           "man",
           "mundo",
           "quickfix",

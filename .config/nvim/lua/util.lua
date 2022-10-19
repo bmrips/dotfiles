@@ -16,7 +16,7 @@ local addFoldMark = function(linenr, fdm, level)
   local line = vim.api.nvim_buf_get_lines(0, linenr-1, linenr, true)[1]
   local new_line = line == ""
     and marker
-    or  line:gsub("%s*$", " "..marker)
+    or  line:gsub("%s*$", " " .. vim.pesc(marker))
   vim.api.nvim_buf_set_lines(0, linenr-1, linenr, true, { new_line })
 end
 

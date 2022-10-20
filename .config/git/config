@@ -3,18 +3,18 @@
     statusHints = false
 
 [alias]
-    a  = add
-    b  = branch
+    a = add
+    b = branch
     co = checkout
-    c  = commit
+    c = commit
     ca = commit --amend
     cf = commit --fixup
     cp = cherry-pick
     cu = commit --amend --no-edit
-    d  = diff
+    d = diff
     ds = diff --staged
     dt = difftool
-    l  = log
+    l = log
     lg = log --oneline --graph
     lo = log --oneline
     lv = log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ad%C(reset)'
@@ -23,7 +23,8 @@
     mt = mergetool
     r  = reset
     rb = rebase
-    s  = status --short
+    rbf = rebase --interactive --autosquash --autostash
+    s = status --short
     sl = shortlog
     sw = switch
 

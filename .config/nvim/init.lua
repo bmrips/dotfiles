@@ -35,7 +35,6 @@ opt.termguicolors = true -- Enable Truecolor support
 opt.textwidth = 80
 opt.undofile = true
 opt.wildmode = { "longest", "full" } -- Complete till longest common string
-opt.wrap = false
 
 -- Open the quickfix and location list windows automatically.
 vim.api.nvim_create_autocmd("QuickFixCmdPost", {

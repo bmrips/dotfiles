@@ -59,7 +59,7 @@ return {
         noremap = false,
         desc = "Align",
       }},
-      { "o", ":Sort<CR>", mode = "x", options = {
+      { "o", ":Sort i<CR>", mode = "x", options = {
         desc = "Sort",
       }},
       { "s", ":%s/\\v/g<Left><Left>", options = {

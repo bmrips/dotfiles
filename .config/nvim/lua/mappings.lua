@@ -386,18 +386,112 @@ return {
       desc = "Rename symbol under cursor",
     }},
     { "g", {
-      { "d", vim.lsp.buf.definition, options = {
-        desc = "Go to/list definition(s)",
-      }},
-      { "D", vim.lsp.buf.declaration, options = {
-        desc = "Go to/list declaration(s)",
-      }},
-      { "i", vim.lsp.buf.implementation, options = {
-        desc = "Go to/list implementation(s)",
-      }},
-      { "t", vim.lsp.buf.type_definition, options = {
-        desc = "Go to/list type definition(s)",
-      }},
+      { "d",
+        function()
+          require("util.lsp.goto").location("definition")
+        end,
+        options = {
+          desc = "Go to/list definition(s)",
+        }
+      },
+      { "D",
+        function()
+          require("util.lsp.goto").location("declaration")
+        end,
+        options = {
+          desc = "Go to/list declaration(s)",
+        }
+      },
+      { "i",
+        function()
+          require("util.lsp.goto").location("implementation")
+        end,
+        options = {
+          desc = "Go to/list implementation(s)",
+        }
+      },
+      { "t",
+        function()
+          require("util.lsp.goto").location("type_definition")
+        end,
+        options = {
+          desc = "Go to/list type definition(s)",
+        }
+      },
+    }},
+    { "<C-w>", {
+      { "d",
+        function()
+          require("util.lsp.goto").location("definition", "split")
+        end,
+        options = {
+          desc = "Open definition(s) in split",
+        },
+      },
+      { "D",
+        function()
+          require("util.lsp.goto").location("definition", "tab split")
+        end,
+        options = {
+          desc = "Open definition(s) in tab split",
+        },
+      },
+      { "<C-d>",
+        function()
+          require("util.lsp.goto").location("definition", "vert split")
+        end,
+        options = {
+          desc = "Open definition(s) in vert split",
+        },
+      },
+      { "i",
+        function()
+          require("util.lsp.goto").location("implementation", "split")
+        end,
+        options = {
+          desc = "Open implementation(s) in split",
+        },
+      },
+      { "I",
+        function()
+          require("util.lsp.goto").location("implementation", "tab split")
+        end,
+        options = {
+          desc = "Open implementation(s) in tab split",
+        },
+      },
+      { "<C-i>",
+        function()
+          require("util.lsp.goto").location("implementation", "vert split")
+        end,
+        options = {
+          desc = "Open implementation(s) in vert split",
+        },
+      },
+      { "t",
+        function()
+          require("util.lsp.goto").location("type_definition", "split")
+        end,
+        options = {
+          desc = "Open type definition(s) in split",
+        },
+      },
+      { "T",
+        function()
+          require("util.lsp.goto").location("type_definition", "tab split")
+        end,
+        options = {
+          desc = "Open type definition(s) in tab split",
+        },
+      },
+      { "<C-t>",
+        function()
+          require("util.lsp.goto").location("type_definition", "vert split")
+        end,
+        options = {
+          desc = "Open type definition(s) in vert split",
+        },
+      },
     }},
     { "<LocalLeader>", {
       { "a", vim.lsp.buf.code_action, options = {

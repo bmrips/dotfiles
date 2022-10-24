@@ -178,6 +178,18 @@ return {
         { "<CR>", "<Cmd>wincmd ^<CR>", options = {
           desc = "Open alternate buffer in split",
         }},
+        { "}>", "<Cmd>tab wincmd ]<CR>", options = {
+          desc = "Jump to tag in tab split",
+        }},
+        { "D>", "<Cmd>tab wincmd d<CR>", options = {
+          desc = "Open definition in tab split",
+        }},
+        { "F>", "<Cmd>tab wincmd f<CR>", options = {
+          desc = "Open file in tab split",
+        }},
+        { "I>", "<Cmd>tab wincmd i<CR>", options = {
+          desc = "Open import in tab split",
+        }},
         { "m", "<Cmd>WinShift<CR>", options = {
           desc = "Move interactively",
         }},

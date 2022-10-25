@@ -6,8 +6,9 @@
 import           Control.Monad               (filterM, (>=>))
 import           System.Directory            (XdgDirectory (..),
                                               doesDirectoryExist, doesFileExist,
-                                              getXdgDirectory, listDirectory,
-                                              removeFile, withCurrentDirectory)
+                                              getHomeDirectory, getXdgDirectory,
+                                              listDirectory, removeFile,
+                                              withCurrentDirectory)
 import           System.Environment          (getArgs)
 import           System.Exit                 (die)
 import           "Glob" System.FilePath.Glob (glob)
@@ -46,7 +47,7 @@ parseArgument = \ case
         , getXdgDirectory XdgData   "nvim/site/pack/local" ]
       >>= mapM_ updatePlugins
   "undofiles" ->
-    getXdgDirectory XdgData "nvim/undo" >>= updateUndofiles
+    getHomeDirectory >>= updateUndofiles . (++ ".local/state/nvim/undo")
   other ->
     hPutStrLn stderr $ "Error: unknown argument: " ++ other
 

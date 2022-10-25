@@ -18,7 +18,6 @@ opt.joinspaces = true
 opt.jumpoptions:append("view")
 opt.lazyredraw = true
 opt.linebreak = true
-opt.mouse:append("n")
 opt.path = { "", "." }
 opt.shiftround = true
 opt.shiftwidth = 0

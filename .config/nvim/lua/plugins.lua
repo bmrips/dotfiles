@@ -162,6 +162,11 @@ local plugins = {
       -- C, C++ and Objective C
       lspconfig.clangd.setup {}
 
+      -- Elixir
+      lspconfig.elixirls.setup {
+        cmd = { "/usr/lib/elixir-ls/language_server.sh" },
+      }
+
       -- Haskell
       lspconfig.hls.setup {
         settings = {

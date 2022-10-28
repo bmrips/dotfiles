@@ -30,6 +30,7 @@ local plugins = {
     end,
   },
   { "f1rstlady/nest.nvim" },
+  { "f1rstlady/session.nvim" },
   { "f1rstlady/vim-loupe",
     config = function()
       -- Do not center search results on n/N.

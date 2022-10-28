@@ -99,7 +99,7 @@ vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-\\>", true, true, true
 local mappings = require("mappings")
 
 local nest = require("nest")
-nest.defaults.options.silent = false
+nest.defaults.silent = false
 nest.applyKeymaps(mappings.default)
 
 local abbreviations = {
@@ -145,10 +145,13 @@ vim.tbl_extend("force", vim.lsp.handlers, {
 vim.api.nvim_create_autocmd("LspAttach", {
   desc = "Set settings specific to buffers with attached language server",
   nested = true,
-  callback = function()
-    -- Set 'signcolumn' for filetypes with a language server.
+  callback = function(args)
     vim.opt_local.signcolumn = "yes"
-    nest.applyKeymaps(mappings.lsp)
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    nest.applyKeymaps({
+      buffer = args.buf,
+      mappings.lsp(client.server_capabilities)
+    })
   end
 })
 

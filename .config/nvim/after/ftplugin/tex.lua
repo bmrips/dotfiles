@@ -39,13 +39,16 @@ vim.api.nvim_create_autocmd("QuickFixCmdPre", {
 if not vim.g.no_plugin_maps then
   require("nest").applyKeymaps {
     { "<LocalLeader>", buffer = true, {
-      { "v", "<Cmd>TexlabForward<CR>", options = {
+      { "v",
+        "<Cmd>TexlabForward<CR>",
         desc = "View generated PDF document",
-      }},
-      { "e", tex.createEnvironment, mode = "i", options = {
-        expr = true,
+      },
+      { "e",
+        tex.createEnvironment,
         desc = "Create an environment",
-      }},
+        expr = true,
+        mode = "i",
+      },
     }}
   }
 

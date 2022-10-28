@@ -1,9 +1,10 @@
 if not vim.g.no_plugin_maps then
   require("nest").applyKeymaps {
     { "<LocalLeader>", buffer = true, {
-      { "v", "<Cmd>MarkdownPreviewToggle<CR>", options = {
+      { "v",
+        "<Cmd>MarkdownPreviewToggle<CR>",
         desc = "View document in the browser",
-      }},
+      },
     }}
   }
 

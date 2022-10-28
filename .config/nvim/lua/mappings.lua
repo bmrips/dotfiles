@@ -1,14 +1,11 @@
 return {
   default = {
-    { "<BS>", "<Plug>(LoupeClearHighlight)", options = {
-      noremap = false,
-        desc = "Clear search highlighting",
-    }},
+    { "<BS>",
+      "<Plug>(LoupeClearHighlight)",
+      desc = "Clear search highlighting",
+      remap = true,
+    },
     { "<CR>",
-      options = {
-        expr = true,
-        desc = "Switch to alternate buffer",
-      },
       function()
         local type = vim.opt_local.buftype:get()
         if type == "quickfix" or type == "prompt" or type == "nofile" then
@@ -17,326 +14,433 @@ return {
           return "<C-^>"
         end
       end,
+      desc = "Switch to alternate buffer",
+      expr = true,
     },
-    { "<Space>", ":", mode = "_", options = {
+    { "<Space>",
+      ":",
       desc = "Enter command line",
-    }},
-    { "<Tab>", function() require("fold-cycle").open() end, options = {
+      mode = "",
+    },
+    { "<Tab>",
+      function()
+        require("fold-cycle").open()
+      end,
       desc = "Open folds under cursor",
-    }},
-    { "<S-Tab>", function() require("fold-cycle").close() end, options = {
+    },
+    { "<S-Tab>",
+      function()
+        require("fold-cycle").close()
+      end,
       desc = "Close folds under cursor",
-    }},
-    { "'", "`" },
+    },
     { "[", {
-      { "d", vim.diagnostic.goto_prev, options = {
+      { "d",
+        vim.diagnostic.goto_prev,
         desc = "Previous diagnostic",
-      }},
+      },
       { "D",
         function()
           vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
         end,
-        options = {
-          desc = "Previous error",
-        },
+        desc = "Previous error",
       },
     }},
     { "]", {
-      { "d", vim.diagnostic.goto_prev, options = {
+      { "d",
+        vim.diagnostic.goto_prev,
         desc = "Next diagnostic",
-      }},
+      },
       { "D",
         function()
           vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
         end,
-        options = {
-          desc = "Next error",
-        },
+        desc = "Next error",
       },
     }},
     { "g", {
-      { "a", "<Plug>(EasyAlign)", mode = "_", options = {
-        noremap = false,
+      { "a",
+        "<Plug>(EasyAlign)",
         desc = "Align",
-      }},
-      { "o", ":Sort i<CR>", mode = "x", options = {
+        mode = "",
+        noremap = false,
+      },
+      { "o",
+        ":Sort i<CR>",
         desc = "Sort",
-      }},
-      { "s", ":%s/\\v/g<Left><Left>", options = {
+        mode = "x",
+      },
+      { "s",
+        ":%s/\\v/g<Left><Left>",
         desc = "Substitute globally",
-      }},
-      { "s", ":s/\\v/g<Left><Left>", mode = "x", options = {
+      },
+      { "s",
+        ":s/\\v/g<Left><Left>",
         desc = "Substitute in selection",
-      }},
-      { "S", ":sil gr! <C-R><C-w><CR>", options = {
+        mode = "x",
+      },
+      { "S",
+        ":sil gr! <C-R><C-w><CR>",
         desc = "Grep word under cursor",
-      }},
+      },
       { "<C-", {
-        { "a>", require("dial.map").inc_gvisual(), mode = "x", options = {
+        { "a>",
+          require("dial.map").inc_gvisual(),
           desc = "Increment stepwise",
-        }},
-        { "x>", require("dial.map").dec_gvisual(), mode = "x", options = {
+          mode = "x",
+        },
+        { "x>",
+          require("dial.map").dec_gvisual(),
           desc = "Decrement stepwise",
-        }},
+          mode = "x",
+        },
       }},
     }},
     { "m", {
-      { "<CR>", "<Cmd>make!<CR>", options = {
+      { "<CR>",
+        "<Cmd>make!<CR>",
         desc = "Make",
-      }},
-      { "<Space>", ":<C-U>make!<Space>", options = {
+      },
+      { "<Space>",
+        ":<C-U>make!<Space>",
         desc = "Make given target",
-      }},
+      },
     }},
-    { "S", ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>", options = {
+    { "S",
+      ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>",
       desc = "Substitute word under cursor",
-    }},
-    { "U", "<Cmd>MundoToggle<CR>", options = {
+    },
+    { "U",
+      "<Cmd>MundoToggle<CR>",
       desc = "Open undo tree",
-    }},
+    },
     { "z", {
-      { "A", function() require("fold-cycle").toggle_all() end, options = {
-        noremap = false,
+      { "A",
+        function()
+          require("fold-cycle").toggle_all()
+        end,
         desc = "Toggle all folds under cursor",
-      }},
-      { "C", function() require("fold-cycle").close_all() end, options = {
         noremap = false,
+      },
+      { "C",
+        function()
+          require("fold-cycle").close_all()
+        end,
         desc = "Close all folds under cursor",
-      }},
-      { "F", "':Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'", mode = "_", options = {
-        expr = true,
-        desc = "Create fold of given level",
-      }},
-      { "O", function() require("fold-cycle").open_all() end, options = {
         noremap = false,
+      },
+      { "F",
+        "':Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'",
+        desc = "Create fold of given level",
+        expr = true,
+        mode = "",
+      },
+      { "O",
+        function()
+          require("fold-cycle").open_all()
+        end,
         desc = "Open all folds under cursor",
-      }},
+        noremap = false,
+      },
     }},
     { "<A-", {
-      { "c>", "<Cmd>tabclose<CR>", options = {
+      { "c>",
+        "<Cmd>tabclose<CR>",
         desc = "Close tab",
-      }},
-      { "h>", "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'", options = {
-        expr = true,
+      },
+      { "h>",
+        "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'",
         desc = "Move tab left",
-      }},
-      { "j>", "<Cmd>tabnext<CR>", options = {
-        desc = "Next tab",
-      }},
-      { "k>", "<Cmd>tabprev<CR>", options = {
-        desc = "Previous tab",
-      }},
-      { "l>", "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'", options = {
         expr = true,
-        desc = "Move tab right"
-      }},
-      { "n>", "<Cmd>tabnew<CR>", options = {
+      },
+      { "j>",
+        "<Cmd>tabnext<CR>",
+        desc = "Next tab",
+      },
+      { "k>",
+        "<Cmd>tabprev<CR>",
+        desc = "Previous tab",
+      },
+      { "l>",
+        "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'",
+        desc = "Move tab right",
+        expr = true,
+      },
+      { "n>",
+        "<Cmd>tabnew<CR>",
         desc = "New tab",
-      }},
-      { "o>", "<Cmd>tabonly<CR>", options = {
+      },
+      { "o>",
+        "<Cmd>tabonly<CR>",
         desc = "Close all other tabs",
-      }},
-      { "Tab>", "g<Tab>", options = {
+      },
+      { "Tab>",
+        "g<Tab>",
         desc = "Go to alternate tab",
-      }},
+      },
     }},
     { "<C-", {
-      { "Left>", "<C-w><", options = {
+      { "Left>",
+        "<C-w><",
         desc = "Decrease window width",
-      }},
-      { "Down>", "<C-w>-", options = {
+      },
+      { "Down>",
+        "<C-w>-",
         desc = "Decrease window height",
-      }},
-      { "Up>", "<C-w>+", options = {
+      },
+      { "Up>",
+        "<C-w>+",
         desc = "Increase window height",
-      }},
-      { "Right>", "<C-w>>", options = {
+      },
+      { "Right>",
+        "<C-w>>",
         desc = "Increase window width",
-      }},
-      { "a>", require("dial.map").inc_normal(), options = {
+      },
+      { "a>",
+        require("dial.map").inc_normal(),
         desc = "Increment",
-      }},
-      { "a>", require("dial.map").inc_visual(), mode = "x", options = {
+      },
+      { "a>",
+        require("dial.map").inc_visual(),
         desc = "Increment",
-      }},
-      { "h>", "<Cmd>wincmd h<CR>", options = {
+        mode = "x",
+      },
+      { "h>",
+        "<Cmd>wincmd h<CR>",
         desc = "Go to left window",
-      }},
-      { "j>", "<Cmd>wincmd j<CR>", options = {
+      },
+      { "j>",
+        "<Cmd>wincmd j<CR>",
         desc = "Go to down window",
-      }},
-      { "k>", "<Cmd>wincmd k<CR>", options = {
+      },
+      { "k>",
+        "<Cmd>wincmd k<CR>",
         desc = "Go to up window",
-      }},
-      { "l>", "<Cmd>wincmd l<CR>", options = {
+      },
+      { "l>",
+        "<Cmd>wincmd l<CR>",
         desc = "Go to right window",
-      }},
-      { "p>", "<C-i>", mode = "_", options = {
+      },
+      { "p>",
+        "<C-i>",
+        mode = "",
         desc = "Go forward in jump list",
-      }},
+      },
       { "w>", {
-        { "<CR>", "<Cmd>wincmd ^<CR>", options = {
+        { "<CR>",
+          "<Cmd>wincmd ^<CR>",
           desc = "Open alternate buffer in split",
-        }},
-        { "}>", "<Cmd>tab wincmd ]<CR>", options = {
+        },
+        { "}>",
+          "<Cmd>tab wincmd ]<CR>",
           desc = "Jump to tag in tab split",
-        }},
-        { "D>", "<Cmd>tab wincmd d<CR>", options = {
+        },
+        { "D>",
+          "<Cmd>tab wincmd d<CR>",
           desc = "Open definition in tab split",
-        }},
-        { "F>", "<Cmd>tab wincmd f<CR>", options = {
+        },
+        { "F>",
+          "<Cmd>tab wincmd f<CR>",
           desc = "Open file in tab split",
-        }},
-        { "I>", "<Cmd>tab wincmd i<CR>", options = {
+        },
+        { "I>",
+          "<Cmd>tab wincmd i<CR>",
           desc = "Open import in tab split",
-        }},
-        { "m", "<Cmd>WinShift<CR>", options = {
+        },
+        { "m",
+          "<Cmd>WinShift<CR>",
           desc = "Move interactively",
-        }},
-        { "X", "<Cmd>WinShift swap<CR>", options = {
+        },
+        { "X",
+          "<Cmd>WinShift swap<CR>",
           desc = "Swap interactively",
-        }},
+        },
         { "<C-", {
-          { "]>", "<Cmd>vertical wincmd ]<CR>", options = {
+          { "]>",
+            "<Cmd>vertical wincmd ]<CR>",
             desc = "Jump to tag in vert split",
-          }},
-          { "d>", "<Cmd>vertical wincmd d<CR>", options = {
+          },
+          { "d>",
+            "<Cmd>vertical wincmd d<CR>",
             desc = "Open definition in vert split",
-          }},
-          { "f>", "<Cmd>vertical wincmd f<CR>", options = {
+          },
+          { "f>",
+            "<Cmd>vertical wincmd f<CR>",
             desc = "Open file in vert split",
-          }},
-          { "i>", "<Cmd>vertical wincmd i<CR>", options = {
+          },
+          { "i>",
+            "<Cmd>vertical wincmd i<CR>",
             desc = "Open import in vert split",
-          }},
+          },
         }},
       }},
-      { "x>", require("dial.map").dec_normal(), options = {
+      { "x>",
+        require("dial.map").dec_normal(),
         desc = "Decrement",
-      }},
-      { "x>", require("dial.map").dec_visual(), mode = "x", options = {
+      },
+      { "x>",
+        require("dial.map").dec_visual(),
         desc = "Decrement",
-      }},
+        mode = "x",
+      },
       { (vim.g.neovide and "/" or "_") .. ">", {
-        { "<C-"..(vim.g.neovide and "/" or "_")..">", "<Cmd>FzfLua resume<CR>", options = {
+        { "<C-"..(vim.g.neovide and "/" or "_")..">",
+          "<Cmd>FzfLua resume<CR>",
           desc = "Resume"
-        }},
-        { ":", "<Cmd>FzfLua command_history<CR>", options = {
+        },
+        { ":",
+          "<Cmd>FzfLua command_history<CR>",
           desc = "Command history",
-        }},
-        { "/", "<Cmd>FzfLua search_history<CR>", options = {
+        },
+        { "/",
+          "<Cmd>FzfLua search_history<CR>",
           desc = "Search history",
-        }},
-        { "?", "<Cmd>FzfLua search_history<CR>", options = {
+        },
+        { "?",
+          "<Cmd>FzfLua search_history<CR>",
           desc = "Search history",
-        }},
-        { "a", "<Cmd>FzfLua args<CR>", options = {
+        },
+        { "a",
+          "<Cmd>FzfLua args<CR>",
           desc = "Arguments",
-        }},
-        { "b", "<Cmd>FzfLua buffers<CR>", options = {
+        },
+        { "b",
+          "<Cmd>FzfLua buffers<CR>",
           desc = "Buffers",
-        }},
-        { "c", "<Cmd>FzfLua commands<CR>", options = {
+        },
+        { "c",
+          "<Cmd>FzfLua commands<CR>",
           desc = "Commands",
-        }},
-        { "C", "<Cmd>FzfLua colorschemes<CR>", options = {
+        },
+        { "C",
+          "<Cmd>FzfLua colorschemes<CR>",
           desc = "Colorschemes",
-        }},
-        { "f", "<Cmd>FzfLua files<CR>", options = {
+        },
+        { "f",
+          "<Cmd>FzfLua files<CR>",
           desc = "Files",
-        }},
-        { "F", "<Cmd>FzfLua oldfiles<CR>", options = {
+        },
+        { "F",
+          "<Cmd>FzfLua oldfiles<CR>",
           desc = "Recent Files",
-        }},
-        { "<C-f>", "<Cmd>FzfLua git_files<CR>", options = {
+        },
+        { "<C-f>",
+          "<Cmd>FzfLua git_files<CR>",
           desc = "Git-tracked files",
-        }},
-        { "g", "<Cmd>FzfLua live_grep<CR>", options = {
+        },
+        { "g",
+          "<Cmd>FzfLua live_grep<CR>",
           desc = "Grep",
-        }},
-        { "G", "<Cmd>FzfLua live_grep_resume<CR>", options = {
+        },
+        { "G",
+          "<Cmd>FzfLua live_grep_resume<CR>",
           desc = "Resume last grep",
-        }},
-        { "<C-g>", "<Cmd>FzfLua live_grep_glob<CR>", options = {
+        },
+        { "<C-g>",
+          "<Cmd>FzfLua live_grep_glob<CR>",
           desc = "Grep with --glob",
-        }},
-        { "h", "<Cmd>FzfLua help_tags<CR>", options = {
+        },
+        { "h",
+          "<Cmd>FzfLua help_tags<CR>",
           desc = "Help tags",
-        }},
-        { "H", "<Cmd>FzfLua man_pages<CR>", options = {
+        },
+        { "H",
+          "<Cmd>FzfLua man_pages<CR>",
           desc = "Man pages",
-        }},
-        { "j", "<Cmd>FzfLua jumps<CR>", options = {
+        },
+        { "j",
+          "<Cmd>FzfLua jumps<CR>",
           desc = "Jumps",
-        }},
-        { "k", "<Cmd>FzfLua keymaps<CR>", options = {
+        },
+        { "k",
+          "<Cmd>FzfLua keymaps<CR>",
           desc = "Keymaps",
-        }},
-        { "l", "<Cmd>FzfLua lines<CR>", options = {
+        },
+        { "l",
+          "<Cmd>FzfLua lines<CR>",
           desc = "Buffer lines",
-        }},
-        { "L", "<Cmd>FzfLua blines<CR>", options = {
+        },
+        { "L",
+          "<Cmd>FzfLua blines<CR>",
           desc = "Current buffer lines",
-        }},
-        { "m", "<Cmd>FzfLua marks<CR>", options = {
+        },
+        { "m",
+          "<Cmd>FzfLua marks<CR>",
           desc = "Marks",
-        }},
-        { "o", "<Cmd>FzfLua grep_cword<CR>", options = {
+        },
+        { "o",
+          "<Cmd>FzfLua grep_cword<CR>",
           desc = "Grep word under cursor",
-        }},
-        { "O", "<Cmd>FzfLua grep_cWORD<CR>", options = {
+        },
+        { "O",
+          "<Cmd>FzfLua grep_cWORD<CR>",
           desc = "Grep WORD under cursor",
-        }},
-        { "<C-o>", "<Cmd>FzfLua grep_visual<CR>", options = {
+        },
+        { "<C-o>",
+          "<Cmd>FzfLua grep_visual<CR>",
           desc = "Grep visual selection",
-        }},
-        { "p", "<Cmd>FzfLua packadd<CR>", options = {
+        },
+        { "p",
+          "<Cmd>FzfLua packadd<CR>",
           desc = "Add package",
-        }},
-        { "q", "<Cmd>FzfLua quickfix<CR>", options = {
+        },
+        { "q",
+          "<Cmd>FzfLua quickfix<CR>",
           desc = "Quickfix list",
-        }},
-        { "Q", "<Cmd>FzfLua loclist<CR>", options = {
+        },
+        { "Q",
+          "<Cmd>FzfLua loclist<CR>",
           desc = "Location list",
-        }},
-        { "r", "<Cmd>FzfLua registers<CR>", options = {
+        },
+        { "r",
+          "<Cmd>FzfLua registers<CR>",
           desc = "Registers",
-        }},
-        { "s", "<Cmd>FzfLua spell_suggest<CR>", options = {
+        },
+        { "s",
+          "<Cmd>FzfLua spell_suggest<CR>",
           desc = "Spelling suggestions",
-        }},
-        { "t", "<Cmd>FzfLua filetypes<CR>", options = {
+        },
+        { "t",
+          "<Cmd>FzfLua filetypes<CR>",
           desc = "Filetypes",
-        }},
-        { "T", "<Cmd>FzfLua tagstack<CR>", options = {
+        },
+        { "T",
+          "<Cmd>FzfLua tagstack<CR>",
           desc = "Tags",
-        }},
+        },
       }},
     }},
     { "<Leader>", {
-      { "i", "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>", options = {
+      { "i",
+        "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>",
         desc = "Include file under cursor",
-      }},
-      { "n", function() require("notify").dismiss() end, options = {
+      },
+      { "n",
+        function() require("notify").dismiss() end,
         desc = "Dismiss notifications",
-      }},
-      { "s", "<Cmd>ToggleSession<CR>", options = {
+      },
+      { "s",
+        "<Cmd>ToggleSession<CR>",
         desc = "Toggle session recording",
-      }},
-      { "t", "<Cmd>Drex<CR>", options = {
+      },
+      { "t",
+        "<Cmd>Drex<CR>",
         desc = "Open explorer",
-      }},
-      { "T", ":Drex", options = {
+      },
+      { "T",
+        ":Drex",
         desc = "Open explorer in given dir",
-      }},
-      { "<C-t>", "<Cmd>DrexDrawerOpen<CR>", options = {
+      },
+      { "<C-t>",
+        "<Cmd>DrexDrawerOpen<CR>",
         desc = "Open file drawer",
-      }},
+      },
     }},
     { "<LocalLeader>", {
-      { "d", "<Cmd>TroubleToggle<CR>", options = {
+      { "d",
+        "<Cmd>TroubleToggle<CR>",
         desc = "Toggle diagnostics list",
-      }},
+      },
       { "D",
         function()
           local config = vim.diagnostic.config() or
@@ -346,213 +450,231 @@ return {
             virtual_lines = not config.virtual_lines,
           }
         end,
-        options = {
-          desc = "Toggle inline/virtual diagnostics"
-        },
+        desc = "Toggle inline/virtual diagnostics",
       },
-      { "<C-d>", "<Cmd>FzfLua diagnostics_workspace<CR>", options = {
+      { "<C-d>",
+        "<Cmd>FzfLua diagnostics_workspace<CR>",
         desc = "Fzf: diagnostics",
-      }},
+      },
     }},
 
     { mode = "i", {
-      { "jk", "<Esc>", options = {
+      { "jk",
+        "<Esc>",
         desc = "Escape insert mode",
-      }},
+      },
     }},
 
     { mode = "c", "<C-", {
-      { "j>", "<Down>", options = {
+      { "j>",
+        "<Down>",
         desc = "Recall newer cmdline with matching beginning",
-      }},
-      { "k>", "<Up>", options = {
+      },
+      { "k>",
+        "<Up>",
         desc = "Recall older cmdline with matching beginning",
-      }},
-      { "n>", 'getcmdtype() =~ "[/?]" ? "<CR>/<C-r>/" : "<C-n>"', options = {
-        expr = true,
+      },
+      { "n>",
+        'getcmdtype() =~ "[/?]" ? "<CR>/<C-r>/" : "<C-n>"',
         desc = "Find next pattern match",
-      }},
-      { "p>", 'getcmdtype() =~ "[/?]" ? "<CR>?<C-r>/" : "<C-p>"', options = {
         expr = true,
+      },
+      { "p>",
+        'getcmdtype() =~ "[/?]" ? "<CR>?<C-r>/" : "<C-p>"',
         desc = "Find previous pattern match",
-      }},
+        expr = true,
+      },
     }},
   },
-  lsp = { buffer = true, {
-    { "K", vim.lsp.buf.hover, options = {
-      desc = "Hover symbol under cursor",
-    }},
-    { "S", vim.lsp.buf.rename, options = {
-      desc = "Rename symbol under cursor",
-    }},
-    { "g", {
-      { "d",
-        function()
-          require("util.lsp.goto").location("definition")
-        end,
-        options = {
+  lsp = function(capabilities) -- Adapt the keymaps to the client's capabilities
+    return {
+      { "K",
+        vim.lsp.buf.hover,
+        cond = capabilities.hoverProvider ~= nil,
+        desc = "Hover symbol under cursor",
+      },
+      { "S",
+        vim.lsp.buf.rename,
+        cond = capabilities.renameProvider ~= nil,
+        desc = "Rename symbol under cursor",
+      },
+      { "g", {
+        { "d",
+          function()
+            require("util.lsp.goto").location("definition")
+          end,
+          cond = capabilities.definitionProvider ~= nil,
           desc = "Go to/list definition(s)",
-        }
-      },
-      { "D",
-        function()
-          require("util.lsp.goto").location("declaration")
-        end,
-        options = {
+        },
+        { "D",
+          function()
+            require("util.lsp.goto").location("declaration")
+          end,
+          cond = capabilities.declarationProvider ~= nil,
           desc = "Go to/list declaration(s)",
-        }
-      },
-      { "i",
-        function()
-          require("util.lsp.goto").location("implementation")
-        end,
-        options = {
+        },
+        { "i",
+          function()
+            require("util.lsp.goto").location("implementation")
+          end,
+          cond = capabilities.implementationProvider ~= nil,
           desc = "Go to/list implementation(s)",
-        }
-      },
-      { "t",
-        function()
-          require("util.lsp.goto").location("type_definition")
-        end,
-        options = {
+        },
+        { "t",
+          function()
+            require("util.lsp.goto").location("type_definition")
+          end,
+          cond = capabilities.typeDefinitionProvider ~= nil,
           desc = "Go to/list type definition(s)",
-        }
-      },
-    }},
-    { "<C-w>", {
-      { "d",
-        function()
-          require("util.lsp.goto").location("definition", "split")
-        end,
-        options = {
+        },
+      }},
+      { "<C-w>", {
+        { "d",
+          function()
+            require("util.lsp.goto").location("definition", "split")
+          end,
+          cond = capabilities.definitionProvider ~= nil,
           desc = "Open definition(s) in split",
         },
-      },
-      { "D",
-        function()
-          require("util.lsp.goto").location("definition", "tab split")
-        end,
-        options = {
+        { "D",
+          function()
+            require("util.lsp.goto").location("definition", "tab split")
+          end,
+          cond = capabilities.definitionProvider ~= nil,
           desc = "Open definition(s) in tab split",
         },
-      },
-      { "<C-d>",
-        function()
-          require("util.lsp.goto").location("definition", "vert split")
-        end,
-        options = {
+        { "<C-d>",
+          function()
+            require("util.lsp.goto").location("definition", "vert split")
+          end,
+          cond = capabilities.definitionProvider ~= nil,
           desc = "Open definition(s) in vert split",
         },
-      },
-      { "i",
-        function()
-          require("util.lsp.goto").location("implementation", "split")
-        end,
-        options = {
+        { "i",
+          function()
+            require("util.lsp.goto").location("implementation", "split")
+          end,
+          cond = capabilities.implementationProvider ~= nil,
           desc = "Open implementation(s) in split",
         },
-      },
-      { "I",
-        function()
-          require("util.lsp.goto").location("implementation", "tab split")
-        end,
-        options = {
+        { "I",
+          function()
+            require("util.lsp.goto").location("implementation", "tab split")
+          end,
+          cond = capabilities.implementationProvider ~= nil,
           desc = "Open implementation(s) in tab split",
         },
-      },
-      { "<C-i>",
-        function()
-          require("util.lsp.goto").location("implementation", "vert split")
-        end,
-        options = {
+        { "<C-i>",
+          function()
+            require("util.lsp.goto").location("implementation", "vert split")
+          end,
+          cond = capabilities.implementationProvider ~= nil,
           desc = "Open implementation(s) in vert split",
         },
-      },
-      { "t",
-        function()
-          require("util.lsp.goto").location("type_definition", "split")
-        end,
-        options = {
+        { "t",
+          function()
+            require("util.lsp.goto").location("type_definition", "split")
+          end,
+          cond = capabilities.typeDefinitionProvider ~= nil,
           desc = "Open type definition(s) in split",
         },
-      },
-      { "T",
-        function()
-          require("util.lsp.goto").location("type_definition", "tab split")
-        end,
-        options = {
+        { "T",
+          function()
+            require("util.lsp.goto").location("type_definition", "tab split")
+          end,
+          cond = capabilities.typeDefinitionProvider ~= nil,
           desc = "Open type definition(s) in tab split",
         },
-      },
-      { "<C-t>",
-        function()
-          require("util.lsp.goto").location("type_definition", "vert split")
-        end,
-        options = {
+        { "<C-t>",
+          function()
+            require("util.lsp.goto").location("type_definition", "vert split")
+          end,
+          cond = capabilities.typeDefinitionProvider ~= nil,
           desc = "Open type definition(s) in vert split",
         },
-      },
-    }},
-    { "<LocalLeader>", {
-      { "a", vim.lsp.buf.code_action, options = {
-        desc = "Invoke a code action",
       }},
-      { "f",
-        function()
-          vim.lsp.buf.format {async = false}
-        end,
-        options = {
+      { "<LocalLeader>", {
+        { "a",
+          vim.lsp.buf.code_action,
+          cond = capabilities.codeActionProvider ~= nil,
+          desc = "Invoke a code action",
+        },
+        { "f",
+          function()
+            vim.lsp.buf.format {async = false}
+          end,
+          cond = capabilities.documentFormatProvider ~= nil,
           desc = "Format the buffer",
         },
-      },
-      { "i", vim.lsp.buf.incoming_calls, options = {
-        desc = "List incoming calls",
-      }},
-      { "k", vim.lsp.buf.signature_help, options = {
-        desc = "Show the symbol's signature",
-      }},
-      { "o", vim.lsp.buf.outgoing_calls, options = {
-        desc = "List outgoing calls",
-      }},
-      { "r", vim.lsp.buf.references, options = {
-        desc = "List the symbol's references",
-      }},
-      { "s", vim.lsp.buf.workspace_symbol, options = {
-        desc = "List all workspace symbols",
-      }},
-      { "S", vim.lsp.buf.document_symbol, options = {
-        desc = "List all document symbols",
-      }},
-      { "w", {
-        { "a", vim.lsp.buf.add_workspace_folder, options = {
-          desc = "Add workspace folder",
-        }},
-        { "l",
-          function()
-            vim.pretty_print(vim.lsp.buf.list_workspace_folders())
-          end,
-          options = {
-            desc = "List workspace folders"
-          },
+        { "i",
+          vim.lsp.buf.incoming_calls,
+          cond = capabilities.incomingCallsProvider ~= nil,
+          desc = "List incoming calls",
         },
-        { "r", vim.lsp.buf.remove_workspace_folder, options = {
-          desc = "Remove workspace folder",
+        { "k",
+          vim.lsp.buf.signature_help,
+          cond = capabilities.signatureHelpProvider ~= nil,
+          desc = "Show the symbol's signature",
+        },
+        { "o",
+          vim.lsp.buf.outgoing_calls,
+          cond = capabilities.outgoingCallsProvider ~= nil,
+          desc = "List outgoing calls",
+        },
+        { "r",
+          vim.lsp.buf.references,
+          cond = capabilities.referencesProvider ~= nil,
+          desc = "List the symbol's references",
+        },
+        { "s",
+          vim.lsp.buf.workspace_symbol,
+          cond = capabilities.workspaceSymbolProvider ~= nil,
+          desc = "List all workspace symbols",
+        },
+        { "S",
+          vim.lsp.buf.document_symbol,
+          cond = capabilities.documentSymbolProvider ~= nil,
+          desc = "List all document symbols",
+        },
+        { "w", {
+          { "a",
+            vim.lsp.buf.add_workspace_folder,
+            desc = "Add workspace folder",
+          },
+          { "l",
+            function()
+              vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+            end,
+            desc = "List workspace folders",
+          },
+          { "r",
+            vim.lsp.buf.remove_workspace_folder,
+            desc = "Remove workspace folder",
+          },
+        }},
+        { "<C-", {
+          { "i>",
+            "<Cmd>FzfLua lsp_incoming_calls<CR>",
+            cond = capabilities.incomingCallsProvider ~= nil,
+            desc = "Fzf: incoming calls",
+          },
+          { "o>",
+            "<Cmd>FzfLua lsp_outgoing_calls<CR>",
+            cond = capabilities.outgoindCallsProvider ~= nil,
+            desc = "Fzf: outgoing calls",
+          },
+          { "r>",
+            "<Cmd>FzfLua lsp_references<CR>",
+            cond = capabilities.referencesProvider ~= nil,
+            desc = "Fzf: symbol's references",
+          },
+          { "s>",
+            "<Cmd>FzfLua lsp_workspace_symbol<CR>",
+            cond = capabilities.workspaceSymbolProvider ~= nil,
+            desc = "Fzf: workspace symbols",
+          },
         }},
       }},
-      { "<C-", {
-        { "i>", "<Cmd>FzfLua lsp_incoming_calls<CR>", options = {
-          desc = "Fzf: incoming calls",
-        }},
-        { "o>", "<Cmd>FzfLua lsp_outgoing_calls<CR>", options = {
-          desc = "Fzf: outgoing calls",
-        }},
-        { "r>", "<Cmd>FzfLua lsp_references<CR>", options = {
-          desc = "Fzf: symbol's references",
-        }},
-        { "s>", "<Cmd>FzfLua lsp_workspace_symbol<CR>", options = {
-          desc = "Fzf: workspace symbols",
-        }},
-      }},
-    }},
-  }},
+    }
+  end,
 }

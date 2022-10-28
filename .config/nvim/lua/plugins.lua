@@ -29,6 +29,7 @@ local plugins = {
       require("nvim-lastplace").setup()
     end,
   },
+  { "f1rstlady/nest.nvim" },
   { "f1rstlady/vim-loupe",
     config = function()
       -- Do not center search results on n/N.
@@ -100,7 +101,6 @@ local plugins = {
   },
   { "junegunn/vim-easy-align" },
   { "lewis6991/impatient.nvim" },
-  { "LionC/nest.nvim" },
   { "lukas-reineke/virt-column.nvim",
     after = "gruvbox.nvim",
     config = function()

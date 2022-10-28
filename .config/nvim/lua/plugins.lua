@@ -100,7 +100,15 @@ local plugins = {
       vim.g.AutoPairsShortcutJump = ""
     end,
   },
-  { "junegunn/vim-easy-align" },
+  { "junegunn/vim-easy-align",
+    config = function()
+      vim.g.easy_align_delimiters = {
+        [">"] = {
+          pattern = "->",
+        }
+      }
+    end,
+  },
   { "lewis6991/impatient.nvim" },
   { "lukas-reineke/virt-column.nvim",
     after = "gruvbox.nvim",

@@ -285,127 +285,189 @@ return {
       },
       { (vim.g.neovide and "/" or "_") .. ">", {
         { "<C-"..(vim.g.neovide and "/" or "_")..">",
-          "<Cmd>FzfLua resume<CR>",
+          function()
+            require("fzf-lua").resume()
+          end,
           desc = "Resume"
         },
         { ":",
-          "<Cmd>FzfLua command_history<CR>",
+          function()
+            require("fzf-lua").command_history()
+          end,
           desc = "Command history",
         },
         { "/",
-          "<Cmd>FzfLua search_history<CR>",
+          function()
+            require("fzf-lua").search_history()
+          end,
           desc = "Search history",
         },
         { "?",
-          "<Cmd>FzfLua search_history<CR>",
+          function()
+            require("fzf-lua").search_history()
+          end,
           desc = "Search history",
         },
         { "a",
-          "<Cmd>FzfLua args<CR>",
+          function()
+            require("fzf-lua").args()
+          end,
           desc = "Arguments",
         },
         { "b",
-          "<Cmd>FzfLua buffers<CR>",
+          function()
+            require("fzf-lua").buffers()
+          end,
           desc = "Buffers",
         },
         { "c",
-          "<Cmd>FzfLua commands<CR>",
+          function()
+            require("fzf-lua").commands()
+          end,
           desc = "Commands",
         },
         { "C",
-          "<Cmd>FzfLua colorschemes<CR>",
+          function()
+            require("fzf-lua").colorschemes()
+          end,
           desc = "Colorschemes",
         },
         { "f",
-          "<Cmd>FzfLua files<CR>",
+          function()
+            require("fzf-lua").files()
+          end,
           desc = "Files",
         },
         { "F",
-          "<Cmd>FzfLua oldfiles<CR>",
+          function()
+            require("fzf-lua").oldfiles()
+          end,
           desc = "Recent Files",
         },
         { "<C-f>",
-          "<Cmd>FzfLua git_files<CR>",
+          function()
+            require("fzf-lua").git_files()
+          end,
           desc = "Git-tracked files",
         },
         { "g",
-          "<Cmd>FzfLua live_grep<CR>",
+          function()
+            require("fzf-lua").live_grep()
+          end,
           desc = "Grep",
         },
         { "G",
-          "<Cmd>FzfLua live_grep_resume<CR>",
+          function()
+            require("fzf-lua").live_grep_resume()
+          end,
           desc = "Resume last grep",
         },
         { "<C-g>",
-          "<Cmd>FzfLua live_grep_glob<CR>",
+          function()
+            require("fzf-lua").live_grep_glob()
+          end,
           desc = "Grep with --glob",
         },
         { "h",
-          "<Cmd>FzfLua help_tags<CR>",
+          function()
+            require("fzf-lua").help_tags()
+          end,
           desc = "Help tags",
         },
         { "H",
-          "<Cmd>FzfLua man_pages<CR>",
+          function()
+            require("fzf-lua").man_pages()
+          end,
           desc = "Man pages",
         },
         { "j",
-          "<Cmd>FzfLua jumps<CR>",
+          function()
+            require("fzf-lua").jumps()
+          end,
           desc = "Jumps",
         },
         { "k",
-          "<Cmd>FzfLua keymaps<CR>",
+          function()
+            require("fzf-lua").keymaps()
+          end,
           desc = "Keymaps",
         },
         { "l",
-          "<Cmd>FzfLua lines<CR>",
+          function()
+            require("fzf-lua").lines()
+          end,
           desc = "Buffer lines",
         },
         { "L",
-          "<Cmd>FzfLua blines<CR>",
+          function()
+            require("fzf-lua").blines()
+          end,
           desc = "Current buffer lines",
         },
         { "m",
-          "<Cmd>FzfLua marks<CR>",
+          function()
+            require("fzf-lua").marks()
+          end,
           desc = "Marks",
         },
         { "o",
-          "<Cmd>FzfLua grep_cword<CR>",
+          function()
+            require("fzf-lua").grep_cword()
+          end,
           desc = "Grep word under cursor",
         },
         { "O",
-          "<Cmd>FzfLua grep_cWORD<CR>",
+          function()
+            require("fzf-lua").grep_cWORD()
+          end,
           desc = "Grep WORD under cursor",
         },
         { "<C-o>",
-          "<Cmd>FzfLua grep_visual<CR>",
+          function()
+            require("fzf-lua").grep_visual()
+          end,
           desc = "Grep visual selection",
         },
         { "p",
-          "<Cmd>FzfLua packadd<CR>",
+          function()
+            require("fzf-lua").packadd()
+          end,
           desc = "Add package",
         },
         { "q",
-          "<Cmd>FzfLua quickfix<CR>",
+          function()
+            require("fzf-lua").quickfix()
+          end,
           desc = "Quickfix list",
         },
         { "Q",
-          "<Cmd>FzfLua loclist<CR>",
+          function()
+            require("fzf-lua").loclist()
+          end,
           desc = "Location list",
         },
         { "r",
-          "<Cmd>FzfLua registers<CR>",
+          function()
+            require("fzf-lua").registers()
+          end,
           desc = "Registers",
         },
         { "s",
-          "<Cmd>FzfLua spell_suggest<CR>",
+          function()
+            require("fzf-lua").spell_suggest()
+          end,
           desc = "Spelling suggestions",
         },
         { "t",
-          "<Cmd>FzfLua filetypes<CR>",
+          function()
+            require("fzf-lua").filetypes()
+          end,
           desc = "Filetypes",
         },
         { "T",
-          "<Cmd>FzfLua tagstack<CR>",
+          function()
+            require("fzf-lua").tagstack()
+          end,
           desc = "Tags",
         },
       }},
@@ -453,7 +515,9 @@ return {
         desc = "Toggle inline/virtual diagnostics",
       },
       { "<C-d>",
-        "<Cmd>FzfLua diagnostics_workspace<CR>",
+        function()
+          require("fzf-lua").diagnostics_workspace()
+        end,
         desc = "Fzf: diagnostics",
       },
     }},
@@ -654,22 +718,30 @@ return {
         }},
         { "<C-", {
           { "i>",
-            "<Cmd>FzfLua lsp_incoming_calls<CR>",
+            function()
+              require("fzf-lua").lsp_incoming_calls()
+            end,
             cond = capabilities.incomingCallsProvider ~= nil,
             desc = "Fzf: incoming calls",
           },
           { "o>",
-            "<Cmd>FzfLua lsp_outgoing_calls<CR>",
+            function()
+              require("fzf-lua").lsp_outgoing_calls()
+            end,
             cond = capabilities.outgoindCallsProvider ~= nil,
             desc = "Fzf: outgoing calls",
           },
           { "r>",
-            "<Cmd>FzfLua lsp_references<CR>",
+            function()
+              require("fzf-lua").lsp_references()
+            end,
             cond = capabilities.referencesProvider ~= nil,
             desc = "Fzf: symbol's references",
           },
           { "s>",
-            "<Cmd>FzfLua lsp_workspace_symbol<CR>",
+            function()
+              require("fzf-lua").lsp_workspace_symbols()
+            end,
             cond = capabilities.workspaceSymbolProvider ~= nil,
             desc = "Fzf: workspace symbols",
           },

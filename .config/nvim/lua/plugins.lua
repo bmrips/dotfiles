@@ -88,6 +88,15 @@ local plugins = {
       { "kyazdani42/nvim-web-devicons" },
       { "vijaymarupudi/nvim-fzf" },
     },
+    config = function()
+      require("fzf-lua").setup {
+        lsp = {
+          code_actions = {
+            winopts = { relative = "cursor" },
+          },
+        },
+      }
+    end
   },
   { "jghauser/fold-cycle.nvim",
     config = function()

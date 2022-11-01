@@ -717,6 +717,13 @@ return {
           },
         }},
         { "<C-", {
+          { "a>",
+            function()
+              require("fzf-lua").lsp_code_actions()
+            end,
+            cond = capabilities.codeActionProvider ~= nil,
+            desc = "Fzf: code actions",
+          },
           { "i>",
             function()
               require("fzf-lua").lsp_incoming_calls()

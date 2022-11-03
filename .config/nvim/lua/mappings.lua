@@ -1,5 +1,5 @@
 return {
-  default = {
+  init = {
     { "<BS>",
       "<Plug>(LoupeClearHighlight)",
       desc = "Clear search highlighting",

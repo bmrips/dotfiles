@@ -97,10 +97,13 @@ vim.g.mapleader = "\\"
 vim.g.maplocalleader = vim.api.nvim_replace_termcodes("<C-\\>", true, true, true)
 
 local mappings = require("mappings")
+local appliedMappings = {
+  lsp = {}
+}
 
 local nest = require("nest")
 nest.defaults.silent = false
-nest.applyKeymaps(mappings.default)
+appliedMappings.init = nest.applyKeymaps(mappings.init)
 
 local abbreviations = {
   -- Window splits.
@@ -148,7 +151,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
   callback = function(args)
     vim.opt_local.signcolumn = "yes"
     local client = vim.lsp.get_client_by_id(args.data.client_id)
-    nest.applyKeymaps({
+    appliedMappings.lsp[args.buf] = nest.applyKeymaps({
       buffer = args.buf,
       mappings.lsp(client.server_capabilities)
     })

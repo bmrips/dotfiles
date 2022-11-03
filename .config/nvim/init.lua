@@ -157,6 +157,15 @@ vim.api.nvim_create_autocmd("LspAttach", {
     })
   end
 })
+vim.api.nvim_create_autocmd("LspDetach", {
+  desc = "Revert settings specific to buffers with attached language server",
+  nested = true,
+  callback = function(args)
+    vim.opt_local.signcolumn = vim.opt_global.signcolumn:get()
+    nest.revertKeymaps(appliedMappings.lsp[args.buf])
+    appliedMappings.lsp[args.buf] = nil
+  end
+})
 
 -- Read local configuration files, but with certain commands disabled
 opt.secure = true

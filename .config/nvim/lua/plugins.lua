@@ -18,7 +18,6 @@ local plugins = {
       vim.g.matchup_transmute_enabled = 1
     end,
   },
-  { "direnv/direnv.vim" },
   { "ellisonleao/gruvbox.nvim",
     config = function()
       vim.cmd.colorscheme "gruvbox"

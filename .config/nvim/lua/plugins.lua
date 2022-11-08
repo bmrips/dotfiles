@@ -112,7 +112,7 @@ local plugins = {
     config = function()
       vim.g.easy_align_delimiters = {
         [">"] = {
-          pattern = "->",
+          pattern = "->\\|-->\\|=>\\|==>\\|\\~>\\|\\~\\~>",
         }
       }
     end,

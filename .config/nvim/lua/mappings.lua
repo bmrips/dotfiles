@@ -554,12 +554,12 @@ return {
     return {
       { "K",
         vim.lsp.buf.hover,
-        cond = capabilities.hoverProvider ~= nil,
+        cond = capabilities.hoverProvider and true or false,
         desc = "Hover symbol under cursor",
       },
       { "S",
         vim.lsp.buf.rename,
-        cond = capabilities.renameProvider ~= nil,
+        cond = capabilities.renameProvider and true or false,
         desc = "Rename symbol under cursor",
       },
       { "g", {
@@ -567,28 +567,28 @@ return {
           function()
             require("util.lsp.goto").location("definition")
           end,
-          cond = capabilities.definitionProvider ~= nil,
+          cond = capabilities.definitionProvider and true or false,
           desc = "Go to/list definition(s)",
         },
         { "D",
           function()
             require("util.lsp.goto").location("declaration")
           end,
-          cond = capabilities.declarationProvider ~= nil,
+          cond = capabilities.declarationProvider and true or false,
           desc = "Go to/list declaration(s)",
         },
         { "i",
           function()
             require("util.lsp.goto").location("implementation")
           end,
-          cond = capabilities.implementationProvider ~= nil,
+          cond = capabilities.implementationProvider and true or false,
           desc = "Go to/list implementation(s)",
         },
         { "t",
           function()
             require("util.lsp.goto").location("type_definition")
           end,
-          cond = capabilities.typeDefinitionProvider ~= nil,
+          cond = capabilities.typeDefinitionProvider and true or false,
           desc = "Go to/list type definition(s)",
         },
       }},
@@ -597,107 +597,107 @@ return {
           function()
             require("util.lsp.goto").location("definition", "split")
           end,
-          cond = capabilities.definitionProvider ~= nil,
+          cond = capabilities.definitionProvider and true or false,
           desc = "Open definition(s) in split",
         },
         { "D",
           function()
             require("util.lsp.goto").location("definition", "tab split")
           end,
-          cond = capabilities.definitionProvider ~= nil,
+          cond = capabilities.definitionProvider and true or false,
           desc = "Open definition(s) in tab split",
         },
         { "<C-d>",
           function()
             require("util.lsp.goto").location("definition", "vert split")
           end,
-          cond = capabilities.definitionProvider ~= nil,
+          cond = capabilities.definitionProvider and true or false,
           desc = "Open definition(s) in vert split",
         },
         { "i",
           function()
             require("util.lsp.goto").location("implementation", "split")
           end,
-          cond = capabilities.implementationProvider ~= nil,
+          cond = capabilities.implementationProvider and true or false,
           desc = "Open implementation(s) in split",
         },
         { "I",
           function()
             require("util.lsp.goto").location("implementation", "tab split")
           end,
-          cond = capabilities.implementationProvider ~= nil,
+          cond = capabilities.implementationProvider and true or false,
           desc = "Open implementation(s) in tab split",
         },
         { "<C-i>",
           function()
             require("util.lsp.goto").location("implementation", "vert split")
           end,
-          cond = capabilities.implementationProvider ~= nil,
+          cond = capabilities.implementationProvider and true or false,
           desc = "Open implementation(s) in vert split",
         },
         { "t",
           function()
             require("util.lsp.goto").location("type_definition", "split")
           end,
-          cond = capabilities.typeDefinitionProvider ~= nil,
+          cond = capabilities.typeDefinitionProvider and true or false,
           desc = "Open type definition(s) in split",
         },
         { "T",
           function()
             require("util.lsp.goto").location("type_definition", "tab split")
           end,
-          cond = capabilities.typeDefinitionProvider ~= nil,
+          cond = capabilities.typeDefinitionProvider and true or false,
           desc = "Open type definition(s) in tab split",
         },
         { "<C-t>",
           function()
             require("util.lsp.goto").location("type_definition", "vert split")
           end,
-          cond = capabilities.typeDefinitionProvider ~= nil,
+          cond = capabilities.typeDefinitionProvider and true or false,
           desc = "Open type definition(s) in vert split",
         },
       }},
       { "<LocalLeader>", {
         { "a",
           vim.lsp.buf.code_action,
-          cond = capabilities.codeActionProvider ~= nil,
+          cond = capabilities.codeActionProvider and true or false,
           desc = "Invoke a code action",
         },
         { "f",
           function()
             vim.lsp.buf.format {async = false}
           end,
-          cond = capabilities.documentFormatProvider ~= nil,
+          cond = capabilities.documentFormatProvider and true or false,
           desc = "Format the buffer",
         },
         { "i",
           vim.lsp.buf.incoming_calls,
-          cond = capabilities.incomingCallsProvider ~= nil,
+          cond = capabilities.incomingCallsProvider and true or false,
           desc = "List incoming calls",
         },
         { "k",
           vim.lsp.buf.signature_help,
-          cond = capabilities.signatureHelpProvider ~= nil,
+          cond = capabilities.signatureHelpProvider and true or false,
           desc = "Show the symbol's signature",
         },
         { "o",
           vim.lsp.buf.outgoing_calls,
-          cond = capabilities.outgoingCallsProvider ~= nil,
+          cond = capabilities.outgoingCallsProvider and true or false,
           desc = "List outgoing calls",
         },
         { "r",
           vim.lsp.buf.references,
-          cond = capabilities.referencesProvider ~= nil,
+          cond = capabilities.referencesProvider and true or false,
           desc = "List the symbol's references",
         },
         { "s",
           vim.lsp.buf.workspace_symbol,
-          cond = capabilities.workspaceSymbolProvider ~= nil,
+          cond = capabilities.workspaceSymbolProvider and true or false,
           desc = "List all workspace symbols",
         },
         { "S",
           vim.lsp.buf.document_symbol,
-          cond = capabilities.documentSymbolProvider ~= nil,
+          cond = capabilities.documentSymbolProvider and true or false,
           desc = "List all document symbols",
         },
         { "w", {
@@ -721,35 +721,35 @@ return {
             function()
               require("fzf-lua").lsp_code_actions()
             end,
-            cond = capabilities.codeActionProvider ~= nil,
+            cond = capabilities.codeActionProvider and true or false,
             desc = "Fzf: code actions",
           },
           { "i>",
             function()
               require("fzf-lua").lsp_incoming_calls()
             end,
-            cond = capabilities.incomingCallsProvider ~= nil,
+            cond = capabilities.incomingCallsProvider and true or false,
             desc = "Fzf: incoming calls",
           },
           { "o>",
             function()
               require("fzf-lua").lsp_outgoing_calls()
             end,
-            cond = capabilities.outgoindCallsProvider ~= nil,
+            cond = capabilities.outgoindCallsProvider and true or false,
             desc = "Fzf: outgoing calls",
           },
           { "r>",
             function()
               require("fzf-lua").lsp_references()
             end,
-            cond = capabilities.referencesProvider ~= nil,
+            cond = capabilities.referencesProvider and true or false,
             desc = "Fzf: symbol's references",
           },
           { "s>",
             function()
               require("fzf-lua").lsp_workspace_symbols()
             end,
-            cond = capabilities.workspaceSymbolProvider ~= nil,
+            cond = capabilities.workspaceSymbolProvider and true or false,
             desc = "Fzf: workspace symbols",
           },
         }},

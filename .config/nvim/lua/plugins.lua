@@ -315,6 +315,22 @@ local plugins = {
     end,
   },
   { "rafcamlet/nvim-luapad" },
+  { "rafcamlet/tabline-framework.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      require("tabline_framework").setup {
+        render = function(f)
+          f.make_tabs(function(info)
+            vim.pretty_print(info)
+            f.add(' ' .. info.index .. ' ')
+            f.add(info.filename or '[no name]')
+            f.add(info.modified and '+')
+            f.add ' '
+          end)
+        end,
+      }
+    end,
+  },
   { "rcarriga/nvim-notify",
     config = function()
       vim.notify = require("notify")

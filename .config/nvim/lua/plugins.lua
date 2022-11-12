@@ -314,6 +314,13 @@ local plugins = {
       vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
     end,
   },
+  { "potamides/pantran.nvim",
+    config = function()
+      require("pantran").setup {
+        default_engine = "google"
+      }
+    end,
+  },
   { "rafcamlet/nvim-luapad" },
   { "rafcamlet/tabline-framework.nvim",
     requires = "kyazdani42/nvim-web-devicons",

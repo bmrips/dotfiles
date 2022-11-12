@@ -65,6 +65,25 @@ return {
         mode = "",
         noremap = false,
       },
+      { "l",
+        function()
+          return require("pantran").motion_translate()
+        end,
+        expr = true,
+      },
+      { "L",
+        function()
+          return require("pantran").motion_translate() .. "_"
+        end,
+        expr = true,
+      },
+      { "l",
+        function()
+          require("pantran").motion_translate()
+        end,
+        expr = true,
+        mode = "x",
+      },
       { "o",
         ":Sort i<CR>",
         desc = "Sort",

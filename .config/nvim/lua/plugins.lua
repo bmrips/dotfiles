@@ -391,6 +391,14 @@ local plugins = {
   { "tpope/vim-repeat" },
   { "tpope/vim-surround" },
   { "tweekmonster/startuptime.vim" },
+  { "Wansmer/treesj",
+    requires = { "nvim-treesitter" },
+    config = function()
+      require("treesj").setup {
+        use_default_keymaps = false
+      }
+    end,
+  },
   { "wbthomason/packer.nvim" },
   { "wellle/targets.vim" },
 }

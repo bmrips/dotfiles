@@ -108,6 +108,12 @@ return {
           desc = "Increment stepwise",
           mode = "x",
         },
+        { "j>",
+          function()
+            require("treesj").toggle()
+          end,
+          desc = "Split/join blocks of code",
+        },
         { "x>",
           require("dial.map").dec_gvisual(),
           desc = "Decrement stepwise",

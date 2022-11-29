@@ -1,2 +1,2 @@
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-bindkey "^E" forward-word
+bindkey '^E' forward-word

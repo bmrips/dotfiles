@@ -2,8 +2,8 @@ source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
 # Select files with Ctrl+Space, directories with Ctrl+T
-bindkey "^ " fzf-file-widget
-bindkey "^T" fzf-cd-widget
+bindkey '^ ' fzf-file-widget
+bindkey '^T' fzf-cd-widget
 
 source /usr/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 zstyle ':completion:*' fzf-search-display true # Search completion descriptions
@@ -31,7 +31,7 @@ function fzf-cdhist-widget() {
 }
 
 zle -N fzf-cdhist-widget
-bindkey "^Y" fzf-cdhist-widget
+bindkey '^Y' fzf-cdhist-widget
 
 #[ Interactive grep ]#
 FZF_GREP_COMMAND="fzf-state get-source grep"
@@ -56,4 +56,4 @@ function fzf-grep-widget() {
 }
 
 zle -N fzf-grep-widget
-bindkey "^F" fzf-grep-widget
+bindkey '^F' fzf-grep-widget

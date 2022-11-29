@@ -6,6 +6,19 @@ autoload -Uz incarg
 zle -N incarg
 bindkey -M vicmd '^A' incarg
 
+# Text operators for quotes and blocks.
+autoload -Uz select-bracketed select-quoted
+zle -N select-quoted
+zle -N select-bracketed
+for km in viopp visual; do
+    for c in {a,i}${(s..)^:-q\'\"\`}; do
+        bindkey -M $km -- $c select-quoted
+    done
+    for c in {a,i}${(s..)^:-'bB()[]{}<>'}; do
+        bindkey -M $km -- $c select-bracketed
+    done
+done
+
 # vim-surround
 autoload -Uz surround
 zle -N delete-surround surround

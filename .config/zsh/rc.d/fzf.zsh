@@ -16,6 +16,29 @@ zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk # do not skew the or
 # eval twice, first to unescape the string, second to expand the $variable
 zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
 
+#[ Go to `goto` bookmark ]#
+GOTO_DIR_PREVIEW='ls -l --human-readable --color=always --group-directories-first --time-style=+t --literal $(echo {} | sed "s/^[a-zA-Z]* *//") | cut --delimiter=" " --fields=1,5- | sed "s/ t / /" | tail -n+2'
+FZF_GOTO_OPTS="--preview='$GOTO_DIR_PREVIEW'"
+
+function fzf-goto-widget() {
+    _goto_resolve_db
+    local dir="$(sed 's/ /:/' $GOTO_DB | column --table --separator=: | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" fzf | sed "s/^[a-zA-Z]* *//")"
+    if [[ -z "$dir" ]]; then
+        zle redisplay
+        return 0
+    fi
+    zle push-line # Clear buffer. Auto-restored on next prompt.
+    BUFFER="cd -- ${(q)dir}"
+    zle accept-line
+    local ret=$?
+    unset dir # ensure this doesn't end up appearing in prompt expansion
+    zle reset-prompt
+    return $ret
+}
+
+zle -N fzf-goto-widget
+bindkey '^B' fzf-goto-widget
+
 #[ Go to directory in cd history ]#
 FZF_CDHIST_OPTS="--preview='$DIR_PREVIEW'"
 

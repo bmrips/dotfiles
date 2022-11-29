@@ -1,8 +1,6 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-source $HOME/.config/sh/rc.sh
-
 setopt vi
 
 autoload -Uz edit-command-line
@@ -41,6 +39,10 @@ zstyle ':completion:*' group-name ''
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
 
 zstyle ':completion:*' keep-prefix yes
+
+# Source the generic shell configuration after compinit was loaded.  Otherwise,
+# plugins will not be able to register completion.
+source $HOME/.config/sh/rc.sh
 
 # History
 HISTSIZE=100000

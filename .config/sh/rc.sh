@@ -61,8 +61,6 @@ alias gl='glab'
 
 # grep
 alias grep='grep -I --color=auto'
-alias fgrep='fgrep -I --color=auto'
-alias egrep='egrep -I --color=auto'
 
 # highlight
 alias highlight='highlight --out-format=ansi'

@@ -18,6 +18,9 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select  # Enable menu style completion
 _comp_option+=(globdots)            # Include hidden files
 
+zstyle ':completion:*' use-cache yes
+zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/completion"
+
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"
 zstyle ':completion:*:messages' format '%d'

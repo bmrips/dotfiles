@@ -6,6 +6,7 @@ source $HOME/.config/sh/rc.sh
 setopt vi
 
 bindkey -M viins 'jk' vi-cmd-mode
+bindkey -M vicmd ' ' execute-named-cmd
 
 autoload -U edit-command-line
 zle -N edit-command-line

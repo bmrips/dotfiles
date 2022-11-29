@@ -1,6 +1,6 @@
 local opt = vim.opt_local
 
-opt.comments = '"'
+opt.comments = ':"'
 opt.formatoptions:remove("r")
 opt.formatoptions:remove("o")
 opt.include = "^\\s*\\%(source\\|runtime\\%)"

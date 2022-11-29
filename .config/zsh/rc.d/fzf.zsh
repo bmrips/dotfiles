@@ -1,9 +1,12 @@
 source /usr/share/fzf/completion.zsh
 source /usr/share/fzf/key-bindings.zsh
 
-# Select files with Ctrl+Space, directories with Ctrl+T
+# Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
 bindkey '^ ' fzf-file-widget
+bindkey '^_' fzf-history-widget
 bindkey '^T' fzf-cd-widget
+
+bindkey -M vicmd '^R' redo  # restore redo
 
 source /usr/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 zstyle ':completion:*' fzf-search-display true # Search completion descriptions

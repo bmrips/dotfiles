@@ -10,6 +10,7 @@ bindkey -M vicmd '^R' redo  # restore redo
 
 source /usr/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 zstyle ':completion:*' fzf-search-display true # Search completion descriptions
+zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk # do not skew the ordering
 
 # preview when completing env vars (note: only works for exported variables)
 # eval twice, first to unescape the string, second to expand the $variable

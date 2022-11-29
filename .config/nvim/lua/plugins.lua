@@ -193,6 +193,9 @@ local plugins = {
         }
       }
 
+      -- Java
+      lspconfig.jdtls.setup {}
+
       -- Lua
       require("lspconfig").sumneko_lua.setup {
         settings = {

@@ -1,6 +1,11 @@
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M vicmd ' ' execute-named-cmd
 
+# Increment with <C-a>
+autoload -Uz incarg
+zle -N incarg
+bindkey -M vicmd '^A' incarg
+
 # vim-surround
 autoload -Uz surround
 zle -N delete-surround surround

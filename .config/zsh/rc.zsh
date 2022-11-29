@@ -14,6 +14,19 @@ bindkey          '^V' edit-command-line
 bindkey -M vicmd '^V' edit-command-line
 
 # Completion
+zmodload zsh/complist
+
+bindkey -M menuselect '^A' send-break # abort
+bindkey -M menuselect '^H' vi-backward-char # left
+bindkey -M menuselect '^J' vi-down-line-or-history # down
+bindkey -M menuselect '^K' vi-up-line-or-history # up
+bindkey -M menuselect '^L' vi-forward-char # right
+bindkey -M menuselect '^N' vi-forward-blank-word # next group
+bindkey -M menuselect '^P' vi-backward-blank-word # previous group
+bindkey -M menuselect '^T' accept-and-hold # hold
+bindkey -M menuselect '^U' undo
+bindkey -M menuselect '^Y' accept-and-infer-next-history # next
+
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select  # Enable menu style completion
 _comp_option+=(globdots)            # Include hidden files

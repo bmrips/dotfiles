@@ -29,11 +29,11 @@ else
 fi
 
 # cp
-alias cp='cp -i'
+alias cp='cp --interactive'
 alias cow='cp --reflink=auto'
 
 # df
-alias df='df -h'
+alias df='df --human-readable'
 
 # diff
 alias diff='diff --color=auto'
@@ -42,10 +42,10 @@ alias diff='diff --color=auto'
 alias dmesg='dmesg --color=auto'
 
 # du
-alias du='du -h'
+alias du='du --human-readable'
 
 # free
-alias free='free -h'
+alias free='free --human'
 
 # git
 function git() {
@@ -60,7 +60,7 @@ function git() {
 alias gl='glab'
 
 # grep
-alias grep='grep -I --color=auto'
+alias grep='grep --binary-files=without-match --color=auto'
 
 # highlight
 alias highlight='highlight --out-format=ansi'
@@ -81,10 +81,10 @@ alias ld='ll -d'
 alias lx='ll -X'
 
 # make
-alias make='make -j`nproc`'
+alias make='make --jobs=$(nproc)'
 
 # mv
-alias mv='mv -i'
+alias mv='mv --interactive'
 
 # neovide
 alias neovide='neovide --maximized --notabs'
@@ -110,7 +110,7 @@ alias tree='tree -C --dirsfirst'
 alias gtree='tree --gitignore'
 
 # wget
-alias wget='wget -c'
+alias wget='wget --continue'
 
 # One-letter aliases
 alias b=goto

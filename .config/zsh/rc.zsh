@@ -30,6 +30,8 @@ zstyle ':completion:*' group-name ''
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
 
+zstyle ':completion:*' keep-prefix yes
+
 # History
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE

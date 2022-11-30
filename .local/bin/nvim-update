@@ -12,6 +12,7 @@ import           System.Directory            (XdgDirectory (..),
 import           System.Environment          (getArgs)
 import           System.Exit                 (die)
 import           "Glob" System.FilePath.Glob (glob)
+import           System.FilePath.Posix ((</>))
 import           System.IO                   (hPutStrLn, stderr)
 import           System.Process              (readProcessWithExitCode)
 
@@ -47,7 +48,7 @@ parseArgument = \ case
         , getXdgDirectory XdgData   "nvim/site/pack/local" ]
       >>= mapM_ updatePlugins
   "undofiles" ->
-    getHomeDirectory >>= updateUndofiles . (++ ".local/state/nvim/undo")
+    getHomeDirectory >>= updateUndofiles . (</> ".local/state/nvim/undo")
   other ->
     hPutStrLn stderr $ "Error: unknown argument: " ++ other
 

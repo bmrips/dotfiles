@@ -1,12 +1,3 @@
-local config = {
-  git = {
-    subcommands = {
-      -- Allow rebasing during updates.
-      update = "pull --progress",
-    },
-  },
-}
-
 local plugins = {
   { "andymass/vim-matchup",
     config = function()
@@ -406,4 +397,4 @@ local plugins = {
   { "wellle/targets.vim" },
 }
 
-return require("packer").startup { plugins, config = config }
+return require("packer").startup { plugins }

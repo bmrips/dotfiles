@@ -1,0 +1,63 @@
+; vi: ft=dosini
+
+[Background]
+Color=50,48,47
+
+[Color0]
+Color=50,48,47
+
+[Color0Intense]
+Color=146,131,116
+; #928374 -> grey1
+
+[Color1]
+Color=242,89,75
+
+[Color1Intense]
+Color=251,73,52
+
+[Color2]
+Color=176,184,70
+
+[Color2Intense]
+Color=184,187,38
+
+[Color3]
+Color=233,177,67
+
+[Color3Intense]
+Color=250,189,47
+
+[Color4]
+Color=128,170,158
+
+[Color4Intense]
+Color=131,165,152
+
+[Color5]
+Color=211,134,155
+
+[Color5Intense]
+Color=211,134,155
+
+[Color6]
+Color=139,186,127
+
+[Color6Intense]
+Color=142,192,124
+
+[Color7]
+Color=168,153,132
+; #a89984 -> grey2
+
+[Color7Intense]
+Color=226,204,169
+; #e2cca9 -> mix/fg0
+
+[Foreground]
+Color=226,204,169
+
+[General]
+Description=Gruvbox Material Dark Soft Intense
+Opacity=1
+Wallpaper=

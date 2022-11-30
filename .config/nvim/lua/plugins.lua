@@ -136,6 +136,9 @@ local plugins = {
       require('tidy').setup()
     end
   },
+  { 'mcchrish/zenbones.nvim',
+    requires = 'rktjmp/lush.nvim',
+  },
   { 'michaeljsmith/vim-indent-object' },
   { 'monaqa/dial.nvim',
     config = function()
@@ -336,6 +339,16 @@ local plugins = {
   { 'rcarriga/nvim-notify',
     config = function()
       vim.notify = require('notify')
+    end,
+  },
+  { 'sainnhe/gruvbox-material',
+    config = function()
+      vim.g.gruvbox_material_better_performance = 1
+      vim.g.gruvbox_material_foreground = 'mix'
+      vim.g.gruvbox_material_enable_bold = 1
+      vim.g.gruvbox_material_enable_italic = 1
+      vim.g.gruvbox_material_sign_column_background = 'grey'
+      vim.g.gruvbox_material_disable_terminal_colors = 1
     end,
   },
   { 'simnalamburt/vim-mundo' },

@@ -9,11 +9,7 @@ local plugins = {
       vim.g.matchup_transmute_enabled = 1
     end,
   },
-  { 'ellisonleao/gruvbox.nvim',
-    config = function()
-      vim.cmd.colorscheme 'gruvbox'
-    end,
-  },
+  { 'ellisonleao/gruvbox.nvim' },
   { 'ethanholz/nvim-lastplace',
     config = function()
       require('nvim-lastplace').setup()
@@ -254,7 +250,7 @@ local plugins = {
       local filename = { 'filename', path = 1 }
       require('lualine').setup {
         options = {
-          theme = 'gruvbox',
+          theme = 'gruvbox-material',
           component_separators = '|',
           section_separators = '',
         },
@@ -349,6 +345,7 @@ local plugins = {
       vim.g.gruvbox_material_enable_italic = 1
       vim.g.gruvbox_material_sign_column_background = 'grey'
       vim.g.gruvbox_material_disable_terminal_colors = 1
+      vim.cmd.colorscheme 'gruvbox-material'
     end,
   },
   { 'simnalamburt/vim-mundo' },

@@ -7,7 +7,7 @@ export FZF_DEFAULT_OPTS="--layout=reverse\
  --marker=❯\
  --prompt='❯ '\
  --pointer=❯\
- --color=bg+:0,info:8,border:8,prompt:13,pointer:12,marker:13,fg+:12,hl:9,hl+:9\
+ --color=16,info:8,border:8\
  --preview-window=right,border,hidden\
  --bind='ctrl-f:half-page-down,ctrl-b:half-page-up,alt-a:toggle-all,f3:toggle-preview-wrap,f4:toggle-preview,f5:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)'"
 

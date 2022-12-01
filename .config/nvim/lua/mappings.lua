@@ -69,20 +69,16 @@ return {
         function()
           return require("pantran").motion_translate()
         end,
+        desc = "Translate",
         expr = true,
+        mode = "",
       },
       { "L",
         function()
           return require("pantran").motion_translate() .. "_"
         end,
+        desc = "Translate",
         expr = true,
-      },
-      { "l",
-        function()
-          require("pantran").motion_translate()
-        end,
-        expr = true,
-        mode = "x",
       },
       { "o",
         ":Sort i<CR>",

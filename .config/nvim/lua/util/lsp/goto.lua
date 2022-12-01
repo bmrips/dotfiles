@@ -1,18 +1,18 @@
-local M = {
+local lsp_goto = {
   split_cmd = ""
 }
 
 local util = vim.lsp.util
 local log = require("vim.lsp.log")
 
-M.handler = function(_, result, ctx)
+lsp_goto.handler = function(_, result, ctx)
   if result == nil or vim.tbl_isempty(result) then
     local _ = log.info() and log.info(ctx.method, "No location found")
     return nil
   end
 
-  if M.split_cmd then
-    vim.cmd(M.split_cmd)
+  if lsp_goto.split_cmd then
+    vim.cmd(lsp_goto.split_cmd)
   end
 
   if vim.tbl_islist(result) then
@@ -28,9 +28,9 @@ M.handler = function(_, result, ctx)
   end
 end
 
-M.location = function(loc, split_cmd)
-  M.split_cmd = split_cmd
+lsp_goto.location = function(loc, split_cmd)
+  lsp_goto.split_cmd = split_cmd
   vim.lsp.buf[loc]()
 end
 
-return M
+return lsp_goto

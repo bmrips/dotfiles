@@ -1,5 +1,6 @@
 require("impatient")
 
+local fold = require("fold")
 local opt = vim.opt
 local util = require("util")
 
@@ -9,7 +10,7 @@ opt.breakindent = true
 opt.clipboard = "unnamedplus"
 opt.expandtab = true
 opt.foldmethod = "marker"
-opt.foldtext = "v:lua.require'util'.foldtext(v:foldstart)"
+opt.foldtext = "v:lua.require'fold'.text(v:foldstart)"
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
 opt.guifont = "JetBrains Mono:h10" -- For Neovide
@@ -75,7 +76,7 @@ vim.api.nvim_create_autocmd("BufWritePost", {
 vim.g.tex_flavor = "latex"
 
 -- Create a fold with `:<range>Fold <level>`.
-vim.api.nvim_create_user_command("Fold", util.fold, {
+vim.api.nvim_create_user_command("Fold", fold.create, {
   bar = true,
   range = true,
   nargs = "?",

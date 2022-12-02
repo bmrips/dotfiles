@@ -1,7 +1,7 @@
 local tex = {}
 
 -- Insert an environment, whose name is given interactively by the user.
-tex.createEnvironment = function()
+function tex.createEnvironment()
   local env = vim.fn.input("Environment: ")
   if env ~= '' then
     return "\\begin{"..env.."}\n\\end{"..env.."}<Up><C-o>A<C-g>u"

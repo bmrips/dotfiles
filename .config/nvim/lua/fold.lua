@@ -1,7 +1,7 @@
 local fold = {}
 
 -- The text shown for a closed fold starting in the given line.
-fold.text = function(linenr)
+function fold.text(linenr)
   local line = vim.api.nvim_buf_get_lines(0, linenr-1, linenr, true)[1]
   local tabInSpaces = ""
   for _ = 1, vim.opt.tabstop:get() do
@@ -21,7 +21,7 @@ local addMark = function(linenr, fdm, level)
 end
 
 -- Create a fold for line1..line2 at the given level.
-fold.create = function(info)
+function fold.create(info)
   local fdm = vim.opt_local.foldmarker:get()
   local level = (info.args ~= "0" and info.args) or ''
   addMark(info.line1, fdm[1], level)

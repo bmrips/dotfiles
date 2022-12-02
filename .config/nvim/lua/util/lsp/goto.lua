@@ -5,7 +5,7 @@ local lsp_goto = {
 local util = vim.lsp.util
 local log = require("vim.lsp.log")
 
-lsp_goto.handler = function(_, result, ctx)
+function lsp_goto.handler(_, result, ctx)
   if result == nil or vim.tbl_isempty(result) then
     local _ = log.info() and log.info(ctx.method, "No location found")
     return nil
@@ -28,7 +28,7 @@ lsp_goto.handler = function(_, result, ctx)
   end
 end
 
-lsp_goto.location = function(loc, split_cmd)
+function lsp_goto.location(loc, split_cmd)
   lsp_goto.split_cmd = split_cmd
   vim.lsp.buf[loc]()
 end

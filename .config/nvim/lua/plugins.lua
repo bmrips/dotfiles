@@ -19,6 +19,7 @@ local plugins = {
       require("nvim-lastplace").setup()
     end,
   },
+  { "f1rstlady/display-motions.nvim" },
   { "f1rstlady/nest.nvim" },
   { "f1rstlady/session.nvim" },
   { "f1rstlady/vim-loupe",

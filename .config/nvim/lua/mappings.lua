@@ -518,6 +518,12 @@ return {
         "<Cmd>DrexDrawerOpen<CR>",
         desc = "Open file drawer",
       },
+      { "m",
+        function()
+          require("display-motions").toggle()
+        end,
+        desc = "Toggle display motions",
+      },
     }},
     { "<LocalLeader>", {
       { "d",

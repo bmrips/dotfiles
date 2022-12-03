@@ -524,6 +524,26 @@ return {
         end,
         desc = "Toggle display motions",
       },
+      { "p", {
+        { "c",
+          function()
+            require("packer").compile()
+          end,
+          desc = "Compile",
+        },
+        { "i",
+          function()
+            require("packer").status()
+          end,
+          desc = "Status",
+        },
+        { "s",
+          function()
+            require("packer").sync()
+          end,
+          desc = "Synchronise",
+        },
+      }},
     }},
     { "<LocalLeader>", {
       { "d",

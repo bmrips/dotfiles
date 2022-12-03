@@ -1,803 +1,804 @@
 return {
   init = {
-    { "<BS>",
-      "<Plug>(LoupeClearHighlight)",
-      desc = "Clear search highlighting",
+    { '<BS>',
+      '<Plug>(LoupeClearHighlight)',
+      desc = 'Clear search highlighting',
       remap = true,
     },
-    { "<CR>",
+    { '<CR>',
       function()
         local type = vim.opt_local.buftype:get()
-        if type == "quickfix" or type == "prompt" or type == "nofile" then
-          return "<CR>"
+        if type == 'quickfix' or type == 'prompt' or type == 'nofile' then
+          return '<CR>'
         else
-          return "<C-^>"
+          return '<C-^>'
         end
       end,
-      desc = "Switch to alternate buffer",
+      desc = 'Switch to alternate buffer',
       expr = true,
     },
-    { "<Space>",
-      ":",
-      desc = "Enter command line",
-      mode = "",
+    { '<Space>',
+      ':',
+      desc = 'Enter command line',
+      mode = '',
     },
-    { "<Tab>",
+    { '<Tab>',
       function()
-        require("fold-cycle").open()
+        require('fold-cycle').open()
       end,
-      desc = "Open folds under cursor",
+      desc = 'Open folds under cursor',
     },
-    { "<S-Tab>",
+    { '<S-Tab>',
       function()
-        require("fold-cycle").close()
+        require('fold-cycle').close()
       end,
-      desc = "Close folds under cursor",
+      desc = 'Close folds under cursor',
     },
-    { "[", {
-      { "d",
+    { '[', {
+      { 'd',
         vim.diagnostic.goto_prev,
-        desc = "Previous diagnostic",
+        desc = 'Previous diagnostic',
       },
-      { "D",
+      { 'D',
         function()
           vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
         end,
-        desc = "Previous error",
+        desc = 'Previous error',
       },
     }},
-    { "]", {
-      { "d",
+    { ']', {
+      { 'd',
         vim.diagnostic.goto_prev,
-        desc = "Next diagnostic",
+        desc = 'Next diagnostic',
       },
-      { "D",
+      { 'D',
         function()
           vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
         end,
-        desc = "Next error",
+        desc = 'Next error',
       },
     }},
-    { "g", {
-      { "a",
-        "<Plug>(EasyAlign)",
-        desc = "Align",
-        mode = "",
+    { 'g', {
+      { 'a',
+        '<Plug>(EasyAlign)',
+        desc = 'Align',
+        mode = '',
         noremap = false,
       },
-      { "l",
+      { 'l',
         function()
-          return require("pantran").motion_translate()
+          return require('pantran').motion_translate()
         end,
-        desc = "Translate",
+        desc = 'Translate',
         expr = true,
-        mode = "",
+        mode = '',
       },
-      { "L",
+      { 'L',
         function()
-          return require("pantran").motion_translate() .. "_"
+          return require('pantran').motion_translate() .. '_'
         end,
-        desc = "Translate",
+        desc = 'Translate',
         expr = true,
       },
-      { "o",
-        ":Sort i<CR>",
-        desc = "Sort",
-        mode = "x",
+      { 'o',
+        ':Sort i<CR>',
+        desc = 'Sort',
+        mode = 'x',
       },
-      { "s",
-        ":%s/\\v/g<Left><Left>",
-        desc = "Substitute globally",
+      { 's',
+        ':%s/\\v/g<Left><Left>',
+        desc = 'Substitute globally',
       },
-      { "s",
-        ":s/\\v/g<Left><Left>",
-        desc = "Substitute in selection",
-        mode = "x",
+      { 's',
+        ':s/\\v/g<Left><Left>',
+        desc = 'Substitute in selection',
+        mode = 'x',
       },
-      { "S",
-        ":sil gr! <C-R><C-w><CR>",
-        desc = "Grep word under cursor",
+      { 'S',
+        ':sil gr! <C-R><C-w><CR>',
+        desc = 'Grep word under cursor',
       },
-      { "<C-", {
-        { "a>",
-          require("dial.map").inc_gvisual(),
-          desc = "Increment stepwise",
-          mode = "x",
+      { '<C-', {
+        { 'a>',
+          require('dial.map').inc_gvisual(),
+          desc = 'Increment stepwise',
+          mode = 'x',
         },
-        { "j>",
+        { 'j>',
           function()
-            require("treesj").toggle()
+            require('treesj').toggle()
           end,
-          desc = "Split/join blocks of code",
+          desc = 'Split/join blocks of code',
         },
-        { "x>",
-          require("dial.map").dec_gvisual(),
-          desc = "Decrement stepwise",
-          mode = "x",
+        { 'x>',
+          require('dial.map').dec_gvisual(),
+          desc = 'Decrement stepwise',
+          mode = 'x',
         },
       }},
     }},
-    { "m", {
-      { "<CR>",
-        "<Cmd>make!<CR>",
-        desc = "Make",
+    { 'm', {
+      { '<CR>',
+        '<Cmd>make!<CR>',
+        desc = 'Make',
       },
-      { "<Space>",
-        ":<C-U>make!<Space>",
-        desc = "Make given target",
+      { '<Space>',
+        ':<C-U>make!<Space>',
+        desc = 'Make given target',
       },
     }},
-    { "S",
-      ":%s/\\v\\C<<C-r><C-w>>//g<Left><Left>",
-      desc = "Substitute word under cursor",
+    { 'S',
+      ':%s/\\v\\C<<C-r><C-w>>//g<Left><Left>',
+      desc = 'Substitute word under cursor',
     },
-    { "U",
-      "<Cmd>MundoToggle<CR>",
-      desc = "Open undo tree",
+    { 'U',
+      '<Cmd>MundoToggle<CR>',
+      desc = 'Open undo tree',
     },
-    { "z", {
-      { "A",
+    { 'z', {
+      { 'A',
         function()
-          require("fold-cycle").toggle_all()
+          require('fold-cycle').toggle_all()
         end,
-        desc = "Toggle all folds under cursor",
+        desc = 'Toggle all folds under cursor',
         noremap = false,
       },
-      { "C",
+      { 'C',
         function()
-          require("fold-cycle").close_all()
+          require('fold-cycle').close_all()
         end,
-        desc = "Close all folds under cursor",
+        desc = 'Close all folds under cursor',
         noremap = false,
       },
-      { "F",
-        "':Fold '.v:count.' | silent! call repeat#set(\"zF\", '.v:count.')<CR>'",
-        desc = "Create fold of given level",
+      { 'F',
+        '":Fold ".v:count." | silent! call repeat#set(\"zF\", ".v:count.")<CR>"',
+        desc = 'Create fold of given level',
         expr = true,
-        mode = "",
+        mode = '',
       },
-      { "O",
+      { 'O',
         function()
-          require("fold-cycle").open_all()
+          require('fold-cycle').open_all()
         end,
-        desc = "Open all folds under cursor",
+        desc = 'Open all folds under cursor',
         noremap = false,
       },
     }},
-    { "<A-", {
-      { "c>",
-        "<Cmd>tabclose<CR>",
-        desc = "Close tab",
+    { '<A-', {
+      { 'c>',
+        '<Cmd>tabclose<CR>',
+        desc = 'Close tab',
       },
-      { "h>",
-        "'<Cmd>silent! tabmove '.(tabpagenr()-2).'<CR>'",
-        desc = "Move tab left",
+      { 'h>',
+        '"<Cmd>silent! tabmove ".(tabpagenr()-2)."<CR>"',
+        desc = 'Move tab left',
         expr = true,
       },
-      { "j>",
-        "<Cmd>tabnext<CR>",
-        desc = "Next tab",
+      { 'j>',
+        '<Cmd>tabnext<CR>',
+        desc = 'Next tab',
       },
-      { "k>",
-        "<Cmd>tabprev<CR>",
-        desc = "Previous tab",
+      { 'k>',
+        '<Cmd>tabprev<CR>',
+        desc = 'Previous tab',
       },
-      { "l>",
-        "'<Cmd>silent! tabmove '.(tabpagenr()+1).'<CR>'",
-        desc = "Move tab right",
+      { 'l>',
+        '"<Cmd>silent! tabmove ".(tabpagenr()+1)."<CR>"',
+        desc = 'Move tab right',
         expr = true,
       },
-      { "n>",
-        "<Cmd>tabnew<CR>",
-        desc = "New tab",
+      { 'n>',
+        '<Cmd>tabnew<CR>',
+        desc = 'New tab',
       },
-      { "o>",
-        "<Cmd>tabonly<CR>",
-        desc = "Close all other tabs",
+      { 'o>',
+        '<Cmd>tabonly<CR>',
+        desc = 'Close all other tabs',
       },
-      { "Tab>",
-        "g<Tab>",
-        desc = "Go to alternate tab",
+      { 'Tab>',
+        'g<Tab>',
+        desc = 'Go to alternate tab',
       },
     }},
-    { "<C-", {
-      { "Left>",
-        "<C-w><",
-        desc = "Decrease window width",
+    { '<C-', {
+      { 'Left>',
+        '<C-w><',
+        desc = 'Decrease window width',
       },
-      { "Down>",
-        "<C-w>-",
-        desc = "Decrease window height",
+      { 'Down>',
+        '<C-w>-',
+        desc = 'Decrease window height',
       },
-      { "Up>",
-        "<C-w>+",
-        desc = "Increase window height",
+      { 'Up>',
+        '<C-w>+',
+        desc = 'Increase window height',
       },
-      { "Right>",
-        "<C-w>>",
-        desc = "Increase window width",
+      { 'Right>',
+        '<C-w>>',
+        desc = 'Increase window width',
       },
-      { "a>",
-        require("dial.map").inc_normal(),
-        desc = "Increment",
+      { 'a>',
+        require('dial.map').inc_normal(),
+        desc = 'Increment',
       },
-      { "a>",
-        require("dial.map").inc_visual(),
-        desc = "Increment",
-        mode = "x",
+      { 'a>',
+        require('dial.map').inc_visual(),
+        desc = 'Increment',
+        mode = 'x',
       },
-      { "h>",
-        "<Cmd>wincmd h<CR>",
-        desc = "Go to left window",
+      { 'h>',
+        '<Cmd>wincmd h<CR>',
+        desc = 'Go to left window',
       },
-      { "j>",
-        "<Cmd>wincmd j<CR>",
-        desc = "Go to down window",
+      { 'j>',
+        '<Cmd>wincmd j<CR>',
+        desc = 'Go to down window',
       },
-      { "k>",
-        "<Cmd>wincmd k<CR>",
-        desc = "Go to up window",
+      { 'k>',
+        '<Cmd>wincmd k<CR>',
+        desc = 'Go to up window',
       },
-      { "l>",
-        "<Cmd>wincmd l<CR>",
-        desc = "Go to right window",
+      { 'l>',
+        '<Cmd>wincmd l<CR>',
+        desc = 'Go to right window',
       },
-      { "p>",
-        "<C-i>",
-        mode = "",
-        desc = "Go forward in jump list",
+      { 'p>',
+        '<C-i>',
+        mode = '',
+        desc = 'Go forward in jump list',
       },
-      { "w>", {
-        { "<CR>",
-          "<Cmd>wincmd ^<CR>",
-          desc = "Open alternate buffer in split",
+      { 'w>', {
+        { '<CR>',
+          '<Cmd>wincmd ^<CR>',
+          desc = 'Open alternate buffer in split',
         },
-        { "}>",
-          "<Cmd>tab wincmd ]<CR>",
-          desc = "Jump to tag in tab split",
+        { '}>',
+          '<Cmd>tab wincmd ]<CR>',
+          desc = 'Jump to tag in tab split',
         },
-        { "D>",
-          "<Cmd>tab wincmd d<CR>",
-          desc = "Open definition in tab split",
+        { 'D>',
+          '<Cmd>tab wincmd d<CR>',
+          desc = 'Open definition in tab split',
         },
-        { "F>",
-          "<Cmd>tab wincmd f<CR>",
-          desc = "Open file in tab split",
+        { 'F>',
+          '<Cmd>tab wincmd f<CR>',
+          desc = 'Open file in tab split',
         },
-        { "I>",
-          "<Cmd>tab wincmd i<CR>",
-          desc = "Open import in tab split",
+        { 'I>',
+          '<Cmd>tab wincmd i<CR>',
+          desc = 'Open import in tab split',
         },
-        { "m",
-          "<Cmd>WinShift<CR>",
-          desc = "Move interactively",
+        { 'm',
+          '<Cmd>WinShift<CR>',
+          desc = 'Move interactively',
         },
-        { "X",
-          "<Cmd>WinShift swap<CR>",
-          desc = "Swap interactively",
+        { 'X',
+          '<Cmd>WinShift swap<CR>',
+          desc = 'Swap interactively',
         },
-        { "<C-", {
-          { "]>",
-            "<Cmd>vertical wincmd ]<CR>",
-            desc = "Jump to tag in vert split",
+        { '<C-', {
+          { ']>',
+            '<Cmd>vertical wincmd ]<CR>',
+            desc = 'Jump to tag in vert split',
           },
-          { "d>",
-            "<Cmd>vertical wincmd d<CR>",
-            desc = "Open definition in vert split",
+          { 'd>',
+            '<Cmd>vertical wincmd d<CR>',
+            desc = 'Open definition in vert split',
           },
-          { "f>",
-            "<Cmd>vertical wincmd f<CR>",
-            desc = "Open file in vert split",
+          { 'f>',
+            '<Cmd>vertical wincmd f<CR>',
+            desc = 'Open file in vert split',
           },
-          { "i>",
-            "<Cmd>vertical wincmd i<CR>",
-            desc = "Open import in vert split",
+          { 'i>',
+            '<Cmd>vertical wincmd i<CR>',
+            desc = 'Open import in vert split',
           },
         }},
       }},
-      { "x>",
-        require("dial.map").dec_normal(),
-        desc = "Decrement",
+      { 'x>',
+        require('dial.map').dec_normal(),
+        desc = 'Decrement',
       },
-      { "x>",
-        require("dial.map").dec_visual(),
-        desc = "Decrement",
-        mode = "x",
+      { 'x>',
+        require('dial.map').dec_visual(),
+        desc = 'Decrement',
+        mode = 'x',
       },
-      { (vim.g.neovide and "/" or "_") .. ">", {
-        { "<C-"..(vim.g.neovide and "/" or "_")..">",
+      { (vim.g.neovide and '/' or '_') .. '>', {
+        { '<C-'..(vim.g.neovide and '/' or '_')..'>',
           function()
-            require("fzf-lua").resume()
+            require('fzf-lua').resume()
           end,
-          desc = "Resume"
+          desc = 'Resume'
         },
-        { ":",
+        { ':',
           function()
-            require("fzf-lua").command_history()
+            require('fzf-lua').command_history()
           end,
-          desc = "Command history",
+          desc = 'Command history',
         },
-        { "/",
+        { '/',
           function()
-            require("fzf-lua").search_history()
+            require('fzf-lua').search_history()
           end,
-          desc = "Search history",
+          desc = 'Search history',
         },
-        { "?",
+        { '?',
           function()
-            require("fzf-lua").search_history()
+            require('fzf-lua').search_history()
           end,
-          desc = "Search history",
+          desc = 'Search history',
         },
-        { "a",
+        { 'a',
           function()
-            require("fzf-lua").args()
+            require('fzf-lua').args()
           end,
-          desc = "Arguments",
+          desc = 'Arguments',
         },
-        { "b",
+        { 'b',
           function()
-            require("fzf-lua").buffers()
+            require('fzf-lua').buffers()
           end,
-          desc = "Buffers",
+          desc = 'Buffers',
         },
-        { "c",
+        { 'c',
           function()
-            require("fzf-lua").commands()
+            require('fzf-lua').commands()
           end,
-          desc = "Commands",
+          desc = 'Commands',
         },
-        { "C",
+        { 'C',
           function()
-            require("fzf-lua").colorschemes()
+            require('fzf-lua').colorschemes()
           end,
-          desc = "Colorschemes",
+          desc = 'Colorschemes',
         },
-        { "f",
+        { 'f',
           function()
-            require("fzf-lua").files()
+            require('fzf-lua').files()
           end,
-          desc = "Files",
+          desc = 'Files',
         },
-        { "F",
+        { 'F',
           function()
-            require("fzf-lua").oldfiles()
+            require('fzf-lua').oldfiles()
           end,
-          desc = "Recent Files",
+          desc = 'Recent Files',
         },
-        { "<C-f>",
+        { '<C-f>',
           function()
-            require("fzf-lua").git_files()
+            require('fzf-lua').git_files()
           end,
-          desc = "Git-tracked files",
+          desc = 'Git-tracked files',
         },
-        { "g",
+        { 'g',
           function()
-            require("fzf-lua").live_grep()
+            require('fzf-lua').live_grep()
           end,
-          desc = "Grep",
+          desc = 'Grep',
         },
-        { "G",
+        { 'G',
           function()
-            require("fzf-lua").live_grep_resume()
+            require('fzf-lua').live_grep_resume()
           end,
-          desc = "Resume last grep",
+          desc = 'Resume last grep',
         },
-        { "<C-g>",
+        { '<C-g>',
           function()
-            require("fzf-lua").live_grep_glob()
+            require('fzf-lua').live_grep_glob()
           end,
-          desc = "Grep with --glob",
+          desc = 'Grep with --glob',
         },
-        { "h",
+        { 'h',
           function()
-            require("fzf-lua").help_tags()
+            require('fzf-lua').help_tags()
           end,
-          desc = "Help tags",
+          desc = 'Help tags',
         },
-        { "H",
+        { 'H',
           function()
-            require("fzf-lua").man_pages()
+            require('fzf-lua').man_pages()
           end,
-          desc = "Man pages",
+          desc = 'Man pages',
         },
-        { "j",
+        { 'j',
           function()
-            require("fzf-lua").jumps()
+            require('fzf-lua').jumps()
           end,
-          desc = "Jumps",
+          desc = 'Jumps',
         },
-        { "k",
+        { 'k',
           function()
-            require("fzf-lua").keymaps()
+            require('fzf-lua').keymaps()
           end,
-          desc = "Keymaps",
+          desc = 'Keymaps',
         },
-        { "l",
+        { 'l',
           function()
-            require("fzf-lua").lines()
+            require('fzf-lua').lines()
           end,
-          desc = "Buffer lines",
+          desc = 'Buffer lines',
         },
-        { "L",
+        { 'L',
           function()
-            require("fzf-lua").blines()
+            require('fzf-lua').blines()
           end,
-          desc = "Current buffer lines",
+          desc = 'Current buffer lines',
         },
-        { "m",
+        { 'm',
           function()
-            require("fzf-lua").marks()
+            require('fzf-lua').marks()
           end,
-          desc = "Marks",
+          desc = 'Marks',
         },
-        { "o",
+        { 'o',
           function()
-            require("fzf-lua").grep_cword()
+            require('fzf-lua').grep_cword()
           end,
-          desc = "Grep word under cursor",
+          desc = 'Grep word under cursor',
         },
-        { "O",
+        { 'O',
           function()
-            require("fzf-lua").grep_cWORD()
+            require('fzf-lua').grep_cWORD()
           end,
-          desc = "Grep WORD under cursor",
+          desc = 'Grep WORD under cursor',
         },
-        { "<C-o>",
+        { '<C-o>',
           function()
-            require("fzf-lua").grep_visual()
+            require('fzf-lua').grep_visual()
           end,
-          desc = "Grep visual selection",
+          desc = 'Grep visual selection',
         },
-        { "p",
+        { 'p',
           function()
-            require("fzf-lua").packadd()
+            require('fzf-lua').packadd()
           end,
-          desc = "Add package",
+          desc = 'Add package',
         },
-        { "q",
+        { 'q',
           function()
-            require("fzf-lua").quickfix()
+            require('fzf-lua').quickfix()
           end,
-          desc = "Quickfix list",
+          desc = 'Quickfix list',
         },
-        { "Q",
+        { 'Q',
           function()
-            require("fzf-lua").loclist()
+            require('fzf-lua').loclist()
           end,
-          desc = "Location list",
+          desc = 'Location list',
         },
-        { "r",
+        { 'r',
           function()
-            require("fzf-lua").registers()
+            require('fzf-lua').registers()
           end,
-          desc = "Registers",
+          desc = 'Registers',
         },
-        { "s",
+        { 's',
           function()
-            require("fzf-lua").spell_suggest()
+            require('fzf-lua').spell_suggest()
           end,
-          desc = "Spelling suggestions",
+          desc = 'Spelling suggestions',
         },
-        { "t",
+        { 't',
           function()
-            require("fzf-lua").filetypes()
+            require('fzf-lua').filetypes()
           end,
-          desc = "Filetypes",
+          desc = 'Filetypes',
         },
-        { "T",
+        { 'T',
           function()
-            require("fzf-lua").tagstack()
+            require('fzf-lua').tagstack()
           end,
-          desc = "Tags",
+          desc = 'Tags',
         },
       }},
     }},
-    { "<Leader>", {
-      { "i",
-        "<Cmd>call append('.', readfile(findfile(expand('<cfile>')))) | delete<CR>",
-        desc = "Include file under cursor",
+    { '<Leader>', {
+      { 'i',
+        '<Cmd>call append(".", readfile(findfile(expand("<cfile>")))) | delete<CR>',
+        desc = 'Include file under cursor',
       },
-      { "n",
-        function() require("notify").dismiss() end,
-        desc = "Dismiss notifications",
+      { 'n',
+        function() require('notify').dismiss() end,
+        desc = 'Dismiss notifications',
       },
-      { "s",
-        "<Cmd>ToggleSession<CR>",
-        desc = "Toggle session recording",
+      { 's',
+        '<Cmd>ToggleSession<CR>',
+        desc = 'Toggle session recording',
       },
-      { "t",
-        "<Cmd>Drex<CR>",
-        desc = "Open explorer",
+      { 't',
+        '<Cmd>Drex<CR>',
+        desc = 'Open explorer',
       },
-      { "T",
-        ":Drex",
-        desc = "Open explorer in given dir",
+      { 'T',
+        ':Drex',
+        desc = 'Open explorer in given dir',
       },
-      { "<C-t>",
-        "<Cmd>DrexDrawerOpen<CR>",
-        desc = "Open file drawer",
+      { '<C-t>',
+        '<Cmd>DrexDrawerOpen<CR>',
+        desc = 'Open file drawer',
       },
-      { "m",
+      { 'm',
         function()
-          require("display-motions").toggle()
+          require('display-motions').toggle()
         end,
-        desc = "Toggle display motions",
+        desc = 'Toggle display motions',
       },
-      { "p", {
-        { "c",
+      { 'p', {
+        { 'c',
           function()
-            require("packer").compile()
+            require('packer').compile()
           end,
-          desc = "Compile",
+          desc = 'Compile',
         },
-        { "i",
+        { 'i',
           function()
-            require("packer").status()
+            require('packer').status()
           end,
-          desc = "Status",
+          desc = 'Status',
         },
-        { "s",
+        { 's',
           function()
-            require("packer").sync()
+            require('packer').sync()
           end,
-          desc = "Synchronise",
+          desc = 'Synchronise',
         },
       }},
     }},
-    { "<LocalLeader>", {
-      { "d",
-        "<Cmd>TroubleToggle<CR>",
-        desc = "Toggle diagnostics list",
+    { '<LocalLeader>', {
+      { 'd',
+        '<Cmd>TroubleToggle<CR>',
+        desc = 'Toggle diagnostics list',
       },
-      { "D",
+      { 'D',
         function()
-          local config = vim.diagnostic.config() or
-                        { virtual_text = true, virtual_lines = false }
+          local config =
+            vim.diagnostic.config() or
+            { virtual_text = true, virtual_lines = false }
           vim.diagnostic.config {
             virtual_text = not config.virtual_text,
             virtual_lines = not config.virtual_lines,
           }
         end,
-        desc = "Toggle inline/virtual diagnostics",
+        desc = 'Toggle inline/virtual diagnostics',
       },
-      { "<C-d>",
+      { '<C-d>',
         function()
-          require("fzf-lua").diagnostics_workspace()
+          require('fzf-lua').diagnostics_workspace()
         end,
-        desc = "Fzf: diagnostics",
+        desc = 'Fzf: diagnostics',
       },
     }},
 
-    { mode = "i", {
-      { "jk",
-        "<Esc>",
-        desc = "Escape insert mode",
+    { mode = 'i', {
+      { 'jk',
+        '<Esc>',
+        desc = 'Escape insert mode',
       },
     }},
 
-    { mode = "c", "<C-", {
-      { "j>",
-        "<Down>",
-        desc = "Recall newer cmdline with matching beginning",
+    { mode = 'c', '<C-', {
+      { 'j>',
+        '<Down>',
+        desc = 'Recall newer cmdline with matching beginning',
       },
-      { "k>",
-        "<Up>",
-        desc = "Recall older cmdline with matching beginning",
+      { 'k>',
+        '<Up>',
+        desc = 'Recall older cmdline with matching beginning',
       },
-      { "n>",
+      { 'n>',
         'getcmdtype() =~ "[/?]" ? "<CR>/<C-r>/" : "<C-n>"',
-        desc = "Find next pattern match",
+        desc = 'Find next pattern match',
         expr = true,
       },
-      { "p>",
+      { 'p>',
         'getcmdtype() =~ "[/?]" ? "<CR>?<C-r>/" : "<C-p>"',
-        desc = "Find previous pattern match",
+        desc = 'Find previous pattern match',
         expr = true,
       },
     }},
   },
   lsp = function(capabilities) -- Adapt the keymaps to the client's capabilities
     return {
-      { "K",
+      { 'K',
         vim.lsp.buf.hover,
         cond = capabilities.hoverProvider and true or false,
-        desc = "Hover symbol under cursor",
+        desc = 'Hover symbol under cursor',
       },
-      { "S",
+      { 'S',
         vim.lsp.buf.rename,
         cond = capabilities.renameProvider and true or false,
-        desc = "Rename symbol under cursor",
+        desc = 'Rename symbol under cursor',
       },
-      { "g", {
-        { "d",
+      { 'g', {
+        { 'd',
           function()
-            require("util.lsp.goto").location("definition")
+            require('util.lsp.goto').location('definition')
           end,
           cond = capabilities.definitionProvider and true or false,
-          desc = "Go to/list definition(s)",
+          desc = 'Go to/list definition(s)',
         },
-        { "D",
+        { 'D',
           function()
-            require("util.lsp.goto").location("declaration")
+            require('util.lsp.goto').location('declaration')
           end,
           cond = capabilities.declarationProvider and true or false,
-          desc = "Go to/list declaration(s)",
+          desc = 'Go to/list declaration(s)',
         },
-        { "i",
+        { 'i',
           function()
-            require("util.lsp.goto").location("implementation")
+            require('util.lsp.goto').location('implementation')
           end,
           cond = capabilities.implementationProvider and true or false,
-          desc = "Go to/list implementation(s)",
+          desc = 'Go to/list implementation(s)',
         },
-        { "t",
+        { 't',
           function()
-            require("util.lsp.goto").location("type_definition")
+            require('util.lsp.goto').location('type_definition')
           end,
           cond = capabilities.typeDefinitionProvider and true or false,
-          desc = "Go to/list type definition(s)",
+          desc = 'Go to/list type definition(s)',
         },
       }},
-      { "<C-w>", {
-        { "d",
+      { '<C-w>', {
+        { 'd',
           function()
-            require("util.lsp.goto").location("definition", "split")
+            require('util.lsp.goto').location('definition', 'split')
           end,
           cond = capabilities.definitionProvider and true or false,
-          desc = "Open definition(s) in split",
+          desc = 'Open definition(s) in split',
         },
-        { "D",
+        { 'D',
           function()
-            require("util.lsp.goto").location("definition", "tab split")
+            require('util.lsp.goto').location('definition', 'tab split')
           end,
           cond = capabilities.definitionProvider and true or false,
-          desc = "Open definition(s) in tab split",
+          desc = 'Open definition(s) in tab split',
         },
-        { "<C-d>",
+        { '<C-d>',
           function()
-            require("util.lsp.goto").location("definition", "vert split")
+            require('util.lsp.goto').location('definition', 'vert split')
           end,
           cond = capabilities.definitionProvider and true or false,
-          desc = "Open definition(s) in vert split",
+          desc = 'Open definition(s) in vert split',
         },
-        { "i",
+        { 'i',
           function()
-            require("util.lsp.goto").location("implementation", "split")
+            require('util.lsp.goto').location('implementation', 'split')
           end,
           cond = capabilities.implementationProvider and true or false,
-          desc = "Open implementation(s) in split",
+          desc = 'Open implementation(s) in split',
         },
-        { "I",
+        { 'I',
           function()
-            require("util.lsp.goto").location("implementation", "tab split")
+            require('util.lsp.goto').location('implementation', 'tab split')
           end,
           cond = capabilities.implementationProvider and true or false,
-          desc = "Open implementation(s) in tab split",
+          desc = 'Open implementation(s) in tab split',
         },
-        { "<C-i>",
+        { '<C-i>',
           function()
-            require("util.lsp.goto").location("implementation", "vert split")
+            require('util.lsp.goto').location('implementation', 'vert split')
           end,
           cond = capabilities.implementationProvider and true or false,
-          desc = "Open implementation(s) in vert split",
+          desc = 'Open implementation(s) in vert split',
         },
-        { "t",
+        { 't',
           function()
-            require("util.lsp.goto").location("type_definition", "split")
+            require('util.lsp.goto').location('type_definition', 'split')
           end,
           cond = capabilities.typeDefinitionProvider and true or false,
-          desc = "Open type definition(s) in split",
+          desc = 'Open type definition(s) in split',
         },
-        { "T",
+        { 'T',
           function()
-            require("util.lsp.goto").location("type_definition", "tab split")
+            require('util.lsp.goto').location('type_definition', 'tab split')
           end,
           cond = capabilities.typeDefinitionProvider and true or false,
-          desc = "Open type definition(s) in tab split",
+          desc = 'Open type definition(s) in tab split',
         },
-        { "<C-t>",
+        { '<C-t>',
           function()
-            require("util.lsp.goto").location("type_definition", "vert split")
+            require('util.lsp.goto').location('type_definition', 'vert split')
           end,
           cond = capabilities.typeDefinitionProvider and true or false,
-          desc = "Open type definition(s) in vert split",
+          desc = 'Open type definition(s) in vert split',
         },
       }},
-      { "<LocalLeader>", {
-        { "a",
+      { '<LocalLeader>', {
+        { 'a',
           vim.lsp.buf.code_action,
           cond = capabilities.codeActionProvider and true or false,
-          desc = "Invoke a code action",
+          desc = 'Invoke a code action',
         },
-        { "f",
+        { 'f',
           function()
             vim.lsp.buf.format {async = false}
           end,
           cond = capabilities.documentFormatProvider and true or false,
-          desc = "Format the buffer",
+          desc = 'Format the buffer',
         },
-        { "i",
+        { 'i',
           vim.lsp.buf.incoming_calls,
           cond = capabilities.incomingCallsProvider and true or false,
-          desc = "List incoming calls",
+          desc = 'List incoming calls',
         },
-        { "k",
+        { 'k',
           vim.lsp.buf.signature_help,
           cond = capabilities.signatureHelpProvider and true or false,
           desc = "Show the symbol's signature",
         },
-        { "o",
+        { 'o',
           vim.lsp.buf.outgoing_calls,
           cond = capabilities.outgoingCallsProvider and true or false,
-          desc = "List outgoing calls",
+          desc = 'List outgoing calls',
         },
-        { "r",
+        { 'r',
           vim.lsp.buf.references,
           cond = capabilities.referencesProvider and true or false,
           desc = "List the symbol's references",
         },
-        { "s",
+        { 's',
           vim.lsp.buf.workspace_symbol,
           cond = capabilities.workspaceSymbolProvider and true or false,
-          desc = "List all workspace symbols",
+          desc = 'List all workspace symbols',
         },
-        { "S",
+        { 'S',
           vim.lsp.buf.document_symbol,
           cond = capabilities.documentSymbolProvider and true or false,
-          desc = "List all document symbols",
+          desc = 'List all document symbols',
         },
-        { "w", {
-          { "a",
+        { 'w', {
+          { 'a',
             vim.lsp.buf.add_workspace_folder,
-            desc = "Add workspace folder",
+            desc = 'Add workspace folder',
           },
-          { "l",
+          { 'l',
             function()
               vim.pretty_print(vim.lsp.buf.list_workspace_folders())
             end,
-            desc = "List workspace folders",
+            desc = 'List workspace folders',
           },
-          { "r",
+          { 'r',
             vim.lsp.buf.remove_workspace_folder,
-            desc = "Remove workspace folder",
+            desc = 'Remove workspace folder',
           },
         }},
-        { "<C-", {
-          { "a>",
+        { '<C-', {
+          { 'a>',
             function()
-              require("fzf-lua").lsp_code_actions()
+              require('fzf-lua').lsp_code_actions()
             end,
             cond = capabilities.codeActionProvider and true or false,
-            desc = "Fzf: code actions",
+            desc = 'Fzf: code actions',
           },
-          { "i>",
+          { 'i>',
             function()
-              require("fzf-lua").lsp_incoming_calls()
+              require('fzf-lua').lsp_incoming_calls()
             end,
             cond = capabilities.incomingCallsProvider and true or false,
-            desc = "Fzf: incoming calls",
+            desc = 'Fzf: incoming calls',
           },
-          { "o>",
+          { 'o>',
             function()
-              require("fzf-lua").lsp_outgoing_calls()
+              require('fzf-lua').lsp_outgoing_calls()
             end,
             cond = capabilities.outgoindCallsProvider and true or false,
-            desc = "Fzf: outgoing calls",
+            desc = 'Fzf: outgoing calls',
           },
-          { "r>",
+          { 'r>',
             function()
-              require("fzf-lua").lsp_references()
+              require('fzf-lua').lsp_references()
             end,
             cond = capabilities.referencesProvider and true or false,
             desc = "Fzf: symbol's references",
           },
-          { "s>",
+          { 's>',
             function()
-              require("fzf-lua").lsp_workspace_symbols()
+              require('fzf-lua').lsp_workspace_symbols()
             end,
             cond = capabilities.workspaceSymbolProvider and true or false,
-            desc = "Fzf: workspace symbols",
+            desc = 'Fzf: workspace symbols',
           },
         }},
       }},

@@ -151,6 +151,7 @@ return {
         noremap = false,
       },
       { 'F',
+        -- selene: allow(bad_string_escape)
         '":Fold ".v:count." | silent! call repeat#set(\"zF\", ".v:count.")<CR>"',
         desc = 'Create fold of given level',
         expr = true,

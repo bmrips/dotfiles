@@ -13,3 +13,8 @@ jobs:
           args: --config-path=.config/nvim/stylua.toml --check .
           token: ${{ secrets.GITHUB_TOKEN }}
           version: latest
+      - name: Lint with selene
+        uses: NTBBloodbath/selene-action@v1.0.0
+        with:
+          args: --display-style=quiet .
+          token: ${{ secrets.GITHUB_TOKEN }}

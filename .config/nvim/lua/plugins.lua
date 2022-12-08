@@ -40,6 +40,7 @@ local plugins = {
       require('trouble').setup()
     end,
   },
+  { 'gpanders/editorconfig.nvim' },
   { 'hrsh7th/nvim-cmp',
     opt = true,
   },

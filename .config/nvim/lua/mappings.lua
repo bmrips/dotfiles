@@ -48,12 +48,12 @@ return {
     }},
     { ']', {
       { 'd',
-        vim.diagnostic.goto_prev,
+        vim.diagnostic.goto_next,
         desc = 'Next diagnostic',
       },
       { 'D',
         function()
-          vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+          vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
         end,
         desc = 'Next error',
       },

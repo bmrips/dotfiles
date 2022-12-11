@@ -1,0 +1,1 @@
+eval "$(_GITLINT_COMPLETE=bash_source gitlint)"

@@ -11,13 +11,15 @@
 
 remove=0
 
-while true
-do
+while true; do
 	case $1 in
-        -r) remove=(--action 'rm %F') ;;
-		-|--) shift; break ;;
-		-*) echo "option \"$1\" ignored" ;;
-		*) break ;;
+	-r) remove=(--action 'rm %F') ;;
+	- | --)
+		shift
+		break
+		;;
+	-*) echo "option \"$1\" ignored" ;;
+	*) break ;;
 	esac
 	shift
 done

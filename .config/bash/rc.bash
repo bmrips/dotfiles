@@ -34,7 +34,7 @@ shopt -s histappend
 #[ Prompt ]#
 
 # Set red color and '#' for root
-if [[ $(whoami) = root ]]; then
+if [[ $(whoami) == root ]]; then
     suffix="#"
     color="$RED"
 else
@@ -50,14 +50,14 @@ rightprompt() {
 }
 
 # Git prompt options
-GIT_PS1_SHOWDIRTYSTATE="on"         # + for staged, * if unstaged.
-GIT_PS1_SHOWSTASHSTATE="on"         # $ if something is stashed.
-GIT_PS1_SHOWUNTRACKEDFILES="on"     # % if there are untracked files.
-GIT_PS1_SHOWUPSTREAM="on"           # <,>,<> behind, ahead, or diverged from upstream.
+GIT_PS1_SHOWDIRTYSTATE="on"     # + for staged, * if unstaged.
+GIT_PS1_SHOWSTASHSTATE="on"     # $ if something is stashed.
+GIT_PS1_SHOWUNTRACKEDFILES="on" # % if there are untracked files.
+GIT_PS1_SHOWUPSTREAM="on"       # <,>,<> behind, ahead, or diverged from upstream.
 
 # Second prompt
 ps2() {
-    ps1="${USER}@${HOSTNAME}:${PWD/$HOME}${suffix} "
+    ps1="${USER}@${HOSTNAME}:${PWD/$HOME/}${suffix} "
     printf "%${#ps1}s" "> "
 }
 PS2='$(ps2)'

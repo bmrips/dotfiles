@@ -6,20 +6,24 @@
 workspace=$(xdotool get_desktop)
 
 case $1 in
-	upleft)
-        if [[ $workspace = 0 ]]; then
-            xdotool set_desktop 3
-        fi ;;
-	upright)
-        if [[ $workspace = 1 ]]; then
-            xdotool set_desktop 2
-        fi ;;
-	downleft)
-        if [[ $workspace = 2 ]]; then
-            xdotool set_desktop 1
-        fi ;;
-	downright)
-        if [[ $workspace = 3 ]]; then
-            xdotool set_desktop 0
-        fi ;;
+upleft)
+    if [[ $workspace == 0 ]]; then
+        xdotool set_desktop 3
+    fi
+    ;;
+upright)
+    if [[ $workspace == 1 ]]; then
+        xdotool set_desktop 2
+    fi
+    ;;
+downleft)
+    if [[ $workspace == 2 ]]; then
+        xdotool set_desktop 1
+    fi
+    ;;
+downright)
+    if [[ $workspace == 3 ]]; then
+        xdotool set_desktop 0
+    fi
+    ;;
 esac

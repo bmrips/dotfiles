@@ -10,54 +10,54 @@
 #
 
 case "$1" in
-	# Play
-	play)
-		playerctl play
-		;;
-	# Pause
-	pause)
-		playerctl pause
-		;;
-	# Toggle between play and pause
-	play-pause)
-		playerctl play-pause
-		;;
-	# Stop
-	stop)
-		playerctl stop
-		;;
-	# Next track
-	next)
-		playerctl next
-		;;
-	# Previous track
-	previous)
-		playerctl previous
-		;;
-	# Raise the speakers volume
-	speakers-raise)
-		pactl set-sink-mute @DEFAULT_SINK@ 0
-		pactl set-sink-volume @DEFAULT_SINK@ +5%
-		;;
-	# Lower the speakers volume
-	speakers-lower)
-		pactl set-sink-mute @DEFAULT_SINK@ 0
-		pactl set-sink-volume @DEFAULT_SINK@ -5%
-		;;
-	# Toggle speakers mute
-	speakers-mute)
-		pactl set-sink-mute @DEFAULT_SINK@ toggle
-		;;
-	# Raise the microphone's volume
-	microphone-raise)
-		pactl set-source-volume @DEFAULT_SOURCE@ +5%
-		;;
-	# Lower the microphone's volume
-	microphone-lower)
-		pactl set-source-volume @DEFAULT_SOURCE@ -5%
-		;;
-	# Toggle microphone mute
-	microphone-mute)
-		pactl set-source-mute @DEFAULT_SOURCE@ toogle
-		;;
+# Play
+play)
+    playerctl play
+    ;;
+# Pause
+pause)
+    playerctl pause
+    ;;
+# Toggle between play and pause
+play-pause)
+    playerctl play-pause
+    ;;
+# Stop
+stop)
+    playerctl stop
+    ;;
+# Next track
+next)
+    playerctl next
+    ;;
+# Previous track
+previous)
+    playerctl previous
+    ;;
+# Raise the speakers volume
+speakers-raise)
+    pactl set-sink-mute @DEFAULT_SINK@ 0
+    pactl set-sink-volume @DEFAULT_SINK@ +5%
+    ;;
+# Lower the speakers volume
+speakers-lower)
+    pactl set-sink-mute @DEFAULT_SINK@ 0
+    pactl set-sink-volume @DEFAULT_SINK@ -5%
+    ;;
+# Toggle speakers mute
+speakers-mute)
+    pactl set-sink-mute @DEFAULT_SINK@ toggle
+    ;;
+# Raise the microphone's volume
+microphone-raise)
+    pactl set-source-volume @DEFAULT_SOURCE@ +5%
+    ;;
+# Lower the microphone's volume
+microphone-lower)
+    pactl set-source-volume @DEFAULT_SOURCE@ -5%
+    ;;
+# Toggle microphone mute
+microphone-mute)
+    pactl set-source-mute @DEFAULT_SOURCE@ toogle
+    ;;
 esac

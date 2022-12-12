@@ -12,16 +12,16 @@
 remove=0
 
 while true; do
-	case $1 in
-	-r) remove=(--action 'rm %F') ;;
-	- | --)
-		shift
-		break
-		;;
-	-*) echo "option \"$1\" ignored" ;;
-	*) break ;;
-	esac
-	shift
+    case $1 in
+    -r) remove=(--action 'rm %F') ;;
+    - | --)
+        shift
+        break
+        ;;
+    -*) echo "option \"$1\" ignored" ;;
+    *) break ;;
+    esac
+    shift
 done
 
 dir=${1:-.}

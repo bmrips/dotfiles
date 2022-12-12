@@ -49,7 +49,7 @@ alias free='free --human'
 
 # git
 function git() {
-    if [[ -n $1 && $1 = "cd-root" ]]; then
+    if [[ -n $1 && $1 == "cd-root" ]]; then
         cd "$(/usr/bin/git rev-parse --show-toplevel)" || return
     else
         /usr/bin/git "$@"

@@ -1,7 +1,7 @@
 # shellcheck shell=bash
 
 # Create a plasma + i3 launcher script
-echo -e "#!/bin/sh\n\nKDEWM=/usr/bin/i3 startkde" > /usr/local/bin/startkde-i3
+echo -e "#!/bin/sh\n\nKDEWM=/usr/bin/i3 startkde" >/usr/local/bin/startkde-i3
 sudo chown root.staff /usr/local/bin/startkde-i3
 sudo chmod 755 /usr/local/bin/startkde-i3
 

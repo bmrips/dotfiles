@@ -9,20 +9,20 @@ dir=$HOME/Pictures/Screenshots
 
 for arg in "$@"; do
     case "$arg" in
-        -c|--clipboard)
-            clipboard=1
-            ;;
-        -t|--temporary)
-            dir=/tmp/screenshots
-            ;;
-        select)
-            mode="--select"
-            ;;
-        window)
-            mode="--window=$(xdotool getactivewindow)"
-            ;;
-        *)
-            ;;
+    -c | --clipboard)
+        clipboard=1
+        ;;
+    -t | --temporary)
+        dir=/tmp/screenshots
+        ;;
+    select)
+        mode="--select"
+        ;;
+    window)
+        mode="--window=$(xdotool getactivewindow)"
+        ;;
+    *) ;;
+
     esac
 done
 

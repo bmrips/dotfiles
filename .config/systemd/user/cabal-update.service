@@ -1,0 +1,6 @@
+[Unit]
+Description=Update cabal's package list
+
+[Service]
+Type=oneshot
+ExecStart=cabal update

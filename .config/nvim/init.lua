@@ -1,9 +1,4 @@
-require 'impatient'
-
-local fold = require 'fold'
 local opt = vim.opt
-local util = require 'util'
-
 opt.background = vim.env.BACKGROUND or 'dark' -- Adapt background to terminal background
 opt.breakindentopt = { 'shift:4', 'sbr' }
 opt.breakindent = true
@@ -36,6 +31,38 @@ opt.textwidth = 80
 opt.undofile = true
 opt.wildmode = { 'longest', 'full' } -- Complete till longest common string
 
+vim.g.mapleader = '\\'
+vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<C-\\>', true, true, true)
+
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system {
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    lazypath,
+  }
+end
+vim.opt.rtp:prepend(lazypath)
+
+require('lazy').setup('plugins', {
+  dev = {
+    pattern = { 'f1rstlady' },
+  },
+  performance = {
+    rtp = {
+      disable_plugins = {
+        'matchit',
+        'matchparen',
+        'netrwPlugin',
+      },
+    },
+  },
+})
+
+vim.cmd.colorscheme 'gruvbox-material'
+
 -- Fancy diagnostics symbols
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
 for type, icon in pairs(signs) do
@@ -65,18 +92,11 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Recompile packer.
-vim.api.nvim_create_autocmd('BufWritePost', {
-  pattern = 'plugins.lua',
-  desc = 'Recompile packer',
-  command = 'source <afile> | PackerCompile',
-})
-
 -- Set Latex as my preferred TeX flavour.
 vim.g.tex_flavor = 'latex'
 
 -- Create a fold with `:<range>Fold <level>`.
-vim.api.nvim_create_user_command('Fold', fold.create, {
+vim.api.nvim_create_user_command('Fold', require('fold').create, {
   bar = true,
   range = true,
   nargs = '?',
@@ -84,19 +104,14 @@ vim.api.nvim_create_user_command('Fold', fold.create, {
 })
 
 -- Reindent the buffer with `:<range>Reindent <new_shift_width>`.
-vim.api.nvim_create_user_command('Reindent', util.reindent, {
+vim.api.nvim_create_user_command('Reindent', require('util').reindent, {
   bar = true,
   range = '%',
   nargs = 1,
   desc = 'Reindent the buffer to the given shift width',
 })
 
-require 'plugins'
-
 -- Mappings
-vim.g.mapleader = '\\'
-vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<C-\\>', true, true, true)
-
 local mappings = require 'mappings'
 local appliedMappings = {
   lsp = {},

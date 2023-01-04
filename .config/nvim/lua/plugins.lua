@@ -1,4 +1,4 @@
-local plugins = {
+return {
   { 'andymass/vim-matchup',
     config = function()
       -- Do not display off-screen matches
@@ -11,9 +11,7 @@ local plugins = {
   },
   { 'ellisonleao/gruvbox.nvim' },
   { 'ethanholz/nvim-lastplace',
-    config = function()
-      require('nvim-lastplace').setup()
-    end,
+    config = true,
   },
   { 'f1rstlady/display-motions.nvim' },
   { 'f1rstlady/nest.nvim' },
@@ -25,45 +23,40 @@ local plugins = {
     end,
   },
   { 'f1rstlady/vim-unimpaired' },
-  { 'folke/which-key.nvim',
-    config = function()
-      require('which-key').setup {
-        operators = {
-          ga = 'Align'
-        },
-      }
-    end
-  },
+  { 'folke/lazy.nvim' },
   { 'folke/trouble.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('trouble').setup()
-    end,
+    dependencies = 'kyazdani42/nvim-web-devicons',
+    config = true,
+  },
+  { 'folke/which-key.nvim',
+    config = {
+      operators = {
+        ga = 'Align'
+      },
+    },
   },
   { 'gpanders/editorconfig.nvim' },
   { 'hrsh7th/nvim-cmp',
-    opt = true,
+    lazy = true,
   },
   { 'hrsh7th/nvim-compe',
-    requires = 'GoldsteinE/compe-latex-symbols',
-    config = function()
-      require('compe').setup {
-        source = {
-          path = true,
-          buffer = true,
-          tags = true,
-          spell = true,
-          calc = true,
-          emoji = true,
-          nvim_lsp = true,
-          nvim_lua = true,
-          latex_symbols = true,
-        },
-      }
-    end,
+    dependencies = 'GoldsteinE/compe-latex-symbols',
+    config = {
+      source = {
+        path = true,
+        buffer = true,
+        tags = true,
+        spell = true,
+        calc = true,
+        emoji = true,
+        nvim_lsp = true,
+        nvim_lua = true,
+        latex_symbols = true,
+      },
+    },
   },
   { 'iamcco/markdown-preview.nvim',
-    run = 'cd app && yarn install',
+    build = 'env --chdir app yarn install',
     commit = '239ea074',
     ft = 'markdown',
     config = function()
@@ -72,24 +65,20 @@ local plugins = {
     end,
   },
   { 'ibhagwan/fzf-lua',
-    requires = {
+    dependencies = {
       { 'kyazdani42/nvim-web-devicons' },
       { 'vijaymarupudi/nvim-fzf' },
     },
-    config = function()
-      require('fzf-lua').setup {
-        lsp = {
-          code_actions = {
-            winopts = { relative = 'cursor' },
-          },
+    config = {
+      lsp = {
+        code_actions = {
+          winopts = { relative = 'cursor' },
         },
-      }
-    end
+      },
+    },
   },
   { 'jghauser/fold-cycle.nvim',
-    config = function()
-      require('fold-cycle').setup()
-    end,
+    config = true,
   },
   { 'jiangmiao/auto-pairs',
     config = function()
@@ -106,17 +95,11 @@ local plugins = {
       }
     end,
   },
-  { 'lewis6991/impatient.nvim' },
   { 'lukas-reineke/virt-column.nvim',
-    after = 'gruvbox.nvim',
-    config = function()
-      require('virt-column').setup()
-    end,
+    config = true,
   },
   { 'luukvbaal/stabilize.nvim',
-    config = function()
-      require('stabilize').setup()
-    end,
+    config = true,
   },
   { 'Maan2003/lsp_lines.nvim',
     config = function()
@@ -129,12 +112,10 @@ local plugins = {
     end,
   },
   { 'mcauley-penney/tidy.nvim',
-    config = function()
-      require('tidy').setup()
-    end
+    config = true
   },
   { 'mcchrish/zenbones.nvim',
-    requires = 'rktjmp/lush.nvim',
+    dependencies = 'rktjmp/lush.nvim',
   },
   { 'michaeljsmith/vim-indent-object' },
   { 'monaqa/dial.nvim',
@@ -232,20 +213,13 @@ local plugins = {
     end,
   },
   { 'norcalli/nvim-colorizer.lua',
-    config = function()
-      require('colorizer').setup()
-    end,
+    config = true,
   },
   { 'numToStr/Comment.nvim',
-    config = function()
-      require('Comment').setup()
-    end
-  },
-  { 'nvim-lua/plenary.nvim',
-    opt = true,
+    config = true
   },
   { 'nvim-lualine/lualine.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       vim.opt.showmode = false
       local filename = { 'filename', path = 1 }
@@ -284,7 +258,7 @@ local plugins = {
     end,
   },
   { 'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
+    build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup {
         highlight = { enable = true },
@@ -310,28 +284,24 @@ local plugins = {
     end,
   },
   { 'potamides/pantran.nvim',
-    config = function()
-      require('pantran').setup {
-        default_engine = 'google'
-      }
-    end,
+    config = {
+      default_engine = 'google'
+    },
   },
   { 'rafcamlet/nvim-luapad' },
   { 'rafcamlet/tabline-framework.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('tabline_framework').setup {
-        render = function(f)
-          f.make_tabs(function(info)
-            vim.pretty_print(info)
-            f.add(' ' .. info.index .. ' ')
-            f.add(info.filename or '[no name]')
-            f.add(info.modified and '+')
-            f.add ' '
-          end)
-        end,
-      }
-    end,
+    dependencies = 'kyazdani42/nvim-web-devicons',
+    config = {
+      render = function(f)
+        f.make_tabs(function(info)
+          vim.pretty_print(info)
+          f.add(' ' .. info.index .. ' ')
+          f.add(info.filename or '[no name]')
+          f.add(info.modified and '+')
+          f.add ' '
+        end)
+      end,
+    },
   },
   { 'rcarriga/nvim-notify',
     config = function()
@@ -339,6 +309,7 @@ local plugins = {
     end,
   },
   { 'sainnhe/gruvbox-material',
+    lazy = true,
     config = function()
       vim.g.gruvbox_material_better_performance = 1
       vim.g.gruvbox_material_foreground = 'mix'
@@ -346,7 +317,6 @@ local plugins = {
       vim.g.gruvbox_material_enable_italic = 1
       vim.g.gruvbox_material_sign_column_background = 'grey'
       vim.g.gruvbox_material_disable_terminal_colors = 1
-      vim.cmd.colorscheme 'gruvbox-material'
     end,
   },
   { 'simnalamburt/vim-mundo' },
@@ -360,10 +330,9 @@ local plugins = {
   { 'stefandtw/quickfix-reflector.vim' },
   { 'stevearc/dressing.nvim' },
   { 'theblob42/drex.nvim',
-    requires = 'kyazdani42/nvim-web-devicons',
+    dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       require('drex.config').configure {
-        hijack_netrw = true,
         keybindings = {
           ['n'] = {
             ['<CR>'] = '<C-^>',
@@ -398,15 +367,9 @@ local plugins = {
   { 'tpope/vim-surround' },
   { 'tweekmonster/startuptime.vim' },
   { 'Wansmer/treesj',
-    requires = { 'nvim-treesitter' },
-    config = function()
-      require('treesj').setup {
-        use_default_keymaps = false
-      }
-    end,
+    config = {
+      use_default_keymaps = false
+    },
   },
-  { 'wbthomason/packer.nvim' },
   { 'wellle/targets.vim' },
 }
-
-return require('packer').startup { plugins }

@@ -1,4 +1,3 @@
 lua/mappings.lua
 lua/plugins.lua
 pack/
-plugin/packer_compiled.lua

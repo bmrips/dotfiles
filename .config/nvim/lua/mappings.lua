@@ -528,19 +528,19 @@ return {
       { 'p', {
         { 'c',
           function()
-            require('packer').compile()
+            require('lazy').clean()
           end,
           desc = 'Compile',
         },
         { 'i',
           function()
-            require('packer').status()
+            require('lazy').home()
           end,
           desc = 'Status',
         },
         { 's',
           function()
-            require('packer').sync()
+            require('lazy').sync()
           end,
           desc = 'Synchronise',
         },

@@ -71,14 +71,14 @@ alias ip='ip -color=auto'
 
 # ls
 alias ls='ls --human-readable --color=auto --group-directories-first --time-style=long-iso --literal'
-alias ls.='ls -d .*'
 alias lsd='ls -d'
 alias lsx='ls -X'
+alias ls.='lsd .*'
 alias ll='ls -l'
 alias la='ll -A'
-alias l.='ll -d .*'
 alias ld='ll -d'
 alias lx='ll -X'
+alias l.='ld .*'
 
 # make
 alias make='make --jobs=$(nproc)'

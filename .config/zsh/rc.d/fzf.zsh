@@ -31,7 +31,6 @@ function fzf-goto-widget() {
     BUFFER="cd -- ${(q)dir}"
     zle accept-line
     local ret=$?
-    unset dir # ensure this doesn't end up appearing in prompt expansion
     zle reset-prompt
     return $ret
 }
@@ -52,7 +51,6 @@ function fzf-cdhist-widget() {
     BUFFER="cd -- ${(q)dir}"
     zle accept-line
     local ret=$?
-    unset dir # ensure this doesn't end up appearing in prompt expansion
     zle reset-prompt
     return $ret
 }

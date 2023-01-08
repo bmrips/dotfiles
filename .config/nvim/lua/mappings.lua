@@ -248,6 +248,10 @@ return {
         mode = '',
         desc = 'Go forward in jump list',
       },
+      { 'q>',
+        '<Cmd>wincmd q<CR>',
+        desc = 'Quit the window'
+      },
       { 'w>', {
         { '<CR>',
           '<Cmd>wincmd ^<CR>',

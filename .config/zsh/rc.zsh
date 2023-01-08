@@ -57,8 +57,7 @@ unalias run-help
 autoload -Uz run-help
 
 # Next/previous history item which the command line is a prefix of
-autoload -U up-line-or-beginning-search
-autoload -U down-line-or-beginning-search
+autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
 zle -N down-line-or-beginning-search
 bindkey '^J' down-line-or-beginning-search # Down

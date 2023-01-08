@@ -83,6 +83,11 @@ alias l.='ld .*'
 # make
 alias make='make --jobs=$(nproc)'
 
+# mkdir
+mkcd() {
+    mkdir -p "$1" && cd "$1" || return
+}
+
 # mv
 alias mv='mv --interactive'
 

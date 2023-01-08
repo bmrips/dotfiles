@@ -52,6 +52,10 @@ setopt inc_append_history # Share history between zsh instances
 setopt extended_history   # Save timestamps and duration
 setopt hist_reduce_blanks # Remove superfluous blanks
 
+# Help for builtin commands
+unalias run-help
+autoload -Uz run-help
+
 # Next/previous history item which the command line is a prefix of
 autoload -U up-line-or-beginning-search
 autoload -U down-line-or-beginning-search

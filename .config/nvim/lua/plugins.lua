@@ -143,63 +143,52 @@ return {
   { 'neovim/nvim-lspconfig',
     dependencies = 'folke/neodev.nvim',
     config = function()
-      local lspconfig = require('lspconfig')
-
-      -- Bash
-      lspconfig.bashls.setup {
-        filetypes = { 'bash', 'sh' },
-      }
-
-      -- C, C++ and Objective C
-      lspconfig.clangd.setup {}
-
-      -- Elixir
-      lspconfig.elixirls.setup {
-        cmd = { '/usr/lib/elixir-ls/language_server.sh' },
-      }
-
-      -- Haskell
-      lspconfig.hls.setup {
-        settings = {
-          haskell = {
-            formattingProvider = 'stylish-haskell'
-          }
-        }
-      }
-
-      -- Java
-      lspconfig.jdtls.setup {}
-
-      -- Lua
-      lspconfig.sumneko_lua.setup {
-        settings = {
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' },
+      local servers = {
+        bashls = {
+          filetypes = { 'bash', 'sh' },
+        },
+        clangd = {},
+        elixirls = {
+          cmd = { '/usr/lib/elixir-ls/language_server.sh' },
+        },
+        hls = {
+          settings = {
+            haskell = {
+              formattingProvider = 'stylish-haskell',
+            },
+          },
+        },
+        jdtls = {},
+        marksman = {},
+        sumneko_lua = {
+          settings = {
+            Lua = {
+              diagnostics = {
+                globals = { 'vim' },
+              },
+            },
+          },
+        },
+        texlab = {
+          settings = {
+            texlab = {
+              build = {
+                -- Build with LuaLaTeX.
+                args = {'-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f'},
+                onSave = true,
+              },
+              forwardSearch = {
+                executable = 'okular',
+                args = { '--unique', 'file:%p#src:%l%f' },
+              },
             },
           },
         },
       }
 
-      -- Markdown
-      lspconfig.marksman.setup {}
-
-      -- TeX
-      lspconfig.texlab.setup {
-        settings = {
-          texlab = {
-            build = {
-              -- Build with LuaLaTeX.
-              args = {'-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f'},
-              onSave = true,
-            },
-            forwardSearch = {
-              executable = 'okular',
-              args = { '--unique', 'file:%p#src:%l%f' },
-            },
-          },
-        },
-      }
+      for server, config in pairs(servers) do
+        require('lspconfig')[server].setup(config)
+      end
     end,
   },
   { 'norcalli/nvim-colorizer.lua',

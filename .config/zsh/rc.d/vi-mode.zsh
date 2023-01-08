@@ -1,6 +1,34 @@
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey -M vicmd ' ' execute-named-cmd
 
+# Adapt the __vi_cursor to the mode
+autoload -Uz add-zsh-hook add-zsh-hook-widget
+
+typeset -Ag __vi_cursor=(
+    insert '\e[6 q' # beam
+    normal '\e[0 q' # underline
+    operator_pending '\e[4 q' # block
+)
+
+function __restore_cursor() {
+    echo -ne "${__vi_cursor[normal]}"
+}
+add-zsh-hook precmd __restore_cursor
+
+function zle-line-init() {
+    echo -ne "${__vi_cursor[insert]}"
+}
+zle -N zle-line-init
+
+function zle-keymap-select {
+    case $KEYMAP in
+        viins|main) echo -ne "${__vi_cursor[insert]}"  ;;
+        viins|main) echo -ne "${__vi_cursor[operator_pending]}" ;;
+        *)          __restore_cursor ;;
+    esac
+}
+zle -N zle-keymap-select
+
 # Increment with <C-a>
 autoload -Uz incarg
 zle -N incarg

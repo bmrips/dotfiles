@@ -5,7 +5,7 @@ opt.breakindent = true
 opt.clipboard = 'unnamedplus'
 opt.expandtab = true
 opt.foldmethod = 'marker'
-opt.foldtext = "v:lua.require'fold'.text(v:foldstart)"
+opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
 opt.grepformat = '%f:%l:%c:%m'
 opt.grepprg = 'rg --vimgrep'
 opt.guifont = 'JetBrains Mono:h10' -- For Neovide
@@ -46,7 +46,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-require('lazy').setup('plugins', {
+require('lazy').setup('config.plugins', {
   dev = {
     pattern = { 'f1rstlady' },
   },
@@ -96,7 +96,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.g.tex_flavor = 'latex'
 
 -- Create a fold with `:<range>Fold <level>`.
-vim.api.nvim_create_user_command('Fold', require('fold').create, {
+vim.api.nvim_create_user_command('Fold', require('util.fold').create, {
   bar = true,
   range = true,
   nargs = '?',
@@ -112,7 +112,7 @@ vim.api.nvim_create_user_command('Reindent', require 'util.reindent', {
 })
 
 -- Mappings
-local mappings = require 'mappings'
+local mappings = require 'config.mappings'
 local appliedMappings = {
   lsp = {},
 }

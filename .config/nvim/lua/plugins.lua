@@ -1,13 +1,14 @@
 return {
   { 'andymass/vim-matchup',
-    config = function()
+    opts = {
       -- Do not display off-screen matches
-      vim.g.matchup_matchparen_offscreen = { method = 'status_manual' }
+      matchparen_offscreen = { method = 'status_manual' },
 
       -- Defer highlighting to improve performance
-      vim.g.matchup_matchparen_deferred = 1
-      vim.g.matchup_transmute_enabled = 1
-    end,
+      matchparen_deferred = 1,
+      transmute_enabled = 1,
+    },
+    config = require('compat.vimscript.plugin').setup 'matchup_',
   },
   { 'ellisonleao/gruvbox.nvim' },
   { 'ethanholz/nvim-lastplace',
@@ -17,10 +18,10 @@ return {
   { 'f1rstlady/nest.nvim' },
   { 'f1rstlady/session.nvim' },
   { 'f1rstlady/vim-loupe',
-    config = function()
-      -- Do not center search results on n/N.
-      vim.g.LoupeCenterResults = 0
-    end,
+    opts = {
+      CenterResults = 0,
+    },
+    config = require('compat.vimscript.plugin').setup 'Loupe',
   },
   { 'f1rstlady/vim-unimpaired' },
   { 'folke/lazy.nvim' },
@@ -59,10 +60,11 @@ return {
     build = 'env --chdir app yarn install',
     commit = '239ea074',
     ft = 'markdown',
-    config = function()
+    opts = {
       -- Do not close the current preview when changing the buffer.
-      vim.g.mkdp_auto_close = 0
-    end,
+      auto_close = 0
+    },
+    config = require('compat.vimscript.plugin').setup 'mkdp_',
   },
   { 'ibhagwan/fzf-lua',
     dependencies = {
@@ -81,10 +83,11 @@ return {
     config = true,
   },
   { 'jiangmiao/auto-pairs',
-    config = function()
+    opts = {
       -- Do not create the <M-n> shortcut to map it myself later.
-      vim.g.AutoPairsShortcutJump = ''
-    end,
+      ShortcutJump = '',
+    },
+    config = require('compat.vimscript.plugin').setup 'AutoPairs',
   },
   { 'junegunn/vim-easy-align',
     opts = {
@@ -94,9 +97,7 @@ return {
         }
       },
     },
-    config = function(_, opts)
-      vim.g.easy_align_delimiters = opts.delimiters
-    end,
+    config = require('compat.vimscript.plugin').setup('easy_align_', {recurse = true}),
   },
   { 'lukas-reineke/virt-column.nvim',
     config = true,
@@ -292,14 +293,15 @@ return {
   },
   { 'sainnhe/gruvbox-material',
     lazy = true,
-    config = function()
-      vim.g.gruvbox_material_better_performance = 1
-      vim.g.gruvbox_material_disable_terminal_colors = 1
-      vim.g.gruvbox_material_enable_bold = 1
-      vim.g.gruvbox_material_enable_italic = 1
-      vim.g.gruvbox_material_foreground = 'mix'
-      vim.g.gruvbox_material_sign_column_background = 'grey'
-    end,
+    opts = {
+      better_performance = 1,
+      disable_terminal_colors = 1,
+      enable_bold = 1,
+      enable_italic = 1,
+      foreground = 'mix',
+      sign_column_background = 'grey',
+    },
+    config = require('compat.vimscript.plugin').setup 'gruvbox_material_',
   },
   { 'simnalamburt/vim-mundo' },
   { 'sindrets/winshift.nvim' },

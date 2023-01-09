@@ -1,11 +1,11 @@
 local opt = vim.opt_local
-local util = require 'util'
+local file = require 'util.file'
 local tex = require 'tex'
 
 opt.colorcolumn:append '+1'
 opt.comments = ':%'
 opt.iskeyword:remove '_'
-opt.makeprg = util.makeOr "latexmk '%'"
+opt.makeprg = file.makeOr "latexmk '%'"
 opt.path = vim.fn.system "kpsepath tex | sed 's/!!//g;s#/*\\(:\\|$\\)#/**\\1#g;s/:/,/g'"
 opt.suffixesadd = { '.tex', '.sty', '.cls', '.ltx', '.dtx', '.lco' }
 opt.textwidth = 100

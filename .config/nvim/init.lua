@@ -104,7 +104,7 @@ vim.api.nvim_create_user_command('Fold', require('fold').create, {
 })
 
 -- Reindent the buffer with `:<range>Reindent <new_shift_width>`.
-vim.api.nvim_create_user_command('Reindent', require('util').reindent, {
+vim.api.nvim_create_user_command('Reindent', require 'util.reindent', {
   bar = true,
   range = '%',
   nargs = 1,

@@ -1,7 +1,5 @@
-local util = {}
-
 -- Reindent the buffer to the given shift width.
-function util.reindent(info)
+return function(info)
   local old, new = vim.fn.shiftwidth(), info.args
   local view = vim.fn.winsaveview()
   vim.cmd.substitute {
@@ -17,26 +15,3 @@ function util.reindent(info)
   }
   vim.fn.winrestview(view)
 end
-
--- Check whether a file exists.
-function util.existsFile(name)
-  local f = io.open(name, 'r')
-  if f ~= nil then
-    io.close(f)
-    return true
-  else
-    return false
-  end
-end
-
--- Returns the given string if there is no Makefile, otherwise returns the empty
--- string.
-function util.makeOr(str)
-  if util.existsFile 'makefile' or util.existsFile 'Makefile' then
-    return ''
-  else
-    return str
-  end
-end
-
-return util

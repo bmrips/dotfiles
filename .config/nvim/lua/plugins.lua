@@ -29,7 +29,7 @@ return {
     config = true,
   },
   { 'folke/which-key.nvim',
-    config = {
+    opts = {
       operators = {
         ga = 'Align'
       },
@@ -41,7 +41,7 @@ return {
   },
   { 'hrsh7th/nvim-compe',
     dependencies = 'GoldsteinE/compe-latex-symbols',
-    config = {
+    opts = {
       source = {
         path = true,
         buffer = true,
@@ -69,7 +69,7 @@ return {
       { 'kyazdani42/nvim-web-devicons' },
       { 'vijaymarupudi/nvim-fzf' },
     },
-    config = {
+    opts = {
       lsp = {
         code_actions = {
           winopts = { relative = 'cursor' },
@@ -87,12 +87,15 @@ return {
     end,
   },
   { 'junegunn/vim-easy-align',
-    config = function()
-      vim.g.easy_align_delimiters = {
+    opts = {
+      delimiters = {
         ['>'] = {
           pattern = '->\\|-->\\|=>\\|==>\\|\\~>\\|\\~\\~>',
         }
-      }
+      },
+    },
+    config = function(_, opts)
+      vim.g.easy_align_delimiters = opts.delimiters
     end,
   },
   { 'lukas-reineke/virt-column.nvim',
@@ -142,51 +145,50 @@ return {
   },
   { 'neovim/nvim-lspconfig',
     dependencies = 'folke/neodev.nvim',
-    config = function()
-      local servers = {
-        bashls = {
-          filetypes = { 'bash', 'sh' },
+    opts = {
+      bashls = {
+        filetypes = { 'bash', 'sh' },
+      },
+      clangd = {},
+      elixirls = {
+        cmd = { '/usr/lib/elixir-ls/language_server.sh' },
+      },
+      hls = {
+        settings = {
+          haskell = {
+            formattingProvider = 'stylish-haskell',
+          },
         },
-        clangd = {},
-        elixirls = {
-          cmd = { '/usr/lib/elixir-ls/language_server.sh' },
-        },
-        hls = {
-          settings = {
-            haskell = {
-              formattingProvider = 'stylish-haskell',
+      },
+      jdtls = {},
+      marksman = {},
+      sumneko_lua = {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { 'vim' },
             },
           },
         },
-        jdtls = {},
-        marksman = {},
-        sumneko_lua = {
-          settings = {
-            Lua = {
-              diagnostics = {
-                globals = { 'vim' },
-              },
+      },
+      texlab = {
+        settings = {
+          texlab = {
+            build = {
+              -- Build with LuaLaTeX.
+              args = {'-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f'},
+              onSave = true,
+            },
+            forwardSearch = {
+              executable = 'okular',
+              args = { '--unique', 'file:%p#src:%l%f' },
             },
           },
         },
-        texlab = {
-          settings = {
-            texlab = {
-              build = {
-                -- Build with LuaLaTeX.
-                args = {'-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f'},
-                onSave = true,
-              },
-              forwardSearch = {
-                executable = 'okular',
-                args = { '--unique', 'file:%p#src:%l%f' },
-              },
-            },
-          },
-        },
-      }
-
-      for server, config in pairs(servers) do
+      },
+    },
+    config = function(_, opts)
+      for server, config in pairs(opts) do
         require('lspconfig')[server].setup(config)
       end
     end,
@@ -199,78 +201,79 @@ return {
   },
   { 'nvim-lualine/lualine.nvim',
     dependencies = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      vim.opt.showmode = false
-      local filename = { 'filename', path = 1 }
-      require('lualine').setup {
-        options = {
-          theme = 'gruvbox-material',
-          component_separators = '|',
-          section_separators = '',
-        },
-        sections = {
-          lualine_b = { 'diagnostics' },
-          lualine_c = { filename },
-          lualine_x = {
-            'filetype',
-            { 'fileformat',
-              icons_enabled = true,
-              symbols = {
-                unix = 'LF',
-                dos = 'CRlF',
-                mac = 'CR',
-              }
-            },
+    opts = {
+      options = {
+        theme = 'gruvbox-material',
+        component_separators = '|',
+        section_separators = '',
+      },
+      sections = {
+        lualine_b = { 'diagnostics' },
+        lualine_c = { {'filename', path = 1} },
+        lualine_x = {
+          'filetype',
+          { 'fileformat',
+            icons_enabled = true,
+            symbols = {
+              unix = 'LF',
+              dos = 'CRlF',
+              mac = 'CR',
+            }
           },
         },
-        inactive_sections = {
-          lualine_c = { filename },
-        },
-        extensions = {
-          'drex',
-          'fzf',
-          'man',
-          'mundo',
-          'quickfix',
-        }
+      },
+      inactive_sections = {
+        lualine_c = { {'filename', path = 1} },
+      },
+      extensions = {
+        'drex',
+        'fzf',
+        'man',
+        'mundo',
+        'quickfix',
       }
+    },
+    config = function(_, opts)
+      require('lualine').setup(opts)
+      vim.opt.showmode = false
     end,
   },
   { 'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    config = function()
-      require('nvim-treesitter.configs').setup {
-        highlight = { enable = true },
-        incremental_selection = {
-          enable = true,
-          keymaps = {
-            init_selection = 'gni',
-            node_decremental = 'gn[',
-            node_incremental = 'gn]',
-            scope_incremental = 'gns',
-          },
+    opts = {
+      highlight = { enable = true },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = 'gni',
+          node_decremental = 'gn[',
+          node_incremental = 'gn]',
+          scope_incremental = 'gns',
         },
-        indent = { enable = true },
-        matchup = { enable = true },
+      },
+      indent = { enable = true },
+      matchup = { enable = true },
 
-        ensure_installed = { 'help', 'lua', 'vim' },
+      ensure_installed = { 'help', 'lua', 'vim' },
 
-        -- Automatically install missing parsers when entering buffer.
-        auto_install = false,
-      }
+      -- Automatically install missing parsers when entering buffer.
+      auto_install = false,
+    },
+    config = function(_, opts)
+      require('nvim-treesitter.configs').setup(opts)
       vim.opt.foldmethod = 'expr'
       vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
     end,
   },
   { 'potamides/pantran.nvim',
-    config = {
+    opts = {
       default_engine = 'google'
     },
   },
   { 'rafcamlet/nvim-luapad' },
   { 'rafcamlet/tabline-framework.nvim',
     dependencies = 'kyazdani42/nvim-web-devicons',
-    config = {
+    opts = {
       render = function(f)
         f.make_tabs(function(info)
           vim.pretty_print(info)
@@ -291,11 +294,11 @@ return {
     lazy = true,
     config = function()
       vim.g.gruvbox_material_better_performance = 1
-      vim.g.gruvbox_material_foreground = 'mix'
+      vim.g.gruvbox_material_disable_terminal_colors = 1
       vim.g.gruvbox_material_enable_bold = 1
       vim.g.gruvbox_material_enable_italic = 1
+      vim.g.gruvbox_material_foreground = 'mix'
       vim.g.gruvbox_material_sign_column_background = 'grey'
-      vim.g.gruvbox_material_disable_terminal_colors = 1
     end,
   },
   { 'simnalamburt/vim-mundo' },
@@ -310,24 +313,25 @@ return {
   { 'stevearc/dressing.nvim' },
   { 'theblob42/drex.nvim',
     dependencies = 'kyazdani42/nvim-web-devicons',
-    config = function()
-      require('drex.config').configure {
-        keybindings = {
-          ['n'] = {
-            ['<CR>'] = '<C-^>',
-            ['o'] = function() -- open a file
-              local line = vim.api.nvim_get_current_line()
-              local element = require('drex.utils').get_element(line)
-              vim.fn.jobstart('xdg-open "' .. element .. '" &', { detach = true })
-            end,
-            ['L'] = function() require('drex').open_directory() end,
-            ['H'] = function() require('drex').open_parent_directory() end,
-            ['<C-h>'] = '<C-w>h',
-            ['<C-l>'] = '<C-w>l',
-            ['<C-s>'] = function() require('drex').open_file('sp') end,
-          }
-        },
-      }
+    opts = {
+      keybindings = {
+        ['n'] = {
+          ['<CR>'] = '<C-^>',
+          ['o'] = function() -- open a file
+            local line = vim.api.nvim_get_current_line()
+            local element = require('drex.utils').get_element(line)
+            vim.fn.jobstart('xdg-open "' .. element .. '" &', { detach = true })
+          end,
+          ['L'] = function() require('drex').open_directory() end,
+          ['H'] = function() require('drex').open_parent_directory() end,
+          ['<C-h>'] = '<C-w>h',
+          ['<C-l>'] = '<C-w>l',
+          ['<C-s>'] = function() require('drex').open_file('sp') end,
+        }
+      },
+    },
+    config = function(_, opts)
+      require('drex.config').configure(opts)
 
       -- Do not list drex buffers
       local augroup = vim.api.nvim_create_augroup('drex', {})
@@ -346,7 +350,7 @@ return {
   { 'tpope/vim-surround' },
   { 'tweekmonster/startuptime.vim' },
   { 'Wansmer/treesj',
-    config = {
+    opts = {
       use_default_keymaps = false
     },
   },

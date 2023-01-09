@@ -15,7 +15,7 @@ return {
     indent = { enable = true },
     matchup = { enable = true },
 
-    ensure_installed = { 'help', 'lua', 'vim' },
+    ensure_installed = 'all',
 
     -- Automatically install missing parsers when entering buffer.
     auto_install = false,

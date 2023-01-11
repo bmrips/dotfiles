@@ -64,3 +64,21 @@ bindkey '^J' down-line-or-beginning-search # Down
 bindkey '^K' up-line-or-beginning-search # Up
 
 load_plugins "$HOME/.config/zsh/rc.d"
+
+# Global aliases (enable them after the plugins to not affect their execution)
+alias -g ...='../..'
+alias -g ....='../../..'
+alias -g .....='../../../..'
+
+alias -g NE='2>/dev/null'
+alias -g NUL='&>/dev/null'
+
+alias -g C='| wc -l'
+alias -g G='| rg'
+alias -g H='| head'
+alias -g L='| less'
+alias -g S='| sort'
+alias -g T='| tail'
+alias -g U='| uniq'
+alias -g V='| nvim'
+alias -g X='| xargs'

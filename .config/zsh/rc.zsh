@@ -56,6 +56,17 @@ setopt hist_reduce_blanks # Remove superfluous blanks
 unalias run-help
 autoload -Uz run-help
 
+# Go upwards quickly by typing sequences of dots
+rationalise-dot() {
+  if [[ $LBUFFER = *.. ]]; then
+    LBUFFER+=/..
+  else
+    LBUFFER+=.
+  fi
+}
+zle -N rationalise-dot
+bindkey . rationalise-dot
+
 # Next/previous history item which the command line is a prefix of
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
@@ -66,10 +77,6 @@ bindkey '^K' up-line-or-beginning-search # Up
 load_plugins "$HOME/.config/zsh/rc.d"
 
 # Global aliases (enable them after the plugins to not affect their execution)
-alias -g ...='../..'
-alias -g ....='../../..'
-alias -g .....='../../../..'
-
 alias -g NE='2>/dev/null'
 alias -g NUL='&>/dev/null'
 

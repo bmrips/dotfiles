@@ -38,7 +38,8 @@ zstyle ':completion:*' group-name ''
 
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
 
-zstyle ':completion:*' keep-prefix yes
+zstyle ':completion:*' keep-prefix yes  # keep a prefix containing ~ or a param
+zstyle ':completion:*' squeeze-slashes yes  # remove trailing slashes
 
 # Source the generic shell configuration after compinit was loaded.  Otherwise,
 # plugins will not be able to register completion.

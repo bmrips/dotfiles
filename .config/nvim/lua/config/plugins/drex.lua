@@ -1,6 +1,6 @@
 return {
   'theblob42/drex.nvim',
-  dependencies = 'kyazdani42/nvim-web-devicons',
+  dependencies = 'nvim-tree/nvim-web-devicons',
   opts = {
     keybindings = {
       ['n'] = {

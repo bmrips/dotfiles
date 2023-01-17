@@ -1,6 +1,6 @@
 return {
   'rafcamlet/tabline-framework.nvim',
-  dependencies = 'kyazdani42/nvim-web-devicons',
+  dependencies = 'nvim-tree/nvim-web-devicons',
   opts = {
     render = function(f)
       f.make_tabs(function(info)

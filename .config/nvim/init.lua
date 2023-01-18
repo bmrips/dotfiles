@@ -48,6 +48,7 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup('config.plugins', {
   dev = {
+    path = '~/projects/neovim/plugins/',
     pattern = { 'f1rstlady' },
   },
   performance = {

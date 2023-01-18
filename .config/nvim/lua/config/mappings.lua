@@ -203,19 +203,27 @@ return {
     }},
     { '<C-', {
       { 'Left>',
-        '<C-w><',
+        function()
+          require('smart-splits').resize_left()
+        end,
         desc = 'Decrease window width',
       },
       { 'Down>',
-        '<C-w>-',
+        function()
+          require('smart-splits').resize_down()
+        end,
         desc = 'Decrease window height',
       },
       { 'Up>',
-        '<C-w>+',
+        function()
+          require('smart-splits').resize_up()
+        end,
         desc = 'Increase window height',
       },
       { 'Right>',
-        '<C-w>>',
+        function()
+          require('smart-splits').resize_right()
+        end,
         desc = 'Increase window width',
       },
       { 'a>',
@@ -228,19 +236,27 @@ return {
         mode = 'x',
       },
       { 'h>',
-        '<Cmd>wincmd h<CR>',
+        function()
+          require('smart-splits').move_cursor_left()
+        end,
         desc = 'Go to left window',
       },
       { 'j>',
-        '<Cmd>wincmd j<CR>',
+        function()
+          require('smart-splits').move_cursor_down()
+        end,
         desc = 'Go to down window',
       },
       { 'k>',
-        '<Cmd>wincmd k<CR>',
+        function()
+          require('smart-splits').move_cursor_up()
+        end,
         desc = 'Go to up window',
       },
       { 'l>',
-        '<Cmd>wincmd l<CR>',
+        function()
+          require('smart-splits').move_cursor_right()
+        end,
         desc = 'Go to right window',
       },
       { 'p>',
@@ -297,6 +313,12 @@ return {
           { 'i>',
             '<Cmd>vertical wincmd i<CR>',
             desc = 'Open import in vert split',
+          },
+          { 'r>',
+            function()
+              require('smart-splits').start_resize_mode()
+            end,
+            desc = 'Enter resize mode'
           },
         }},
       }},

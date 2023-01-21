@@ -1,5 +1,10 @@
 local servers = {
   bashls = {
+    settings = {
+      bashIde = {
+        includeAllWorkspaceSymbols = true,
+      },
+    },
     filetypes = { 'bash', 'sh' },
   },
   clangd = {},

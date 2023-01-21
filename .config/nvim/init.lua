@@ -26,7 +26,7 @@ opt.splitbelow = true
 opt.splitright = true
 opt.suffixes = { '.bak', '~', '.swp', '.info', '.log' } -- Suffixes with lower priority
 opt.tabstop = 4
-opt.termguicolors = true -- Enable Truecolor support
+opt.termguicolors = vim.env.COLORTERM ~= nil -- Enable Truecolor support
 opt.textwidth = 80
 opt.undofile = true
 opt.wildmode = { 'longest', 'full' } -- Complete till longest common string

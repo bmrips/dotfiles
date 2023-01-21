@@ -1,5 +1,5 @@
-source /usr/share/fzf/completion.zsh
-source /usr/share/fzf/key-bindings.zsh
+try_source /usr/share/fzf/completion.zsh
+try_source /usr/share/fzf/key-bindings.zsh
 
 # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
 bindkey '^ ' fzf-file-widget
@@ -8,7 +8,7 @@ bindkey '^T' fzf-cd-widget
 
 bindkey -M vicmd '^R' redo  # restore redo
 
-source /usr/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+try_source /usr/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
 zstyle ':completion:*' fzf-search-display true # Search completion descriptions
 zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk # do not skew the ordering
 

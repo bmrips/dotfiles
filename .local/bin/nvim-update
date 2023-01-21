@@ -1,4 +1,4 @@
-#!/usr/bin/runghc
+#!/usr/bin/env runghc
 
 {-# LANGUAGE LambdaCase     #-}
 {-# LANGUAGE PackageImports #-}

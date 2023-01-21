@@ -1,2 +1,1 @@
-# Setup direnv
-eval "$(direnv hook zsh)"
+try_eval direnv hook zsh

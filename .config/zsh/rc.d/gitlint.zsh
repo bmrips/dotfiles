@@ -1,1 +1,1 @@
-eval "$(_GITLINT_COMPLETE=zsh_source gitlint)"
+try_eval _GITLINT_COMPLETE=zsh_source gitlint

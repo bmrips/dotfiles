@@ -1,13 +1,4 @@
-# shellcheck shell=bash
-
-# Import utilities
 source "$HOME/.config/sh/utilities.sh"
-
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_DATA_DIRS="/usr/local/share:/usr/share"
-export XDG_STATE_HOME="$HOME/.local/state"
 
 #[ Aliases ]# {{{1
 
@@ -21,7 +12,7 @@ alias chmod='chmod --preserve-root'
 alias chown='chown --preserve-root'
 
 # clipbaord
-if [ -n "$WAYLAND_DISPLAY" ]; then
+if [[ -n $WAYLAND_DISPLAY ]]; then
     alias xc='wl-copy'
     alias xp='wl-paste'
 else
@@ -51,9 +42,10 @@ alias free='free --human'
 # git
 function git() {
     if [[ -n $1 && $1 == "cd-root" ]]; then
-        cd "$(/usr/bin/git rev-parse --show-toplevel)" || return
+        declare -r top_level=$(env git rev-parse --show-toplevel)
+        cd "$top_level" || return 1
     else
-        /usr/bin/git "$@"
+        env git "$@"
     fi
 }
 

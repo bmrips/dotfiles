@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+if [[ $EUID -ne 0 ]]; then
+    echo "This script must be run as root." >&2
+    exit 1
+fi
+
+install --owner=root --group=root startkde-i3 /usr/local/bin/startkde-i3
+
+# Create a corresponding desktop session file
+mkdir --parents /usr/local/share/xsessions
+session_file="/usr/share/xsessions/plasma-i3.desktop"
+cp "/usr/share/xsessions/plasma.desktop" "$session_file"
+sed --in-place "$session_file" \
+    -e 's@/usr/bin/startplasma-x11@/usr/local/bin/startplasma-x11-i3@' \
+    -e '/^Name.*=/ s/$/ with i3/'
+
+# Configure sddm (the login screen) to use our desktop sessions directory
+echo -e "\n\n[X11]\nSessionDir=/usr/local/share/xsessions" >>/etc/sddm.conf

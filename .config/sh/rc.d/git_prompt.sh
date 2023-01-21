@@ -1,1 +1,1 @@
-/usr/share/git/completion/git-prompt.sh
+try_source /usr/share/git/completion/git-prompt.sh

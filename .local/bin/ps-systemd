@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-# List all processes and the systemd units they belong to
+# List all processes and the systemd units they belong to.
 ps xawf -eo pid,user,cgroup,args | less

@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Print the 16 colors from the color scheme
 
@@ -13,5 +13,3 @@ echo
 for C in {100..107}; do
     printf "\e[${C}m%3s" "$C"
 done
-
-# vi: ft=sh

@@ -1,4 +1,5 @@
-# shellcheck shell=bash
+# Ignore unused variables since they will be needed elsewhere
+# shellcheck disable=SC2034
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
@@ -14,14 +15,14 @@ source "$HOME/.config/sh/rc.sh"
 shopt -s globstar
 
 # Colors
+BLACK="$(tput setaf 0)"
 RED="$(tput setaf 1)"
 GREEN="$(tput setaf 2)"
-ORANGE="$(tput setaf 3)"
+YELLOW="$(tput setaf 3)"
 BLUE="$(tput setaf 4)"
 MAGENTA="$(tput setaf 5)"
 CYAN="$(tput setaf 6)"
-GREY="$(tput setaf 7)"
-WHITE="$(tput setaf 8)"
+WHITE="$(tput setaf 7)"
 RESET="$(tput sgr0)"
 
 # History

@@ -1,1 +1,1 @@
-.config/bash/profile.bash
+.config/bash/profile.sh

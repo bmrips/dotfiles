@@ -1,7 +1,7 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 FZF_STATE_PREFIX=/tmp/fzf
-mkdir -p $FZF_STATE_PREFIX
+mkdir --parents $FZF_STATE_PREFIX
 
 case $1 in
 binds)
@@ -10,7 +10,7 @@ binds)
     ;;
 context)
     if [[ -z $2 ]]; then
-        echo "Error: expected a number!" >&2
+        echo "Error: expected a number" >&2
         exit 1
     fi
     start=$(($2 - (FZF_PREVIEW_LINES / 2)))
@@ -39,12 +39,16 @@ get-source)
     grep)
         eval rg --line-number --no-heading --color=always $hidden $ignored "\"$3\""
         ;;
+    *)
+        echo "Error: unknown argument: $2" >&2
+        exit 1
+        ;;
     esac
     exit
     ;;
 toggle)
     if [[ -z $2 ]]; then
-        echo "Error: no attribute given!" >&2
+        echo "Error: no attribute specified" >&2
         exit 1
     fi
 
@@ -57,5 +61,9 @@ toggle)
     fi
 
     exit
+    ;;
+*)
+    echo "Error: unknown argument: $1" >&2
+    exit 1
     ;;
 esac

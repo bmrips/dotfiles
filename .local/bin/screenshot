@@ -1,11 +1,10 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Takes a screenshot using scrot.  You can specify which area to take a
-# screenshot of. Possible options are:
-# 	focus, select, multidisp
-# By default, an screenshot of the entire screen is taken.
+# screenshot of. Possible options are: focus, select, multidisp.  By default, a
+# shot of the entire screen is taken.
 
-dir=$HOME/Pictures/Screenshots
+dir="$HOME/Pictures/Screenshots"
 
 for arg in "$@"; do
     case "$arg" in
@@ -15,18 +14,24 @@ for arg in "$@"; do
     -t | --temporary)
         dir=/tmp/screenshots
         ;;
+    -*)
+        echo "Error: unknown option: $arg" >&2
+        exit 1
+        ;;
     select)
         mode="--select"
         ;;
     window)
         mode="--window=$(xdotool getactivewindow)"
         ;;
-    *) ;;
-
+    *)
+        echo "Error: unknown argument: $arg" >&2
+        exit 2
+        ;;
     esac
 done
 
-mkdir -p "$dir"
+mkdir --parents "$dir"
 file="$dir/$(date +%Y%m%d-%H%M%S).png"
 
 maim "$mode" "$file" --hidecursor

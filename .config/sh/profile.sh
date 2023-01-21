@@ -1,6 +1,3 @@
-# shellcheck shell=bash
-
-# Import utilities
 source "$HOME/.config/sh/utilities.sh"
 
 umask 022
@@ -15,7 +12,6 @@ export XDG_STATE_HOME="$HOME/.local/state"
 
 export EDITOR=nvim
 export VISUAL=$EDITOR
-export SYSTEMD_EDITOR=/usr/bin/nvim
 
 export BROWSER=firefox
 

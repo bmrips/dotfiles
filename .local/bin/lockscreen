@@ -1,15 +1,6 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-#
-# Locks the screen using i3lock
-#
-# It is an expanded locking, that locks the screen with an darkened and blurred screenshot as
-# background.
-#
-# Author:	Benedikt Rips
-# Date:		2018/01/13
-#
-
+# Lock the screen, with an darkened and blurred screenshot as background.
 scrot /tmp/screenshot.png
 convert /tmp/screenshot.png -blur 0x5 -level 0%,100%,0.7 /tmp/screenshot-mod.png
-i3lock -i /tmp/screenshot-mod.png
+i3lock --image=/tmp/screenshot-mod.png

@@ -1,5 +1,5 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
-pacman -Qii \
-    | rg '^MODIFIED' \
-    | cut -d$'\t' -f2
+pacman -Qii |
+    rg '^MODIFIED' |
+    cut --delimiter="\t" --fields=2

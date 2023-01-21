@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+KDEWM=/usr/bin/i3 startkde

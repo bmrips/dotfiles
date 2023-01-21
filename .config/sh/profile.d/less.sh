@@ -1,5 +1,3 @@
-# shellcheck shell=bash
-
 export LESS='--quiet --tabs=4 --LONG-PROMPT --RAW-CONTROL-CHARS --quit-if-one-screen --wheel-lines=3'
 
 export LESS_TERMCAP_md=$'\e[93m' # Bold as bright yellow

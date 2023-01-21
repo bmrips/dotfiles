@@ -1,9 +1,11 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 if [[ -z $1 ]]; then
     echo "Error: no argument given!" >&2
     exit 1
 fi
 
+# Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
+# editor.
 base="${1%.pdf}"
 gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$base.copy.pdf" "$base.pdf"

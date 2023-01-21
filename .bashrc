@@ -1,1 +1,1 @@
-.config/bash/rc.bash
+.config/bash/rc.sh

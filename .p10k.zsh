@@ -1,1 +1,1 @@
-.config/p10k/config.zsh
+.config/powerlevel10k.zsh

@@ -1,5 +1,3 @@
-# shellcheck shell=bash
-
 # Append to the path
 append_path() {
     case ":$PATH:" in
@@ -28,8 +26,22 @@ prepend_path() {
 load_plugins() {
     for plugin in "$1"/*; do
         if [[ -r $plugin ]]; then
+            # The source varies, hence can not be specified.
+            # shellcheck source=/dev/null
             source "$plugin"
         fi
     done
     unset plugin
+}
+
+# Evaluate the output of the given command; potential errors are suppressed.
+try_eval() {
+    out="$("$@" 2>/dev/null)" && eval "$out" && unset out
+}
+
+# Source the given file if it exists
+try_source() {
+    # The source varies, hence can not be specified.
+    # shellcheck source=/dev/null
+    [[ -r $1 ]] && source "$1"
 }

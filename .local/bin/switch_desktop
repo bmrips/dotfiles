@@ -1,29 +1,25 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Handles diagonal desktop switching.  It takes the direction as an argument.
 # Whether and how the desktop is switched, depends then on the current desktop
 
-workspace=$(xdotool get_desktop)
+workspace="$(xdotool get_desktop)"
 
 case $1 in
 upleft)
-    if [[ $workspace == 0 ]]; then
-        xdotool set_desktop 3
-    fi
+    [[ $workspace == 0 ]] && xdotool set_desktop 3
     ;;
 upright)
-    if [[ $workspace == 1 ]]; then
-        xdotool set_desktop 2
-    fi
+    [[ $workspace == 1 ]] && xdotool set_desktop 2
     ;;
 downleft)
-    if [[ $workspace == 2 ]]; then
-        xdotool set_desktop 1
-    fi
+    [[ $workspace == 2 ]] && xdotool set_desktop 1
     ;;
 downright)
-    if [[ $workspace == 3 ]]; then
-        xdotool set_desktop 0
-    fi
+    [[ $workspace == 3 ]] && xdotool set_desktop 0
+    ;;
+*)
+    echo "Error: unknown direction: $1" >&2
+    exit 1
     ;;
 esac

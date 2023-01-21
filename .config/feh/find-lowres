@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Recursively find images below a certain resolution
 #
@@ -9,22 +9,28 @@
 #
 # With -r: removes images instead of just listing them. Use at your own risk.
 
-remove=0
-
 while true; do
     case $1 in
-    -r) remove=(--action 'rm %F') ;;
+    -r | --remove)
+        action='--action=rm %F'
+        ;;
     - | --)
         shift
         break
         ;;
-    -*) echo "option \"$1\" ignored" ;;
-    *) break ;;
+    -*)
+        echo "Error: unknown option: $1" >&2
+        exit 1
+        ;;
+    *)
+        echo "Error: unknown argument: $1" >&2
+        exit 2
+        ;;
     esac
     shift
 done
 
-dir=${1:-.}
-dimension=${2:-1000x800}
+dir="${1:-.}"
+dimension="${2:-1000x800}"
 
-feh "${remove[@]}" -rlV --max-dim "${dimension}" "${dir}"
+feh --recursive --list --verbose --max-dim "$action" "$dimension" "$dir"

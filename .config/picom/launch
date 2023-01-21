@@ -1,12 +1,12 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 # Terminate already running picom instances
-killall -q picom
+killall --quiet picom
 
 # Wait until the processes have been shut down
-while pgrep -u $UID -x picom >/dev/null; do sleep 1; done
+while pgrep --euid $UID --exact picom >/dev/null; do sleep 1; done
 
 # Launch picom, using default config location ~/.config/picom/config
-picom -b
+picom --daemon
 
 echo "Picom launched..."

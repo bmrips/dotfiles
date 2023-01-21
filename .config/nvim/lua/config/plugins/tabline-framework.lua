@@ -4,7 +4,6 @@ return {
   opts = {
     render = function(f)
       f.make_tabs(function(info)
-        vim.pretty_print(info)
         f.add(' ' .. info.index .. ' ')
         f.add(info.filename or '[no name]')
         f.add(info.modified and '+')

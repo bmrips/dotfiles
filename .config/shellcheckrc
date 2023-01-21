@@ -1,0 +1,11 @@
+# vi: ft=dosini
+
+shell=bash
+
+# Optional checks; see https://github.com/koalaman/shellcheck/wiki/Optional
+enable=add-default-case
+enable=avoid-nullary-conditions
+enable=check-deprecate-which
+enable=check-set-e-suppressed
+enable=deprecate-which
+enable=require-double-brackets

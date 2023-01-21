@@ -29,7 +29,6 @@
     sw = switch
 
 [core]
-    hooksPath = ~/.config/git/templates/hooks
     pager = diff-so-fancy | less
     whitespace = tabwidth=4
 

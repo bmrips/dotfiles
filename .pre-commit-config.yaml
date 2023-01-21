@@ -1,0 +1,50 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-yaml
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args: [--fix=no]
+      - id: trailing-whitespace
+  - repo: https://github.com/jumanjihouse/pre-commit-hooks
+    rev: 3.0.0
+    hooks:
+      - id: forbid-binary
+      - id: script-must-have-extension
+        exclude_types: [zsh]
+      - id: script-must-not-have-extension
+      - id: shellcheck
+        exclude_types: [zsh]
+  - repo: https://github.com/scop/pre-commit-shfmt
+    rev: v3.6.0-1
+    hooks:
+      - id: shfmt
+        args: [--write, --simplify, --indent=4]
+        exclude_types: [zsh]
+  - repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.4.0
+    hooks:
+      - id: forbid-crlf
+  - repo: https://github.com/JohnnyMorganz/StyLua
+    rev: v0.16.0
+    hooks:
+      - id: stylua-system
+        exclude: ^.config/nvim/lua/config/mappings\.lua$
+  - repo: https://github.com/igorshubovych/markdownlint-cli
+    rev: v0.33.0
+    hooks:
+      - id: markdownlint
+        exclude: '^.config/taskell/template.md'
+  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
+    rev: 2.6.2
+    hooks:
+      - id: editorconfig-checker-system
+        entry: editorconfig-checker

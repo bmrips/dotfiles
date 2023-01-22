@@ -15,9 +15,9 @@ Name=Light 11pt
 Parent=FALLBACK/
 ShowTerminalSizeHint=false
 TerminalCenter=false
-TerminalColumns=102
+TerminalColumns=90
 TerminalMargin=1
-TerminalRows=27
+TerminalRows=25
 
 [Interaction Options]
 AutoCopySelectedText=true

@@ -1,6 +1,8 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+setopt extended_glob
+
 setopt vi
 
 autoload -Uz edit-command-line

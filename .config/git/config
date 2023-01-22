@@ -1,3 +1,5 @@
+# vi: ft=gitconfig
+
 [advice]
     detachedHead = false
     statusHints = false
@@ -116,4 +118,5 @@
 [url "https://github.com/"]
     insteadOf = git://github.com/
 
-# vi: ft=gitconfig
+[include]
+    path = config.local

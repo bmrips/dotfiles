@@ -1,6 +1,9 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+# Split fields like in Bash
+setopt sh_word_split
+
 setopt extended_glob
 
 setopt vi

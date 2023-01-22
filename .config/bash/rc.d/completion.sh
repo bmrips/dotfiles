@@ -1,1 +1,1 @@
-try_source /usr/share/bash-completion/bash_completion
+try_source_from_path bash-completion/bash_completion

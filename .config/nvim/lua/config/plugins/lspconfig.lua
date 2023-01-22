@@ -46,6 +46,19 @@ local servers = {
   },
 }
 
+-- On a Nix installation, the jdtls binary is named `jdt-language-server`.
+if vim.fn.executable 'jdt-language-server' == 1 then
+  local jdtls_cache = vim.env.XDG_CACHE_HOME .. '/jdtls'
+
+  servers.jdtls.cmd = {
+    'jdt-language-server',
+    '-configuration',
+    jdtls_cache .. '/config',
+    '-data',
+    jdtls_cache .. '/workspace',
+  }
+end
+
 return {
   'neovim/nvim-lspconfig',
   dependencies = 'folke/neodev.nvim',

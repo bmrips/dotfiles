@@ -1,1 +1,1 @@
-try_source /usr/share/goto/goto.sh
+try_source_from_path goto/goto.sh

@@ -39,9 +39,41 @@ try_eval() {
     out="$("$@" 2>/dev/null)" && eval "$out" && unset out
 }
 
-# Source the given file if it exists
+# From the given list of files, source the first one that exists.
 try_source() {
-    # The source varies, hence can not be specified.
-    # shellcheck source=/dev/null
-    [[ -r $1 ]] && source "$1"
+    for file in "$@"; do
+        if [[ -r $file ]]; then
+            # The source varies, hence can not be specified.
+            # shellcheck source=/dev/null
+            source "$file"
+            unset file
+            return
+        fi
+    done
+
+    unset file
+    return 1
+}
+
+# List the path fields line by line
+path_fields() {
+    (
+        IFS=:
+        for dir in $1; do
+            echo "$dir"
+        done
+    )
+}
+
+# Searches the file on the share path and sources it
+try_source_from_path() {
+    for dir in $XDG_DATA_HOME $(path_fields "$XDG_DATA_DIRS"); do
+        if try_source "$dir/$1"; then
+            unset dir
+            return
+        fi
+    done
+
+    unset dir
+    return 1
 }

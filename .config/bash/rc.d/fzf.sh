@@ -1,2 +1,2 @@
-try_source /usr/share/fzf/completion.bash
-try_source /usr/share/fzf/key-bindings.bash
+try_source_from_path fzf/completion.bash
+try_source_from_path fzf/key-bindings.bash

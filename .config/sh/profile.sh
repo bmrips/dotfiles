@@ -10,6 +10,11 @@ export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
+# Add Nix's resources directory
+if [[ -d $HOME/.nix-profile ]]; then
+    export XDG_DATA_DIRS="$HOME/.nix-profile/share:$XDG_DATA_DIRS"
+fi
+
 export EDITOR=nvim
 export VISUAL=$EDITOR
 

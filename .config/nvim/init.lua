@@ -64,12 +64,7 @@ require('lazy').setup('config.plugins', {
 
 vim.cmd.colorscheme 'gruvbox-material'
 
--- Fancy diagnostics symbols
-local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-for type, icon in pairs(signs) do
-  local hl = 'DiagnosticSign' .. type
-  vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-end
+require 'config.signs'()
 
 -- Open the quickfix and location list windows automatically.
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {

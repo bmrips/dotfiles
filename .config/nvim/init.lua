@@ -166,7 +166,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'Set settings specific to buffers with attached language server',
   nested = true,
   callback = function(args)
-    vim.opt_local.signcolumn = 'yes'
+    require('util.windows').for_windows_of_buf(args.buf, function(win)
+      vim.wo[win].signcolumn = 'yes'
+    end)
+
     local client = vim.lsp.get_client_by_id(args.data.client_id)
     appliedMappings.lsp[args.buf] = nest.applyKeymaps {
       buffer = args.buf,
@@ -178,7 +181,10 @@ vim.api.nvim_create_autocmd('LspDetach', {
   desc = 'Revert settings specific to buffers with attached language server',
   nested = true,
   callback = function(args)
-    vim.opt_local.signcolumn = vim.opt_global.signcolumn:get()
+    require('util.windows').for_windows_of_buf(args.buf, function(win)
+      vim.wo[win].signcolumn = 'no'
+    end)
+
     nest.revertKeymaps(appliedMappings.lsp[args.buf])
     appliedMappings.lsp[args.buf] = nil
   end,

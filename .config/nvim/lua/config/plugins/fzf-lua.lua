@@ -9,7 +9,7 @@ return {
   opts = {
     winopts = {
       preview = {
-        flip_columns = 150,
+        flip_columns = 180,
       },
     },
     files = {

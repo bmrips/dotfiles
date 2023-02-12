@@ -19,8 +19,7 @@ local servers = {
     },
   },
   jdtls = {},
-  marksman = {},
-  sumneko_lua = {
+  lua_ls = {
     settings = {
       Lua = {
         diagnostics = {
@@ -29,6 +28,7 @@ local servers = {
       },
     },
   },
+  marksman = {},
   texlab = {
     settings = {
       texlab = {

@@ -9,6 +9,7 @@ vim.filetype.add {
     dtx = 'tex',
     ltx = 'tex',
     lco = 'tex',
+    pgf = 'tex',
   },
   pattern = {
     ['/etc/pacman.d/hooks/*'] = 'dosini',

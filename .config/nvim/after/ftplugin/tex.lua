@@ -35,7 +35,7 @@ vim.api.nvim_create_autocmd('QuickFixCmdPre', {
   buffer = 0,
   desc = 'Write all TeX buffers before compiling',
   callback = function(args)
-    vim.cmd.bufdo 'if expand("%:e") =~# "tex|sty|cls|bib" | update | endif'
+    vim.cmd.bufdo 'if expand("%:e") =~# "tex|sty|cls|bib|pgf" | update | endif'
     vim.api.nvim_set_current_buf(args.buf)
   end,
 })

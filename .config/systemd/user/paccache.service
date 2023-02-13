@@ -1,6 +1,7 @@
 [Unit]
-Description=Discard unused packages
+Description=Remove unused cached package files
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/paccache --remove --cachedir %C/pacman/pkg
+ExecStart=/usr/bin/paccache --cachedir %C/pacman/pkg --verbose --remove
+ExecStart=/usr/bin/paccache --cachedir %C/pacman/pkg --verbose --remove --uninstalled --keep=0

@@ -28,8 +28,28 @@ vim.b.undo_ftplugin = vim.b.undo_ftplugin
 vim.b.AutoPairs = vim.tbl_extend('force', vim.g.AutoPairs, { ['$'] = '$' })
 vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| unlet b:AutoPairs'
 
--- Write all TeX buffers before compiling
 local augroup = vim.api.nvim_create_augroup('tex', {})
+
+-- Compile documents on save
+if tex.bufIsDocument(0) then
+  vim.api.nvim_create_autocmd('BufWritePost', {
+    group = augroup,
+    buffer = 0,
+    desc = 'Compile the document on save',
+    callback = function()
+      vim.api.nvim_exec_autocmds('QuickFixCmdPre', {
+        pattern = vim.api.nvim_buf_get_name(0),
+      })
+      if vim.cmd.TexlabBuild then
+        vim.cmd.TexlabBuild()
+      else
+        vim.cmd.make { bang = true }
+      end
+    end,
+  })
+end
+
+-- Write all TeX buffers before compiling
 vim.api.nvim_create_autocmd('QuickFixCmdPre', {
   group = augroup,
   buffer = 0,

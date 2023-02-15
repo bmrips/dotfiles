@@ -35,7 +35,6 @@ local servers = {
         build = {
           -- Build with LuaLaTeX.
           args = { '-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f' },
-          onSave = true,
         },
         forwardSearch = {
           executable = 'okular',

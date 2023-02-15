@@ -28,7 +28,7 @@ vim.b.undo_ftplugin = vim.b.undo_ftplugin
 vim.b.AutoPairs = vim.tbl_extend('force', vim.g.AutoPairs, { ['$'] = '$' })
 vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| unlet b:AutoPairs'
 
-local augroup = vim.api.nvim_create_augroup('tex', {})
+local augroup = vim.api.nvim_create_augroup('tex', { clear = false })
 
 -- Compile documents on save
 if tex.bufIsDocument(0) then

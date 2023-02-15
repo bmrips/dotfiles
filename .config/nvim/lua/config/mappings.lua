@@ -542,7 +542,7 @@ return {
         desc = 'Open explorer',
       },
       { 'T',
-        ':Drex',
+        ':Drex ',
         desc = 'Open explorer in given dir',
       },
       { '<C-t>',

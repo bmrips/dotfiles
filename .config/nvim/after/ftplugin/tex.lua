@@ -6,7 +6,13 @@ opt.colorcolumn:append '+1'
 opt.comments = ':%'
 opt.iskeyword:remove '_'
 opt.makeprg = file.makeOr "latexmk '%'"
-opt.path = vim.fn.system "kpsepath tex | sed 's/!!//g;s#/*\\(:\\|$\\)#/**\\1#g;s/:/,/g'"
+opt.path = vim.fn.system [[
+  kpsepath tex |
+    sed 's/!!//g' |
+    xargs -d: ls -1d 2>/dev/null |
+    sed -E 's/^\.$//g;s#/{2,}(:|$)#/**\1#g' |
+    tr '\n' ,
+]]
 opt.suffixesadd = { '.tex', '.sty', '.cls', '.ltx', '.dtx', '.lco' }
 opt.textwidth = 100
 opt.define:append(

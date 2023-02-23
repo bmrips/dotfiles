@@ -2,7 +2,7 @@
 
 # Cat may be replaced by `<(...)`, but is clearer here.
 # shellcheck disable=SC2002
-cat "$XDG_CACHE_HOME/zsh/history" |
+cat "$XDG_STATE_HOME/zsh/history" |
     tr '|;' "\n" |
     sed "s/^ //g" |
     cut -d " " -f 1 |

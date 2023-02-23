@@ -53,7 +53,7 @@ source $HOME/.config/sh/rc.sh
 # History
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
-HISTFILE="$XDG_CACHE_HOME/zsh/history"
+HISTFILE="$XDG_STATE_HOME/zsh/history"
 setopt inc_append_history # Share history between zsh instances
 setopt extended_history   # Save timestamps and duration
 setopt hist_reduce_blanks # Remove superfluous blanks

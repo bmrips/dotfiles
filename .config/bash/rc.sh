@@ -28,7 +28,7 @@ RESET="$(tput sgr0)"
 # History
 HISTSIZE=10000
 HISTFILESIZE=$HISTSIZE
-HISTFILE="$XDG_CACHE_HOME/bash/history"
+HISTFILE="$XDG_STATE_HOME/bash/history"
 HISTCONTROL=ignoreboth
 shopt -s histappend
 

@@ -1,0 +1,20 @@
+inoremap <silent> jk <Esc>
+
+noremap <Space> :
+
+noremap ' `
+
+nnoremap <C-m> <C-^>
+
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprev<CR>
+
+nnoremap gs :%s/\v/g<Left><Left>
+xnoremap gs :s/\v/g<Left><Left>
+nnoremap S  :%s/\v\C<<C-r><C-w>>//g<Left><Left>
+nnoremap gS :sil gr! <C-R><C-w><CR>

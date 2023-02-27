@@ -29,7 +29,8 @@ bindkey -M menuselect '^T' accept-and-hold # hold
 bindkey -M menuselect '^U' undo
 bindkey -M menuselect '^Y' accept-and-infer-next-history # next
 
-autoload -Uz compinit && compinit
+autoload -Uz compinit
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
 zstyle ':completion:*' menu select  # Enable menu style completion
 _comp_option+=(globdots)            # Include hidden files
 

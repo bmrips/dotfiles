@@ -3,8 +3,7 @@
 # Cat may be replaced by `<(...)`, but is clearer here.
 # shellcheck disable=SC2002
 cat "$XDG_STATE_HOME/zsh/history" |
-    tr '|;' "\n" |
-    sed "s/^ //g" |
+    sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
     cut -d " " -f 1 |
     sort |
     uniq -c |

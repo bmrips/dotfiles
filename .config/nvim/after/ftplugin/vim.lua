@@ -3,7 +3,7 @@ local opt = vim.opt_local
 opt.comments = ':"'
 opt.formatoptions:remove 'r'
 opt.formatoptions:remove 'o'
-opt.include = '^\\s*\\%(source\\|runtime\\%)'
+opt.include = [[^\s*\%(source\|runtime\)]]
 opt.path = opt.runtimepath:get()
 opt.tabstop = 2
 

@@ -15,16 +15,14 @@ opt.path = vim.fn.system [[
 ]]
 opt.suffixesadd = { '.tex', '.sty', '.cls', '.ltx', '.dtx', '.lco' }
 opt.textwidth = 100
-opt.define:append(
-  '\\v' -- Use magic patterns
-    .. '|\\\\DeclarePairedDelimiter(X(PP)=)=\\s*{=\\s*' -- From the mathtools package
-    .. '|\\\\(re)=new(operator|mathbb)\\*=\\s*{=\\s*'
-) -- From my configuration
-opt.include:append(
-  '\\v' -- Use magic patterns
-    .. '|\\\\(input|usepackage|documentclass'
-    .. '|(RequirePackage|Load(Package|Class))(WithOptions)=)\\s*\\{=\\s*'
-)
+opt.define:append [[
+\v
+\\DeclarePairedDelimiter(X(PP)=)=\s*\{=\s*
+|\\(re)=new(operator|mathbb)\*=\s*\{=\s*
+]]
+opt.include:append [[
+\v\\(input|usepackage|documentclass|(RequirePackage|Load(Package|Class))(WithOptions)=)\s*\{
+]]
 
 vim.b.undo_ftplugin = vim.b.undo_ftplugin
   .. '| set colorcolumn< comments< define< include< iskeyword< path<'

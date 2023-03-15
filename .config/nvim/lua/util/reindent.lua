@@ -5,7 +5,7 @@ return function(info)
   vim.cmd.substitute {
     range = { info.line1, info.line2 },
     args = {
-      '@\\v^(\\s*)@\\=repeat(" ", strdisplaywidth(submatch(1))/' .. old .. '*' .. new .. ')@',
+      [[@\v^(\s*)@\=repeat(" ", strdisplaywidth(submatch(1))/]] .. old .. '*' .. new .. ')@',
     },
     mods = vim.tbl_deep_extend('force', info.smods, {
       keepalt = true,

@@ -13,6 +13,8 @@ zle -N edit-command-line
 bindkey          '^V' edit-command-line
 bindkey -M vicmd '^V' edit-command-line
 
+mkdir -p "$XDG_CACHE_HOME/zsh" "$XDG_STATE_HOME/zsh"
+
 # Completion
 zmodload zsh/complist
 

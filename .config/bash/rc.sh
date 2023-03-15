@@ -14,6 +14,8 @@ source "$HOME/.config/sh/rc.sh"
 # and zero or more directories and subdirectories.
 shopt -s globstar
 
+mkdir -p "$XDG_CACHE_HOME/bash" "$XDG_STATE_HOME/bash"
+
 # Colors
 BLACK="$(tput setaf 0)"
 RED="$(tput setaf 1)"

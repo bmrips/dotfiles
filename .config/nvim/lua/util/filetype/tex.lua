@@ -1,13 +1,19 @@
 local tex = {}
 
--- Insert an environment, whose name is given interactively by the user.
-function tex.createEnvironment()
-  local env = vim.fn.input 'Environment: '
-  if env ~= '' then
-    return '\\begin{' .. env .. '}\n\\end{' .. env .. '}<Up><C-o>A<C-g>u'
-  else
-    return ''
+-- Insert the given environment at the cursor position.
+function tex.createEnvironment(env)
+  if env == nil or env == '' then
+    return
   end
+
+  local pos = vim.api.nvim_win_get_cursor(0)
+  local row, col = pos[1], pos[2]
+  local code = {
+    '\\begin{' .. env .. '}',
+    string.rep(' ', col) .. '\\end{' .. env .. '}',
+  }
+  vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, code)
+  vim.api.nvim_win_set_cursor(0, { row, col + #code[1] })
 end
 
 -- Check whether the buffer is a document, i.e. beginning with `\documentclass`.

@@ -73,9 +73,10 @@ if not vim.g.no_plugin_maps then
         desc = 'View generated PDF document',
       },
       { 'e',
-        tex.createEnvironment,
+        function()
+          vim.ui.input({ prompt = 'Environment: ' }, tex.createEnvironment)
+        end,
         desc = 'Create an environment',
-        expr = true,
         mode = 'i',
       },
     }},

@@ -606,6 +606,10 @@ return {
         '<Esc>',
         desc = 'Escape insert mode',
       },
+      { '<C-f>',
+        '<C-x><C-f>',
+        desc = 'Complete file names',
+      },
     }},
 
     { mode = 'c', '<C-', {

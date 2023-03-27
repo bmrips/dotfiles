@@ -60,10 +60,15 @@ end
 
 return {
   'neovim/nvim-lspconfig',
-  dependencies = 'folke/neodev.nvim',
+  dependencies = {
+    'folke/neodev.nvim',
+    'hrsh7th/cmp-nvim-lsp',
+  },
   opts = servers,
   config = function(_, opts)
+    local capabilities = require('cmp_nvim_lsp').default_capabilities()
     for server, config in pairs(opts) do
+      config.capabilities = capabilities
       require('lspconfig')[server].setup(config)
     end
   end,

@@ -15,6 +15,7 @@ opt.jumpoptions:append 'view'
 opt.lazyredraw = true
 opt.linebreak = true
 opt.path = { '', '.' }
+opt.pumheight = 20
 opt.shiftround = true
 opt.shiftwidth = 0
 opt.shortmess:append 'c' -- Do not print completion messages

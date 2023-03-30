@@ -13,10 +13,10 @@ return {
       lualine_b = { 'diagnostics' },
       lualine_c = { filename },
       lualine_x = {
+        'searchcount',
         'filetype',
         {
           'fileformat',
-          icons_enabled = true,
           symbols = {
             unix = 'LF',
             dos = 'CRlF',
@@ -31,9 +31,11 @@ return {
     extensions = {
       'drex',
       'fzf',
+      'lazy',
       'man',
       'mundo',
       'quickfix',
+      'trouble',
     },
   },
   config = function(_, opts)

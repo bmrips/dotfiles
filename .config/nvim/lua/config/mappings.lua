@@ -100,6 +100,10 @@ return {
       },
       { '<C-', {
         { 'a>',
+          require('dial.map').inc_gnormal(),
+          desc = 'Increment stepwise',
+        },
+        { 'a>',
           require('dial.map').inc_gvisual(),
           desc = 'Increment stepwise',
           mode = 'x',
@@ -109,6 +113,10 @@ return {
             require('treesj').toggle()
           end,
           desc = 'Split/join blocks of code',
+        },
+        { 'x>',
+          require('dial.map').dec_gnormal(),
+          desc = 'Decrement stepwise',
         },
         { 'x>',
           require('dial.map').dec_gvisual(),

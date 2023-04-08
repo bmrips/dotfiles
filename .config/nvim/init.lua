@@ -1,9 +1,13 @@
+vim.loader.enable()
+
 local opt = vim.opt
 opt.background = vim.env.BACKGROUND or 'dark' -- Adapt background to terminal background
 opt.breakindentopt = { 'shift:4', 'sbr' }
 opt.breakindent = true
 opt.clipboard = 'unnamedplus'
+opt.diffopt:append 'linematch:60'
 opt.expandtab = true
+opt.exrc = true
 opt.foldmethod = 'marker'
 opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
 opt.grepformat = '%f:%l:%c:%m'
@@ -24,6 +28,7 @@ opt.smartcase = true
 opt.spelllang = { 'en', 'de' }
 opt.spellsuggest:append '10' -- 10 suggestions max
 opt.splitbelow = true
+opt.splitkeep = 'screen'
 opt.splitright = true
 opt.suffixes = { '.bak', '~', '.swp', '.info', '.log' } -- Suffixes with lower priority
 opt.tabstop = 4
@@ -185,7 +190,3 @@ vim.api.nvim_create_autocmd('LspDetach', {
     appliedMappings.lsp[args.buf] = nil
   end,
 })
-
--- Read local configuration files, but with certain commands disabled
-opt.secure = true
-opt.exrc = true

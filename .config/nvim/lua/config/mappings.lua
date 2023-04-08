@@ -832,7 +832,7 @@ return {
           },
           { 'l',
             function()
-              vim.pretty_print(vim.lsp.buf.list_workspace_folders())
+              vim.print(vim.lsp.buf.list_workspace_folders())
             end,
             desc = 'List workspace folders',
           },

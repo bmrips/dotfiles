@@ -28,10 +28,6 @@ vim.b.undo_ftplugin = vim.b.undo_ftplugin
   .. '| set colorcolumn< comments< define< include< iskeyword< path<'
   .. ' suffixesadd< textwidth<'
 
--- Automatically insert $ in a pair
-vim.b.AutoPairs = vim.tbl_extend('force', vim.g.AutoPairs, { ['$'] = '$' })
-vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| unlet b:AutoPairs'
-
 local augroup = vim.api.nvim_create_augroup('tex', { clear = false })
 
 -- Compile documents on save

@@ -1,0 +1,42 @@
+<gui version="1" name="konsole">
+  <ActionProperties>
+    <Action name="close-session" shortcut="Ctrl+Shift+W"/>
+    <Action name="edit_copy" shortcut="Ctrl+Shift+C"/>
+    <Action name="edit_paste" shortcut="Ctrl+Shift+V; Shift+Ins"/>
+    <Action name="paste-selection" shortcut="Ctrl+Shift+Ins"/>
+    <Action name="file_save_as" shortcut="Ctrl+Shift+S"/>
+    <Action name="file_print" shortcut="Ctrl+Shift+P"/>
+    <Action name="edit_find" shortcut="Ctrl+Shift+F"/>
+    <Action name="edit_find_next" shortcut="F3"/>
+    <Action name="edit_find_prev" shortcut="Shift+F3"/>
+    <Action name="copy-input-to-selected-tabs" shortcut="Ctrl+Shift+."/>
+    <Action name="copy-input-to-none" shortcut="Ctrl+Shift+/"/>
+    <Action name="monitor-activity" shortcut="Ctrl+Shift+A"/>
+    <Action name="monitor-silence" shortcut="Ctrl+Shift+I"/>
+    <Action name="enlarge-font" shortcut="Ctrl++; Ctrl+="/>
+    <Action name="shrink-font" shortcut="Ctrl+-"/>
+    <Action name="reset-font-size" shortcut="Ctrl+Alt+0; Ctrl+0"/>
+    <Action name="new-tab" shortcut="Ctrl+Shift+T"/>
+    <Action name="clone-tab" shortcut="Ctrl+Shift+R"/>
+    <Action name="new-window" shortcut="Ctrl+Shift+N"/>
+    <Action name="close-window" shortcut="Ctrl+Shift+Q"/>
+    <Action name="options_show_menubar" shortcut="Ctrl+Shift+M"/>
+    <Action name="options_configure" shortcut="Ctrl+Shift+,"/>
+    <Action name="split-view-left-right" shortcut="Ctrl+(; "/>
+    <Action name="split-view-top-bottom" shortcut="Ctrl+); "/>
+    <Action name="split-view-auto" shortcut="Ctrl+*"/>
+    <Action name="expand-active-view" shortcut="Ctrl+Shift+]; "/>
+    <Action name="shrink-active-view" shortcut="Ctrl+Shift+[; "/>
+    <Action name="detach-view" shortcut="Alt+Shift+D"/>
+    <Action name="detach-tab" shortcut="Ctrl+Shift+D"/>
+    <Action name="next-tab" shortcut="Ctrl+Tab"/>
+    <Action name="previous-tab" shortcut="Ctrl+Shift+Tab"/>
+    <Action name="focus-view-above" shortcut="Ctrl+Shift+K"/>
+    <Action name="focus-view-below" shortcut="Ctrl+Shift+J"/>
+    <Action name="focus-view-left" shortcut="Ctrl+Shift+H"/>
+    <Action name="focus-view-right" shortcut="Ctrl+Shift+L"/>
+    <Action name="toggle-maximize-current-view" shortcut="Ctrl+Shift+E"/>
+    <Action name="move-tab-to-right" shortcut="Ctrl+Shift+Right"/>
+    <Action name="move-tab-to-left" shortcut="Ctrl+Shift+Left"/>
+  </ActionProperties>
+</gui>

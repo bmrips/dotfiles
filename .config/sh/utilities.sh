@@ -1,25 +1,43 @@
-# Append to the path
-append_path() {
-    case ":$PATH:" in
-    *:"$1":*) ;;
-
-    *)
-        PATH="${PATH:+$PATH:}$1"
-        ;;
-    esac
-    export PATH
+# Expand the variable named by $1 into its value.
+# For example: let a=HOME, then $(expand $a) == /home/me
+expand() {
+    if [[ -z ${1-} ]]; then
+        printf 'expand: expected one argument\n' >&2
+        return 1
+    fi
+    eval printf '%s' "\"\${$1?}\""
 }
 
-# Prepend to the path
-prepend_path() {
-    case ":$PATH:" in
-    *:"$1":*) ;;
+# Append directory $3 to the path named $1 and delimited by $2.
+# For example: append_to_path_with_delimiter : PATH $HOME/.local/bin
+append_to_path_with_delimiter() {
+    local -r delim="$1"
+    local -r pathName="$2"
+    local -r pathValue="$(expand "$pathName")"
+    local dir="$3"
+    if [[ -d $dir && "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
+        export "$pathName=${pathValue:+$pathValue$delim}$dir"
+    fi
+}
 
-    *)
-        PATH="$1${PATH:+:$PATH}"
-        ;;
-    esac
-    export PATH
+append_to_path() {
+    append_to_path_with_delimiter : "$@"
+}
+
+# Prepend directory $3 to the path named $1 and delimited by $2.
+# For example: append_to_path_with_delimiter : PATH $HOME/.local/bin
+prepend_to_path_with_delimiter() {
+    local -r delim="$1"
+    local -r pathName="$2"
+    local -r pathValue="$(expand "$pathName")"
+    local dir="$3"
+    if [[ -d $dir && "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
+        export "$pathName=$dir${pathValue:+$delim$pathValue}"
+    fi
+}
+
+prepend_to_path() {
+    prepend_to_path_with_delimiter : "$@"
 }
 
 # Load plugins from the given path

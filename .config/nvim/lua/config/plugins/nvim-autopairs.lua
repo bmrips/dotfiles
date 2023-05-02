@@ -17,6 +17,13 @@ return {
         :with_move(function(info)
           return info.char == '$' and info.line:sub(info.col, info.col) == '$'
         end),
+      Rule('\\[', '\\]', 'tex')
+        :with_pair(ts_cond.is_not_ts_node { 'comment' })
+        :with_move(function(info)
+          local followed_by_end_pair =
+            vim.startswith(info.line:sub(info.col), info.rule.end_pair)
+          return info.char == ']' and followed_by_end_pair
+        end),
     }
   end,
 }

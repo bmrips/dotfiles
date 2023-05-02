@@ -40,11 +40,10 @@ return {
         ['<C-e>'] = cmp.mapping.abort(),
         ['<CR>'] = cmp.mapping.confirm { select = false },
       },
-      sources = cmp.config.sources({
+      sources = cmp.config.sources {
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'luasnip' },
-      }, {
         {
           name = 'buffer',
           option = {
@@ -56,7 +55,7 @@ return {
         { name = 'spell' },
         { name = 'git' },
         { name = 'zsh' },
-      }),
+      },
     }
   end,
   config = function(_, opts)

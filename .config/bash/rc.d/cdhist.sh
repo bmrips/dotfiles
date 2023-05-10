@@ -2,7 +2,7 @@
 __cdhist_oldpwd="$(pwd)"
 
 function __cdhist_prompt_hook() {
-    local -r retval pwd_tmp
+    local retval pwd_tmp
     retval="$?"
     pwd_tmp="$(pwd)"
 

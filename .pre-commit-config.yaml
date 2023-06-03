@@ -45,6 +45,15 @@ repos:
     hooks:
       - id: stylua-system
         exclude: ^.config/nvim/lua/config/mappings\.lua$
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.16
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+          - mdformat-footnote
+          - mdformat-shfmt
+        exclude: '^.config/taskell/template.md'
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.34.0
     hooks:

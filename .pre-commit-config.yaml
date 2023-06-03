@@ -1,6 +1,10 @@
 default_install_hook_types:
   - pre-commit
   - pre-merge-commit
+  - commit-msg
+default_stages:
+  - pre-commit
+  - pre-merge-commit
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v4.4.0
@@ -26,6 +30,10 @@ repos:
       - id: script-must-not-have-extension
       - id: shellcheck
         exclude_types: [zsh]
+  - repo: https://github.com/jorisroovers/gitlint
+    rev: v0.19.1
+    hooks:
+      - id: gitlint
   - repo: https://github.com/scop/pre-commit-shfmt
     rev: v3.6.0-2
     hooks:

@@ -29,10 +29,6 @@ repos:
       - id: shfmt
         args: [--write, --simplify, --indent=4]
         exclude_types: [zsh]
-  - repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.4.0
-    hooks:
-      - id: forbid-crlf
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v0.16.0
     hooks:

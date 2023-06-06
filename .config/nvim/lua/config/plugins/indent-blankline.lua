@@ -1,7 +1,7 @@
 return {
   'lukas-reineke/indent-blankline.nvim',
   opts = {
-    char = '⏐',
+    char = require('util.tty').if_in_pts '⏐',
     filetype_exclude = {
       'help',
       'markdown',

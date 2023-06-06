@@ -2,9 +2,6 @@ export FZF_DEFAULT_COMMAND="fd --type=file --hidden"
 export FZF_DEFAULT_OPTS="--layout=reverse\
  --height=60%\
  --border=horizontal\
- --marker=❯\
- --prompt='❯ '\
- --pointer=❯\
  --color=16,info:8,border:8\
  --preview-window=right,border,hidden\
  --bind='ctrl-f:half-page-down,ctrl-b:half-page-up,alt-a:toggle-all,f3:toggle-preview-wrap,f4:toggle-preview,f5:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)'"

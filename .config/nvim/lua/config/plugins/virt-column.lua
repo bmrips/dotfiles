@@ -1,6 +1,6 @@
 return {
   'lukas-reineke/virt-column.nvim',
   opts = {
-    char = '⏐',
+    char = require('util.tty').if_in_pts '⏐',
   },
 }

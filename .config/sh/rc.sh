@@ -89,6 +89,7 @@ alias neovide='neovide --maximized --notabs'
 alias nv=neovide
 
 # nvim
+alias nvim='TTY=$TTY nvim'
 alias vi='nvim'
 alias vim='nvim'
 

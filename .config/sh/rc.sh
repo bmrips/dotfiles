@@ -15,7 +15,7 @@ alias chown='chown --preserve-root'
 if [[ -n $WAYLAND_DISPLAY ]]; then
     alias xc='wl-copy'
     alias xp='wl-paste'
-else
+elif command -v xhost && xhost &>/dev/null; then
     alias xc='xclip -selection clipboard -in'
     alias xp='xclip -selection clipboard -out'
 fi

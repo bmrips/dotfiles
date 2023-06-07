@@ -44,6 +44,7 @@ repos:
     rev: v0.17.1
     hooks:
       - id: stylua-system
+        args: [--search-parent-directories]
         exclude: ^.config/nvim/lua/config/mappings\.lua$
   - repo: https://github.com/executablebooks/mdformat
     rev: 0.7.16

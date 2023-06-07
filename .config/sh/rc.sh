@@ -104,6 +104,9 @@ alias gunzip='unpigz'
 alias rm='rm --preserve-root'
 alias trash='mv -t $XDG_DATA_HOME/Trash/files'
 
+# stylua
+alias stylua='stylua --search-parent-directories'
+
 # tree
 alias tree='tree -C --dirsfirst'
 alias gtree='tree --gitignore'

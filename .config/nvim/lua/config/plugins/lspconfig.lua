@@ -19,6 +19,17 @@ local servers = {
     },
   },
   jdtls = {},
+  ltex = {
+    settings = {
+      ltex = {
+        language = 'en-GB',
+        additionalRules = {
+          enablePickyRules = true,
+          motherTongue = 'de-DE',
+        },
+      },
+    },
+  },
   lua_ls = {
     settings = {
       Lua = {

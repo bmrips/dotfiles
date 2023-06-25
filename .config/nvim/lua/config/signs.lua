@@ -2,7 +2,7 @@ local signs = {
   Error = '',
   Warn = '',
   Info = '',
-  Hint = '',
+  Hint = '󰌶',
 }
 
 return setmetatable(signs, {

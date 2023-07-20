@@ -163,6 +163,11 @@ return {
       '<Cmd>MundoToggle<CR>',
       desc = 'Open undo tree',
     },
+    { 'y',
+      'ygv<Esc>',
+      desc = 'yank',
+      mode = 'x',
+    },
     { 'z', {
       { 'A',
         function()

@@ -172,6 +172,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end)
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
+
+    if client.server_capabilities.documentFormatProvider then
+      vim.bo[args.buf].formatexpr = 'v:lua.vim.lsp.formatexpr()'
+    end
+
     appliedMappings.lsp[args.buf] = nest.applyKeymaps {
       buffer = args.buf,
       mappings.lsp(client.server_capabilities),
@@ -185,6 +190,8 @@ vim.api.nvim_create_autocmd('LspDetach', {
     require('util.windows').for_windows_of_buf(args.buf, function(win)
       vim.wo[win].signcolumn = 'no'
     end)
+
+    vim.bo[args.buf].formatexpr = ''
 
     nest.revertKeymaps(appliedMappings.lsp[args.buf])
     appliedMappings.lsp[args.buf] = nil

@@ -20,6 +20,11 @@ local servers = {
   },
   jdtls = {},
   ltex = {
+    on_attach = function()
+      require('ltex_extra').setup {
+        load_langs = { 'en-US', 'de-DE' },
+      }
+    end,
     settings = {
       ltex = {
         language = 'en-GB',
@@ -72,6 +77,7 @@ end
 return {
   'neovim/nvim-lspconfig',
   dependencies = {
+    'barreiroleo/ltex-extra.nvim',
     'folke/neodev.nvim',
     'hrsh7th/cmp-nvim-lsp',
   },

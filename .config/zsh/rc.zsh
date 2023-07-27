@@ -67,7 +67,7 @@ autoload -Uz run-help
 
 # Go upwards quickly by typing sequences of dots
 rationalise-dot() {
-  if [[ $LBUFFER == *.. ]]; then
+  if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
     LBUFFER+=/..
   else
     LBUFFER+=.

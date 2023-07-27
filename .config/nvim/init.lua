@@ -8,6 +8,7 @@ opt.clipboard = require('util.tty').if_in_pts 'unnamedplus'
 opt.diffopt:append 'linematch:60'
 opt.expandtab = true
 opt.exrc = true
+opt.fillchars = 'fold: ,foldopen:,foldsep: ,foldclose:'
 opt.foldmethod = 'marker'
 opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
 opt.grepformat = '%f:%l:%c:%m'

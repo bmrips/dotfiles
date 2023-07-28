@@ -10,12 +10,12 @@ function plugin.setup(prefix, config)
   local vimscript = require 'compat.vimscript'
 
   if cfg.recurse then
-    return function(plg)
-      vimscript.dict_to_vars_rec_with_prefix(prefix, plg.opts)
+    return function(_, opts)
+      vimscript.dict_to_vars_rec_with_prefix(prefix, opts)
     end
   else
-    return function(plg)
-      vimscript.dict_to_vars_with_prefix(prefix, plg.opts)
+    return function(_, opts)
+      vimscript.dict_to_vars_with_prefix(prefix, opts)
     end
   end
 end

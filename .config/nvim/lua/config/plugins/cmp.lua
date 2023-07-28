@@ -12,6 +12,7 @@ return {
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-path',
+    'kdheepak/cmp-latex-symbols',
     {
       'petertriho/cmp-git',
       dependencies = 'nvim-lua/plenary.nvim',
@@ -55,6 +56,7 @@ return {
         { name = 'spell' },
         { name = 'git' },
         { name = 'zsh' },
+        { name = 'latex_symbols' },
       },
     }
   end,

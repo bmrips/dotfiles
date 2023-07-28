@@ -65,19 +65,6 @@ return {
 
     cmp.setup(opts)
 
-    cmp.setup.cmdline({ '/', '?' }, {
-      mapping = cmp.mapping.preset.cmdline(),
-      sources = {
-        {
-          name = 'buffer',
-          option = {
-            keyword_pattern = word_with_umlauts,
-          },
-        },
-        { name = 'cmdline_history' },
-      },
-    })
-
     cmp.setup.cmdline(':', {
       mapping = cmp.mapping.preset.cmdline(),
       sources = {

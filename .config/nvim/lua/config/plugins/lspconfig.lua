@@ -45,6 +45,7 @@ local servers = {
     },
   },
   marksman = {},
+  pkgbuild_language_server = {},
   texlab = {
     settings = {
       texlab = {

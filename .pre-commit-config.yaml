@@ -35,13 +35,13 @@ repos:
     hooks:
       - id: gitlint
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.6.0-2
+    rev: v3.7.0-1
     hooks:
       - id: shfmt
         args: [--write, --simplify, --indent=4]
         exclude_types: [zsh]
   - repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v0.17.1
+    rev: v0.18.1
     hooks:
       - id: stylua-system
         args: [--search-parent-directories]
@@ -57,7 +57,7 @@ repos:
           - mdformat-shfmt
         exclude: '^.config/taskell/template.md$'
   - repo: https://github.com/igorshubovych/markdownlint-cli
-    rev: v0.34.0
+    rev: v0.35.0
     hooks:
       - id: markdownlint
         exclude: '^.config/taskell/template.md$'
@@ -67,7 +67,7 @@ repos:
       - id: yamlfmt
         exclude: '^.config/gh/config.yaml$'
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.7.1
+    rev: 2.7.2
     hooks:
       - id: editorconfig-checker-system
         entry: editorconfig-checker

@@ -640,17 +640,20 @@ return {
           local luasnip = require 'luasnip'
           if luasnip.expand_or_jumpable() then
             luasnip.jump(1)
-            return ''
           else
-            return '<Tab>'
+            require('tabout').tabout()
           end
         end,
         desc = 'Jump to next snippet node',
-        expr = true,
       },
       { '<S-Tab>',
         function()
-          require('luasnip').jump(-1)
+          local luasnip = require 'luasnip'
+          if luasnip.jumpable(-1) then
+            luasnip.jump(-1)
+          else
+            require('tabout').taboutBack()
+          end
         end,
         desc = 'Jump to previous snippet node',
       },

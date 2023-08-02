@@ -5,7 +5,7 @@ expand() {
         printf 'expand: expected one argument\n' >&2
         return 1
     fi
-    eval printf '%s' "\"\${$1?}\""
+    eval printf '%s' "\"\${$1:-}\""
 }
 
 # Append directory $3 to the path named $1 and delimited by $2.

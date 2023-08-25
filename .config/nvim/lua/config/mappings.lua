@@ -1,20 +1,7 @@
-local function search_with_hlslens(keys)
-  return function()
-    local ok, msg = pcall(vim.cmd.normal, {
-      vim.v.count1 .. keys .. (vim.o.foldopen:find('search') and 'zv' or ''),
-      bang = true,
-    })
-    if not ok then
-      vim.cmd(string.format("echohl ErrorMsg | echom '%s' | echohl NONE", msg:sub(5)))
-    end
-    require('hlslens').start()
-  end
-end
-
 return {
   init = {
     { '<BS>',
-      '<Cmd>nohlsearch<CR>',
+      '<Plug>(LoupeClearHighlight)',
       desc = 'Clear search highlighting',
       remap = true,
     },
@@ -57,12 +44,6 @@ return {
       mode = '',
       remap = true,
     },
-    { '*',
-      search_with_hlslens '*'
-    },
-    { '#',
-      search_with_hlslens '#',
-    },
     { '[', {
       { 'd',
         vim.diagnostic.goto_prev,
@@ -88,12 +69,6 @@ return {
       },
     }},
     { 'g', {
-      { '*',
-        search_with_hlslens 'g*',
-      },
-      { '#',
-        search_with_hlslens 'g#',
-      },
       { 'a',
         '<Plug>(EasyAlign)',
         desc = 'Align',
@@ -180,12 +155,6 @@ return {
         desc = 'Make given target',
       },
     }},
-    { 'n',
-      search_with_hlslens 'n',
-    },
-    { 'N',
-      search_with_hlslens 'N',
-    },
     { 'S',
       [[:%s/\v\C<<C-r><C-w>>//g<Left><Left>]],
       desc = 'Substitute word under cursor',
@@ -720,6 +689,11 @@ return {
     },
 
     { mode = 'c', '<C-', {
+      { 'g>',
+        'getcmdtype() =~ "[/?]" ? "<CR>/<C-r>/" : "<C-n>"',
+        desc = 'Find next pattern match',
+        expr = true,
+      },
       { 'j>',
         '<Down>',
         desc = 'Recall newer cmdline with matching beginning',
@@ -727,6 +701,11 @@ return {
       { 'k>',
         '<Up>',
         desc = 'Recall older cmdline with matching beginning',
+      },
+      { 't>',
+        'getcmdtype() =~ "[/?]" ? "<CR>?<C-r>/" : "<C-p>"',
+        desc = 'Find previous pattern match',
+        expr = true,
       },
     }},
   },

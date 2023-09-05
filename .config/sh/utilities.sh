@@ -87,7 +87,6 @@ path_fields() {
 try_source_from_path() {
     for dir in $XDG_DATA_HOME $(path_fields "$XDG_DATA_DIRS"); do
         if try_source "$dir/$1"; then
-            unset dir
             return
         fi
     done

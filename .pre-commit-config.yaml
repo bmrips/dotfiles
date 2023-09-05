@@ -43,7 +43,7 @@ repos:
   - repo: https://github.com/JohnnyMorganz/StyLua
     rev: v0.18.1
     hooks:
-      - id: stylua-system
+      - id: stylua
         args: [--search-parent-directories]
         exclude: '^.config/nvim/lua/config/mappings\.lua$'
   - repo: https://github.com/executablebooks/mdformat
@@ -69,5 +69,5 @@ repos:
   - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
     rev: 2.7.2
     hooks:
-      - id: editorconfig-checker-system
+      - id: editorconfig-checker
         entry: editorconfig-checker

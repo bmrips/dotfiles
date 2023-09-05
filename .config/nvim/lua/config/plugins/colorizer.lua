@@ -3,8 +3,10 @@ return {
   cond = vim.opt.termguicolors:get(),
   opts = {
     filetypes = {
-      '*',
       '!lazy',
+      '!markdown',
+      '!yaml',
+      '*',
     },
   },
 }

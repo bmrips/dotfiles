@@ -31,8 +31,9 @@ bindkey -M menuselect '^Y' accept-and-infer-next-history # next
 
 autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
+_comp_option+=(globdots)  # Include hidden files
+
 zstyle ':completion:*' menu select  # Enable menu style completion
-_comp_option+=(globdots)            # Include hidden files
 
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completion"
@@ -44,7 +45,7 @@ zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
 
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # Color completion
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} #  Color completion
 
 zstyle ':completion:*' keep-prefix yes  # keep a prefix containing ~ or a param
 zstyle ':completion:*' squeeze-slashes yes  # remove trailing slashes

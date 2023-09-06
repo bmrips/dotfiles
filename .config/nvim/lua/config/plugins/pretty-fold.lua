@@ -1,4 +1,6 @@
 return {
   'anuvyklack/pretty-fold.nvim',
-  config = true,
+  opts = {
+    fill_char = ' ',
+  },
 }

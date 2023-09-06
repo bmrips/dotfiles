@@ -1,7 +1,7 @@
 return {
   init = {
     { '<BS>',
-      '<Plug>(LoupeClearHighlight)',
+      '<Cmd>nohlsearch | call loupe#private#clear_highlight() | diffupdate | normal! <C-l><CR>',
       desc = 'Clear search highlighting',
       remap = true,
     },

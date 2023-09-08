@@ -15,6 +15,7 @@ return {
       pattern = 'gruvbox-material',
       desc = 'Colorscheme overrides',
       callback = function()
+        vim.api.nvim_set_hl(0, 'QuickFixLine', { link = 'Visual' })
         vim.api.nvim_set_hl(0, 'Search', { link = 'Substitute' })
       end,
     })

@@ -15,7 +15,7 @@ vim.filetype.add {
     ['Jenkinsfile'] = 'groovy',
   },
   pattern = {
-    ['/etc/pacman.d/hooks/*'] = 'dosini',
-    ['/usr/share/X11/xkb/*'] = 'xkb',
+    ['/etc/pacman.d/hooks/.*'] = 'dosini',
+    ['/usr/share/X11/xkb/.*'] = 'xkb',
   },
 }

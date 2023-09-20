@@ -60,6 +60,7 @@ return {
           :with_move(function(info)
             return vim.startswith(info.line:sub(info.col), info.rule.end_pair)
           end)
+          :with_del(cond.none())
           :use_key(end_pair:sub(-1))
       }
     end

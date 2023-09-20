@@ -28,5 +28,3 @@ Host github.com github
     User git
     IdentityFile ~/.config/ssh/github/id_ed25519
     AddKeysToAgent yes
-
-# vi: ft=sshconfig

@@ -11,8 +11,10 @@ vim.filetype.add {
     lco = 'tex',
     pgf = 'tex',
   },
+  filename = {
+    ['Jenkinsfile'] = 'groovy',
+  },
   pattern = {
-    Jenkinsfile = 'groovy',
     ['/etc/pacman.d/hooks/*'] = 'dosini',
     ['/usr/share/X11/xkb/*'] = 'xkb',
   },

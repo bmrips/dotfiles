@@ -79,6 +79,7 @@ local servers = {
       },
     },
   },
+  taplo = {},
 }
 
 -- On a Nix installation, the jdtls binary is named `jdt-language-server`.

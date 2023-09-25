@@ -2,7 +2,7 @@
 
 [Appearance]
 ColorScheme=Gruvbox_Material_dark_medium_intense
-Font=JetBrainsMono Nerd Font Mono,11,-1,5,63,0,0,0,0,0,SemiBold
+Font=JetBrainsMono Nerd Font,11,-1,5,63,0,0,0,0,0,SemiBold
 LineSpacing=0
 UseFontLineChararacters=true
 WordMode=true

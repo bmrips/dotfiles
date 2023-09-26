@@ -42,7 +42,7 @@ bindkey '^B' fzf-goto-widget
 FZF_CDHIST_OPTS="--preview='$DIR_PREVIEW'"
 
 function fzf-cdhist-widget() {
-    local dir="$(FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" fzf <$XDG_STATE_HOME/cd_history)"
+    local dir="$(sed "s#$HOME#~#" $XDG_STATE_HOME/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" fzf | sed "s#~#$HOME#")"
     if [[ -z "$dir" ]]; then
         zle redisplay
         return 0

@@ -59,7 +59,11 @@
 [diff]
     algorithm = histogram
     renames = copy
+    tool = difftastic
     guitool = kompare
+
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
 
 [difftool "nvim"]
     cmd = nvim -d $LOCAL $REMOTE

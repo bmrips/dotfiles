@@ -19,6 +19,7 @@ opt.joinspaces = true
 opt.jumpoptions:append 'view'
 opt.lazyredraw = true
 opt.linebreak = true
+opt.listchars = { eol = '󰌑', tab = '› ', trail = '·' }
 opt.modeline = true
 opt.path = { '', '.' }
 opt.pumheight = 20

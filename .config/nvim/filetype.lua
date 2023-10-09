@@ -4,6 +4,19 @@ vim.filetype.add {
     plymouth = 'dosini',
     xkb = 'xkb',
 
+    -- Systemd
+    automount = 'systemd',
+    link = 'systemd',
+    mount = 'systemd',
+    network = 'systemd',
+    path = 'systemd',
+    scope = 'systemd',
+    service = 'systemd',
+    slice = 'systemd',
+    socket = 'systemd',
+    target = 'systemd',
+    timer = 'systemd',
+
     -- TeX
     cls = 'tex',
     dtx = 'tex',

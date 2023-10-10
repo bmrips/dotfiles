@@ -23,6 +23,7 @@
     ls = ls-files
     mc = diff --name-only --diff-filter=U
     mt = mergetool
+    pushf = push --force-with-lease
     r  = reset
     rb = rebase
     rbf = rebase --interactive --autosquash --autostash

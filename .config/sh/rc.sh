@@ -73,6 +73,9 @@ alias ld='ll -d'
 alias lx='ll -X'
 alias l.='ld .*'
 
+# onefetch
+alias onefetch='onefetch --true-color=never --no-color-palette --no-art --no-bots --include-hidden --no-title'
+
 # make
 alias make='make --jobs=$(nproc)'
 

@@ -268,6 +268,13 @@ return {
         desc = 'Increment',
         mode = 'x',
       },
+      { 'g>',
+        function()
+          require('fzf-lua').grep_visual()
+        end,
+        desc = 'Grep visual selection',
+        mode = 'x',
+      },
       { 'h>',
         function()
           require('smart-splits').move_cursor_left()
@@ -502,12 +509,6 @@ return {
             require('fzf-lua').grep_cWORD()
           end,
           desc = 'Grep WORD under cursor',
-        },
-        { '<C-o>',
-          function()
-            require('fzf-lua').grep_visual()
-          end,
-          desc = 'Grep visual selection',
         },
         { 'p',
           function()

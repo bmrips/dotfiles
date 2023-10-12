@@ -675,7 +675,9 @@ return {
         desc = 'Escape insert mode',
       },
       { '<C-f>',
-        '<C-x><C-f>',
+        function()
+          require('fzf-lua').complete_path()
+        end,
         desc = 'Complete file names',
       },
     }},

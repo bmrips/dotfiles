@@ -402,6 +402,12 @@ return {
           end,
           desc = 'Arguments',
         },
+        { 'A',
+          function()
+            require('fzf-lua').autocmds()
+          end,
+          desc = 'Autocmds',
+        },
         { 'b',
           function()
             require('fzf-lua').buffers()

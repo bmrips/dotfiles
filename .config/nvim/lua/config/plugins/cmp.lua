@@ -56,7 +56,12 @@ return {
         { name = 'spell' },
         { name = 'git' },
         { name = 'zsh' },
-        { name = 'latex_symbols' },
+        {
+          name = 'latex_symbols',
+          option = {
+            strategy = 1, -- show and insert the symbol
+          },
+        },
       },
     }
   end,

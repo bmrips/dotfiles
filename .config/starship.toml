@@ -31,6 +31,7 @@ read_only = " 󰌾"
 repo_root_style = "bold green"
 style = "bold blue"
 truncation_length = 10
+truncate_to_repo = false
 
 [docker_context]
 symbol = " "

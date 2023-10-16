@@ -1,5 +1,6 @@
 local opt = vim.opt_local
 
+opt.joinspaces = false
 opt.shiftwidth = 0
 opt.softtabstop = 0
 opt.tabstop = 2

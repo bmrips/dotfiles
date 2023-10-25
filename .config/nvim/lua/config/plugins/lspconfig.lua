@@ -105,9 +105,10 @@ return {
   opts = servers,
   config = function(_, opts)
     local capabilities = require('cmp_nvim_lsp').default_capabilities()
+    local lspconfig = require 'lspconfig'
     for server, config in pairs(opts) do
       config.capabilities = capabilities
-      require('lspconfig')[server].setup(config)
+      lspconfig[server].setup(config)
     end
   end,
 }

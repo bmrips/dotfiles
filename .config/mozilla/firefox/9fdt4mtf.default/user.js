@@ -7,6 +7,9 @@ user_pref ("media.ffmpeg.vaapi.enabled", true);
 user_pref ("gfx.webrender.all", true);
 user_pref ("gfx.webrender.compositor.force-enabled", true);
 
+// Move the disk cache to RAM
+user_pref ("browser.cache.disk.parent_directory", "/run/user/1000/firefox")
+
 // For KDE: disable the media entry from Firefox, use the one from the Plasma
 // browser integration plugin.
 user_pref ("media.hardwaremediakeys.enabled", false);

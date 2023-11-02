@@ -6,7 +6,7 @@ IdentitiesOnly yes
 Host *.uni-muenster.de quokka*
     User b_rips01
     ForwardAgent yes
-    IdentityFile ~/.config/ssh/wwu/id_ed25519
+    IdentityFile ~/.config/ssh/keys/uni-muenster
     AddKeysToAgent yes
 
 # Quokka computers
@@ -18,7 +18,7 @@ Host quokka*
 Host aur.archlinux.org aur
     HostName aur.archlinux.org
     User aur
-    IdentityFile ~/.ssh/aur/id_ed25519
+    IdentityFile ~/.config/ssh/keys/aur
     AddKeysToAgent yes
 
 # Github -----------------------------------------------------------------------
@@ -26,5 +26,5 @@ Host aur.archlinux.org aur
 Host github.com github
     HostName github.com
     User git
-    IdentityFile ~/.config/ssh/github/id_ed25519
+    IdentityFile ~/.config/ssh/keys/github
     AddKeysToAgent yes

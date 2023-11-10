@@ -103,9 +103,6 @@ alias open="xdg-open"
 alias gzip='pigz'
 alias gunzip='unpigz'
 
-# podman
-alias p=podman
-
 # rm
 alias rm='rm --preserve-root'
 alias trash='mv -t $XDG_DATA_HOME/Trash/files'
@@ -124,8 +121,10 @@ alias wget='wget --continue'
 alias b=goto
 alias c=cd
 alias g=git
+alias k=kubectl
 alias l=ll
 alias o=open
+alias p=podman
 alias t=gtree
 alias v=nvim
 

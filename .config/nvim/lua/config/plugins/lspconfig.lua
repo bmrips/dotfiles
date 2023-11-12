@@ -42,7 +42,6 @@ local servers = {
         language = 'en-GB',
         additionalRules = {
           enablePickyRules = true,
-          motherTongue = 'de-DE',
         },
       },
     },

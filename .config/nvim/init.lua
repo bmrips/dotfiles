@@ -13,7 +13,7 @@ opt.foldmethod = 'marker'
 opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
 opt.grepformat = '%f:%l:%c:%m'
 opt.grepprg = 'rg --vimgrep'
-opt.guifont = 'JetBrainsMono Nerd Font:h10' -- For Neovide
+opt.guifont = 'JetBrainsMono NF SemiBold:h10' -- For Neovide
 opt.ignorecase = true
 opt.joinspaces = true
 opt.jumpoptions:append 'view'

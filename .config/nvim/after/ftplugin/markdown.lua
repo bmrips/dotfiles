@@ -5,7 +5,7 @@ opt.shiftwidth = 0
 opt.softtabstop = 0
 opt.tabstop = 2
 
-vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| set tabstop<'
+vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| set joinspaces< shiftwidth< softtabstop< tabstop<'
 
 if not vim.g.no_plugin_maps then
   --stylua: ignore

@@ -14,7 +14,7 @@ local servers = {
   hls = {
     settings = {
       haskell = {
-        formattingProvider = 'stylish-haskell',
+        formattingProvider = 'fourmolu',
       },
     },
   },

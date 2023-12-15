@@ -15,6 +15,13 @@ local servers = {
     settings = {
       haskell = {
         formattingProvider = 'fourmolu',
+        plugin = {
+          rename = {
+            config = {
+              crossModule = true, -- renaming across modules
+            },
+          },
+        },
       },
     },
   },

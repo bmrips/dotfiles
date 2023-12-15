@@ -83,6 +83,15 @@ local servers = {
     end,
   },
   marksman = {},
+  nil_ls = {
+    settings = {
+      ['nil'] = {
+        formatting = {
+          command = { 'nixfmt' },
+        },
+      },
+    },
+  },
   pkgbuild_language_server = {},
   texlab = {
     settings = {

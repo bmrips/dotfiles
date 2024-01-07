@@ -51,8 +51,3 @@ repos:
     hooks:
       - id: yamlfmt
         exclude: '^.config/gh/config.yaml$'
-  - repo: https://github.com/editorconfig-checker/editorconfig-checker.python
-    rev: 2.7.2
-    hooks:
-      - id: editorconfig-checker
-        entry: editorconfig-checker

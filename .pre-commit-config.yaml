@@ -7,7 +7,7 @@ default_stages:
   - pre-merge-commit
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.4.0
+    rev: v4.5.0
     hooks:
       - id: check-added-large-files
       - id: check-executables-have-shebangs
@@ -35,13 +35,13 @@ repos:
     hooks:
       - id: gitlint
   - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.7.0-1
+    rev: v3.7.0-4
     hooks:
       - id: shfmt
         args: [--write, --simplify, --indent=4]
         exclude_types: [zsh]
   - repo: https://github.com/JohnnyMorganz/StyLua
-    rev: v0.18.1
+    rev: v0.19.1
     hooks:
       - id: stylua
         args: [--search-parent-directories]

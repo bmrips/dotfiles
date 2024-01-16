@@ -101,9 +101,6 @@ symbol = " "
 [kotlin]
 symbol = " "
 
-[kubernetes]
-symbol = '󱃾 '
-
 [lua]
 symbol = " "
 

@@ -27,7 +27,8 @@ local servers = {
   },
   jdtls = {},
   ltex = {
-    filetypes = { -- without bib
+    filetypes = {
+      -- 'bib',
       'gitcommit',
       'markdown',
       'org',
@@ -38,6 +39,9 @@ local servers = {
       'pandoc',
       'quarto',
       'rmd',
+      'context',
+      'html',
+      'xhtml',
     },
     on_attach = function()
       require('ltex_extra').setup {

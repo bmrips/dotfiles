@@ -1,5 +1,3 @@
-try_source \
-    "$XDG_STATE_HOME/nix/profile/share/zsh-autosuggestions/zsh-autosuggestions.zsh" \
-    "/usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh"
+try_source_from_path zsh-autosuggestions/zsh-autosuggestions.zsh
 
 bindkey '^E' forward-word

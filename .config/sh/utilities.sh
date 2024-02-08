@@ -15,7 +15,7 @@ append_to_path_with_delimiter() {
     local -r pathName="$2"
     local -r pathValue="$(expand "$pathName")"
     local dir="$3"
-    if [[ -d $dir && "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
+    if [[ "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
         export "$pathName=${pathValue:+$pathValue$delim}$dir"
     fi
 }
@@ -31,7 +31,7 @@ prepend_to_path_with_delimiter() {
     local -r pathName="$2"
     local -r pathValue="$(expand "$pathName")"
     local dir="$3"
-    if [[ -d $dir && "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
+    if [[ "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
         export "$pathName=$dir${pathValue:+$delim$pathValue}"
     fi
 }

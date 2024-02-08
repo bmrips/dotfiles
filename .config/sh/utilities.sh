@@ -54,7 +54,7 @@ load_plugins() {
 
 # Evaluate the output of the given command; potential errors are suppressed.
 try_eval() {
-    out="$("$@" 2>/dev/null)" && eval "$out" && unset out
+    script="$("$@" 2>/dev/null)" && eval "$script" && unset script
 }
 
 # From the given list of files, source the first one that exists.

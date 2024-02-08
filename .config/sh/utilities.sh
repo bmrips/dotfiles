@@ -14,7 +14,7 @@ append_to_path_with_delimiter() {
     local -r delim="$1"
     local -r pathName="$2"
     local -r pathValue="$(expand "$pathName")"
-    local dir="$3"
+    local -r dir="$3"
     if [[ "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
         export "$pathName=${pathValue:+$pathValue$delim}$dir"
     fi
@@ -30,7 +30,7 @@ prepend_to_path_with_delimiter() {
     local -r delim="$1"
     local -r pathName="$2"
     local -r pathValue="$(expand "$pathName")"
-    local dir="$3"
+    local -r dir="$3"
     if [[ "$delim$pathValue$delim" != *"$delim$dir$delim"* ]]; then
         export "$pathName=$dir${pathValue:+$delim$pathValue}"
     fi
@@ -42,6 +42,7 @@ prepend_to_path() {
 
 # Load plugins from the given path
 load_plugins() {
+    local plugin
     for plugin in "$1"/*; do
         if [[ -r $plugin ]]; then
             # The source varies, hence can not be specified.
@@ -49,29 +50,26 @@ load_plugins() {
             source "$plugin"
         fi
     done
-    unset plugin
 }
 
 # Evaluate the output of the given command; potential errors are suppressed.
 try_eval() {
+    local script
     script="$("$@" 2>/dev/null)" &&
-        eval "$script" &&
-        unset script
+        eval "$script"
 }
 
 # From the given list of files, source the first one that exists.
 try_source() {
+    local file
     for file in "$@"; do
         if [[ -r $file ]]; then
             # The source varies, hence can not be specified.
             # shellcheck source=/dev/null
             source "$file"
-            unset file
             return
         fi
     done
-
-    unset file
     return 1
 }
 
@@ -79,6 +77,7 @@ try_source() {
 path_fields() {
     (
         IFS=:
+        local dir
         for dir in $1; do
             echo "$dir"
         done
@@ -87,12 +86,11 @@ path_fields() {
 
 # Searches the file on the share path and sources it
 try_source_from_path() {
+    local dir
     for dir in $XDG_DATA_HOME $(path_fields "$XDG_DATA_DIRS"); do
         if try_source "$dir/$1"; then
             return
         fi
     done
-
-    unset dir
     return 1
 }

@@ -10,6 +10,5 @@ done
 
 # Launch Polybar, using default config location ~/.config/polybar/config
 polybar top &
-[[ $HOSTNAME == 'latitude' ]] && polybar bottom &
 
 echo "Polybar launched..."

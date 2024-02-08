@@ -7,6 +7,5 @@ cat "$XDG_STATE_HOME/zsh/history" |
     cut --delimiter=" " --fields=1 |
     sort |
     uniq --count |
-    sort --numeric-sort |
-    tail --lines=15 |
-    tac
+    sort --numeric-sort --reverse |
+    head --lines=15

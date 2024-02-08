@@ -4,9 +4,9 @@
 # shellcheck disable=SC2002
 cat "$XDG_STATE_HOME/zsh/history" |
     sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
-    cut -d " " -f 1 |
+    cut --delimiter=" " --fields=1 |
     sort |
-    uniq -c |
-    sort -n |
-    tail -n 15 |
+    uniq --count |
+    sort --numeric-sort |
+    tail --lines=15 |
     tac

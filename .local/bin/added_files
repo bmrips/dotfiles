@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
 comm -13 \
-    <(pacman -Qql | sed 's@/$@@' | sort --unique) \
+    <(pacman --query --quiet --list | sed 's@/$@@' | sort --unique) \
     <(find /etc /opt /usr /var 2>/dev/null | sort --unique)

@@ -1,3 +1,3 @@
 try_source \
-    "$HOME/.nix-profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
+    "$XDG_STATE_HOME/nix/profile/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" \
     "/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"

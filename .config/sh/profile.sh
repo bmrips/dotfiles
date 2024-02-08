@@ -11,7 +11,7 @@ export XDG_DATA_DIRS="/usr/local/share:/usr/share"
 export XDG_STATE_HOME="$HOME/.local/state"
 
 # Add Nix' share directory
-prepend_to_path XDG_DATA_DIRS "$HOME/.nix-profile/share"
+prepend_to_path XDG_DATA_DIRS "$XDG_STATE_HOME/nix/profile/share"
 
 export EDITOR=nvim
 export VISUAL=$EDITOR

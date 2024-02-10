@@ -73,7 +73,7 @@ return {
         '<Plug>(EasyAlign)',
         desc = 'Align',
         mode = '',
-        noremap = false,
+        remap = true,
       },
       { 'l',
         function()
@@ -174,14 +174,14 @@ return {
           require('fold-cycle').toggle_all()
         end,
         desc = 'Toggle all folds under cursor',
-        noremap = false,
+        remap = true,
       },
       { 'C',
         function()
           require('fold-cycle').close_all()
         end,
         desc = 'Close all folds under cursor',
-        noremap = false,
+        remap = true,
       },
       { 'F',
         -- selene: allow(bad_string_escape)
@@ -195,7 +195,7 @@ return {
           require('fold-cycle').open_all()
         end,
         desc = 'Open all folds under cursor',
-        noremap = false,
+        remap = true,
       },
     }},
     { '<A-', {

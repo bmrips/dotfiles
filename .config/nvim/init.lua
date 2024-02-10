@@ -2,8 +2,8 @@ vim.loader.enable()
 
 local opt = vim.opt
 opt.background = vim.env.BACKGROUND or 'dark' -- Adapt background to terminal background
-opt.breakindentopt = { 'shift:4', 'sbr' }
 opt.breakindent = true
+opt.breakindentopt = { 'shift:4', 'sbr' }
 opt.clipboard = require('util.tty').if_in_pts 'unnamedplus'
 opt.diffopt:append 'linematch:60'
 opt.expandtab = true

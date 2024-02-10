@@ -91,7 +91,7 @@ return {
         expr = true,
       },
       { 'o',
-        ':Sort i<CR>',
+        ':sort i<CR>',
         desc = 'Sort',
         mode = 'x',
       },

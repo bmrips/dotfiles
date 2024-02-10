@@ -91,6 +91,23 @@ return {
         expr = true,
       },
       { 'o',
+        function()
+          _G._operatorfunc = function()
+            local start_row, _ = unpack(vim.api.nvim_buf_get_mark(0, '['))
+            local stop_row, _ = unpack(vim.api.nvim_buf_get_mark(0, ']'))
+            vim.cmd.sort {
+              args = { 'i' },
+              range = { start_row, stop_row },
+            }
+          end
+
+          vim.opt.operatorfunc = 'v:lua._operatorfunc'
+          return 'g@'
+        end,
+        desc = 'Sort',
+        expr = true,
+      },
+      { 'o',
         ':sort i<CR>',
         desc = 'Sort',
         mode = 'x',

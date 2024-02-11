@@ -860,6 +860,13 @@ return {
         },
       }},
       { '<LocalLeader>', {
+        { '/',
+          function()
+            require('fzf-lua').lsp_finder()
+          end,
+          cond = capabilities.codeActionProvider and true or false,
+          desc = 'Fzf: all locations',
+        },
         { 'a',
           vim.lsp.buf.code_action,
           cond = capabilities.codeActionProvider and true or false,

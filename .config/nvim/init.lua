@@ -59,6 +59,7 @@ require('lazy').setup('config.plugins', {
   dev = {
     path = '~/projects/neovim/plugins/',
     patterns = { 'f1rstlady' },
+    fallback = true,
   },
   performance = {
     rtp = {

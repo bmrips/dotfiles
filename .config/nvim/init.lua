@@ -58,7 +58,7 @@ opt.runtimepath:prepend(lazypath)
 require('lazy').setup('config.plugins', {
   dev = {
     path = '~/projects/neovim/plugins/',
-    pattern = { 'f1rstlady' },
+    patterns = { 'f1rstlady' },
   },
   performance = {
     rtp = {

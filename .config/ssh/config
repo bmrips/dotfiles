@@ -1,30 +1,4 @@
 # Use only identities specified for the host
 IdentitiesOnly yes
 
-# WWU Muenster -----------------------------------------------------------------
-
-Host *.uni-muenster.de quokka*
-    User b_rips01
-    ForwardAgent yes
-    IdentityFile ~/.config/ssh/keys/uni-muenster
-    AddKeysToAgent yes
-
-# Quokka computers
-Host quokka*
-    HostName %h.uni-muenster.de
-
-# Arch Linux -------------------------------------------------------------------
-
-Host aur.archlinux.org aur
-    HostName aur.archlinux.org
-    User aur
-    IdentityFile ~/.config/ssh/keys/aur
-    AddKeysToAgent yes
-
-# Github -----------------------------------------------------------------------
-
-Host github.com github
-    HostName github.com
-    User git
-    IdentityFile ~/.config/ssh/keys/github
-    AddKeysToAgent yes
+Include */config

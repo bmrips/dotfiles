@@ -1,4 +1,4 @@
-local fold = {}
+local M = {}
 
 -- Set the given fold mark with the given level the given line.
 local addMark = function(linenr, fdm, level)
@@ -9,7 +9,7 @@ local addMark = function(linenr, fdm, level)
 end
 
 -- Create a fold for line1..line2 at the given level.
-function fold.create(info)
+function M.create(info)
   local fdm = vim.opt_local.foldmarker:get()
   local level = (info.args ~= '0' and info.args) or ''
   addMark(info.line1, fdm[1], level)
@@ -18,4 +18,4 @@ function fold.create(info)
   end
 end
 
-return fold
+return M

@@ -1,4 +1,4 @@
-export FZF_DEFAULT_COMMAND="fd --type=file --hidden"
+export FZF_DEFAULT_COMMAND="fd --type=file --hidden --follow"
 export FZF_DEFAULT_OPTS="--layout=reverse\
  --height=60%\
  --border=horizontal\

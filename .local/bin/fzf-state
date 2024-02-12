@@ -31,13 +31,13 @@ get-source)
 
     case $2 in
     files)
-        eval fd $hidden $ignored --type=file
+        eval fd $hidden $ignored --follow --type=file
         ;;
     directories)
-        eval fd $hidden $ignored --type=directory
+        eval fd $hidden $ignored --follow --type=directory
         ;;
     grep)
-        eval rg --line-number --no-heading --color=always $hidden $ignored "\"$3\""
+        eval rg --line-number --no-heading --color=always $hidden $ignored --follow "\"$3\""
         ;;
     *)
         echo "Error: unknown argument: $2" >&2

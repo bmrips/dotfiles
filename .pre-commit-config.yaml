@@ -14,20 +14,28 @@ repos:
       - id: check-merge-conflict
       - id: check-shebang-scripts-are-executable
       - id: check-symlinks
-      - id: check-toml
       - id: check-vcs-permalinks
-      - id: check-yaml
+        name: check that VCS links are permanent links
       - id: detect-private-key
+        name: check for added private keys
       - id: mixed-line-ending
+        name: check for mixed line endings
         args: [--fix=no]
       - id: trailing-whitespace
+      - id: check-toml
+        name: check TOML is parsable
+      - id: check-yaml
+        name: check YAML is parsable
   - repo: https://github.com/jumanjihouse/pre-commit-hooks
     rev: 3.0.0
     hooks:
       - id: forbid-binary
+        name: check for added binaries
       - id: script-must-have-extension
+        name: non-executable shell scripts filename ends in .sh
         exclude_types: [zsh]
       - id: script-must-not-have-extension
+        name: executable shell scripts filename omit the .sh extension
   - repo: local
     hooks:
       - id: shellcheck

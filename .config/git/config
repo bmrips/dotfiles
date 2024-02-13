@@ -94,7 +94,7 @@
     guitool = kdiff3
 
 [mergetool "nvim"]
-    cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
+    cmd = nvim -d "$LOCAL" "$MERGED" "$REMOTE"
     trustExitCode = false
 
 [pull]

@@ -50,6 +50,12 @@ repos:
         language: system
         args: [--staged, --msg-filename]
         stages: [commit-msg]
+      - id: nixfmt
+        name: format with nixfmt
+        entry: nixfmt
+        language: system
+        args: [--verify]
+        types: [nix]
       - id: shfmt
         name: format with shfmt
         entry: shfmt

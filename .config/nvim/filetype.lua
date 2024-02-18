@@ -30,6 +30,7 @@ vim.filetype.add {
   pattern = {
     ['/etc/pacman.d/hooks/.*'] = 'dosini',
     ['/usr/share/X11/xkb/.*'] = 'xkb',
+    ['.*cabal/config'] = 'cabalconfig',
     ['.*ssh/config'] = 'sshconfig',
   },
 }

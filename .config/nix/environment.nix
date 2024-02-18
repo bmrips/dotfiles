@@ -24,6 +24,7 @@ in rec {
     file
     findutils
     fzf
+    fzf-tab-completion
     git
     gitlint
     gnugrep

@@ -6,6 +6,7 @@ let
   };
 
 in {
+  fzf-tab-completion = final.callPackage ../pkgs/fzf-tab-completion.nix { };
   goto = final.callPackage ../pkgs/goto.nix { };
   pythonPackagesExtensions = prev.pythonPackagesExtensions
     ++ [ addMyPythonPackages ];

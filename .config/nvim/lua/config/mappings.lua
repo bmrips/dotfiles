@@ -732,11 +732,6 @@ return {
     },
 
     { mode = 'c', '<C-', {
-      { 'g>',
-        'getcmdtype() =~ "[/?]" ? "<CR>/<C-r>/" : "<C-n>"',
-        desc = 'Find next pattern match',
-        expr = true,
-      },
       { 'j>',
         '<Down>',
         desc = 'Recall newer cmdline with matching beginning',
@@ -744,11 +739,6 @@ return {
       { 'k>',
         '<Up>',
         desc = 'Recall older cmdline with matching beginning',
-      },
-      { 't>',
-        'getcmdtype() =~ "[/?]" ? "<CR>?<C-r>/" : "<C-p>"',
-        desc = 'Find previous pattern match',
-        expr = true,
       },
     }},
   },

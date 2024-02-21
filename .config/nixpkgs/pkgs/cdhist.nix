@@ -1,6 +1,8 @@
-{ buildPythonPackage, fetchPypi, lib, setuptools-scm }:
+{ fetchPypi, lib, python3Packages }:
 
-buildPythonPackage rec {
+with python3Packages;
+
+buildPythonApplication rec {
   pname = "cdhist";
   version = "3.7.2";
 

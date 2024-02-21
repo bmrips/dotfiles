@@ -12,6 +12,7 @@ in rec {
     bash
     bash-completion
     bat
+    cdhist
     checkbashisms
     coreutils-full
     delta
@@ -54,7 +55,6 @@ in rec {
     openssh
     podman
     pre-commit
-    python3Packages.cdhist
     python3Packages.mdformat
     python3Packages.mdformat-footnote
     python3Packages.mdformat-gfm

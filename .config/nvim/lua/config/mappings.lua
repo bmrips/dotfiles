@@ -330,6 +330,10 @@ return {
         '<Cmd>wincmd q<CR>',
         desc = 'Quit the window'
       },
+      { 's>',
+        '<ESC>:w<CR>',
+        mode = { 'n', 'i' },
+      },
       { 'w>', {
         { '<CR>',
           '<Cmd>wincmd ^<CR>',

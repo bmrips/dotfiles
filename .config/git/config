@@ -71,6 +71,7 @@
 
 [fetch]
     prune = true
+    writeCommitGraph = true
 
 [filter "lfs"]
 	process = git-lfs filter-process

@@ -106,6 +106,9 @@
 [rebase]
     missingCommitsCheck = error
 
+[rerere]
+    enabled = true
+
 [stash]
     showStat = true
 

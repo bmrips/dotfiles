@@ -103,7 +103,6 @@ in rec {
     yaml-language-server
   ];
   kde = with nixpkgs; [ pinentry-qt ];
-  linux = with nixpkgs; [ git-credential-keepassxc ];
   macos = with nixpkgs; [
     iterm2
     monitorcontrol
@@ -118,5 +117,5 @@ in rec {
     kubernetes-helm
     yq-go
   ];
-  private = core ++ extra ++ kde ++ linux;
+  private = core ++ extra ++ kde;
 }

@@ -13,7 +13,7 @@ zle -N edit-command-line
 bindkey          '^V' edit-command-line
 bindkey -M vicmd '^V' edit-command-line
 
-mkdir -p "$XDG_CACHE_HOME/zsh" "$XDG_STATE_HOME/zsh"
+mkdir --parents "$XDG_CACHE_HOME/zsh" "$XDG_STATE_HOME/zsh"
 
 # Completion
 zmodload zsh/complist
@@ -31,9 +31,9 @@ bindkey -M menuselect '^Y' accept-and-infer-next-history # next
 
 autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME/zsh/zcompdump-$ZSH_VERSION"
-_comp_option+=(globdots)  # Include hidden files
+_comp_option+=(globdots)  # include hidden files in completion
 
-zstyle ':completion:*' menu select  # Enable menu style completion
+zstyle ':completion:*' menu select  # enable menu style completion
 
 zstyle ':completion:*' use-cache yes
 zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completion"
@@ -45,7 +45,7 @@ zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
 zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
 zstyle ':completion:*' group-name ''
 
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} #  Color completion
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS} # colorized completion
 
 zstyle ':completion:*' keep-prefix yes  # keep a prefix containing ~ or a param
 zstyle ':completion:*' squeeze-slashes yes  # remove trailing slashes

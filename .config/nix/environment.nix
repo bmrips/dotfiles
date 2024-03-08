@@ -98,6 +98,7 @@ in rec {
     rmlint
     sad
     sd
+    thefuck
     translate-shell
     treefmt
     yaml-language-server

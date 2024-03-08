@@ -36,7 +36,7 @@ _comp_option+=(globdots)  # include hidden files in completion
 zstyle ':completion:*' menu select  # enable menu style completion
 
 zstyle ':completion:*' use-cache yes
-zstyle ':completion:*' cache-path "${XDG_CACHE_HOME:-$HOME/.cache}/zsh/completion"
+zstyle ':completion:*' cache-path "${XDG_CACHE_HOME}/zsh/completion"
 
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"

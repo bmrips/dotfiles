@@ -1,7 +1,5 @@
 source "$HOME/.config/sh/utilities.sh"
 
-umask 022
-
 prepend_to_path PATH "$HOME/.local/bin"
 
 export XDG_CACHE_HOME="$HOME/.cache"

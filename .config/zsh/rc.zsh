@@ -88,7 +88,7 @@ load_plugins "$HOME/.config/zsh/rc.d"
 
 # Global aliases (enable them after the plugins to not affect their execution)
 alias -g NE='2>/dev/null'
-alias -g NUL='&>/dev/null'
+alias -g NO='&>/dev/null'
 
 alias -g C='| wc -l'
 alias -g G='| rg'

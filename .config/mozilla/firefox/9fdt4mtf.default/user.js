@@ -1,8 +1,5 @@
 // vi: fdm=marker
 
-// Enable hardware video acceleration via VAAPI
-user_pref ("media.ffmpeg.vaapi.enabled", true);
-
 // Improve the rendering performance by enabling Webrender
 user_pref ("gfx.webrender.all", true);
 user_pref ("gfx.webrender.compositor.force-enabled", true);

@@ -15,7 +15,6 @@ return {
     files = {
       file_icons = tty.is_a_pts,
       git_icons = tty.is_a_pts,
-      fd_opts = '--color=never --type f --hidden --no-follow',
     },
     git = {
       files = {

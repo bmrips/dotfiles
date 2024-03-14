@@ -39,7 +39,6 @@ let
       markdownlint-cli
       marksman
       ncdu
-      neovim
       (nerdfonts.override {
         fonts = [
           # "Hasklig"
@@ -273,6 +272,12 @@ in {
     pinentryPackage = pkgs.pinentry-qt;
     defaultCacheTtl = 3600; # at least one hour
     maxCacheTtl = 43200; # 12 hours at most
+  };
+
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+    withRuby = false;
   };
 
   programs.ripgrep = {

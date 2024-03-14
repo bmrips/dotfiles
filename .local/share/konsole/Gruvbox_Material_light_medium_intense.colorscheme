@@ -8,7 +8,6 @@ Color=251,241,199
 
 [Color0Intense]
 Color=146,131,116
-; #928374 -> grey1
 
 [Color1]
 Color=175,37,40
@@ -48,11 +47,9 @@ Color=66,123,88
 
 [Color7]
 Color=124,111,100
-; #7c6f64 -> grey2
 
 [Color7Intense]
 Color=81,64,54
-; #514036 -> mix/fg0
 
 [Foreground]
 Color=81,64,54

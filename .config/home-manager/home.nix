@@ -34,6 +34,7 @@ let
       gnugrep
       gnused
       goto
+      less
       ltex-ls
       lua-language-server
       man-db
@@ -184,7 +185,38 @@ in {
       multi = true;
       preview = escapeShellArg "bat ${batArgs} {1}";
     };
+    GCC_COLORS = concatStringsSep ":"
+      (attrsets.mapAttrsToList (n: v: "${n}=${v}") {
+        error = "01;31";
+        warning = "01;35";
+        note = "01;36";
+        caret = "01;32";
+        locus = "01;33";
+        quote = "01;34";
+      });
+    GREP_COLORS = "ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36";
+    LESS = gnuCommandLine {
+      LONG-PROMPT = true;
+      RAW-CONTROL-CHARS = true;
+      quiet = true;
+      quit-if-one-screen = true;
+      wheel-lines = 3;
+    };
+    TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
+    YAMLLINT_CONFIG_FILE = "$XDG_CONFIG_HOME/yamllint.yaml";
   };
+
+  home.sessionVariablesExtra = let
+    lessTermcaps = {
+      md = "$'\\e[93m'"; # Bold as bright yellow
+      me = "$'\\e[0m'";
+      se = "$'\\e[0m'";
+      so = "$'\\e[30;47m'"; # Dark grey statusline
+      ue = "$'\\e[0m'";
+      us = "$'\\e[4m'"; # Underline as usual
+    };
+  in concatLines
+  (mapAttrsToList (n: v: "export LESS_TERMCAP_${n}=${v}") lessTermcaps);
 
   fonts.fontconfig.enable = true;
 

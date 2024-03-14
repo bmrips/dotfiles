@@ -115,6 +115,9 @@ in {
     use-xdg-base-directories = true;
   };
 
+  xdg.enable = true;
+  xdg.userDirs.enable = true;
+
   i18n.glibcLocales = pkgs.glibcLocales.override {
     allLocales = false;
     locales = with locales; builtins.map (l: l + "/UTF-8") [ english german ];

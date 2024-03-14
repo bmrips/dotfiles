@@ -103,6 +103,13 @@ in {
   home.username = "bmr";
   home.homeDirectory = "/home/${config.home.username}";
 
+  nix.package = pkgs.nix;
+  nix.settings = {
+    auto-optimise-store = true;
+    experimental-features = "flakes nix-command";
+    use-xdg-base-directories = true;
+  };
+
   fonts.fontconfig.enable = true;
 
   programs.git = {

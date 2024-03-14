@@ -1,5 +1,3 @@
-export FZF_COMPLETION_OPTS="--height=80%"
-
 # Path and directory completion, e.g. for `cd .config/**`
 _fzf_compgen_path() {
     fd --follow --hidden --exclude=".git" . "$1"

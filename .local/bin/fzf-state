@@ -4,10 +4,6 @@ FZF_STATE_PREFIX=/tmp/fzf
 mkdir --parents $FZF_STATE_PREFIX
 
 case $1 in
-binds)
-    echo "alt-h:execute(fzf-state toggle hide-hidden-files)+reload($2),alt-i:execute(fzf-state toggle show-ignored-files)+reload($2)"
-    exit
-    ;;
 context)
     if [[ -z $2 ]]; then
         echo "Error: expected a number" >&2

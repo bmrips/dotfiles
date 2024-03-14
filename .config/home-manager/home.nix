@@ -4,6 +4,7 @@ with lib;
 
 let
   gnuCommandArgs = cli.toGNUCommandLine { };
+  gnuCommandLine = attrs: concatStringsSep " " (gnuCommandArgs attrs);
 
   nixpkgs_23_05 = import (fetchTarball {
     name = "nixpks-23.05-darwin-20231231";
@@ -101,6 +102,30 @@ let
     german = "de_DE.UTF-8";
   };
 
+  dirPreview = let
+    lsArgs = gnuCommandLine {
+      color = true;
+      group-directories-first = true;
+      human-readable = true;
+      l = true;
+      literal = true;
+      time-style = "+t";
+    };
+  in dir:
+  escapeShellArg
+  "ls ${lsArgs} ${dir} | cut --delimiter=' ' --fields=1,5- | sed 's/ t / /' | tail -n+2";
+
+  filePreviewArgs = {
+    plain = true;
+    color = "always";
+    paging = "never";
+  };
+
+  fzf-state-keybindings = reloadCmd:
+    escapeShellArg (concatStringsSep "," [
+      "alt-h:execute(fzf-state toggle hide-hidden-files)+reload(${reloadCmd})"
+      "alt-i:execute(fzf-state toggle show-ignored-files)+reload(${reloadCmd})"
+    ]);
 in {
   programs.home-manager.enable = true;
 
@@ -139,6 +164,28 @@ in {
     time = german;
   };
 
+  home.sessionVariables = let subshell = cmd: ''\"\$(${cmd})\"'';
+  in rec {
+    FZF_COMPLETION_OPTS = gnuCommandLine { height = "80%"; };
+    FZF_GOTO_OPTS = gnuCommandLine {
+      preview = dirPreview (subshell "echo {} | sed 's/^[a-zA-Z]* *//'");
+    };
+    FZF_CDHIST_OPTS = gnuCommandLine {
+      preview = dirPreview
+        (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
+    };
+    FZF_GREP_COMMAND = "fzf-state get-source grep";
+    FZF_GREP_OPTS = let
+      batArgs = gnuCommandLine (filePreviewArgs // {
+        line-range = subshell "fzf-state context {2}: --highlight-line={2} {1}";
+      });
+    in gnuCommandLine {
+      bind = fzf-state-keybindings "${FZF_GREP_COMMAND} {q}";
+      multi = true;
+      preview = escapeShellArg "bat ${batArgs} {1}";
+    };
+  };
+
   fonts.fontconfig.enable = true;
 
   programs.bat = {
@@ -147,6 +194,51 @@ in {
       italic-text = "always";
       plain = true;
       theme = "base16";
+    };
+  };
+
+  programs.fzf = let cfg = config.programs.fzf;
+  in {
+    enable = true;
+
+    changeDirWidgetCommand = "fzf-state get-source directories";
+
+    changeDirWidgetOptions = gnuCommandArgs {
+      bind = fzf-state-keybindings cfg.changeDirWidgetCommand;
+      preview = dirPreview "{}";
+    };
+
+    defaultCommand = let
+      args = gnuCommandLine {
+        follow = true;
+        hidden = true;
+        type = "file";
+      };
+    in "fd ${args}";
+
+    defaultOptions = let
+      keybindings = escapeShellArg (concatStringsSep "," [
+        "ctrl-f:half-page-down"
+        "ctrl-b:half-page-up"
+        "alt-a:toggle-all"
+        "f3:toggle-preview-wrap"
+        "f4:toggle-preview"
+        "f5:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)"
+      ]);
+    in gnuCommandArgs {
+      bind = keybindings;
+      border = "horizontal";
+      color = "16,info:8,border:8";
+      height = "60%";
+      layout = "reverse";
+      preview-window = "right,border,hidden";
+    };
+
+    fileWidgetCommand = "fzf-state get-source files";
+
+    fileWidgetOptions = gnuCommandArgs {
+      bind = fzf-state-keybindings cfg.fileWidgetCommand;
+      preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
     };
   };
 

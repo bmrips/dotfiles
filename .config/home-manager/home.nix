@@ -53,7 +53,6 @@ let
       nixfmt
       nixpkgs_23_05.taskell
       nodePackages.bash-language-server
-      openssh
       podman
       pre-commit
       python3Packages.mdformat
@@ -279,6 +278,26 @@ in {
       ];
     };
   };
+
+  programs.ssh = {
+    enable = true;
+    package = pkgs.openssh;
+    addKeysToAgent = "yes";
+    matchBlocks = {
+      aur = {
+        host = "aur.archlinux.org";
+        user = "aur";
+        identityFile = "~/.config/ssh/private/aur";
+      };
+      github = {
+        host = "github.com";
+        user = "git";
+        identityFile = "~/.config/ssh/private/github";
+      };
+    };
+  };
+
+  services.ssh-agent.enable = true;
 
   home.packages = with packageSets; core ++ extra ++ tex;
 

@@ -1,4 +1,0 @@
-# Use only identities specified for the host
-IdentitiesOnly yes
-
-Include */config

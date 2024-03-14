@@ -1,6 +1,10 @@
 { config, lib, pkgs, ... }:
 
+with lib;
+
 let
+  gnuCommandArgs = cli.toGNUCommandLine { };
+
   nixpkgs_23_05 = import (fetchTarball {
     name = "nixpks-23.05-darwin-20231231";
     url =
@@ -57,7 +61,6 @@ let
       python3Packages.mdformat-footnote
       python3Packages.mdformat-gfm
       python3Packages.mdformat-tables
-      ripgrep
       selene
       shellcheck
       shfmt
@@ -252,6 +255,21 @@ in {
       "Session*.vim"
       "taskell.md"
     ];
+  };
+
+  programs.ripgrep = {
+    enable = true;
+    arguments = gnuCommandArgs {
+      smart-case = true;
+      colors = [
+        "path:style:intense"
+        "line:style:intense"
+        "match:style:intense"
+        "column:fg:green"
+        "column:style:intense"
+        "match:style:intense"
+      ];
+    };
   };
 
   home.packages = with packageSets; core ++ extra ++ tex;

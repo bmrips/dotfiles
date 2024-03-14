@@ -31,7 +31,6 @@ let
       fzf-tab-completion
       gitlint
       gnugrep
-      gnupg
       gnused
       goto
       ltex-ls
@@ -262,6 +261,18 @@ in {
       "Session*.vim"
       "taskell.md"
     ];
+  };
+
+  programs.gpg = {
+    enable = true;
+    homedir = "${config.xdg.configHome}/gnupg";
+  };
+
+  services.gpg-agent = {
+    enable = true;
+    pinentryPackage = pkgs.pinentry-qt;
+    defaultCacheTtl = 3600; # at least one hour
+    maxCacheTtl = 43200; # 12 hours at most
   };
 
   programs.ripgrep = {

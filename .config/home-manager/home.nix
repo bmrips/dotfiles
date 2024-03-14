@@ -97,6 +97,11 @@ let
     tex = with pkgs; [ texlab texliveFull ];
   };
 
+  locales = {
+    english = "en_GB.UTF-8";
+    german = "de_DE.UTF-8";
+  };
+
 in {
   programs.home-manager.enable = true;
 
@@ -108,6 +113,23 @@ in {
     auto-optimise-store = true;
     experimental-features = "flakes nix-command";
     use-xdg-base-directories = true;
+  };
+
+  i18n.glibcLocales = pkgs.glibcLocales.override {
+    allLocales = false;
+    locales = with locales; builtins.map (l: l + "/UTF-8") [ english german ];
+  };
+
+  home.language = with locales; {
+    base = english;
+    address = german;
+    ctype = german;
+    measurement = german;
+    monetary = german;
+    numeric = german;
+    paper = german;
+    telephone = german;
+    time = german;
   };
 
   fonts.fontconfig.enable = true;

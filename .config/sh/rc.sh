@@ -12,17 +12,11 @@ alias chmod='chmod --preserve-root'
 alias chown='chown --preserve-root'
 
 # clipbaord
-if [[ -n $WAYLAND_DISPLAY ]]; then
-    alias xc='wl-copy'
-    alias xp='wl-paste'
-elif command -v xhost && xhost &>/dev/null; then
-    alias xc='xclip -selection clipboard -in'
-    alias xp='xclip -selection clipboard -out'
-fi
+alias xc='wl-copy'
+alias xp='wl-paste'
 
 # cp
 alias cp='cp --interactive'
-alias cow='cp --reflink=auto'
 
 # df
 alias df='df --human-readable'
@@ -55,10 +49,6 @@ alias gl='glab'
 # grep
 alias grep='grep --binary-files=without-match --color=auto'
 
-# highlight
-alias highlight='highlight --out-format=ansi'
-alias hcat="highlight"
-
 # ip
 alias ip='ip -color=auto'
 
@@ -87,10 +77,6 @@ mkcd() {
 # mv
 alias mv='mv --interactive'
 
-# neovide
-alias neovide='neovide --maximized --notabs'
-alias nv=neovide
-
 # nvim
 alias nvim='TTY=$TTY nvim'
 alias vi='nvim'
@@ -98,10 +84,6 @@ alias vim='nvim'
 
 # open
 alias open="xdg-open"
-
-# pigz
-alias gzip='pigz'
-alias gunzip='unpigz'
 
 # rm
 alias rm='rm --preserve-root'
@@ -112,7 +94,6 @@ alias stylua='stylua --search-parent-directories'
 
 # tree
 alias tree='tree -C --dirsfirst'
-alias gtree='tree --gitignore'
 
 # wget
 alias wget='wget --continue'
@@ -125,7 +106,7 @@ alias k=kubectl
 alias l=ll
 alias o=open
 alias p=podman
-alias t=gtree
+alias t='tree --gitignore'
 alias v=nvim
 
 # }}}1

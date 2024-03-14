@@ -16,7 +16,6 @@ let
     core = with pkgs; [
       bash
       bash-completion
-      bat
       cdhist
       checkbashisms
       coreutils-full
@@ -139,6 +138,15 @@ in {
   };
 
   fonts.fontconfig.enable = true;
+
+  programs.bat = {
+    enable = true;
+    config = {
+      italic-text = "always";
+      plain = true;
+      theme = "base16";
+    };
+  };
 
   programs.git = {
     enable = true;

@@ -1,4 +1,4 @@
-# Go back with <M-Left>
+# Go back with <C-o>
 function cd_undo() {
     zle push-line
     BUFFER="popd"
@@ -12,7 +12,7 @@ setopt auto_pushd
 zle -N cd_undo
 bindkey '^O' cd_undo
 
-# Go to parent dir with <M-Up>
+# Go to parent dir with <C-p>
 function cd_parent() {
     zle push-line
     BUFFER="cd .."

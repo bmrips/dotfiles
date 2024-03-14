@@ -114,6 +114,11 @@ in {
     use-xdg-base-directories = true;
   };
 
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 30d";
+  };
+
   xdg.enable = true;
   xdg.userDirs.enable = true;
 

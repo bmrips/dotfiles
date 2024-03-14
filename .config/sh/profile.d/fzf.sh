@@ -18,13 +18,3 @@ export DIR_PREVIEW='ls -l --human-readable --color=always --group-directories-fi
 # Errors during the export can be ignored safely since it has no effect.
 # shellcheck disable=SC2155
 export FZF_ALT_C_OPTS="--preview='$DIR_PREVIEW' --bind='$(fzf-state binds "$FZF_ALT_C_COMMAND")'"
-
-export FZF_COMPLETION_OPTS="--height=80%"
-
-# Path and directory completion, e.g. for `cd .config/**`
-_fzf_compgen_path() {
-    fd --follow --hidden --exclude=".git" . "$1"
-}
-_fzf_compgen_dir() {
-    fd --follow --hidden --exclude=".git" --type=directory . "$1"
-}

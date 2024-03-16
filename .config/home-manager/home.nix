@@ -26,7 +26,6 @@ let
       findutils
       fzf
       fzf-tab-completion
-      git
       gitlint
       gnugrep
       gnupg
@@ -105,6 +104,123 @@ in {
   home.homeDirectory = "/home/${config.home.username}";
 
   fonts.fontconfig.enable = true;
+
+  programs.git = {
+    enable = true;
+    userName = "Benedikt Rips";
+    userEmail = "benedikt.rips@gmail.com";
+    signing.key = null;
+    signing.signByDefault = true;
+
+    extraConfig = {
+      advice.detachedHead = false;
+      advice.statusHints = false;
+      core.pager = "diff-so-fancy | less";
+      core.whitespace = "tabwidth=4";
+      commit.template = "${./git/commit_message_template}";
+      credential.helper = "cache";
+      diff.algorithm = "histogram";
+      diff.renames = "copy";
+      diff.tool = "nvim";
+      fetch.prune = true;
+      fetch.writeCommitGraph = true;
+      init.defaultBranch = "main";
+      init.templateDir = "${./git/templates}";
+      interactive.diffFilter = "delta --color-only --diff-so-fancy";
+      log.date = "human";
+      merge.ff = "only";
+      merge.tool = "nvim";
+      pull.rebase = true;
+      push.gpgSign = "if-asked";
+      rebase.missingCommitsCheck = "error";
+      rerere.enabled = true;
+      stash.showStat = true;
+      status.showStash = true;
+
+      # use HTTPS instead of plain Git for Github
+      url."https://github.com/".insteadOf = "git://github.com/";
+
+      color = {
+        diff = {
+          frag = "magenta bold";
+          meta = "blue";
+          whitespace = "red reverse";
+        };
+        diff-highlight = {
+          oldNormal = "red";
+          oldHighlight = "red reverse";
+          newNormal = "green";
+          newHighlight = "green reverse";
+        };
+        status = {
+          nobranch = "red bold";
+          unmerged = "blue";
+        };
+      };
+
+      difftool.nvim.cmd = ''nvim -d "$LOCAL" "$REMOTE"'';
+      mergetool.nvim = {
+        cmd = ''nvim -d "$LOCAL" "$MERGED" "$REMOTE"'';
+        trustExitCode = false;
+      };
+    };
+
+    aliases = {
+      a = "add";
+      b = "branch";
+      c = "commit";
+      ca = "commit --amend";
+      cf = "commit --fixup";
+      co = "checkout";
+      cp = "cherry-pick";
+      cu = "commit --amend --no-edit";
+      d = "diff";
+      ds = "diff --staged";
+      dt = "difftool";
+      l = "log";
+      lg = "log --oneline --graph";
+      lo = "log --oneline";
+      ls = "ls-files";
+      lv =
+        "log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ad%C(reset)'";
+      mc = "diff --name-only --diff-filter=U";
+      mt = "mergetool";
+      pushf = "push --force-with-lease";
+      r = "reset";
+      rb = "rebase";
+      rbf = "rebase --interactive --autosquash --autostash";
+      s = "status --short";
+      sl = "shortlog";
+      sw = "switch";
+    };
+
+    attributes = let
+      diffDrivers = {
+        bib = "bibtex";
+        "c++" = "cpp";
+        cpp = "cpp";
+        css = "css";
+        html = "html";
+        java = "java";
+        md = "markdown";
+        php = "php";
+        pl = "perl";
+        py = "python";
+        rb = "ruby";
+        rs = "rust";
+        tex = "tex";
+        xhtml = "html";
+      };
+    in [ "* text=auto" ]
+    ++ mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
+
+    ignores = [
+      ".directory" # KDE directory preferences
+      ".envrc"
+      "Session*.vim"
+      "taskell.md"
+    ];
+  };
 
   home.packages = with packageSets; core ++ extra ++ tex;
 

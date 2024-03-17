@@ -33,7 +33,7 @@ get-source)
         eval fd $hidden $ignored --follow --type=directory
         ;;
     grep)
-        eval rg --line-number --no-heading --color=always $hidden $ignored --follow "\"$3\""
+        eval rg --line-number --no-heading --color=always $hidden $ignored "\"$3\""
         ;;
     *)
         echo "Error: unknown argument: $2" >&2

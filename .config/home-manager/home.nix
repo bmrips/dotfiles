@@ -6,6 +6,8 @@ let
   gnuCommandArgs = cli.toGNUCommandLine { };
   gnuCommandLine = attrs: concatStringsSep " " (gnuCommandArgs attrs);
 
+  store = path: "${path}";
+
   nixpkgs_23_05 = import (fetchTarball {
     name = "nixpks-23.05-darwin-20231231";
     url =
@@ -286,7 +288,7 @@ in {
       advice.statusHints = false;
       core.pager = "diff-so-fancy | less";
       core.whitespace = "tabwidth=4";
-      commit.template = "${./git/commit_message_template}";
+      commit.template = store ./git/commit_message_template;
       credential.helper = "cache";
       diff.algorithm = "histogram";
       diff.renames = "copy";
@@ -294,7 +296,7 @@ in {
       fetch.prune = true;
       fetch.writeCommitGraph = true;
       init.defaultBranch = "main";
-      init.templateDir = "${./git/templates}";
+      init.templateDir = store ./git/templates;
       interactive.diffFilter = "delta --color-only --diff-so-fancy";
       log.date = "human";
       merge.ff = "only";

@@ -11,6 +11,7 @@ opt.exrc = true
 opt.fillchars = 'fold: ,foldopen:,foldsep: ,foldclose:'
 opt.foldmethod = 'marker'
 opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
+opt.formatoptions:remove 't'
 opt.grepformat = '%f:%l:%c:%m'
 opt.grepprg = 'rg --vimgrep'
 opt.guifont = 'JetBrainsMono NF SemiBold:h10' -- For Neovide

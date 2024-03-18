@@ -6,8 +6,7 @@ _fzf_compgen_dir() {
     fd --follow --hidden --exclude=".git" --type=directory . "$1"
 }
 
-arrow_head=$([[ $TTY == /dev/tty* ]] && echo '>' || echo '❯')
-
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --marker='$arrow_head'\
- --prompt='$arrow_head '\
- --pointer='$arrow_head'"
+# use ASCII arrow head in non-pseudo TTYs
+if [[ $TTY == /dev/tty* ]]; then
+    export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --marker='>' --pointer='>' --prompt='> '"
+fi

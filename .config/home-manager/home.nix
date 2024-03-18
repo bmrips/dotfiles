@@ -251,6 +251,7 @@ in {
     in "fd ${args}";
 
     defaultOptions = let
+      arrowHead = "❯";
       keybindings = escapeShellArg (concatStringsSep "," [
         "ctrl-f:half-page-down"
         "ctrl-b:half-page-up"
@@ -265,6 +266,9 @@ in {
       color = "16,info:8,border:8";
       height = "60%";
       layout = "reverse";
+      marker = arrowHead;
+      pointer = arrowHead;
+      prompt = escapeShellArg "${arrowHead} ";
       preview-window = "right,border,hidden";
     };
 

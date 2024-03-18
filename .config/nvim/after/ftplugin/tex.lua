@@ -2,6 +2,7 @@ local opt = vim.opt_local
 local file = require 'util.file'
 local tex = require 'util.filetype.tex'
 
+opt.breakindentopt = {}
 opt.colorcolumn:append '+1'
 opt.comments = ':%'
 opt.iskeyword:remove '_'
@@ -13,6 +14,7 @@ opt.path = vim.fn.system [[
     sed -E 's/^\.$//g;s#/{2,}(:|$)#/**\1#g' |
     tr '\n' ,
 ]]
+opt.showbreak = ''
 opt.suffixesadd = { '.tex', '.sty', '.cls', '.ltx', '.dtx', '.lco' }
 opt.textwidth = 100
 opt.define:append [[
@@ -25,8 +27,8 @@ opt.include:append [[
 ]]
 
 vim.b.undo_ftplugin = vim.b.undo_ftplugin
-  .. '| set colorcolumn< comments< define< include< iskeyword< path<'
-  .. ' suffixesadd< textwidth<'
+  .. '| set breakindentopt< colorcolumn< comments< define< include< iskeyword<'
+  .. ' path< showbreak< suffixesadd< textwidth<'
 
 local augroup = vim.api.nvim_create_augroup('tex', { clear = false })
 

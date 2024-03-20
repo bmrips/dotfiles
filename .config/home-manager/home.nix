@@ -415,6 +415,9 @@ in {
     withRuby = false;
   };
 
+  services.nextcloud-client.enable = true;
+  services.owncloud-client.enable = true;
+
   programs.ripgrep = {
     enable = true;
     arguments = gnuCommandArgs {

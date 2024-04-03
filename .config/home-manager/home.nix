@@ -245,61 +245,18 @@ in {
         # browser integration plugin.
         "media.hardwaremediakeys.enabled" = false;
 
-        # Smooth scroll.
-        "general.smoothScroll" = true;
-        "general.smoothScroll.lines.durationMaxMS" = 125;
-        "general.smoothScroll.lines.durationMinMS" = 125;
-        "general.smoothScroll.mouseWheel.durationMaxMS" = 200;
-        "general.smoothScroll.mouseWheel.durationMinMS" = 100;
-        "general.smoothScroll.msdPhysics.enabled" = true;
-        "general.smoothScroll.other.durationMaxMS" = 125;
-        "general.smoothScroll.other.durationMinMS" = 125;
-        "general.smoothScroll.pages.durationMaxMS" = 125;
-        "general.smoothScroll.pages.durationMinMS" = 125;
-
-        # Smooth mousewheel scroll.
-        "mousewheel.min_line_scroll_amount" = 30;
-        "mousewheel.system_scroll_override_on_root_content.enabled" = true;
-        "mousewheel.system_scroll_override_on_root_content.horizontal.factor" =
-          175;
-        "mousewheel.system_scroll_override_on_root_content.vertical.factor" =
-          175;
-        "toolkit.scrollbox.horizontalScrollDistance" = 6;
-        "toolkit.scrollbox.verticalScrollDistance" = 2;
-
-        # Enable plugins on Mozilla's sites.
-        "extensions.webextensions.restrictedDomains" = "";
-
         # Disable domain guessing.
         "browser.fixup.alternate.enabled" = false;
 
-        # Disable Normandy/Shield.
+        # Disable Normandy and Shield.
         "app.normandy.enabled" = false;
         "app.shield.optoutstudies.enabled" = false;
 
         # Disable experiments.
         "messaging-system.rsexperimentloader.enabled" = false;
 
-        # Disable activity stream (AS).
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" =
-          false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
-          false;
-        "browser.newtabpage.activity-stream.feeds.snippets" = false;
-        "browser.newtabpage.activity-stream.feeds.system.topsites" = false;
-        "browser.newtabpage.activity-stream.feeds.telemetry" = false;
-        "browser.newtabpage.activity-stream.feeds.topsites" = false;
-        "browser.newtabpage.activity-stream.section.highlights.includePocket" =
-          false;
-        "browser.newtabpage.activity-stream.showSponsored" = false;
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-        "browser.newtabpage.activity-stream.telemetry" = false;
-
-        # Disable ping centre telemetry.
-        "browser.ping-centre.telemetry" = false;
-
-        # Disable "What's new" in the new tab page.
-        "browser.messaging-system.whatsNewPanel.enabled" = false;
+        # Disable new tab page.
+        "browser.newtabpage.enabled" = false;
 
         # Disable Safe Browsing.
         "browser.safebrowsing.blockedURIs.enabled" = false;
@@ -332,31 +289,6 @@ in {
         "browser.slowStartup.notificationDisabled" = true;
         "browser.slowStartup.samples" = 0;
 
-        # Disable sending of crash reports.
-        "browser.crashReports.unsubmittedCheck.autoSubmit2" = false;
-        "browser.crashReports.unsubmittedCheck.enabled" = false;
-        "browser.tabs.crashReporting.sendReport" = false;
-
-        # Disable health report.
-        "datareporting.healthreport.uploadEnabled" = false;
-        "datareporting.policy.dataSubmissionEnabled" = false;
-
-        # Disable extension metadata updating to addons.mozilla.org.
-        "extensions.getAddons.cache.enabled" = false;
-
-        # Disable telemetry.
-        "toolkit.coverage.endpoint.base" = "";
-        "toolkit.coverage.opt-out" = true;
-        "toolkit.telemetry.archive.enabled" = false;
-        "toolkit.telemetry.coverage.opt-out" = true;
-        "toolkit.telemetry.hybridContent.enabled" = false;
-        "toolkit.telemetry.bhrPing.enabled" = false;
-        "toolkit.telemetry.firstShutdownPing.enabled" = false;
-        "toolkit.telemetry.newProfilePing.enabled" = false;
-        "toolkit.telemetry.shutdownPingSender.enabled" = false;
-        "toolkit.telemetry.updatePing.enabled" = false;
-        "toolkit.telemetry.unified" = false;
-
         # Disable geo localization.
         "geo.enabled" = false;
 
@@ -364,7 +296,7 @@ in {
         "browser.region.update.enabled" = false;
         "browser.region.network.url" = "";
 
-        # Deactivate tracking protection and the 'Do not track' header. Ironically, it
+        # Deactivate tracking protection and the 'Do not track' header.  Ironically, it
         # may be used for tracking (https:#www.privacy-handbuch.de/handbuch_21i.htm).
         "privacy.trackingprotection.enabled" = true;
         "privacy.donottrackheader.enabled" = false;
@@ -376,7 +308,7 @@ in {
         # Use US as locale in javascript.
         "javascript.use_us_english_locale" = true;
 
-        # Disable Pocket, screenshots.
+        # Disable Pocket and screenshots.
         "extensions.pocket.enabled" = false;
         "extensions.screenshots.disabled" = true;
 
@@ -388,8 +320,6 @@ in {
         "browser.urlbar.trimURLs" = false;
 
         # Display "insecure" icon and "Not Secure" text on insecure HTTP connections.
-        "security.insecure_connection_icon.enabled" = true;
-        "security.insecure_connection_icon.pbmode.enabled" = true;
         "security.insecure_connection_text.enabled" = true;
         "security.insecure_connection_text.pbmode.enabled" = true;
 

@@ -237,11 +237,11 @@ in {
     profiles.reset.id = 1;
     profiles.default = {
       settings = {
-        # Improve the rendering performance by enabling Webrender
+        # Improve the rendering performance by enabling Webrender.
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;
 
-        # For KDE: disable the media entry from Firefox, use the one from the Plasma
+        # Disable the media entry from Firefox to use the one from the Plasma
         # browser integration plugin.
         "media.hardwaremediakeys.enabled" = false;
 
@@ -301,13 +301,15 @@ in {
         "browser.region.update.enabled" = false;
         "browser.region.network.url" = "";
 
-        # Deactivate tracking protection and the 'Do not track' header.  Ironically, it
-        # may be used for tracking (https:#www.privacy-handbuch.de/handbuch_21i.htm).
+        # Deactivate tracking protection and the 'Do not track' header.
+        # Ironically, it may be used for tracking
+        # (https://www.privacy-handbuch.de/handbuch_21i.html).
         "privacy.trackingprotection.enabled" = true;
         "privacy.donottrackheader.enabled" = false;
 
-        # Activate the total cookie protection.  Since v86, this technique is favored
-        # over first-party isolation: https:#www.privacy-handbuch.de/handbuch_21z.htm.
+        # Activate the total cookie protection.  Since v86, this technique is
+        # favored over first-party isolation:
+        # https://www.privacy-handbuch.de/handbuch_21z.html.
         "network.cookie.cookieBehavior" = 5;
 
         # Use US as locale in javascript.
@@ -317,14 +319,15 @@ in {
         "extensions.pocket.enabled" = false;
         "extensions.screenshots.disabled" = true;
 
-        # Enforce punycode for internationalized domain names to eliminate possible
-        # spoofing.
+        # Enforce punycode for internationalized domain names to eliminate
+        # possible spoofing.
         "network.IDN_show_punycode" = true;
 
-        # Display all parts of the URL in the location bar eg. http(s):#.
+        # Display all parts of the URL in the location bar eg. http(s)://.
         "browser.urlbar.trimURLs" = false;
 
-        # Display "insecure" icon and "Not Secure" text on insecure HTTP connections.
+        # Display "insecure" icon and "Not Secure" text on insecure HTTP
+        # connections.
         "security.insecure_connection_text.enabled" = true;
         "security.insecure_connection_text.pbmode.enabled" = true;
 

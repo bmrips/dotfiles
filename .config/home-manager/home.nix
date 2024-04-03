@@ -245,6 +245,11 @@ in {
         # browser integration plugin.
         "media.hardwaremediakeys.enabled" = false;
 
+        # Use the XDG desktop portal.
+        "widget.use-xdg-desktop-portal.file-picker" = 1;
+        "widget.use-xdg-desktop-portal.open-uri" = 1;
+        "widget.use-xdg-desktop-portal.settings" = 1;
+
         # Disable domain guessing.
         "browser.fixup.alternate.enabled" = false;
 

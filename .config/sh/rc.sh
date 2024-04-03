@@ -25,6 +25,7 @@ alias wget='wget --continue'
 
 # actual aliases
 alias gl='glab'
+alias hm='home-manager'
 alias l.='ld .*'
 alias la='ll -A'
 alias ld='ll -d'

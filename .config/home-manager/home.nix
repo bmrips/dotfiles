@@ -234,11 +234,72 @@ in {
 
   programs.firefox = {
     enable = true;
+    policies = {
+      PrimaryPassword = true;
+      SearchBar = "unified";
+    };
     profiles.default = {
       settings = {
+        # Do not warn when visiting about:config.
+        "browser.aboutConfig.showWarning" = false;
+
+        # Restore the last session.
+        "browser.startup.page" = 3;
+
+        # Warn when quitting multiple windows.
+        "browser.sessionstore.warnOnQuit" = true;
+
+        # Disable accessibility.
+        "acessibility.force_disabled" = true;
+
+        # Enable automatic scrolling.
+        "general.autoscroll" = true;
+
+        # Do not check whether Firefox is the default browser.
+        "browser.shell.checkDefaultBrowser" = true;
+
+        # The device's name.
+        "identity.fxaccounts.account.device.name" = "orion";
+
+        # Configure synchronisation.
+        "services.sync.username" = "benedikt.rips@gmail.com";
+
+        # Website appearance matches the system theme.
+        "browser.display.use_system_colors" = true;
+
+        # Separate titlebar.
+        "browser.tabs.inTitlebar" = 0;
+
+        # Never show the bookmarks and menu toolbar.
+        "browser.toolbars.bookmarks.visibility" = "never";
+        "ui.key.menuAccessKeyFocuses" = false;
+
+        # Save files to ~/Downloads without asking.
+        "browser.download.folderList" = 2;
+        "browser.download.dir" = "${config.home.homeDirectory}/Downloads";
+        "browser.download.useDownloadDir" = true;
+
+        # Never translate German.
+        "browser.translations.neverTranslateLanguages" = "de";
+
+        # Do not suggest open tabs.
+        "browser.urlbar.suggest.openpage" = false;
+
+        # Highlight all search results on a page.
+        "findbar.highlightAll" = true;
+
+        # Use Jetbrains Mono with Nerd font patches as monospaced font.
+        "font.name.monospace.x-western" = "JetBrainsMono Nerd Font Mono";
+
+        # Use system locale settings.
+        "intl.regional_prefs.use_os_locales" = true;
+
         # Improve the rendering performance by enabling Webrender.
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;
+
+        # Enable hardware video acceleration via VAAPI.
+        "media.ffmpeg.vaapi.enabled" = true;
 
         # Disable the media entry from Firefox to use the one from the Plasma
         # browser integration plugin.
@@ -248,6 +309,15 @@ in {
         "widget.use-xdg-desktop-portal.file-picker" = 1;
         "widget.use-xdg-desktop-portal.open-uri" = 1;
         "widget.use-xdg-desktop-portal.settings" = 1;
+
+        # Do not print header and footer.
+        "print.print_footerleft" = "";
+        "print.print_headerright" = "";
+
+        # Disable slow startup notifications.
+        "browser.slowStartup.maxSamples" = 0;
+        "browser.slowStartup.notificationDisabled" = true;
+        "browser.slowStartup.samples" = 0;
 
         # Disable domain guessing.
         "browser.fixup.alternate.enabled" = false;
@@ -259,8 +329,12 @@ in {
         # Disable experiments.
         "messaging-system.rsexperimentloader.enabled" = false;
 
-        # Disable new tab page.
+        # Disable new tab page and the activity stream.
         "browser.newtabpage.enabled" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" =
+          false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
+          false;
 
         # Disable Safe Browsing.
         "browser.safebrowsing.blockedURIs.enabled" = false;
@@ -288,11 +362,6 @@ in {
         "browser.search.suggest.enabled" = false;
         "browser.urlbar.suggest.searches" = false;
 
-        # Disable slow startup notifications.
-        "browser.slowStartup.maxSamples" = 0;
-        "browser.slowStartup.notificationDisabled" = true;
-        "browser.slowStartup.samples" = 0;
-
         # Disable geo localization.
         "geo.enabled" = false;
 
@@ -300,15 +369,13 @@ in {
         "browser.region.update.enabled" = false;
         "browser.region.network.url" = "";
 
-        # Deactivate tracking protection and the 'Do not track' header.
-        # Ironically, it may be used for tracking
-        # (https://www.privacy-handbuch.de/handbuch_21i.html).
-        "privacy.trackingprotection.enabled" = true;
+        # Deactivate tracking protection and the 'Do not track' header since
+        # ironically, they may be used for tracking.
+        "privacy.trackingprotection.enabled" = false;
         "privacy.donottrackheader.enabled" = false;
 
-        # Activate the total cookie protection.  Since v86, this technique is
-        # favored over first-party isolation:
-        # https://www.privacy-handbuch.de/handbuch_21z.html.
+        # Activate total cookie protection which puts each site's cookies in its
+        # own container.
         "network.cookie.cookieBehavior" = 5;
 
         # Use US as locale in javascript.
@@ -322,7 +389,7 @@ in {
         # possible spoofing.
         "network.IDN_show_punycode" = true;
 
-        # Display all parts of the URL in the location bar eg. http(s)://.
+        # Display all parts of the URL in the location bar, e.g. http(s)://.
         "browser.urlbar.trimURLs" = false;
 
         # Display "insecure" icon and "Not Secure" text on insecure HTTP

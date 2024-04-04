@@ -32,8 +32,10 @@ let
       findutils
       fzf
       fzf-tab-completion
+      gcc # for nvim-treesitter
       gitlint
       gnugrep
+      gnumake # for markdown-preview.nvim
       gnused
       goto
       less
@@ -54,6 +56,7 @@ let
       nix-zsh-completions
       nixfmt
       nixpkgs_23_05.taskell
+      nodejs # for markdown-preview.nvim
       nodePackages.bash-language-server
       podman
       pre-commit

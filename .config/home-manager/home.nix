@@ -234,7 +234,6 @@ in {
 
   programs.firefox = {
     enable = true;
-    profiles.reset.id = 1;
     profiles.default = {
       settings = {
         # Improve the rendering performance by enabling Webrender.

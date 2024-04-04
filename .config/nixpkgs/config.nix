@@ -1,5 +1,5 @@
 {
   allowAliases = false;
-  checkMeta = true;
+  allowUnfree = true;
   warnUndeclaredOptions = true;
 }

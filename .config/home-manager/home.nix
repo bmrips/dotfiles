@@ -237,6 +237,7 @@ in {
 
   programs.firefox = {
     enable = true;
+    nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];
     policies = {
       PrimaryPassword = true;
       SearchBar = "unified";
@@ -406,6 +407,24 @@ in {
         # Download mixed content via HTTPS.
         "security.mixed_content.upgrade_display_content" = true;
       };
+      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+        auto-sort-bookmarks
+        canvasblocker
+        darkreader
+        decentraleyes
+        i-dont-care-about-cookies
+        javascript-restrictor # aka jshelter
+        keepassxc-browser
+        languagetool
+        plasma-integration
+        privacy-badger
+        simple-translate
+        skip-redirect
+        smart-referer
+        tab-session-manager
+        ublock-origin
+        web-search-navigator
+      ];
     };
   };
 

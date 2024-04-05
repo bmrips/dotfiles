@@ -407,6 +407,46 @@ in {
         # Download mixed content via HTTPS.
         "security.mixed_content.upgrade_display_content" = true;
       };
+      search = {
+        force = true;
+        default = "Google";
+        engines = let
+          nixIcon =
+            "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+        in {
+          Bing.metaData.hidden = true;
+          Hoogle = {
+            definedAliases = [ "@h" "@hoogle" ];
+            iconUpdateURL = "https://hoogle.haskell.org/favicon.png";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            urls = [{
+              template = "https://hoogle.haskell.org/?hoogle={searchTerms}";
+            }];
+          };
+          "Nix Packages" = {
+            definedAliases = [ "@np" "@nixpkgs" ];
+            icon = nixIcon;
+            urls = [{
+              template =
+                "https://search.nixos.org/packages?query={searchTerms}";
+            }];
+          };
+          "NixOS Options" = {
+            definedAliases = [ "@no" "@nixosopts" ];
+            icon = nixIcon;
+            urls = [{
+              template = "https://search.nixos.org/options?query={searchTerms}";
+            }];
+          };
+          "NixOS Wiki" = {
+            definedAliases = [ "@nw" "@nixoswiki" ];
+            icon = nixIcon;
+            urls = [{
+              template = "https://nixos.wiki/index.php?search={searchTerms}";
+            }];
+          };
+        };
+      };
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         auto-sort-bookmarks
         canvasblocker

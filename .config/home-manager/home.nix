@@ -274,6 +274,9 @@ in {
         # Separate titlebar.
         "browser.tabs.inTitlebar" = 0;
 
+        # Do not create default bookmarks.
+        "browser.bookmarks.restore_default_bookmarks" = false;
+
         # Never show the bookmarks and menu toolbar.
         "browser.toolbars.bookmarks.visibility" = "never";
         "ui.key.menuAccessKeyFocuses" = false;

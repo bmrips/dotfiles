@@ -688,6 +688,11 @@ in {
         user = "git";
         identityFile = "~/.config/ssh/private/github";
       };
+      uni-muenster = {
+        host = "*.uni-muenster.de";
+        user = "git";
+        identityFile = "~/.config/ssh/uni-muenster";
+      };
     };
   };
 

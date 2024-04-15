@@ -54,7 +54,7 @@ let
       nil
       nix-bash-completions
       nix-zsh-completions
-      nixfmt
+      nixfmt-classic
       nixpkgs_23_05.taskell
       nodejs # for markdown-preview.nvim
       nodePackages.bash-language-server

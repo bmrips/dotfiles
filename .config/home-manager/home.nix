@@ -22,8 +22,6 @@ let
       cdhist
       checkbashisms
       coreutils-full
-      delta
-      diff-so-fancy
       diffutils
       dockerfile-language-server-nodejs
       dos2unix
@@ -527,10 +525,30 @@ in {
     signing.key = null;
     signing.signByDefault = true;
 
+    delta = {
+      enable = true;
+      options = let
+        fg = "normal";
+        hunk_color = "magenta";
+      in {
+        file-modified-label = "𝚫";
+        hunk-header-decoration-style = "${hunk_color} ul";
+        hunk-header-line-number-style = "${hunk_color}";
+        hunk-header-style = "${hunk_color} line-number";
+        minus-style = "${fg} auto";
+        minus-emph-style = "${fg} auto";
+        navigate = "true";
+        plus-style = "${fg} auto";
+        plus-emph-style = "${fg} auto";
+        syntax-theme = "base16";
+        width = 80;
+        zero-style = "${fg}";
+      };
+    };
+
     extraConfig = {
       advice.detachedHead = false;
       advice.statusHints = false;
-      core.pager = "diff-so-fancy | less";
       core.whitespace = "tabwidth=4";
       commit.template = store ./git/commit_message_template;
       credential.helper = "cache";
@@ -542,7 +560,6 @@ in {
       fetch.writeCommitGraph = true;
       init.defaultBranch = "main";
       init.templateDir = store ./git/templates;
-      interactive.diffFilter = "delta --color-only --diff-so-fancy";
       log.date = "human";
       merge.ff = "only";
       merge.tool = "nvim";

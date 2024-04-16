@@ -17,8 +17,6 @@ let
 
   packageSets = {
     core = with pkgs; [
-      bash
-      bash-completion
       cdhist
       checkbashisms
       coreutils-full
@@ -70,11 +68,7 @@ let
       tokei
       tree
       yamlfmt
-      zsh
-      zsh-autosuggestions
-      zsh-completions
       zsh-nix-shell
-      zsh-syntax-highlighting
     ];
     extra = with pkgs; [
       cbfmt
@@ -223,6 +217,16 @@ in {
   (mapAttrsToList (n: v: "export LESS_TERMCAP_${n}=${v}") lessTermcaps);
 
   fonts.fontconfig.enable = true;
+
+  programs.bash = {
+    enable = true;
+    profileExtra = ''
+      source ~/.config/bash/profile.sh
+    '';
+    initExtra = ''
+      source ~/.config/bash/rc.sh
+    '';
+  };
 
   programs.bat = {
     enable = true;
@@ -712,6 +716,24 @@ in {
   };
 
   services.ssh-agent.enable = true;
+
+  programs.zsh = {
+    enable = true;
+    syntaxHighlighting.enable = true;
+    autosuggestion.enable = true;
+    profileExtra = ''
+      # Remove patterns without matches from the argument list
+      setopt null_glob
+
+      source ~/.config/sh/profile.sh
+    '';
+    initExtra = ''
+      source ~/.config/zsh/rc.zsh
+
+      bindkey '^E' forward-word
+      bindkey '^G' autosuggest-execute
+    '';
+  };
 
   home.packages = with packageSets; core ++ extra ++ tex;
 

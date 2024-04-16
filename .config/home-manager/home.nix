@@ -555,7 +555,6 @@ in {
       diff.algorithm = "histogram";
       diff.colorMoved = "default";
       diff.renames = "copy";
-      diff.tool = "nvim";
       fetch.prune = true;
       fetch.writeCommitGraph = true;
       init.defaultBranch = "main";
@@ -585,7 +584,11 @@ in {
         };
       };
 
-      difftool.nvim.cmd = ''nvim -d "$LOCAL" "$REMOTE"'';
+      diff.tool = "difftastic";
+      difftool.difftastic.cmd = ''difft "$LOCAL" "$REMOTE"'';
+      difftool.prompt = false;
+      pager.difftool = true;
+
       mergetool.nvim = {
         cmd = ''nvim -d "$LOCAL" "$MERGED" "$REMOTE"'';
         trustExitCode = false;

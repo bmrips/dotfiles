@@ -561,12 +561,6 @@ in {
           meta = "blue";
           whitespace = "red reverse";
         };
-        diff-highlight = {
-          oldNormal = "red";
-          oldHighlight = "red reverse";
-          newNormal = "green";
-          newHighlight = "green reverse";
-        };
         status = {
           nobranch = "red bold";
           unmerged = "blue";

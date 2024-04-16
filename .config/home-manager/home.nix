@@ -535,6 +535,7 @@ in {
       commit.template = store ./git/commit_message_template;
       credential.helper = "cache";
       diff.algorithm = "histogram";
+      diff.colorMoved = "default";
       diff.renames = "copy";
       diff.tool = "nvim";
       fetch.prune = true;

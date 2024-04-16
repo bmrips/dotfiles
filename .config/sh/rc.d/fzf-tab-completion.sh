@@ -1,1 +1,1 @@
-export FZF_TAB_COMPLETION_PROMPT="$arrow_head "
+export FZF_TAB_COMPLETION_PROMPT='❯ '

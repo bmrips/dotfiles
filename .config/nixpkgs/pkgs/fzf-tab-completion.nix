@@ -18,8 +18,8 @@ in stdenv.mkDerivation rec {
   buildInputs = [ coreutils-full fzf gawk gnugrep ];
 
   postInstall = ''
-    mkdir --parents $out/share/$pname/
-    cp --recursive bash/ zsh/ $out/share/$pname/
+    mkdir --parents $out/share/${pname}/
+    cp --recursive bash/ zsh/ $out/share/${pname}/
   '';
 
   meta = with lib; {

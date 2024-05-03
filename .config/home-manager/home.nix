@@ -201,6 +201,8 @@ in {
       quit-if-one-screen = true;
       wheel-lines = 3;
     };
+    NIX_PATH =
+      "${config.xdg.stateHome}/nix/defexpr/channels\${NIX_PATH:+:$NIX_PATH}";
     TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
     YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
   };
@@ -284,13 +286,12 @@ in {
     xp = "wl-paste";
   };
 
+  xdg.systemDirs.data = [ "${config.xdg.stateHome}/nix/profile/share" ];
+
   fonts.fontconfig.enable = true;
 
   programs.bash = {
     enable = true;
-    profileExtra = ''
-      source ~/.config/bash/profile.sh
-    '';
     initExtra = ''
       source ~/.config/bash/rc.sh
     '';
@@ -872,8 +873,6 @@ in {
     profileExtra = ''
       # Remove patterns without matches from the argument list
       setopt null_glob
-
-      source ~/.config/sh/profile.sh
     '';
     initExtra = ''
       source ~/.config/zsh/rc.zsh

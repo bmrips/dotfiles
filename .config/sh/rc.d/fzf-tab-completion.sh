@@ -1,1 +1,0 @@
-export FZF_TAB_COMPLETION_PROMPT='❯ '

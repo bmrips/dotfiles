@@ -124,6 +124,40 @@ let
       "alt-i:execute(fzf-state toggle show-ignored-files)+reload(${reloadCmd})"
     ]);
 
+  initExtra = ''
+    function git() {
+        if [[ -n $1 && $1 == "cd-root" ]]; then
+            declare -r top_level="$(${config.programs.git.package}/bin/git rev-parse --show-toplevel)" &&
+              cd "$top_level"
+        else
+            ${config.programs.git.package}/bin/git "$@"
+        fi
+    }
+
+    function mkcd() {
+        mkdir --parents "$1" && cd "$1"
+    }
+
+    eval "$(${pkgs.cdhist}/bin/cdhist --init)"
+
+    eval "$(dircolors --bourne-shell "${config.xdg.configHome}/dircolors.conf")"
+
+    # Path and directory completion, e.g. for `cd .config/**`
+    _fzf_compgen_path() {
+        ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" . "$1"
+    }
+    _fzf_compgen_dir() {
+        ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" --type=directory . "$1"
+    }
+
+    # use ASCII arrow head in non-pseudo TTYs
+    if [[ $TTY == /dev/tty* ]]; then
+        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --marker='>' --pointer='>' --prompt='> '"
+    fi
+
+    source ${pkgs.goto}/share/goto.sh
+  '';
+
 in {
   programs.home-manager.enable = true;
 
@@ -184,6 +218,7 @@ in {
       multi = true;
       preview = escapeShellArg "bat ${batArgs} {1}";
     };
+    FZF_TAB_COMPLETION_PROMPT = "❯ ";
     GCC_COLORS = concatStringsSep ":"
       (attrsets.mapAttrsToList (n: v: "${n}=${v}") {
         error = "01;31";
@@ -293,6 +328,8 @@ in {
   programs.bash = {
     enable = true;
     initExtra = ''
+      ${initExtra}
+
       source ~/.config/bash/rc.sh
     '';
   };
@@ -875,6 +912,8 @@ in {
       setopt null_glob
     '';
     initExtra = ''
+      ${initExtra}
+
       source ~/.config/zsh/rc.zsh
 
       bindkey '^E' forward-word

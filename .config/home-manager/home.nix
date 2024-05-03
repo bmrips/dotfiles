@@ -202,7 +202,7 @@ in {
       wheel-lines = 3;
     };
     TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
-    YAMLLINT_CONFIG_FILE = "$XDG_CONFIG_HOME/yamllint.yaml";
+    YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
   };
 
   home.sessionVariablesExtra = let

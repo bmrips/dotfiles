@@ -215,6 +215,73 @@ in {
   in concatLines
   (mapAttrsToList (n: v: "export LESS_TERMCAP_${n}=${v}") lessTermcaps);
 
+  home.shellAliases = let
+    settings = mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") {
+      chgrp.preserve-root = true;
+      chmod.preserve-root = true;
+      chown.preserve-root = true;
+      cp.interactive = true;
+      df.human-readable = true;
+      diff.color = "auto";
+      dmesg.color = "auto";
+      du.human-readable = true;
+      free.human = true;
+      grep.binary-files = "without-match";
+      grep.color = "auto";
+      ls = {
+        color = true;
+        group-directories-first = true;
+        human-readable = true;
+        literal = true;
+        time-style = "long-iso";
+      };
+      make.jobs = 4;
+      mv.interactive = true;
+      onefetch = {
+        include-hidden = true;
+        no-art = true;
+        no-bots = true;
+        no-color-palette = true;
+        no-title = true;
+        true-color = "never";
+      };
+      rm.preserve-root = true;
+      stylua.search-parent-directories = true;
+      tree.C = true; # always colorise output
+      tree.dirsfirst = true;
+      wget.continue = true;
+    };
+  in settings // {
+    ip = "ip -color=auto";
+    nvim = "TTY=$TTY nvim";
+
+    b = "goto";
+    c = "cd";
+    g = "git";
+    gl = "glab";
+    hm = "home-manager";
+    k = "kubectl";
+    l = "ll";
+    "l." = "ld .*";
+    la = "ll -A";
+    ld = "ll -d";
+    ll = "ls -l";
+    "ls." = "lsd .*";
+    lsd = "ls -d";
+    lsx = "ls -X";
+    lx = "ll -X";
+    o = "open";
+    open = "xdg-open";
+    p = "podman";
+    t = "tree --gitignore";
+    trash = "mv -t ${config.xdg.dataHome}/Trash/files";
+    v = "nvim";
+    vi = "nvim";
+    vim = "nvim";
+    xc = "wl-copy";
+    xp = "wl-paste";
+  };
+
   fonts.fontconfig.enable = true;
 
   programs.bash = {

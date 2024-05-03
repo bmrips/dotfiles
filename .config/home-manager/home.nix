@@ -162,6 +162,8 @@ in {
     time = german;
   };
 
+  home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
+
   home.sessionVariables = let subshell = cmd: ''\"\$(${cmd})\"'';
   in rec {
     FZF_COMPLETION_OPTS = gnuCommandLine { height = "80%"; };

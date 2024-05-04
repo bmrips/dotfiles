@@ -327,10 +327,32 @@ in {
 
   programs.bash = {
     enable = true;
+    historyControl = [ "ignoredups" ];
+    historyFile = "${config.xdg.stateHome}/bash/history";
     initExtra = ''
       ${initExtra}
 
-      source ~/.config/bash/rc.sh
+      # Record working directory changes by hooking into the prompt.
+      __cdhist_oldpwd="$(pwd)"
+
+      function __cdhist_prompt_hook() {
+          local retval pwd_tmp
+          retval="$?"
+          pwd_tmp="$(pwd)"
+
+          if [[ $__cdhist_oldpwd != "$pwd_tmp" ]]; then
+              __cdhist_oldpwd="$pwd_tmp"
+              ${pkgs.cdhist}/bin/cdhist "$__cdhist_oldpwd" >/dev/null
+          fi
+
+          return "''${retval}"
+      }
+
+      if [[ ''${PROMPT_COMMAND:=} != *'__cdhist_prompt_hook'* ]]; then
+          PROMPT_COMMAND="__cdhist_prompt_hook;''${PROMPT_COMMAND#;}"
+      fi
+
+      eval "$(${config.programs.direnv.package}/bin/direnv hook bash)"
     '';
   };
 

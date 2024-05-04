@@ -1,1 +1,0 @@
-try_source_from_path bash-completion/bash_completion

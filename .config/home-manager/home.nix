@@ -321,8 +321,6 @@ in {
     xp = "wl-paste";
   };
 
-  xdg.systemDirs.data = [ "${config.xdg.stateHome}/nix/profile/share" ];
-
   fonts.fontconfig.enable = true;
 
   programs.bash = {

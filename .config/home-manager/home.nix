@@ -953,6 +953,8 @@ in {
     maxCacheTtl = 43200; # 12 hours at most
   };
 
+  programs.man.generateCaches = true;
+
   programs.neovim = {
     enable = true;
     defaultEditor = true;

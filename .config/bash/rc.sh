@@ -20,7 +20,7 @@ mkdir -p "$XDG_CACHE_HOME/bash" "$XDG_STATE_HOME/bash"
 HISTSIZE=10000
 HISTFILESIZE=$HISTSIZE
 HISTFILE="$XDG_STATE_HOME/bash/history"
-HISTCONTROL=ignoreboth
+HISTCONTROL=ignoredups
 shopt -s histappend
 
 load_plugins "$HOME/.config/bash/rc.d"

@@ -1,4 +1,0 @@
-# Save files to ~/Downloads by default
---output %(title)s.%(ext)s
-
-# vi: ft=conf

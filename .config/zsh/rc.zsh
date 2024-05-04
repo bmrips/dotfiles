@@ -58,9 +58,9 @@ source $HOME/.config/sh/rc.sh
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
 HISTFILE="$XDG_STATE_HOME/zsh/history"
-setopt inc_append_history # Share history between zsh instances
-setopt extended_history   # Save timestamps and duration
-setopt hist_reduce_blanks # Remove superfluous blanks
+setopt inc_append_history_time  # share history between zsh instances
+setopt extended_history  # save timestamps and duration
+setopt hist_reduce_blanks  # remove superfluous blanks
 
 # Help for builtin commands
 unalias run-help

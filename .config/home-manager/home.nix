@@ -26,7 +26,6 @@ let
       fd
       file
       findutils
-      fzf
       fzf-tab-completion
       gcc # for nvim-treesitter
       gitlint

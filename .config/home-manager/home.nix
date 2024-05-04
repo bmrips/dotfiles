@@ -348,8 +348,6 @@ in {
       if [[ ''${PROMPT_COMMAND:=} != *'__cdhist_prompt_hook'* ]]; then
           PROMPT_COMMAND="__cdhist_prompt_hook;''${PROMPT_COMMAND#;}"
       fi
-
-      eval "$(${config.programs.direnv.package}/bin/direnv hook bash)"
     '';
   };
 
@@ -518,6 +516,11 @@ in {
       ".gitignore" = "90";
       ".gitmodules" = "90";
     };
+  };
+
+  programs.direnv = {
+    enable = true;
+    nix-direnv.enable = true;
   };
 
   programs.firefox = {
@@ -1198,8 +1201,6 @@ in {
 
       autoload -Uz add-zsh-hook
       add-zsh-hook chpwd __cdhist_chpwd_hook
-
-      eval "$(${config.programs.direnv.package}/bin/direnv hook zsh)"
 
       # Go back with <C-o>
       function cd_undo() {

@@ -135,7 +135,7 @@ let
     }
 
     function mkcd() {
-        mkdir --parents "$1" && cd "$1"
+        ${pkgs.coreutils}/bin/mkdir --parents "$1" && cd "$1"
     }
 
     eval "$(${pkgs.cdhist}/bin/cdhist --init)"
@@ -203,8 +203,8 @@ in {
       preview = dirPreview (subshell "echo {} | sed 's/^[a-zA-Z]* *//'");
     };
     FZF_CDHIST_OPTS = gnuCommandLine {
-      preview = dirPreview
-        (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
+      preview = dirPreview (subshell
+        "echo {} | ${pkgs.gnused}/bin/sed 's#^~#${config.home.homeDirectory}#'");
     };
     FZF_GREP_COMMAND = "fzf-state get-source grep";
     FZF_GREP_OPTS = let
@@ -214,7 +214,8 @@ in {
     in gnuCommandLine {
       bind = fzf-state-keybindings "${FZF_GREP_COMMAND} {q}";
       multi = true;
-      preview = escapeShellArg "bat ${batArgs} {1}";
+      preview =
+        escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
     };
     FZF_TAB_COMPLETION_PROMPT = "❯ ";
     GCC_COLORS = concatStringsSep ":"
@@ -1251,7 +1252,7 @@ in {
       #[ Go to `goto` bookmark ]#
       function fzf-goto-widget() {
           _goto_resolve_db
-          local dir="$(sed 's/ /:/' $GOTO_DB | column --table --separator=: | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | sed "s/^[a-zA-Z]* *//")"
+          local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column --table --separator=: | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
           if [[ -z "$dir" ]]; then
               zle redisplay
               return 0
@@ -1269,7 +1270,7 @@ in {
 
       #[ Go to directory in cd history ]#
       function fzf-cdhist-widget() {
-          local dir="$(sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | sed "s#~#$HOME#")"
+          local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
           if [[ -z "$dir" ]]; then
               zle redisplay
               return 0
@@ -1288,7 +1289,7 @@ in {
       #[ Interactive grep ]#
       function __fzf-grep-widget() {
           local item
-          eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | sed 's/:.*$//' | uniq | while read item; do
+          eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
               echo -n "''${(q)item} "
           done
           local ret=$?

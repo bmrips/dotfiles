@@ -936,7 +936,6 @@ in {
 
     ignores = [
       ".directory" # KDE directory preferences
-      ".envrc"
       "Session*.vim"
       "taskell.md"
     ];

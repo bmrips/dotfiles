@@ -12,6 +12,14 @@ return {
         flip_columns = 180,
       },
     },
+    fzf_colors = {
+      ['fg+'] = '3',
+      ['bg+'] = '0',
+      ['hl+'] = '2',
+      ['pointer'] = '1',
+      ['marker'] = '5',
+      ['gutter'] = '0',
+    },
     files = {
       file_icons = tty.is_a_pts,
       git_icons = tty.is_a_pts,

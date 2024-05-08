@@ -982,17 +982,17 @@ in {
     addKeysToAgent = "yes";
     matchBlocks = let sshHomedir = "${config.home.homeDirectory}/.ssh";
     in {
-      aur = {
+      "private/aur" = {
         host = "aur.archlinux.org";
         user = "aur";
         identityFile = "${sshHomedir}/private/aur";
       };
-      github = {
+      "private/github" = {
         host = "github.com";
         user = "git";
         identityFile = "${sshHomedir}/private/github";
       };
-      uni-muenster = {
+      "uni-muenster" = {
         host = "*.uni-muenster.de";
         user = "git";
         identityFile = "${sshHomedir}/uni-muenster";

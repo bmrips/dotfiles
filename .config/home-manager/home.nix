@@ -135,15 +135,15 @@ let
   initExtra = ''
     function git() {
         if [[ -n $1 && $1 == "cd-root" ]]; then
-            declare -r top_level="$(${config.programs.git.package}/bin/git rev-parse --show-toplevel)" &&
+            declare -r top_level="$(command git rev-parse --show-toplevel)" &&
               cd "$top_level"
         else
-            ${config.programs.git.package}/bin/git "$@"
+            command git "$@"
         fi
     }
 
     function mkcd() {
-        ${pkgs.coreutils}/bin/mkdir --parents "$1" && cd "$1"
+        mkdir --parents "$1" && cd "$1"
     }
 
     eval "$(${pkgs.cdhist}/bin/cdhist --init)"

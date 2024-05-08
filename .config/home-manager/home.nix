@@ -987,17 +987,17 @@ in {
       aur = {
         host = "aur.archlinux.org";
         user = "aur";
-        identityFile = "~/.config/ssh/private/aur";
+        identityFile = "~/.ssh/private/aur";
       };
       github = {
         host = "github.com";
         user = "git";
-        identityFile = "~/.config/ssh/private/github";
+        identityFile = "~/.ssh/private/github";
       };
       uni-muenster = {
         host = "*.uni-muenster.de";
         user = "git";
-        identityFile = "~/.config/ssh/uni-muenster";
+        identityFile = "~/.ssh/uni-muenster";
       };
     };
   };

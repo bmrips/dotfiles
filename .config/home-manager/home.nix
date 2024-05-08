@@ -1234,7 +1234,7 @@ in {
       bindkey '^[[3~' delete-char
       bindkey '^[3;5~' delete-char
 
-      source ${config.home.homeDirectory}/projects/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+      source ${pkgs.fzf-tab-completion}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
       zstyle ':completion:*' fzf-search-display true  # search completion descriptions
       zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
 

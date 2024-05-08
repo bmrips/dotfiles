@@ -3,6 +3,8 @@
 with lib;
 
 let
+  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
+
   gnuCommandArgs = cli.toGNUCommandLine { };
   gnuCommandLine = attrs: concatStringsSep " " (gnuCommandArgs attrs);
 
@@ -91,6 +93,7 @@ let
       yaml-language-server
     ];
     gui = with pkgs; [ keepassxc spotify ];
+    macos = with pkgs; [ iterm2 rectangle unnaturalscrollwheels ];
     tex = with pkgs; [ texlab texliveFull ];
   };
 
@@ -124,6 +127,11 @@ let
       "alt-i:execute(fzf-state toggle show-ignored-files)+reload(${reloadCmd})"
     ]);
 
+  # Read Nix's initialisation script here to survive macOS system updates.
+  readNixInitScript = ''
+    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+  '';
+
   initExtra = ''
     function git() {
         if [[ -n $1 && $1 == "cd-root" ]]; then
@@ -149,7 +157,7 @@ let
     }
 
     # use ASCII arrow head in non-pseudo TTYs
-    if [[ $TTY == /dev/tty* ]]; then
+    if [[ $TTY == /dev/${if isDarwin then "console" else "tty*"} ]]; then
         export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --marker='>' --pointer='>' --prompt='> '"
     fi
 
@@ -160,7 +168,10 @@ in {
   programs.home-manager.enable = true;
 
   home.username = "bmr";
-  home.homeDirectory = "/home/${config.home.username}";
+  home.homeDirectory = if isDarwin then
+    "/Users/${config.home.username}"
+  else
+    "/home/${config.home.username}";
 
   nix.package = pkgs.nix;
   nix.settings = {
@@ -175,7 +186,7 @@ in {
   };
 
   xdg.enable = true;
-  xdg.userDirs.enable = true;
+  xdg.userDirs.enable = isLinux;
 
   i18n.glibcLocales = pkgs.glibcLocales.override {
     allLocales = false;
@@ -250,8 +261,7 @@ in {
       ue = "$'\\e[0m'";
       us = "$'\\e[4m'"; # Underline as usual
     };
-  in concatLines
-  (mapAttrsToList (n: v: "export LESS_TERMCAP_${n}=${v}") lessTermcaps);
+  in concatLines (mapAttrsToList (n: v: "export LESS_TERMCAP_${n}=${v}") lessTermcaps);
 
   home.shellAliases = let
     settings = mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") {
@@ -309,21 +319,23 @@ in {
     lsx = "ls -X";
     lx = "ll -X";
     o = "open";
-    open = "xdg-open";
     p = "podman";
     t = "tree --gitignore";
-    trash = "mv -t ${config.xdg.dataHome}/Trash/files";
     v = "nvim";
     vi = "nvim";
     vim = "nvim";
-    xc = "wl-copy";
-    xp = "wl-paste";
+    xc = if isDarwin then "pbcopy" else "wl-copy";
+    xp = if isDarwin then "pbpaste" else "wl-paste";
+  } // optionalAttrs isLinux {
+    open = "xdg-open";
+    trash = "mv -t ${config.xdg.dataHome}/Trash/files";
   };
 
   fonts.fontconfig.enable = true;
 
   programs.bash = {
     enable = true;
+    profileExtra = mkIf isDarwin readNixInitScript;
     historyControl = [ "ignoredups" ];
     historyFile = "${config.xdg.stateHome}/bash/history";
     initExtra = ''
@@ -526,7 +538,9 @@ in {
 
   programs.firefox = {
     enable = true;
-    nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];
+    package = mkIf isDarwin null;
+    nativeMessagingHosts =
+      optional isLinux pkgs.kdePackages.plasma-browser-integration;
     policies = {
       PrimaryPassword = true;
       SearchBar = "unified";
@@ -561,7 +575,7 @@ in {
         "browser.display.use_system_colors" = true;
 
         # Separate titlebar.
-        "browser.tabs.inTitlebar" = 0;
+        "browser.tabs.inTitlebar" = if isLinux then 0 else 2;
 
         # Do not create default bookmarks.
         "browser.bookmarks.restore_default_bookmarks" = false;
@@ -599,7 +613,7 @@ in {
 
         # Disable the media entry from Firefox to use the one from the Plasma
         # browser integration plugin.
-        "media.hardwaremediakeys.enabled" = false;
+        "media.hardwaremediakeys.enabled" = isLinux;
 
         # Use the XDG desktop portal.
         "widget.use-xdg-desktop-portal.file-picker" = 1;
@@ -739,24 +753,24 @@ in {
           };
         };
       };
-      extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-        auto-sort-bookmarks
-        canvasblocker
-        darkreader
-        decentraleyes
-        i-dont-care-about-cookies
-        javascript-restrictor # aka jshelter
-        keepassxc-browser
-        languagetool
-        plasma-integration
-        privacy-badger
-        simple-translate
-        skip-redirect
-        smart-referer
-        tab-session-manager
-        ublock-origin
-        web-search-navigator
-      ];
+      extensions = with pkgs.nur.repos.rycee.firefox-addons;
+        [
+          auto-sort-bookmarks
+          canvasblocker
+          darkreader
+          decentraleyes
+          i-dont-care-about-cookies
+          javascript-restrictor # aka jshelter
+          keepassxc-browser
+          languagetool
+          privacy-badger
+          simple-translate
+          skip-redirect
+          smart-referer
+          tab-session-manager
+          ublock-origin
+          web-search-navigator
+        ] ++ optional isLinux plasma-integration;
     };
   };
 
@@ -842,7 +856,7 @@ in {
       advice.statusHints = false;
       core.whitespace = "tabwidth=4";
       commit.template = store ./git/commit_message_template;
-      credential.helper = "cache";
+      credential.helper = if isDarwin then "osxkeychain" else "cache";
       diff.algorithm = "histogram";
       diff.colorMoved = "default";
       diff.renames = "copy";
@@ -935,18 +949,18 @@ in {
     in [ "* text=auto" ]
     ++ mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
 
-    ignores = [
+    ignores = [ "Session*.vim" "taskell.md" ] ++ optionals isDarwin [
+      ".DS_Store" # MacOS directory preferences
+    ] ++ optionals isLinux [
       ".directory" # KDE directory preferences
-      "Session*.vim"
-      "taskell.md"
     ];
   };
 
   programs.gpg.enable = true;
 
   services.gpg-agent = {
-    enable = true;
-    pinentryPackage = pkgs.pinentry-qt;
+    enable = isLinux;
+    pinentryPackage = with pkgs; if isDarwin then pinentry_mac else pinentry-qt;
     defaultCacheTtl = 3600; # at least one hour
     maxCacheTtl = 43200; # 12 hours at most
   };
@@ -959,8 +973,8 @@ in {
     withRuby = false;
   };
 
-  services.nextcloud-client.enable = true;
-  services.owncloud-client.enable = true;
+  services.nextcloud-client.enable = isLinux;
+  services.owncloud-client.enable = isLinux;
 
   programs.ripgrep = {
     enable = true;
@@ -1001,7 +1015,7 @@ in {
     };
   };
 
-  services.ssh-agent.enable = true;
+  services.ssh-agent.enable = isLinux;
 
   programs.starship = {
     enable = true;
@@ -1085,6 +1099,7 @@ in {
 
   programs.zsh = {
     enable = true;
+    profileExtra = mkIf isDarwin readNixInitScript;
     defaultKeymap = "viins";
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
@@ -1148,230 +1163,237 @@ in {
       # If not running interactively, don't do anything
       [[ $- != *i* ]] && return
     '';
-    initExtra = ''
-      ${initExtra}
+    initExtra = concatLines [
+      ''
+        ${initExtra}
 
-      # Remove patterns without matches from the argument list
-      setopt null_glob
+        # Remove patterns without matches from the argument list
+        setopt null_glob
 
-      # Split fields like in Bash
-      setopt sh_word_split
+        # Split fields like in Bash
+        setopt sh_word_split
 
-      setopt extended_glob
+        setopt extended_glob
 
-      autoload -Uz edit-command-line
-      zle -N edit-command-line
-      bindkey          '^V' edit-command-line
-      bindkey -M vicmd '^V' edit-command-line
+        autoload -Uz edit-command-line
+        zle -N edit-command-line
+        bindkey          '^V' edit-command-line
+        bindkey -M vicmd '^V' edit-command-line
 
-      # History
-      setopt inc_append_history_time  # share history between zsh instances
-      setopt hist_reduce_blanks  # remove superfluous blanks
+        # History
+        setopt inc_append_history_time  # share history between zsh instances
+        setopt hist_reduce_blanks  # remove superfluous blanks
 
-      # Help for builtin commands
-      unalias run-help
-      autoload -Uz run-help
+        # Help for builtin commands
+        unalias run-help
+        autoload -Uz run-help
 
-      # Go upwards quickly by typing sequences of dots
-      rationalise-dot() {
-        if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
-          LBUFFER+=/..
-        else
-          LBUFFER+=.
-        fi
-      }
-      zle -N rationalise-dot
-      bindkey . rationalise-dot
-
-      # Next/previous history item which the command line is a prefix of
-      autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
-      zle -N up-line-or-beginning-search
-      zle -N down-line-or-beginning-search
-      bindkey '^J' down-line-or-beginning-search
-      bindkey '^K' up-line-or-beginning-search
-
-      # autosuggestion keybindings
-      bindkey '^E' forward-word
-      bindkey '^G' autosuggest-execute
-
-      # Record working directory changes by hooking into chpwd.
-      function __cdhist_chpwd_hook() {
-          ${pkgs.cdhist}/bin/cdhist "$(pwd)" >/dev/null
-      }
-
-      autoload -Uz add-zsh-hook
-      add-zsh-hook chpwd __cdhist_chpwd_hook
-
-      # Go back with <C-o>
-      function cd_undo() {
-          zle push-line
-          BUFFER="popd"
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
-
-      setopt auto_pushd
-      zle -N cd_undo
-      bindkey '^O' cd_undo
-
-      # Go to parent dir with <C-p>
-      function cd_parent() {
-          zle push-line
-          BUFFER="cd .."
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
-
-      zle -N cd_parent
-      bindkey '^P' cd_parent
-
-      # fix the home, end and delete keys
-      bindkey '^[[H' beginning-of-line
-      bindkey '^[[F' end-of-line
-      bindkey '^[[3~' delete-char
-      bindkey '^[3;5~' delete-char
-
-      source ${pkgs.fzf-tab-completion}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
-      zstyle ':completion:*' fzf-search-display true  # search completion descriptions
-      zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
-
-      # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
-      bindkey '^ ' fzf-file-widget
-      bindkey '^_' fzf-history-widget
-      bindkey '^T' fzf-cd-widget
-
-      bindkey -M vicmd '^R' redo  # restore redo
-
-      # preview when completing env vars (note: only works for exported variables)
-      # eval twice, first to unescape the string, second to expand the $variable
-      zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
-
-      #[ Go to `goto` bookmark ]#
-      function fzf-goto-widget() {
-          _goto_resolve_db
-          local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column --table --separator=: | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
-          if [[ -z "$dir" ]]; then
-              zle redisplay
-              return 0
+        # Go upwards quickly by typing sequences of dots
+        rationalise-dot() {
+          if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
+            LBUFFER+=/..
+          else
+            LBUFFER+=.
           fi
-          zle push-line # Clear buffer. Auto-restored on next prompt.
-          BUFFER="cd -- ''${(q)dir}"
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
+        }
+        zle -N rationalise-dot
+        bindkey . rationalise-dot
 
-      zle -N fzf-goto-widget
-      bindkey '^B' fzf-goto-widget
+        # Next/previous history item which the command line is a prefix of
+        autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+        zle -N up-line-or-beginning-search
+        zle -N down-line-or-beginning-search
+        bindkey '^J' down-line-or-beginning-search
+        bindkey '^K' up-line-or-beginning-search
 
-      #[ Go to directory in cd history ]#
-      function fzf-cdhist-widget() {
-          local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
-          if [[ -z "$dir" ]]; then
-              zle redisplay
-              return 0
-          fi
-          zle push-line # Clear buffer. Auto-restored on next prompt.
-          BUFFER="cd -- ''${(q)dir}"
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
+        # autosuggestion keybindings
+        bindkey '^E' forward-word
+        bindkey '^G' autosuggest-execute
 
-      zle -N fzf-cdhist-widget
-      bindkey '^Y' fzf-cdhist-widget
+        # Record working directory changes by hooking into chpwd.
+        function __cdhist_chpwd_hook() {
+            ${pkgs.cdhist}/bin/cdhist "$(pwd)" >/dev/null
+        }
 
-      #[ Interactive grep ]#
-      function __fzf-grep-widget() {
-          local item
-          eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
-              echo -n "''${(q)item} "
-          done
-          local ret=$?
-          echo
-          return $ret
-      }
+        autoload -Uz add-zsh-hook
+        add-zsh-hook chpwd __cdhist_chpwd_hook
 
-      function fzf-grep-widget() {
-          LBUFFER="''${LBUFFER}$(__fzf-grep-widget)"
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
+        # Go back with <C-o>
+        function cd_undo() {
+            zle push-line
+            BUFFER="popd"
+            zle accept-line
+            local ret=$?
+            zle reset-prompt
+            return $ret
+        }
 
-      zle -N fzf-grep-widget
-      bindkey '^F' fzf-grep-widget
+        setopt auto_pushd
+        zle -N cd_undo
+        bindkey '^O' cd_undo
 
-      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+        # Go to parent dir with <C-p>
+        function cd_parent() {
+            zle push-line
+            BUFFER="cd .."
+            zle accept-line
+            local ret=$?
+            zle reset-prompt
+            return $ret
+        }
 
-      bindkey -M viins 'jk' vi-cmd-mode
-      bindkey -M vicmd ' ' execute-named-cmd
+        zle -N cd_parent
+        bindkey '^P' cd_parent
 
-      # Adapt the __vi_cursor to the mode
-      autoload -Uz add-zsh-hook add-zsh-hook-widget
+        # fix the home, end and delete keys
+        bindkey '^[[H' beginning-of-line
+        bindkey '^[[F' end-of-line
+        bindkey '^[[3~' delete-char
+        bindkey '^[3;5~' delete-char
+      ''
 
-      typeset -Ag __vi_cursor=(
-          insert '\e[6 q' # beam
-          normal '\e[0 q' # underline
-          operator_pending '\e[4 q' # block
-      )
+      (optionalString (!isDarwin) ''
+        source ${pkgs.fzf-tab-completion}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+        zstyle ':completion:*' fzf-search-display true  # search completion descriptions
+        zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
+      '')
 
-      function __restore_cursor() {
-          echo -ne "''${__vi_cursor[normal]}"
-      }
-      add-zsh-hook precmd __restore_cursor
+      ''
+        # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
+        bindkey '^ ' fzf-file-widget
+        bindkey '^_' fzf-history-widget
+        bindkey '^T' fzf-cd-widget
 
-      function zle-line-init() {
-          echo -ne "''${__vi_cursor[insert]}"
-      }
-      zle -N zle-line-init
+        bindkey -M vicmd '^R' redo  # restore redo
 
-      function zle-keymap-select {
-          case $KEYMAP in
-              viins|main) echo -ne "''${__vi_cursor[insert]}"  ;;
-              viins|main) echo -ne "''${__vi_cursor[operator_pending]}" ;;
-              *)          __restore_cursor ;;
-          esac
-      }
-      zle -N zle-keymap-select
+        # preview when completing env vars (note: only works for exported variables)
+        # eval twice, first to unescape the string, second to expand the $variable
+        zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
 
-      # Increment with <C-a>
-      autoload -Uz incarg
-      zle -N incarg
-      bindkey -M vicmd '^A' incarg
+        #[ Go to `goto` bookmark ]#
+        function fzf-goto-widget() {
+            _goto_resolve_db
+            local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
+            if [[ -z "$dir" ]]; then
+                zle redisplay
+                return 0
+            fi
+            zle push-line # Clear buffer. Auto-restored on next prompt.
+            BUFFER="cd -- ''${(q)dir}"
+            zle accept-line
+            local ret=$?
+            zle reset-prompt
+            return $ret
+        }
 
-      # Text operators for quotes and blocks.
-      autoload -Uz select-bracketed select-quoted
-      zle -N select-quoted
-      zle -N select-bracketed
-      for km in viopp visual; do
-          for c in {a,i}''${(s..)^:-q\'\"\`}; do
-              bindkey -M $km -- $c select-quoted
-          done
-          for c in {a,i}''${(s..)^:-'bB()[]{}<>'}; do
-              bindkey -M $km -- $c select-bracketed
-          done
-      done
+        zle -N fzf-goto-widget
+        bindkey '^B' fzf-goto-widget
 
-      # vim-surround
-      autoload -Uz surround
-      zle -N delete-surround surround
-      zle -N add-surround surround
-      zle -N change-surround surround
-      bindkey -a 'cs' change-surround
-      bindkey -a 'ds' delete-surround
-      bindkey -a 'ys' add-surround
-      bindkey -M visual 'S' add-surround
-    '';
+        #[ Go to directory in cd history ]#
+        function fzf-cdhist-widget() {
+            local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
+            if [[ -z "$dir" ]]; then
+                zle redisplay
+                return 0
+            fi
+            zle push-line # Clear buffer. Auto-restored on next prompt.
+            BUFFER="cd -- ''${(q)dir}"
+            zle accept-line
+            local ret=$?
+            zle reset-prompt
+            return $ret
+        }
+
+        zle -N fzf-cdhist-widget
+        bindkey '^Y' fzf-cdhist-widget
+
+        #[ Interactive grep ]#
+        function __fzf-grep-widget() {
+            local item
+            eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
+                echo -n "''${(q)item} "
+            done
+            local ret=$?
+            echo
+            return $ret
+        }
+
+        function fzf-grep-widget() {
+            LBUFFER="''${LBUFFER}$(__fzf-grep-widget)"
+            local ret=$?
+            zle reset-prompt
+            return $ret
+        }
+
+        zle -N fzf-grep-widget
+        bindkey '^F' fzf-grep-widget
+
+        source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
+
+        bindkey -M viins 'jk' vi-cmd-mode
+        bindkey -M vicmd ' ' execute-named-cmd
+
+        # Adapt the __vi_cursor to the mode
+        autoload -Uz add-zsh-hook add-zsh-hook-widget
+
+        typeset -Ag __vi_cursor=(
+            insert '\e[6 q' # beam
+            normal '\e[0 q' # underline
+            operator_pending '\e[4 q' # block
+        )
+
+        function __restore_cursor() {
+            echo -ne "''${__vi_cursor[normal]}"
+        }
+        add-zsh-hook precmd __restore_cursor
+
+        function zle-line-init() {
+            echo -ne "''${__vi_cursor[insert]}"
+        }
+        zle -N zle-line-init
+
+        function zle-keymap-select {
+            case $KEYMAP in
+                viins|main) echo -ne "''${__vi_cursor[insert]}"  ;;
+                viins|main) echo -ne "''${__vi_cursor[operator_pending]}" ;;
+                *)          __restore_cursor ;;
+            esac
+        }
+        zle -N zle-keymap-select
+
+        # Increment with <C-a>
+        autoload -Uz incarg
+        zle -N incarg
+        bindkey -M vicmd '^A' incarg
+
+        # Text operators for quotes and blocks.
+        autoload -Uz select-bracketed select-quoted
+        zle -N select-quoted
+        zle -N select-bracketed
+        for km in viopp visual; do
+            for c in {a,i}''${(s..)^:-q\'\"\`}; do
+                bindkey -M $km -- $c select-quoted
+            done
+            for c in {a,i}''${(s..)^:-'bB()[]{}<>'}; do
+                bindkey -M $km -- $c select-bracketed
+            done
+        done
+
+        # vim-surround
+        autoload -Uz surround
+        zle -N delete-surround surround
+        zle -N add-surround surround
+        zle -N change-surround surround
+        bindkey -a 'cs' change-surround
+        bindkey -a 'ds' delete-surround
+        bindkey -a 'ys' add-surround
+        bindkey -M visual 'S' add-surround
+      ''
+    ];
   };
 
-  home.packages = with packageSets; core ++ extra ++ gui ++ tex;
+  home.packages = with packageSets;
+    core ++ extra ++ gui ++ optionals isLinux tex ++ optionals isDarwin macos;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

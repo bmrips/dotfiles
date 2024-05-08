@@ -1,3 +1,7 @@
+local ctrl_slash = (vim.g.neovide or vim.env.ITERM_PROFILE)
+  and '/'
+  or  '_'
+
 return {
   init = {
     { '<BS>',
@@ -409,8 +413,8 @@ return {
         desc = 'Decrement',
         mode = 'x',
       },
-      { (vim.g.neovide and '/' or '_') .. '>', {
-        { '<C-'..(vim.g.neovide and '/' or '_')..'>',
+      { ctrl_slash .. '>', {
+        { '<C-'..ctrl_slash..'>',
           function()
             require('fzf-lua').resume()
           end,

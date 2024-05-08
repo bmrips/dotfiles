@@ -1,7 +1,7 @@
 local M = {}
 
 -- True if in a tty and false otherwise.
-M.is_a_tty = string.match(vim.env.TTY or '', '^/dev/tty.*$') ~= nil
+M.is_a_tty = string.match(vim.env.TTY or '', '^/dev/console$') ~= nil
 
 -- True if in a pts and false otherwise.
 M.is_a_pts = not M.is_a_tty

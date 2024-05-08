@@ -980,21 +980,22 @@ in {
     enable = true;
     package = pkgs.openssh;
     addKeysToAgent = "yes";
-    matchBlocks = {
+    matchBlocks = let sshHomedir = "${config.home.homeDirectory}/.ssh";
+    in {
       aur = {
         host = "aur.archlinux.org";
         user = "aur";
-        identityFile = "~/.ssh/private/aur";
+        identityFile = "${sshHomedir}/private/aur";
       };
       github = {
         host = "github.com";
         user = "git";
-        identityFile = "~/.ssh/private/github";
+        identityFile = "${sshHomedir}/private/github";
       };
       uni-muenster = {
         host = "*.uni-muenster.de";
         user = "git";
-        identityFile = "~/.ssh/uni-muenster";
+        identityFile = "${sshHomedir}/uni-muenster";
       };
     };
   };

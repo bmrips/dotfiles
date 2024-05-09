@@ -28,7 +28,6 @@ let
       fd
       file
       findutils
-      fzf-tab-completion
       gcc # for nvim-treesitter
       gitlint
       gnugrep
@@ -165,6 +164,8 @@ let
   '';
 
 in {
+  imports = [ ./modules/fzf-tab-completion.nix ];
+
   programs.home-manager.enable = true;
 
   home.username = "bmr";
@@ -228,7 +229,6 @@ in {
       preview =
         escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
     };
-    FZF_TAB_COMPLETION_PROMPT = "❯ ";
     GCC_COLORS = concatStringsSep ":"
       (attrsets.mapAttrsToList (n: v: "${n}=${v}") {
         error = "01;31";
@@ -823,6 +823,15 @@ in {
     };
   };
 
+  programs.fzf-tab-completion = {
+    enable = !isDarwin;
+    prompt = "❯ ";
+    zshExtraConfig = ''
+      zstyle ':completion:*' fzf-search-display true  # search completion descriptions
+      zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
+    '';
+  };
+
   programs.git = {
     enable = true;
     userName = "Benedikt Rips";
@@ -1163,233 +1172,223 @@ in {
       # If not running interactively, don't do anything
       [[ $- != *i* ]] && return
     '';
-    initExtra = concatLines [
-      ''
-        ${initExtra}
+    initExtra = ''
+      ${initExtra}
 
-        # Remove patterns without matches from the argument list
-        setopt null_glob
+      # Remove patterns without matches from the argument list
+      setopt null_glob
 
-        # Split fields like in Bash
-        setopt sh_word_split
+      # Split fields like in Bash
+      setopt sh_word_split
 
-        setopt extended_glob
+      setopt extended_glob
 
-        autoload -Uz edit-command-line
-        zle -N edit-command-line
-        bindkey          '^V' edit-command-line
-        bindkey -M vicmd '^V' edit-command-line
+      autoload -Uz edit-command-line
+      zle -N edit-command-line
+      bindkey          '^V' edit-command-line
+      bindkey -M vicmd '^V' edit-command-line
 
-        # History
-        setopt inc_append_history_time  # share history between zsh instances
-        setopt hist_reduce_blanks  # remove superfluous blanks
+      # History
+      setopt inc_append_history_time  # share history between zsh instances
+      setopt hist_reduce_blanks  # remove superfluous blanks
 
-        # Help for builtin commands
-        unalias run-help
-        autoload -Uz run-help
+      # Help for builtin commands
+      unalias run-help
+      autoload -Uz run-help
 
-        # Go upwards quickly by typing sequences of dots
-        rationalise-dot() {
-          if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
-            LBUFFER+=/..
-          else
-            LBUFFER+=.
+      # Go upwards quickly by typing sequences of dots
+      rationalise-dot() {
+        if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
+          LBUFFER+=/..
+        else
+          LBUFFER+=.
+        fi
+      }
+      zle -N rationalise-dot
+      bindkey . rationalise-dot
+
+      # Next/previous history item which the command line is a prefix of
+      autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
+      zle -N up-line-or-beginning-search
+      zle -N down-line-or-beginning-search
+      bindkey '^J' down-line-or-beginning-search
+      bindkey '^K' up-line-or-beginning-search
+
+      # autosuggestion keybindings
+      bindkey '^E' forward-word
+      bindkey '^G' autosuggest-execute
+
+      # Record working directory changes by hooking into chpwd.
+      function __cdhist_chpwd_hook() {
+          ${pkgs.cdhist}/bin/cdhist "$(pwd)" >/dev/null
+      }
+
+      autoload -Uz add-zsh-hook
+      add-zsh-hook chpwd __cdhist_chpwd_hook
+
+      # Go back with <C-o>
+      function cd_undo() {
+          zle push-line
+          BUFFER="popd"
+          zle accept-line
+          local ret=$?
+          zle reset-prompt
+          return $ret
+      }
+
+      setopt auto_pushd
+      zle -N cd_undo
+      bindkey '^O' cd_undo
+
+      # Go to parent dir with <C-p>
+      function cd_parent() {
+          zle push-line
+          BUFFER="cd .."
+          zle accept-line
+          local ret=$?
+          zle reset-prompt
+          return $ret
+      }
+
+      zle -N cd_parent
+      bindkey '^P' cd_parent
+
+      # fix the home, end and delete keys
+      bindkey '^[[H' beginning-of-line
+      bindkey '^[[F' end-of-line
+      bindkey '^[[3~' delete-char
+      bindkey '^[3;5~' delete-char
+
+      # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
+      bindkey '^ ' fzf-file-widget
+      bindkey '^_' fzf-history-widget
+      bindkey '^T' fzf-cd-widget
+
+      bindkey -M vicmd '^R' redo  # restore redo
+
+      # preview when completing env vars (note: only works for exported variables)
+      # eval twice, first to unescape the string, second to expand the $variable
+      zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
+
+      #[ Go to `goto` bookmark ]#
+      function fzf-goto-widget() {
+          _goto_resolve_db
+          local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
+          if [[ -z "$dir" ]]; then
+              zle redisplay
+              return 0
           fi
-        }
-        zle -N rationalise-dot
-        bindkey . rationalise-dot
+          zle push-line # Clear buffer. Auto-restored on next prompt.
+          BUFFER="cd -- ''${(q)dir}"
+          zle accept-line
+          local ret=$?
+          zle reset-prompt
+          return $ret
+      }
 
-        # Next/previous history item which the command line is a prefix of
-        autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
-        zle -N up-line-or-beginning-search
-        zle -N down-line-or-beginning-search
-        bindkey '^J' down-line-or-beginning-search
-        bindkey '^K' up-line-or-beginning-search
+      zle -N fzf-goto-widget
+      bindkey '^B' fzf-goto-widget
 
-        # autosuggestion keybindings
-        bindkey '^E' forward-word
-        bindkey '^G' autosuggest-execute
+      #[ Go to directory in cd history ]#
+      function fzf-cdhist-widget() {
+          local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
+          if [[ -z "$dir" ]]; then
+              zle redisplay
+              return 0
+          fi
+          zle push-line # Clear buffer. Auto-restored on next prompt.
+          BUFFER="cd -- ''${(q)dir}"
+          zle accept-line
+          local ret=$?
+          zle reset-prompt
+          return $ret
+      }
 
-        # Record working directory changes by hooking into chpwd.
-        function __cdhist_chpwd_hook() {
-            ${pkgs.cdhist}/bin/cdhist "$(pwd)" >/dev/null
-        }
+      zle -N fzf-cdhist-widget
+      bindkey '^Y' fzf-cdhist-widget
 
-        autoload -Uz add-zsh-hook
-        add-zsh-hook chpwd __cdhist_chpwd_hook
+      #[ Interactive grep ]#
+      function __fzf-grep-widget() {
+          local item
+          eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
+              echo -n "''${(q)item} "
+          done
+          local ret=$?
+          echo
+          return $ret
+      }
 
-        # Go back with <C-o>
-        function cd_undo() {
-            zle push-line
-            BUFFER="popd"
-            zle accept-line
-            local ret=$?
-            zle reset-prompt
-            return $ret
-        }
+      function fzf-grep-widget() {
+          LBUFFER="''${LBUFFER}$(__fzf-grep-widget)"
+          local ret=$?
+          zle reset-prompt
+          return $ret
+      }
 
-        setopt auto_pushd
-        zle -N cd_undo
-        bindkey '^O' cd_undo
+      zle -N fzf-grep-widget
+      bindkey '^F' fzf-grep-widget
 
-        # Go to parent dir with <C-p>
-        function cd_parent() {
-            zle push-line
-            BUFFER="cd .."
-            zle accept-line
-            local ret=$?
-            zle reset-prompt
-            return $ret
-        }
+      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
 
-        zle -N cd_parent
-        bindkey '^P' cd_parent
+      bindkey -M viins 'jk' vi-cmd-mode
+      bindkey -M vicmd ' ' execute-named-cmd
 
-        # fix the home, end and delete keys
-        bindkey '^[[H' beginning-of-line
-        bindkey '^[[F' end-of-line
-        bindkey '^[[3~' delete-char
-        bindkey '^[3;5~' delete-char
-      ''
+      # Adapt the __vi_cursor to the mode
+      autoload -Uz add-zsh-hook add-zsh-hook-widget
 
-      (optionalString (!isDarwin) ''
-        source ${pkgs.fzf-tab-completion}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
-        zstyle ':completion:*' fzf-search-display true  # search completion descriptions
-        zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
-      '')
+      typeset -Ag __vi_cursor=(
+          insert '\e[6 q' # beam
+          normal '\e[0 q' # underline
+          operator_pending '\e[4 q' # block
+      )
 
-      ''
-        # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
-        bindkey '^ ' fzf-file-widget
-        bindkey '^_' fzf-history-widget
-        bindkey '^T' fzf-cd-widget
+      function __restore_cursor() {
+          echo -ne "''${__vi_cursor[normal]}"
+      }
+      add-zsh-hook precmd __restore_cursor
 
-        bindkey -M vicmd '^R' redo  # restore redo
+      function zle-line-init() {
+          echo -ne "''${__vi_cursor[insert]}"
+      }
+      zle -N zle-line-init
 
-        # preview when completing env vars (note: only works for exported variables)
-        # eval twice, first to unescape the string, second to expand the $variable
-        zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
+      function zle-keymap-select {
+          case $KEYMAP in
+              viins|main) echo -ne "''${__vi_cursor[insert]}"  ;;
+              viins|main) echo -ne "''${__vi_cursor[operator_pending]}" ;;
+              *)          __restore_cursor ;;
+          esac
+      }
+      zle -N zle-keymap-select
 
-        #[ Go to `goto` bookmark ]#
-        function fzf-goto-widget() {
-            _goto_resolve_db
-            local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
-            if [[ -z "$dir" ]]; then
-                zle redisplay
-                return 0
-            fi
-            zle push-line # Clear buffer. Auto-restored on next prompt.
-            BUFFER="cd -- ''${(q)dir}"
-            zle accept-line
-            local ret=$?
-            zle reset-prompt
-            return $ret
-        }
+      # Increment with <C-a>
+      autoload -Uz incarg
+      zle -N incarg
+      bindkey -M vicmd '^A' incarg
 
-        zle -N fzf-goto-widget
-        bindkey '^B' fzf-goto-widget
+      # Text operators for quotes and blocks.
+      autoload -Uz select-bracketed select-quoted
+      zle -N select-quoted
+      zle -N select-bracketed
+      for km in viopp visual; do
+          for c in {a,i}''${(s..)^:-q\'\"\`}; do
+              bindkey -M $km -- $c select-quoted
+          done
+          for c in {a,i}''${(s..)^:-'bB()[]{}<>'}; do
+              bindkey -M $km -- $c select-bracketed
+          done
+      done
 
-        #[ Go to directory in cd history ]#
-        function fzf-cdhist-widget() {
-            local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
-            if [[ -z "$dir" ]]; then
-                zle redisplay
-                return 0
-            fi
-            zle push-line # Clear buffer. Auto-restored on next prompt.
-            BUFFER="cd -- ''${(q)dir}"
-            zle accept-line
-            local ret=$?
-            zle reset-prompt
-            return $ret
-        }
-
-        zle -N fzf-cdhist-widget
-        bindkey '^Y' fzf-cdhist-widget
-
-        #[ Interactive grep ]#
-        function __fzf-grep-widget() {
-            local item
-            eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
-                echo -n "''${(q)item} "
-            done
-            local ret=$?
-            echo
-            return $ret
-        }
-
-        function fzf-grep-widget() {
-            LBUFFER="''${LBUFFER}$(__fzf-grep-widget)"
-            local ret=$?
-            zle reset-prompt
-            return $ret
-        }
-
-        zle -N fzf-grep-widget
-        bindkey '^F' fzf-grep-widget
-
-        source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-
-        bindkey -M viins 'jk' vi-cmd-mode
-        bindkey -M vicmd ' ' execute-named-cmd
-
-        # Adapt the __vi_cursor to the mode
-        autoload -Uz add-zsh-hook add-zsh-hook-widget
-
-        typeset -Ag __vi_cursor=(
-            insert '\e[6 q' # beam
-            normal '\e[0 q' # underline
-            operator_pending '\e[4 q' # block
-        )
-
-        function __restore_cursor() {
-            echo -ne "''${__vi_cursor[normal]}"
-        }
-        add-zsh-hook precmd __restore_cursor
-
-        function zle-line-init() {
-            echo -ne "''${__vi_cursor[insert]}"
-        }
-        zle -N zle-line-init
-
-        function zle-keymap-select {
-            case $KEYMAP in
-                viins|main) echo -ne "''${__vi_cursor[insert]}"  ;;
-                viins|main) echo -ne "''${__vi_cursor[operator_pending]}" ;;
-                *)          __restore_cursor ;;
-            esac
-        }
-        zle -N zle-keymap-select
-
-        # Increment with <C-a>
-        autoload -Uz incarg
-        zle -N incarg
-        bindkey -M vicmd '^A' incarg
-
-        # Text operators for quotes and blocks.
-        autoload -Uz select-bracketed select-quoted
-        zle -N select-quoted
-        zle -N select-bracketed
-        for km in viopp visual; do
-            for c in {a,i}''${(s..)^:-q\'\"\`}; do
-                bindkey -M $km -- $c select-quoted
-            done
-            for c in {a,i}''${(s..)^:-'bB()[]{}<>'}; do
-                bindkey -M $km -- $c select-bracketed
-            done
-        done
-
-        # vim-surround
-        autoload -Uz surround
-        zle -N delete-surround surround
-        zle -N add-surround surround
-        zle -N change-surround surround
-        bindkey -a 'cs' change-surround
-        bindkey -a 'ds' delete-surround
-        bindkey -a 'ys' add-surround
-        bindkey -M visual 'S' add-surround
-      ''
-    ];
+      # vim-surround
+      autoload -Uz surround
+      zle -N delete-surround surround
+      zle -N add-surround surround
+      zle -N change-surround surround
+      bindkey -a 'cs' change-surround
+      bindkey -a 'ds' delete-surround
+      bindkey -a 'ys' add-surround
+      bindkey -M visual 'S' add-surround
+    '';
   };
 
   home.packages = with packageSets;

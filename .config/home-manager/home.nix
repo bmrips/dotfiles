@@ -66,6 +66,7 @@ let
       stylua
       tokei
       tree
+      tree-sitter
       yamlfmt
       zsh-nix-shell
     ];

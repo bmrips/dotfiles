@@ -26,6 +26,23 @@ return {
             vim.startswith(info.line:sub(info.col), info.rule.end_pair)
           return info.char == ']' and followed_by_end_pair
         end),
+      Rule('= ', ';', 'nix')
+        :with_pair(function(info)
+          local prev_char = info.line:sub(info.col - 2, info.col - 2)
+          local rest_of_line = info.line:sub(info.col)
+          return ts_cond.is_not_ts_node_comment()
+            and prev_char:match('[%w%s]') ~= nil
+            and rest_of_line:match('^%s*$') ~= nil
+        end)
+        :with_move(function(info)
+          return info.char == ';'
+        end)
+      -- Rule('%s*;', '', 'nix')
+      --   :with_move(function(info) return info.char == ';' end)
+      --   :with_pair(cond.none())
+      --   :with_del(cond.none())
+      --   :with_cr(cond.none())
+      --   :use_key(';'),
     }
 
     -- When typing a space, insert a pair of spaces in specified pairs

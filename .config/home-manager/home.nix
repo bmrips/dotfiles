@@ -33,7 +33,6 @@ let
       gnugrep
       gnumake # for markdown-preview.nvim
       gnused
-      goto
       less
       ltex-ls
       lua-language-server
@@ -161,7 +160,8 @@ let
   '';
 
 in {
-  imports = [ ./modules/fzf-tab-completion.nix ./modules/zsh.nix ];
+  imports =
+    [ ./modules/fzf-tab-completion.nix ./modules/goto.nix ./modules/zsh.nix ];
 
   programs.home-manager.enable = true;
 
@@ -987,6 +987,8 @@ in {
     defaultCacheTtl = 3600; # at least one hour
     maxCacheTtl = 43200; # 12 hours at most
   };
+
+  programs.goto.enable = true;
 
   programs.man.generateCaches = true;
 

@@ -132,20 +132,18 @@ let
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';
 
+  gitWrapper = ''
+    if [[ -n $1 && $1 == "cd-root" ]]; then
+        declare -r top_level="$(command git rev-parse --show-toplevel)" &&
+          cd "$top_level"
+    else
+        command git "$@"
+    fi
+  '';
+
+  mkcd = ''mkdir --parents "$1" && cd "$1"'';
+
   initExtra = ''
-    function git() {
-        if [[ -n $1 && $1 == "cd-root" ]]; then
-            declare -r top_level="$(command git rev-parse --show-toplevel)" &&
-              cd "$top_level"
-        else
-            command git "$@"
-        fi
-    }
-
-    function mkcd() {
-        mkdir --parents "$1" && cd "$1"
-    }
-
     eval "$(${pkgs.cdhist}/bin/cdhist --init)"
 
     # Path and directory completion, e.g. for `cd .config/**`
@@ -160,12 +158,10 @@ let
     if [[ $TTY == /dev/${if isDarwin then "console" else "tty*"} ]]; then
         export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --marker='>' --pointer='>' --prompt='> '"
     fi
-
-    source ${pkgs.goto}/share/goto.sh
   '';
 
 in {
-  imports = [ ./modules/fzf-tab-completion.nix ];
+  imports = [ ./modules/fzf-tab-completion.nix ./modules/zsh.nix ];
 
   programs.home-manager.enable = true;
 
@@ -341,6 +337,14 @@ in {
     historyFile = "${config.xdg.stateHome}/bash/history";
     initExtra = ''
       ${initExtra}
+
+      function git() {
+        ${gitWrapper}
+      }
+
+      function mkcd() {
+        ${mkcd}
+      }
 
       # Record working directory changes by hooking into the prompt.
       __cdhist_oldpwd="$(pwd)"
@@ -1178,12 +1182,84 @@ in {
       zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}  # colorized completion
       zstyle ':completion:*' squeeze-slashes yes  # remove trailing slashes
     '';
+    siteFunctions = {
+      cd_parent = ''
+        zle push-line
+        BUFFER="cd .."
+        zle accept-line
+        local ret=$?
+        zle reset-prompt
+        return $ret
+      '';
+      cd_undo = ''
+        zle push-line
+        BUFFER="popd"
+        zle accept-line
+        local ret=$?
+        zle reset-prompt
+        return $ret
+      '';
+      fzf-cdhist-widget = ''
+        local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
+        if [[ -z "$dir" ]]; then
+            zle redisplay
+            return 0
+        fi
+        zle push-line # Clear buffer. Auto-restored on next prompt.
+        BUFFER="cd -- ''${(q)dir}"
+        zle accept-line
+        local ret=$?
+        zle reset-prompt
+        return $ret
+      '';
+      fzf-goto-widget = ''
+        _goto_resolve_db
+        local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
+        if [[ -z "$dir" ]]; then
+            zle redisplay
+            return 0
+        fi
+        zle push-line # Clear buffer. Auto-restored on next prompt.
+        BUFFER="cd -- ''${(q)dir}"
+        zle accept-line
+        local ret=$?
+        zle reset-prompt
+        return $ret
+      '';
+      fzf-grep-widget = let
+        grep = stringAsChars (c: if c == "\n" then "; " else c) ''
+          local item
+          eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
+              echo -n "''${(q)item} "
+          done
+          local ret=$?
+          echo
+          return $ret
+        '';
+      in ''
+        LBUFFER="''${LBUFFER}$(${grep})"
+        local ret=$?
+        zle reset-prompt
+        return $ret
+      '';
+      git = gitWrapper;
+      mkcd = mkcd;
+      rationalise-dot = ''
+        if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
+          LBUFFER+=/..
+        else
+          LBUFFER+=.
+        fi
+      '';
+    };
     initExtraFirst = ''
       # If not running interactively, don't do anything
       [[ $- != *i* ]] && return
     '';
     initExtra = ''
       ${initExtra}
+
+      autoload -Uz git mkcd
 
       # Remove patterns without matches from the argument list
       setopt null_glob
@@ -1207,13 +1283,7 @@ in {
       autoload -Uz run-help
 
       # Go upwards quickly by typing sequences of dots
-      rationalise-dot() {
-        if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
-          LBUFFER+=/..
-        else
-          LBUFFER+=.
-        fi
-      }
+      autoload -Uz rationalise-dot
       zle -N rationalise-dot
       bindkey . rationalise-dot
 
@@ -1237,29 +1307,13 @@ in {
       add-zsh-hook chpwd __cdhist_chpwd_hook
 
       # Go back with <C-o>
-      function cd_undo() {
-          zle push-line
-          BUFFER="popd"
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
-
       setopt auto_pushd
+      autoload -Uz cd_undo
       zle -N cd_undo
       bindkey '^O' cd_undo
 
       # Go to parent dir with <C-p>
-      function cd_parent() {
-          zle push-line
-          BUFFER="cd .."
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
-
+      autoload -Uz cd_parent
       zle -N cd_parent
       bindkey '^P' cd_parent
 
@@ -1281,60 +1335,17 @@ in {
       zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
 
       #[ Go to `goto` bookmark ]#
-      function fzf-goto-widget() {
-          _goto_resolve_db
-          local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
-          if [[ -z "$dir" ]]; then
-              zle redisplay
-              return 0
-          fi
-          zle push-line # Clear buffer. Auto-restored on next prompt.
-          BUFFER="cd -- ''${(q)dir}"
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
-
+      autoload -Uz fzf-goto-widget
       zle -N fzf-goto-widget
       bindkey '^B' fzf-goto-widget
 
       #[ Go to directory in cd history ]#
-      function fzf-cdhist-widget() {
-          local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
-          if [[ -z "$dir" ]]; then
-              zle redisplay
-              return 0
-          fi
-          zle push-line # Clear buffer. Auto-restored on next prompt.
-          BUFFER="cd -- ''${(q)dir}"
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
-
+      autoload -Uz fzf-cdhist-widget
       zle -N fzf-cdhist-widget
       bindkey '^Y' fzf-cdhist-widget
 
       #[ Interactive grep ]#
-      function __fzf-grep-widget() {
-          local item
-          eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
-              echo -n "''${(q)item} "
-          done
-          local ret=$?
-          echo
-          return $ret
-      }
-
-      function fzf-grep-widget() {
-          LBUFFER="''${LBUFFER}$(__fzf-grep-widget)"
-          local ret=$?
-          zle reset-prompt
-          return $ret
-      }
-
+      autoload -Uz fzf-grep-widget
       zle -N fzf-grep-widget
       bindkey '^F' fzf-grep-widget
 

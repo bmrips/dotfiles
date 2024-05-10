@@ -67,7 +67,6 @@ let
       tree
       tree-sitter
       yamlfmt
-      zsh-nix-shell
     ];
     extra = with pkgs; [
       cbfmt
@@ -1126,6 +1125,7 @@ in {
     enable = true;
     profileExtra = mkIf isDarwin readNixInitScript;
     defaultKeymap = "viins";
+    useInNixShell = true;
     syntaxHighlighting.enable = true;
     autosuggestion.enable = true;
     history = rec {
@@ -1345,8 +1345,6 @@ in {
       autoload -Uz fzf-grep-widget
       zle -N fzf-grep-widget
       bindkey '^F' fzf-grep-widget
-
-      source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
 
       bindkey -M viins 'jk' vi-cmd-mode
       bindkey -M vicmd ' ' execute-named-cmd

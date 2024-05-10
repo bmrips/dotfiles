@@ -2,11 +2,20 @@
 
 with lib;
 
-let cfg = config.programs.zsh;
+let
+  cfg = config.programs.zsh;
+  setOpt = name: flag: "${if flag then "setopt" else "unsetopt"} ${name}";
 
 in {
 
   options.programs.zsh = {
+
+    options = mkOption {
+      type = with types; attrsOf bool;
+      default = { };
+      description = "Options to set or unset";
+      example = { null_glob = true; };
+    };
 
     siteFunctions = mkOption {
       type = with types; attrsOf lines;
@@ -26,6 +35,10 @@ in {
   };
 
   config = mkMerge [
+
+    (mkIf (cfg.options != { }) {
+      programs.zsh.initExtra = concatLines (mapAttrsToList setOpt cfg.options);
+    })
 
     (mkIf (cfg.siteFunctions != { }) {
       home.packages = mapAttrsToList

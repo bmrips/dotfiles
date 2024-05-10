@@ -1136,6 +1136,14 @@ in {
       share = false;
       size = 100000;
     };
+    options = {
+      auto_pushd = true;
+      extended_glob = true;
+      hist_reduce_blanks = true;
+      inc_append_history_time = true;
+      null_glob = true; # remove patterns without matches from argument list
+      sh_word_split = true; # split fields like in Bash
+    };
     shellGlobalAliases = {
       C = "| wc -l";
       G = "| rg";
@@ -1263,22 +1271,10 @@ in {
 
       autoload -Uz git mkcd
 
-      # Remove patterns without matches from the argument list
-      setopt null_glob
-
-      # Split fields like in Bash
-      setopt sh_word_split
-
-      setopt extended_glob
-
       autoload -Uz edit-command-line
       zle -N edit-command-line
       bindkey          '^V' edit-command-line
       bindkey -M vicmd '^V' edit-command-line
-
-      # History
-      setopt inc_append_history_time  # share history between zsh instances
-      setopt hist_reduce_blanks  # remove superfluous blanks
 
       # Help for builtin commands
       unalias run-help
@@ -1309,7 +1305,6 @@ in {
       add-zsh-hook chpwd __cdhist_chpwd_hook
 
       # Go back with <C-o>
-      setopt auto_pushd
       autoload -Uz cd_undo
       zle -N cd_undo
       bindkey '^O' cd_undo

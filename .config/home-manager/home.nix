@@ -31,7 +31,6 @@ let
       gnugrep
       gnumake # for markdown-preview.nvim
       gnused
-      less
       ltex-ls
       lua-language-server
       man-db
@@ -159,6 +158,7 @@ in {
     ./modules/fzf-tab-completion.nix
     ./modules/gcc.nix
     ./modules/goto.nix
+    ./modules/less.nix
     ./modules/nix.nix
     ./modules/taskell.nix
     ./modules/zsh.nix
@@ -230,13 +230,6 @@ in {
         escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
     };
     GREP_COLORS = "ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36";
-    LESS = gnuCommandLine {
-      LONG-PROMPT = true;
-      RAW-CONTROL-CHARS = true;
-      quiet = true;
-      quit-if-one-screen = true;
-      wheel-lines = 3;
-    };
     TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
     YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
   };
@@ -975,6 +968,17 @@ in {
   };
 
   programs.goto.enable = true;
+
+  programs.less = {
+    enable = true;
+    settings = {
+      LONG-PROMPT = true;
+      RAW-CONTROL-CHARS = true;
+      quiet = true;
+      quit-if-one-screen = true;
+      wheel-lines = 3;
+    };
+  };
 
   programs.man.generateCaches = true;
 

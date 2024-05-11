@@ -234,17 +234,6 @@ in {
     YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
   };
 
-  home.sessionVariablesExtra = let
-    lessTermcaps = {
-      md = "$'\\e[93m'"; # Bold as bright yellow
-      me = "$'\\e[0m'";
-      se = "$'\\e[0m'";
-      so = "$'\\e[30;47m'"; # Dark grey statusline
-      ue = "$'\\e[0m'";
-      us = "$'\\e[4m'"; # Underline as usual
-    };
-  in concatLines (mapAttrsToList (n: v: "export LESS_TERMCAP_${n}=${v}") lessTermcaps);
-
   home.shellAliases = let
     settings = mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") {
       chgrp.preserve-root = true;

@@ -50,7 +50,6 @@ let
       nix-bash-completions
       nix-zsh-completions
       nixfmt-classic
-      nixpkgs_23_05.taskell
       nodejs # for markdown-preview.nvim
       nodePackages.bash-language-server
       podman
@@ -163,6 +162,7 @@ in {
     ./modules/fzf-tab-completion.nix
     ./modules/goto.nix
     ./modules/nix.nix
+    ./modules/taskell.nix
     ./modules/zsh.nix
   ];
 
@@ -1120,6 +1120,49 @@ in {
       terraform.symbol = " ";
       vlang.symbol = " ";
       zig.symbol = " ";
+    };
+  };
+
+  programs.taskell = {
+    enable = true;
+    package = nixpkgs_23_05.taskell;
+    bindings = {
+      new = "n, a";
+      edit = "e";
+      clear = "c";
+      delete = "d";
+      listNew = "N, A";
+      listEdit = "E";
+      listDelete = "D";
+    };
+    config = {
+      general.filename = "taskell.md";
+      layout = {
+        padding = 1;
+        column_width = 30;
+        column_padding = 3;
+        description_indicator = "≡";
+        statusbar = true;
+      };
+      markdown = {
+        title = "##";
+        task = "-";
+        summary = "    >";
+        due = "    @";
+        subtask = "    *";
+        localTimes = false;
+      };
+    };
+    template = ''
+      ## To Do
+      ## Done
+    '';
+    theme.other = {
+      statusBar.fg = "default";
+      statusBar.bg = "brightBlack";
+      subtaskCurrent.fg = "magenta";
+      subtaskIncomplete.fg = "default";
+      subtaskComplete.fg = "blue";
     };
   };
 

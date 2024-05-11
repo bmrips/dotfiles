@@ -159,8 +159,12 @@ let
   '';
 
 in {
-  imports =
-    [ ./modules/fzf-tab-completion.nix ./modules/goto.nix ./modules/zsh.nix ];
+  imports = [
+    ./modules/fzf-tab-completion.nix
+    ./modules/goto.nix
+    ./modules/nix.nix
+    ./modules/zsh.nix
+  ];
 
   programs.home-manager.enable = true;
 
@@ -170,16 +174,18 @@ in {
   else
     "/home/${config.home.username}";
 
-  nix.package = pkgs.nix;
-  nix.settings = {
-    auto-optimise-store = true;
-    experimental-features = "flakes nix-command";
-    use-xdg-base-directories = true;
-  };
-
-  nix.gc = {
-    automatic = true;
-    options = "--delete-older-than 30d";
+  nix = {
+    package = pkgs.nix;
+    path = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = "flakes nix-command";
+      use-xdg-base-directories = true;
+    };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
   };
 
   xdg.enable = true;
@@ -242,8 +248,6 @@ in {
       quit-if-one-screen = true;
       wheel-lines = 3;
     };
-    NIX_PATH =
-      "${config.xdg.stateHome}/nix/defexpr/channels\${NIX_PATH:+:$NIX_PATH}";
     TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
     YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
   };

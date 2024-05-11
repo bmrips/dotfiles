@@ -2,7 +2,7 @@
 
 [Appearance]
 AntiAliasFonts=true
-BoldIntense=false
+BoldIntense=true
 ColorScheme=Gruvbox_dark_medium_intense
 EmojiFont=Noto Color Emoji,11,-1,5,400,0,0,0,0,0,0,0,0,0,0,1
 Font=JetBrainsMono Nerd Font,11,-1,5,500,0,0,0,0,0,0,0,0,0,0,1,Medium

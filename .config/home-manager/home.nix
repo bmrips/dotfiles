@@ -19,7 +19,6 @@ let
 
   packageSets = {
     core = with pkgs; [
-      cdhist
       checkbashisms
       coreutils-full
       diffutils
@@ -141,8 +140,6 @@ let
   mkcd = ''mkdir --parents "$1" && cd "$1"'';
 
   initExtra = ''
-    eval "$(${pkgs.cdhist}/bin/cdhist --init)"
-
     # Path and directory completion, e.g. for `cd .config/**`
     _fzf_compgen_path() {
         ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" . "$1"
@@ -159,6 +156,7 @@ let
 
 in {
   imports = [
+    ./modules/cdhist.nix
     ./modules/fzf-tab-completion.nix
     ./modules/goto.nix
     ./modules/nix.nix
@@ -348,26 +346,6 @@ in {
       function mkcd() {
         ${mkcd}
       }
-
-      # Record working directory changes by hooking into the prompt.
-      __cdhist_oldpwd="$(pwd)"
-
-      function __cdhist_prompt_hook() {
-          local retval pwd_tmp
-          retval="$?"
-          pwd_tmp="$(pwd)"
-
-          if [[ $__cdhist_oldpwd != "$pwd_tmp" ]]; then
-              __cdhist_oldpwd="$pwd_tmp"
-              ${pkgs.cdhist}/bin/cdhist "$__cdhist_oldpwd" >/dev/null
-          fi
-
-          return "''${retval}"
-      }
-
-      if [[ ''${PROMPT_COMMAND:=} != *'__cdhist_prompt_hook'* ]]; then
-          PROMPT_COMMAND="__cdhist_prompt_hook;''${PROMPT_COMMAND#;}"
-      fi
     '';
   };
 
@@ -379,6 +357,8 @@ in {
       theme = "base16";
     };
   };
+
+  programs.cdhist.enable = true;
 
   programs.dircolors = {
     enable = true;
@@ -1342,14 +1322,6 @@ in {
       # autosuggestion keybindings
       bindkey '^E' forward-word
       bindkey '^G' autosuggest-execute
-
-      # Record working directory changes by hooking into chpwd.
-      function __cdhist_chpwd_hook() {
-          ${pkgs.cdhist}/bin/cdhist "$(pwd)" >/dev/null
-      }
-
-      autoload -Uz add-zsh-hook
-      add-zsh-hook chpwd __cdhist_chpwd_hook
 
       # Go back with <C-o>
       autoload -Uz cd_undo

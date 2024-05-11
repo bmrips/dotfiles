@@ -27,7 +27,6 @@ let
       fd
       file
       findutils
-      gcc # for nvim-treesitter
       gitlint
       gnugrep
       gnumake # for markdown-preview.nvim
@@ -158,6 +157,7 @@ in {
   imports = [
     ./modules/cdhist.nix
     ./modules/fzf-tab-completion.nix
+    ./modules/gcc.nix
     ./modules/goto.nix
     ./modules/nix.nix
     ./modules/taskell.nix
@@ -229,15 +229,6 @@ in {
       preview =
         escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
     };
-    GCC_COLORS = concatStringsSep ":"
-      (attrsets.mapAttrsToList (n: v: "${n}=${v}") {
-        error = "01;31";
-        warning = "01;35";
-        note = "01;36";
-        caret = "01;32";
-        locus = "01;33";
-        quote = "01;34";
-      });
     GREP_COLORS = "ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36";
     LESS = gnuCommandLine {
       LONG-PROMPT = true;
@@ -827,6 +818,18 @@ in {
       # Also accept and retrigger completion when pressing / when completing cd
       zstyle ':completion::*:cd:*' fzf-completion-keybindings "''${keys[@]}" /:accept:'repeat-fzf-completion'
     '';
+  };
+
+  programs.gcc = {
+    enable = true; # for nvim-treesitter
+    colors = {
+      error = "01;31";
+      warning = "01;35";
+      note = "01;36";
+      caret = "01;32";
+      locus = "01;33";
+      quote = "01;34";
+    };
   };
 
   programs.git = {

@@ -1,0 +1,31 @@
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+let cfg = config.programs.gcc;
+
+in {
+
+  options.programs.gcc = {
+    enable = mkEnableOption "{command}`gcc`";
+    package = mkPackageOption pkgs "gcc" { };
+    colors = mkOption {
+      type = with types; attrsOf str;
+      default = { };
+      description = "Settings for {env}`GCC_COLORS`";
+      example = { error = "01;31"; };
+    };
+  };
+
+  config = mkIf cfg.enable (mkMerge [
+
+    { home.packages = [ cfg.package ]; }
+
+    (mkIf (cfg.colors != { }) {
+      home.sessionVariables.GCC_COLORS =
+        concatStringsSep ":" (mapAttrsToList (n: v: "${n}=${v}") cfg.colors);
+    })
+
+  ]);
+
+}

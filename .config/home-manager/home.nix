@@ -55,7 +55,6 @@ let
       python3Packages.mdformat-gfm
       python3Packages.mdformat-tables
       selene
-      shellcheck
       shfmt
       stylua
       tokei
@@ -160,6 +159,7 @@ in {
     ./modules/grep.nix
     ./modules/less.nix
     ./modules/nix.nix
+    ./modules/shellcheck.nix
     ./modules/taskell.nix
     ./modules/zsh.nix
   ];
@@ -1004,6 +1004,21 @@ in {
         "column:fg:green"
         "column:style:intense"
         "match:style:intense"
+      ];
+    };
+  };
+
+  programs.shellcheck = {
+    enable = true;
+    settings = {
+      shell = "bash";
+      enable = [ # enable optional checks
+        "add-default-case"
+        "avoid-nullary-conditions"
+        "check-deprecate-which"
+        "check-set-e-suppressed"
+        "deprecate-which"
+        "require-double-brackets"
       ];
     };
   };

@@ -161,6 +161,7 @@ in {
     ./modules/nix.nix
     ./modules/shellcheck.nix
     ./modules/taskell.nix
+    ./modules/yamllint.nix
     ./modules/zsh.nix
   ];
 
@@ -230,7 +231,6 @@ in {
         escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
     };
     TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
-    YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
   };
 
   home.shellAliases = let
@@ -1171,6 +1171,19 @@ in {
   };
 
   programs.thefuck.enable = true;
+
+  programs.yamllint = {
+    enable = true;
+    settings = {
+      extends = "default";
+      rules = {
+        document-end = "disable";
+        document-start = "disable";
+        empty-values = "enable";
+        float-values.require-numeral-before-decimal = true;
+      };
+    };
+  };
 
   programs.zsh = {
     enable = true;

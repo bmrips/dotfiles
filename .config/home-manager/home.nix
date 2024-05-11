@@ -28,7 +28,6 @@ let
       file
       findutils
       gitlint
-      gnugrep
       gnumake # for markdown-preview.nvim
       gnused
       ltex-ls
@@ -158,6 +157,7 @@ in {
     ./modules/fzf-tab-completion.nix
     ./modules/gcc.nix
     ./modules/goto.nix
+    ./modules/grep.nix
     ./modules/less.nix
     ./modules/nix.nix
     ./modules/taskell.nix
@@ -229,7 +229,6 @@ in {
       preview =
         escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
     };
-    GREP_COLORS = "ms=01;31:mc=01;31:sl=:cx=:fn=35:ln=32:bn=32:se=36";
     TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
     YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
   };
@@ -957,6 +956,20 @@ in {
   };
 
   programs.goto.enable = true;
+
+  programs.grep = {
+    enable = true;
+    colors = {
+      ms = "01;31";
+      mc = "01;31";
+      sl = "";
+      cx = "";
+      fn = "35";
+      ln = "32";
+      bn = "32";
+      se = "36";
+    };
+  };
 
   programs.less = {
     enable = true;

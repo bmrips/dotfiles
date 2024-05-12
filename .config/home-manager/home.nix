@@ -44,7 +44,6 @@ let
       })
       nil
       nix-bash-completions
-      nix-zsh-completions
       nixfmt-classic
       nodejs # for markdown-preview.nvim
       nodePackages.bash-language-server
@@ -79,7 +78,6 @@ let
       rmlint
       sad
       sd
-      thefuck
       translate-shell
       treefmt
       yaml-language-server

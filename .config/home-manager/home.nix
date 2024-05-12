@@ -332,6 +332,8 @@ in {
 
   programs.cdhist.enable = true;
 
+  programs.command-not-found.enable = true;
+
   programs.dircolors = {
     enable = true;
     settings = {

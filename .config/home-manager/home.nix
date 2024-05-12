@@ -1281,7 +1281,7 @@ in {
             zle redisplay
             return 0
         fi
-        zle push-line # Clear buffer. Auto-restored on next prompt.
+        zle push-line
         BUFFER="cd -- ''${(q)dir}"
         zle accept-line
         local ret=$?
@@ -1295,7 +1295,7 @@ in {
             zle redisplay
             return 0
         fi
-        zle push-line # Clear buffer. Auto-restored on next prompt.
+        zle push-line
         BUFFER="cd -- ''${(q)dir}"
         zle accept-line
         local ret=$?
@@ -1358,7 +1358,7 @@ in {
       bindkey '^J' down-line-or-beginning-search
       bindkey '^K' up-line-or-beginning-search
 
-      # autosuggestion keybindings
+      # Autosuggestion keybindings
       bindkey '^E' forward-word
       bindkey '^G' autosuggest-execute
 
@@ -1372,7 +1372,7 @@ in {
       zle -N cd_parent
       bindkey '^P' cd_parent
 
-      # fix the home, end and delete keys
+      # Fix the home, end and delete keys
       bindkey '^[[H' beginning-of-line
       bindkey '^[[F' end-of-line
       bindkey '^[[3~' delete-char
@@ -1385,21 +1385,21 @@ in {
 
       bindkey -M vicmd '^R' redo  # restore redo
 
-      # preview when completing env vars (note: only works for exported variables)
-      # eval twice, first to unescape the string, second to expand the $variable
+      # Preview when completing env vars (note: only works for exported variables).
+      # Eval twice, first to unescape the string, second to expand the $variable.
       zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
 
-      #[ Go to `goto` bookmark ]#
+      # Go to `goto` bookmark
       autoload -Uz fzf-goto-widget
       zle -N fzf-goto-widget
       bindkey '^B' fzf-goto-widget
 
-      #[ Go to directory in cd history ]#
+      # Go to directory in cd history
       autoload -Uz fzf-cdhist-widget
       zle -N fzf-cdhist-widget
       bindkey '^Y' fzf-cdhist-widget
 
-      #[ Interactive grep ]#
+      # Interactive grep
       autoload -Uz fzf-grep-widget
       zle -N fzf-grep-widget
       bindkey '^F' fzf-grep-widget

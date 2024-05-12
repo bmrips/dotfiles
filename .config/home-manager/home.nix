@@ -941,7 +941,7 @@ in {
     in [ "* text=auto" ]
     ++ mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
 
-    ignores = [ "Session*.vim" "taskell.md" ] ++ optionals isDarwin [
+    ignores = [ ".direnv/" "Session*.vim" "taskell.md" ] ++ optionals isDarwin [
       ".DS_Store" # MacOS directory preferences
     ] ++ optionals isLinux [
       ".directory" # KDE directory preferences

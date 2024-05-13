@@ -2,6 +2,7 @@
   ./modules/cdhist.nix
   ./modules/fzf-tab-completion.nix
   ./modules/gcc.nix
+  ./modules/git/default.nix
   ./modules/goto.nix
   ./modules/grep.nix
   ./modules/less.nix

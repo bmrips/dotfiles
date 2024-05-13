@@ -149,19 +149,7 @@ let
   '';
 
 in {
-  imports = [
-    ./modules/cdhist.nix
-    ./modules/fzf-tab-completion.nix
-    ./modules/gcc.nix
-    ./modules/goto.nix
-    ./modules/grep.nix
-    ./modules/less.nix
-    ./modules/nix.nix
-    ./modules/shellcheck.nix
-    ./modules/taskell.nix
-    ./modules/yamllint.nix
-    ./modules/zsh.nix
-  ];
+  imports = import ./modules.nix;
 
   programs.home-manager.enable = true;
 

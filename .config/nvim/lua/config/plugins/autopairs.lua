@@ -36,13 +36,16 @@ return {
         end)
         :with_move(function(info)
           return info.char == ';'
+        end),
+      Rule('with ', ';', 'nix')
+        :with_pair(function(info)
+          local prev_char = info.line:sub(info.col - 5, info.col - 5)
+          return ts_cond.is_not_ts_node_comment()
+            and prev_char:match('[%w_-]') == nil
         end)
-      -- Rule('%s*;', '', 'nix')
-      --   :with_move(function(info) return info.char == ';' end)
-      --   :with_pair(cond.none())
-      --   :with_del(cond.none())
-      --   :with_cr(cond.none())
-      --   :use_key(';'),
+        :with_move(function(info)
+          return info.char == ';'
+        end),
     }
 
     -- When typing a space, insert a pair of spaces in specified pairs

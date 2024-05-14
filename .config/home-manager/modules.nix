@@ -12,6 +12,7 @@
   ./modules/kubectl.nix
   ./modules/nix.nix
   ./modules/shellcheck.nix
+  ./modules/starship.nix
   ./modules/taskell.nix
   ./modules/yamllint.nix
   ./modules/zsh/default.nix

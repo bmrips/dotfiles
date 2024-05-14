@@ -90,6 +90,7 @@ let
       treefmt
       yaml-language-server
     ];
+    gui = with pkgs; [ keepassxc spotify ];
     tex = with pkgs; [ texlab texliveFull ];
   };
 
@@ -1370,7 +1371,7 @@ in {
     '';
   };
 
-  home.packages = with packageSets; core ++ extra ++ tex;
+  home.packages = with packageSets; core ++ extra ++ gui ++ tex;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.

@@ -138,6 +138,8 @@ let
   '';
 
 in {
+  nixpkgs.overlays = import ./overlays/default.nix;
+
   imports = import ./modules.nix;
 
   programs.home-manager.enable = true;

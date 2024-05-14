@@ -1,15 +1,21 @@
 [
+  ./profiles/adesso.nix
+  ./profiles/gui.nix
+  ./profiles/kde-plasma.nix
+  ./profiles/linux.nix
+  ./profiles/macos.nix
+  ./profiles/uni-muenster.nix
   ./programs/cdhist.nix
   ./programs/dircolors.nix
   ./programs/firefox.nix
-  ./programs/fzf.nix
   ./programs/fzf-tab-completion.nix
+  ./programs/fzf.nix
   ./programs/gcc.nix
   ./programs/git/default.nix
   ./programs/goto.nix
   ./programs/grep.nix
-  ./programs/less.nix
   ./programs/kubectl.nix
+  ./programs/less.nix
   ./programs/nix.nix
   ./programs/shellcheck.nix
   ./programs/starship.nix

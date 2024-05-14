@@ -1,0 +1,35 @@
+{ config, lib, pkgs, ... }:
+
+with lib;
+
+{
+  options.profiles.linux.enable = mkEnableOption "the Linux profile";
+
+  config = mkIf config.profiles.linux.enable {
+
+    home.homeDirectory = "/home/${config.home.username}";
+
+    home.shellAliases = {
+      open = "xdg-open";
+      trash = "mv -t ${config.xdg.dataHome}/Trash/files";
+      xc = "wl-copy";
+      xp = "wl-paste";
+    };
+
+    programs.git.ignores = [ ".directory" ]; # KDE directory preferences
+
+    services.gpg-agent = {
+      enable = true;
+      pinentryPackage = pkgs.pinentry-qt;
+      defaultCacheTtl = 3600; # at least one hour
+      maxCacheTtl = 43200; # 12 hours at most
+    };
+
+    services.nextcloud-client.enable = true;
+    services.owncloud-client.enable = true;
+    services.ssh-agent.enable = true;
+
+    xdg.userDirs.enable = true;
+
+  };
+}

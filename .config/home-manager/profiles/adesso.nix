@@ -1,0 +1,40 @@
+{ config, lib, ... }:
+
+with lib;
+
+{
+  options.profiles.adesso.enable = mkEnableOption "the adesso profile";
+
+  config = mkIf config.profiles.adesso.enable {
+
+    home.username = mkForce "benedikt.rips";
+
+    home.shellAliases.sudo =
+      ''sudo bash -c ">/etc/sudo.conf"; unalias sudo; sudo'';
+
+    programs.git.userEmail = mkForce "${config.home.username}@adesso.de";
+
+    programs.kubectl.enable = true;
+
+    programs.ssh.matchBlocks = {
+      "adesso/azure" = {
+        host = "ssh.dev.azure.com";
+        user = "git";
+        identityFile = "~/.ssh/adesso/azure";
+      };
+      "adesso/github" = {
+        host = "adesso.github.com";
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/adesso/github";
+      };
+      "adesso/bos/gitlab" = {
+        host = "10.236.32.3";
+        port = 8090;
+        user = "git";
+        identityFile = "~/.ssh/adesso/bos/gitlab";
+      };
+    };
+
+  };
+}

@@ -78,20 +78,12 @@ let
       treefmt
       yaml-language-server
     ];
-    gui = with pkgs; [ keepassxc spotify ];
-    macos = with pkgs; [ iterm2 rectangle unnaturalscrollwheels ];
-    tex = with pkgs; [ texlab texliveFull ];
   };
 
   locales = {
     english = "en_GB.UTF-8";
     german = "de_DE.UTF-8";
   };
-
-  # Read Nix's initialisation script here to survive macOS system updates.
-  readNixInitScript = ''
-    source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
-  '';
 
   mkcd = ''mkdir --parents "$1" && cd "$1"'';
 
@@ -102,11 +94,7 @@ in {
 
   programs.home-manager.enable = true;
 
-  home.username = if isDarwin then "benedikt.rips" else "bmr";
-  home.homeDirectory = if isDarwin then
-    "/Users/${config.home.username}"
-  else
-    "/home/${config.home.username}";
+  home.username = "bmr";
 
   nix = {
     package = pkgs.nix;
@@ -123,7 +111,6 @@ in {
   };
 
   xdg.enable = true;
-  xdg.userDirs.enable = isLinux;
 
   i18n.glibcLocales = pkgs.glibcLocales.override {
     allLocales = false;
@@ -206,20 +193,12 @@ in {
     v = "nvim";
     vi = "nvim";
     vim = "nvim";
-    xc = if isDarwin then "pbcopy" else "wl-copy";
-    xp = if isDarwin then "pbpaste" else "wl-paste";
-  } // optionalAttrs isLinux {
-    open = "xdg-open";
-    trash = "mv -t ${config.xdg.dataHome}/Trash/files";
-  } // optionalAttrs isDarwin {
-    sudo = ''sudo bash -c ">/etc/sudo.conf"; unalias sudo; sudo'';
   };
 
   fonts.fontconfig.enable = true;
 
   programs.bash = {
     enable = true;
-    profileExtra = mkIf isDarwin readNixInitScript;
     historyControl = [ "ignoredups" ];
     historyFile = "${config.xdg.stateHome}/bash/history";
     initExtra = ''
@@ -250,27 +229,9 @@ in {
     config.global.hide_env_diff = true;
   };
 
-  programs.firefox = {
-    enable = true;
-    nativeMessagingHosts =
-      optional isLinux pkgs.kdePackages.plasma-browser-integration;
-    package = mkIf isDarwin null;
-    profiles.default = mkIf isLinux {
-      settings = {
-        # Separate titlebar.
-        "browser.tabs.inTitlebar" = 0;
-
-        # Disable the media entry from Firefox to use the one from the Plasma
-        # browser integration plugin.
-        "media.hardwaremediakeys.enabled" = false;
-      };
-      extensions = [ pkgs.nur.repos.rycee.firefox-addons.plasma-integration ];
-    };
-  };
-
   programs.fzf.enable = true;
 
-  programs.fzf-tab-completion.enable = !isDarwin;
+  programs.fzf-tab-completion.enable = true;
 
   programs.gcc = {
     enable = true; # for nvim-treesitter
@@ -284,21 +245,9 @@ in {
     };
   };
 
-  programs.git = {
-    enable = true;
-    userEmail = mkIf isDarwin (mkForce "benedikt.rips@adesso.de");
-    extraConfig.credential.helper = mkIf isDarwin "osxkeychain";
-    ignores = mkIf isDarwin [ ".DS_Store" ]; # macOS directory preferences
-  };
+  programs.git.enable = true;
 
   programs.gpg.enable = true;
-
-  services.gpg-agent = {
-    enable = isLinux;
-    pinentryPackage = with pkgs; if isDarwin then pinentry_mac else pinentry-qt;
-    defaultCacheTtl = 3600; # at least one hour
-    maxCacheTtl = 43200; # 12 hours at most
-  };
 
   programs.goto.enable = true;
 
@@ -315,8 +264,6 @@ in {
       se = "36";
     };
   };
-
-  programs.kubectl.enable = isDarwin;
 
   programs.less = {
     enable = true;
@@ -336,9 +283,6 @@ in {
     defaultEditor = true;
     withRuby = false;
   };
-
-  services.nextcloud-client.enable = isLinux;
-  services.owncloud-client.enable = isLinux;
 
   programs.ripgrep = {
     enable = true;
@@ -374,46 +318,19 @@ in {
     enable = true;
     package = pkgs.openssh;
     addKeysToAgent = "yes";
-    matchBlocks = let sshHomedir = "${config.home.homeDirectory}/.ssh";
-    in {
+    matchBlocks = {
       "private/aur" = {
         host = "aur.archlinux.org";
         user = "aur";
-        identityFile = "${sshHomedir}/private/aur";
+        identityFile = "~/.ssh/private/aur";
       };
       "private/github" = {
         host = "github.com";
         user = "git";
-        identityFile = "${sshHomedir}/private/github";
-      };
-    } // optionalAttrs isLinux {
-      "uni-muenster" = {
-        host = "*.uni-muenster.de";
-        user = "git";
-        identityFile = "${sshHomedir}/uni-muenster";
-      };
-    } // optionalAttrs isDarwin {
-      "adesso/azure" = {
-        host = "ssh.dev.azure.com";
-        user = "git";
-        identityFile = "~/.ssh/adesso/azure";
-      };
-      "adesso/github" = {
-        host = "adesso.github.com";
-        hostname = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/adesso/github";
-      };
-      "adesso/bos/gitlab" = {
-        host = "10.236.32.3";
-        port = 8090;
-        user = "git";
-        identityFile = "~/.ssh/adesso/bos/gitlab";
+        identityFile = "~/.ssh/private/github";
       };
     };
   };
-
-  services.ssh-agent.enable = isLinux;
 
   programs.starship.enable = true;
 
@@ -477,20 +394,20 @@ in {
 
   programs.zsh = {
     enable = true;
-    profileExtra = mkIf isDarwin readNixInitScript;
     siteFunctions.mkcd = mkcd;
     initExtra = ''
       autoload -Uz mkcd
     '';
   };
 
-  home.packages = with packageSets;
-    core ++ extra ++ gui ++ optionals isLinux tex ++ optionals isDarwin macos;
+  home.packages = with packageSets; core ++ extra;
 
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  # See also `xdg.configFile` and `xdg.dataFile`.
-  home.file = { };
+  profiles.adesso.enable = isDarwin;
+  profiles.gui.enable = true;
+  profiles.kde-plasma.enable = isLinux;
+  profiles.linux.enable = isLinux;
+  profiles.macos.enable = isDarwin;
+  profiles.uni-muenster.enable = isLinux;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

@@ -3,10 +3,8 @@
 with lib;
 
 let
+  inherit (pkgs.lib) gnuCommandArgs gnuCommandLine;
   inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
-
-  gnuCommandArgs = cli.toGNUCommandLine { };
-  gnuCommandLine = attrs: concatStringsSep " " (gnuCommandArgs attrs);
 
   nixpkgs_23_05 = import (fetchTarball {
     name = "nixpks-23.05-darwin-20231231";

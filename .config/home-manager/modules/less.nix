@@ -4,8 +4,7 @@ with lib;
 
 let
   cfg = config.programs.less;
-  gnuCommandArgs = cli.toGNUCommandLine { };
-  gnuCommandLine = attrs: concatStringsSep " " (gnuCommandArgs attrs);
+  inherit (pkgs.lib) gnuCommandLine;
 
 in {
 

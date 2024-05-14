@@ -14,4 +14,5 @@
   ./modules/taskell.nix
   ./modules/yamllint.nix
   ./modules/zsh/default.nix
+  ./modules/zsh/vimMode.nix
 ]

@@ -6,6 +6,7 @@
   ./modules/goto.nix
   ./modules/grep.nix
   ./modules/less.nix
+  ./modules/kubectl.nix
   ./modules/nix.nix
   ./modules/shellcheck.nix
   ./modules/taskell.nix

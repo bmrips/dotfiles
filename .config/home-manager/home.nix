@@ -252,7 +252,6 @@ in {
     c = "cd";
     gl = "glab";
     hm = "home-manager";
-    k = "kubectl";
     l = "ll";
     "l." = "ld .*";
     la = "ll -A";

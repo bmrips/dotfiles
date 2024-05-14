@@ -1,5 +1,6 @@
 [
   ./modules/cdhist.nix
+  ./modules/fzf.nix
   ./modules/fzf-tab-completion.nix
   ./modules/gcc.nix
   ./modules/git/default.nix

@@ -88,52 +88,12 @@ let
     german = "de_DE.UTF-8";
   };
 
-  dirPreview = let
-    lsArgs = gnuCommandLine {
-      color = true;
-      group-directories-first = true;
-      human-readable = true;
-      l = true;
-      literal = true;
-      time-style = "+t";
-    };
-  in dir:
-  escapeShellArg
-  "ls ${lsArgs} ${dir} | cut --delimiter=' ' --fields=1,5- | sed 's/ t / /' | tail -n+2";
-
-  filePreviewArgs = {
-    plain = true;
-    color = "always";
-    paging = "never";
-  };
-
-  fzf-state-keybindings = reloadCmd:
-    escapeShellArg (concatStringsSep "," [
-      "alt-h:execute(fzf-state toggle hide-hidden-files)+reload(${reloadCmd})"
-      "alt-i:execute(fzf-state toggle show-ignored-files)+reload(${reloadCmd})"
-    ]);
-
   # Read Nix's initialisation script here to survive macOS system updates.
   readNixInitScript = ''
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';
 
   mkcd = ''mkdir --parents "$1" && cd "$1"'';
-
-  initExtra = ''
-    # Path and directory completion, e.g. for `cd .config/**`
-    _fzf_compgen_path() {
-        ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" . "$1"
-    }
-    _fzf_compgen_dir() {
-        ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" --type=directory . "$1"
-    }
-
-    # use ASCII arrow head in non-pseudo TTYs
-    if [[ $TTY == /dev/${if isDarwin then "console" else "tty*"} ]]; then
-        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --marker='>' --pointer='>' --prompt='> '"
-    fi
-  '';
 
 in {
   nixpkgs.overlays = import ./overlays/default.nix;
@@ -184,29 +144,8 @@ in {
 
   home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
-  home.sessionVariables = let subshell = cmd: ''\"\$(${cmd})\"'';
-  in rec {
-    FZF_COMPLETION_OPTS = gnuCommandLine { height = "80%"; };
-    FZF_GOTO_OPTS = gnuCommandLine {
-      preview = dirPreview (subshell "echo {} | sed 's/^[a-zA-Z]* *//'");
-    };
-    FZF_CDHIST_OPTS = gnuCommandLine {
-      preview = dirPreview (subshell
-        "echo {} | ${pkgs.gnused}/bin/sed 's#^~#${config.home.homeDirectory}#'");
-    };
-    FZF_GREP_COMMAND = "fzf-state get-source grep";
-    FZF_GREP_OPTS = let
-      batArgs = gnuCommandLine (filePreviewArgs // {
-        line-range = subshell "fzf-state context {2}: --highlight-line={2} {1}";
-      });
-    in gnuCommandLine {
-      bind = fzf-state-keybindings "${FZF_GREP_COMMAND} {q}";
-      multi = true;
-      preview =
-        escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
-    };
-    TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
-  };
+  home.sessionVariables.TEXEDIT =
+    "${config.home.sessionVariables.EDITOR} +%d %s";
 
   home.shellAliases = let
     settings = mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") {
@@ -284,8 +223,6 @@ in {
     historyControl = [ "ignoredups" ];
     historyFile = "${config.xdg.stateHome}/bash/history";
     initExtra = ''
-      ${initExtra}
-
       function mkcd() {
         ${mkcd}
       }
@@ -707,72 +644,9 @@ in {
     };
   };
 
-  programs.fzf = let cfg = config.programs.fzf;
-  in {
-    enable = true;
+  programs.fzf.enable = true;
 
-    changeDirWidgetCommand = "fzf-state get-source directories";
-
-    changeDirWidgetOptions = gnuCommandArgs {
-      bind = fzf-state-keybindings cfg.changeDirWidgetCommand;
-      preview = dirPreview "{}";
-    };
-
-    defaultCommand = let
-      args = gnuCommandLine {
-        follow = true;
-        hidden = true;
-        type = "file";
-      };
-    in "fd ${args}";
-
-    defaultOptions = let
-      arrowHead = "❯";
-      keybindings = escapeShellArg (concatStringsSep "," [
-        "ctrl-f:half-page-down"
-        "ctrl-b:half-page-up"
-        "alt-a:toggle-all"
-        "f3:toggle-preview-wrap"
-        "f4:toggle-preview"
-        "f5:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)"
-      ]);
-    in gnuCommandArgs {
-      bind = keybindings;
-      border = "horizontal";
-      color = "16,info:8,border:8";
-      height = "60%";
-      layout = "reverse";
-      marker = arrowHead;
-      pointer = arrowHead;
-      prompt = escapeShellArg "${arrowHead} ";
-      preview-window = "right,border,hidden";
-    };
-
-    fileWidgetCommand = "fzf-state get-source files";
-
-    fileWidgetOptions = gnuCommandArgs {
-      bind = fzf-state-keybindings cfg.fileWidgetCommand;
-      preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
-    };
-  };
-
-  programs.fzf-tab-completion = {
-    enable = !isDarwin;
-    prompt = "❯ ";
-    zshExtraConfig = ''
-      zstyle ':completion:*' fzf-search-display true  # search completion descriptions
-      zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
-
-      keys=(
-          ctrl-y:accept:'repeat-fzf-completion'  # accept the completion and retrigger it
-          alt-enter:accept:'zle accept-line'  # accept the completion and run it
-      )
-      zstyle ':completion:*' fzf-completion-keybindings "''${keys[@]}"
-
-      # Also accept and retrigger completion when pressing / when completing cd
-      zstyle ':completion::*:cd:*' fzf-completion-keybindings "''${keys[@]}" /:accept:'repeat-fzf-completion'
-    '';
-  };
+  programs.fzf-tab-completion.enable = !isDarwin;
 
   programs.gcc = {
     enable = true; # for nvim-treesitter
@@ -1141,49 +1015,6 @@ in {
         zle reset-prompt
         return $ret
       '';
-      fzf-cdhist-widget = ''
-        local dir="$(${pkgs.gnused}/bin/sed "s#$HOME#~#" ${config.xdg.stateHome}/cd_history | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_CDHIST_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s#~#$HOME#")"
-        if [[ -z "$dir" ]]; then
-            zle redisplay
-            return 0
-        fi
-        zle push-line
-        BUFFER="cd -- ''${(q)dir}"
-        zle accept-line
-        local ret=$?
-        zle reset-prompt
-        return $ret
-      '';
-      fzf-goto-widget = ''
-        _goto_resolve_db
-        local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
-        if [[ -z "$dir" ]]; then
-            zle redisplay
-            return 0
-        fi
-        zle push-line
-        BUFFER="cd -- ''${(q)dir}"
-        zle accept-line
-        local ret=$?
-        zle reset-prompt
-        return $ret
-      '';
-      fzf-grep-widget = let
-        grep = stringAsChars (c: if c == "\n" then "; " else c) ''
-          local item
-          eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${config.programs.fzf.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
-              echo -n "''${(q)item} "
-          done
-          local ret=$?
-          echo
-          return $ret
-        '';
-      in ''
-        LBUFFER="''${LBUFFER}$(${grep})"
-        local ret=$?
-        zle reset-prompt
-        return $ret
-      '';
       mkcd = mkcd;
       rationalise-dot = ''
         if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
@@ -1198,8 +1029,6 @@ in {
       [[ $- != *i* ]] && return
     '';
     initExtra = ''
-      ${initExtra}
-
       autoload -Uz mkcd
 
       autoload -Uz edit-command-line
@@ -1242,32 +1071,6 @@ in {
       bindkey '^[[F' end-of-line
       bindkey '^[[3~' delete-char
       bindkey '^[3;5~' delete-char
-
-      # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
-      bindkey '^ ' fzf-file-widget
-      bindkey '^_' fzf-history-widget
-      bindkey '^T' fzf-cd-widget
-
-      bindkey -M vicmd '^R' redo  # restore redo
-
-      # Preview when completing env vars (note: only works for exported variables).
-      # Eval twice, first to unescape the string, second to expand the $variable.
-      zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
-
-      # Go to `goto` bookmark
-      autoload -Uz fzf-goto-widget
-      zle -N fzf-goto-widget
-      bindkey '^B' fzf-goto-widget
-
-      # Go to directory in cd history
-      autoload -Uz fzf-cdhist-widget
-      zle -N fzf-cdhist-widget
-      bindkey '^Y' fzf-cdhist-widget
-
-      # Interactive grep
-      autoload -Uz fzf-grep-widget
-      zle -N fzf-grep-widget
-      bindkey '^F' fzf-grep-widget
 
       bindkey -M viins 'jk' vi-cmd-mode
       bindkey -M vicmd ' ' execute-named-cmd

@@ -1,5 +1,6 @@
 [
   ./modules/cdhist.nix
+  ./modules/dircolors.nix
   ./modules/firefox.nix
   ./modules/fzf.nix
   ./modules/fzf-tab-completion.nix

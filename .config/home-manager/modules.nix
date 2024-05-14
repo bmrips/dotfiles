@@ -13,5 +13,5 @@
   ./modules/shellcheck.nix
   ./modules/taskell.nix
   ./modules/yamllint.nix
-  ./modules/zsh.nix
+  ./modules/zsh/default.nix
 ]

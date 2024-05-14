@@ -142,7 +142,7 @@ in {
 
   programs.home-manager.enable = true;
 
-  home.username = "bmr";
+  home.username = if isDarwin then "benedikt.rips" else "bmr";
   home.homeDirectory = if isDarwin then
     "/Users/${config.home.username}"
   else
@@ -272,6 +272,8 @@ in {
   } // optionalAttrs isLinux {
     open = "xdg-open";
     trash = "mv -t ${config.xdg.dataHome}/Trash/files";
+  } // optionalAttrs isDarwin {
+    sudo = ''sudo bash -c ">/etc/sudo.conf"; unalias sudo; sudo'';
   };
 
   fonts.fontconfig.enable = true;
@@ -786,6 +788,7 @@ in {
 
   programs.git = {
     enable = true;
+    userEmail = mkIf isDarwin (mkForce "benedikt.rips@adesso.de");
     extraConfig.credential.helper = mkIf isDarwin "osxkeychain";
     ignores = mkIf isDarwin [ ".DS_Store" ]; # macOS directory preferences
   };
@@ -814,6 +817,8 @@ in {
       se = "36";
     };
   };
+
+  programs.kubectl.enable = isDarwin;
 
   programs.less = {
     enable = true;
@@ -883,10 +888,29 @@ in {
         user = "git";
         identityFile = "${sshHomedir}/private/github";
       };
+    } // optionalAttrs isLinux {
       "uni-muenster" = {
         host = "*.uni-muenster.de";
         user = "git";
         identityFile = "${sshHomedir}/uni-muenster";
+      };
+    } // optionalAttrs isDarwin {
+      "adesso/azure" = {
+        host = "ssh.dev.azure.com";
+        user = "git";
+        identityFile = "~/.ssh/adesso/azure";
+      };
+      "adesso/github" = {
+        host = "adesso.github.com";
+        hostname = "github.com";
+        user = "git";
+        identityFile = "~/.ssh/adesso/github";
+      };
+      "adesso/bos/gitlab" = {
+        host = "10.236.32.3";
+        port = 8090;
+        user = "git";
+        identityFile = "~/.ssh/adesso/bos/gitlab";
       };
     };
   };

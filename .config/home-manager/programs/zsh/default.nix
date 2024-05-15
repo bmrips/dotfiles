@@ -179,7 +179,7 @@ in {
 
           # Autosuggestion keybindings
           bindkey '^E' forward-word
-          bindkey '^G' autosuggest-execute
+          bindkey '^F' autosuggest-execute
 
           # Go back with <C-o>
           autoload -Uz cd_undo

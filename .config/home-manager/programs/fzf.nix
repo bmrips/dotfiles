@@ -135,7 +135,7 @@ in mkIf cfg.enable {
     # Interactive grep
     autoload -Uz fzf-grep-widget
     zle -N fzf-grep-widget
-    bindkey '^F' fzf-grep-widget
+    bindkey '^G' fzf-grep-widget
   '';
 
 }

@@ -8,5 +8,8 @@ return {
         auth_key = 'c6924529-199a-403a-8183-7293be0725d7:fx',
       },
     },
+    select = {
+      prompt_prefix = '❯ ',
+    },
   },
 }

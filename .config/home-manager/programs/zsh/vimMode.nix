@@ -12,7 +12,6 @@ with lib;
 
     programs.zsh.initExtra = ''
       bindkey -M viins 'jk' vi-cmd-mode
-      bindkey -M vicmd ' ' execute-named-cmd
 
       # Adapt the __vi_cursor to the mode
       autoload -Uz add-zsh-hook add-zsh-hook-widget

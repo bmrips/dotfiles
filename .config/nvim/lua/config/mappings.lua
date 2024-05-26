@@ -675,6 +675,10 @@ return {
         end,
         desc = 'Toggle inline/virtual diagnostics',
       },
+      { 'e',
+        vim.diagnostic.open_float,
+        desc = 'Show diagnostics under cursor',
+      },
       { '<C-d>',
         function()
           require('fzf-lua').diagnostics_workspace()

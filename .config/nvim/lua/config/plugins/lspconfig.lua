@@ -7,10 +7,6 @@ local servers = {
     },
     filetypes = { 'bash', 'sh' },
   },
-  clangd = {},
-  elixirls = {
-    cmd = { '/usr/lib/elixir-ls/language_server.sh' },
-  },
   hls = {
     settings = {
       haskell = {
@@ -25,7 +21,6 @@ local servers = {
       },
     },
   },
-  jdtls = {},
   ltex = {
     filetypes = {
       -- 'bib',
@@ -83,7 +78,6 @@ local servers = {
       },
     },
   },
-  pkgbuild_language_server = {},
   texlab = {
     settings = {
       texlab = {
@@ -98,21 +92,7 @@ local servers = {
       },
     },
   },
-  taplo = {},
 }
-
--- On a Nix installation, the jdtls binary is named `jdt-language-server`.
-if vim.fn.executable 'jdt-language-server' == 1 then
-  local jdtls_cache = vim.env.XDG_CACHE_HOME .. '/jdtls'
-
-  servers.jdtls.cmd = {
-    'jdt-language-server',
-    '-configuration',
-    jdtls_cache .. '/config',
-    '-data',
-    jdtls_cache .. '/workspace',
-  }
-end
 
 return {
   'neovim/nvim-lspconfig',

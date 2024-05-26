@@ -13,7 +13,6 @@ opt.foldmethod = 'marker'
 opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
 opt.formatoptions:remove 't'
 opt.grepformat = '%f:%l:%c:%m'
-opt.grepprg = 'rg --vimgrep'
 opt.guifont = 'JetBrainsMono NF SemiBold:h10' -- For Neovide
 opt.ignorecase = true
 opt.joinspaces = true
@@ -29,6 +28,7 @@ opt.shiftwidth = 0
 opt.shortmess:append 'c' -- Do not print completion messages
 opt.showbreak = '↳'
 opt.smartcase = true
+opt.smoothscroll = true
 opt.spelllang = { 'en', 'de' }
 opt.spellsuggest:append '10' -- 10 suggestions max
 opt.splitbelow = true
@@ -42,7 +42,7 @@ opt.undofile = true
 opt.wildmode = { 'longest', 'full' } -- Complete till longest common string
 
 vim.g.mapleader = '\\'
-vim.g.maplocalleader = vim.api.nvim_replace_termcodes('<C-\\>', true, true, true)
+vim.g.maplocalleader = vim.keycode '<C-\\>'
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
@@ -78,7 +78,16 @@ require('lazy').setup('config.plugins', {
 
 vim.cmd.colorscheme 'gruvbox-material'
 
-require 'config.signs'()
+vim.diagnostic.config {
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = '', -- '  ⨂ ⮾ ⮿ '
+      [vim.diagnostic.severity.WARN] = ' ', -- '   ⚠'
+      [vim.diagnostic.severity.INFO] = ' ', -- '    󰋼 🛈 '
+      [vim.diagnostic.severity.HINT] = '󰛩 ', -- '󰌶  󰛩 󱠂 󰛨  󰌵   '
+    },
+  },
+}
 
 -- Open the quickfix and location list windows automatically.
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
@@ -181,13 +190,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
 
-    if client.server_capabilities.documentFormatProvider then
-      vim.bo[args.buf].formatexpr = 'v:lua.vim.lsp.formatexpr()'
+    if client.supports_method 'inlayHintProvider' then
+      vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
     end
 
     appliedMappings.lsp[args.buf] = nest.applyKeymaps {
       buffer = args.buf,
-      mappings.lsp(client.server_capabilities),
+      mappings.lsp(client.supports_method),
     }
   end,
 })

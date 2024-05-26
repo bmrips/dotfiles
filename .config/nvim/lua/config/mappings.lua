@@ -611,10 +611,6 @@ return {
         function() require('notify').dismiss() end,
         desc = 'Dismiss notifications',
       },
-      { 'o',
-        '<Cmd>!xdg-open "<cfile>"<CR>',
-        desc = 'Open file under cursor',
-      },
       { 's',
         '<Cmd>ToggleSession<CR>',
         desc = 'Toggle session recording',
@@ -754,16 +750,11 @@ return {
       },
     }},
   },
-  lsp = function(capabilities) -- Adapt the keymaps to the client's capabilities
+  lsp = function(client_supports) -- Adapt the keymaps to the client's capabilities
     return {
-      { 'K',
-        vim.lsp.buf.hover,
-        cond = capabilities.hoverProvider and true or false,
-        desc = 'Hover symbol under cursor',
-      },
       { 'S',
         vim.lsp.buf.rename,
-        cond = capabilities.renameProvider and true or false,
+        cond = client_supports 'renameProvider' and true or false,
         desc = 'Rename symbol under cursor',
       },
       { 'g', {
@@ -771,28 +762,28 @@ return {
           function()
             require('util.lsp.goto').location('definition')
           end,
-          cond = capabilities.definitionProvider and true or false,
+          cond = client_supports 'definitionProvider' and true or false,
           desc = 'Go to/list definition(s)',
         },
         { 'D',
           function()
             require('util.lsp.goto').location('declaration')
           end,
-          cond = capabilities.declarationProvider and true or false,
+          cond = client_supports 'declarationProvider' and true or false,
           desc = 'Go to/list declaration(s)',
         },
         { 'i',
           function()
             require('util.lsp.goto').location('implementation')
           end,
-          cond = capabilities.implementationProvider and true or false,
+          cond = client_supports 'implementationProvider' and true or false,
           desc = 'Go to/list implementation(s)',
         },
         { 't',
           function()
             require('util.lsp.goto').location('type_definition')
           end,
-          cond = capabilities.typeDefinitionProvider and true or false,
+          cond = client_supports 'typeDefinitionProvider' and true or false,
           desc = 'Go to/list type definition(s)',
         },
       }},
@@ -801,63 +792,63 @@ return {
           function()
             require('util.lsp.goto').location('definition', 'split')
           end,
-          cond = capabilities.definitionProvider and true or false,
+          cond = client_supports 'definitionProvider' and true or false,
           desc = 'Open definition(s) in split',
         },
         { 'D',
           function()
             require('util.lsp.goto').location('definition', 'tab split')
           end,
-          cond = capabilities.definitionProvider and true or false,
+          cond = client_supports 'definitionProvider' and true or false,
           desc = 'Open definition(s) in tab split',
         },
         { '<C-d>',
           function()
             require('util.lsp.goto').location('definition', 'vert split')
           end,
-          cond = capabilities.definitionProvider and true or false,
+          cond = client_supports 'definitionProvider' and true or false,
           desc = 'Open definition(s) in vert split',
         },
         { 'i',
           function()
             require('util.lsp.goto').location('implementation', 'split')
           end,
-          cond = capabilities.implementationProvider and true or false,
+          cond = client_supports 'implementationProvider' and true or false,
           desc = 'Open implementation(s) in split',
         },
         { 'I',
           function()
             require('util.lsp.goto').location('implementation', 'tab split')
           end,
-          cond = capabilities.implementationProvider and true or false,
+          cond = client_supports 'implementationProvider' and true or false,
           desc = 'Open implementation(s) in tab split',
         },
         { '<C-i>',
           function()
             require('util.lsp.goto').location('implementation', 'vert split')
           end,
-          cond = capabilities.implementationProvider and true or false,
+          cond = client_supports 'implementationProvider' and true or false,
           desc = 'Open implementation(s) in vert split',
         },
         { 't',
           function()
             require('util.lsp.goto').location('type_definition', 'split')
           end,
-          cond = capabilities.typeDefinitionProvider and true or false,
+          cond = client_supports 'typeDefinitionProvider' and true or false,
           desc = 'Open type definition(s) in split',
         },
         { 'T',
           function()
             require('util.lsp.goto').location('type_definition', 'tab split')
           end,
-          cond = capabilities.typeDefinitionProvider and true or false,
+          cond = client_supports 'typeDefinitionProvider' and true or false,
           desc = 'Open type definition(s) in tab split',
         },
         { '<C-t>',
           function()
             require('util.lsp.goto').location('type_definition', 'vert split')
           end,
-          cond = capabilities.typeDefinitionProvider and true or false,
+          cond = client_supports 'typeDefinitionProvider' and true or false,
           desc = 'Open type definition(s) in vert split',
         },
       }},
@@ -866,49 +857,49 @@ return {
           function()
             require('fzf-lua').lsp_finder()
           end,
-          cond = capabilities.codeActionProvider and true or false,
+          cond = client_supports 'codeActionProvider' and true or false,
           desc = 'Fzf: all locations',
         },
         { 'a',
           vim.lsp.buf.code_action,
-          cond = capabilities.codeActionProvider and true or false,
+          cond = client_supports 'codeActionProvider' and true or false,
           desc = 'Invoke a code action',
         },
         { 'f',
           function()
             vim.lsp.buf.format {async = false}
           end,
-          cond = capabilities.documentFormatProvider and true or false,
+          cond = client_supports 'documentFormatProvider' and true or false,
           desc = 'Format the buffer',
         },
         { 'i',
           vim.lsp.buf.incoming_calls,
-          cond = capabilities.incomingCallsProvider and true or false,
+          cond = client_supports 'incomingCallsProvider' and true or false,
           desc = 'List incoming calls',
         },
         { 'k',
           vim.lsp.buf.signature_help,
-          cond = capabilities.signatureHelpProvider and true or false,
+          cond = client_supports 'signatureHelpProvider' and true or false,
           desc = "Show the symbol's signature",
         },
         { 'o',
           vim.lsp.buf.outgoing_calls,
-          cond = capabilities.outgoingCallsProvider and true or false,
+          cond = client_supports 'outgoingCallsProvider' and true or false,
           desc = 'List outgoing calls',
         },
         { 'r',
           vim.lsp.buf.references,
-          cond = capabilities.referencesProvider and true or false,
+          cond = client_supports 'referencesProvider' and true or false,
           desc = "List the symbol's references",
         },
         { 's',
           vim.lsp.buf.workspace_symbol,
-          cond = capabilities.workspaceSymbolProvider and true or false,
+          cond = client_supports 'workspaceSymbolProvider' and true or false,
           desc = 'List all workspace symbols',
         },
         { 'S',
           vim.lsp.buf.document_symbol,
-          cond = capabilities.documentSymbolProvider and true or false,
+          cond = client_supports 'documentSymbolProvider' and true or false,
           desc = 'List all document symbols',
         },
         { 'w', {
@@ -932,35 +923,35 @@ return {
             function()
               require('fzf-lua').lsp_code_actions()
             end,
-            cond = capabilities.codeActionProvider and true or false,
+            cond = client_supports 'codeActionProvider' and true or false,
             desc = 'Fzf: code actions',
           },
           { 'i>',
             function()
               require('fzf-lua').lsp_incoming_calls()
             end,
-            cond = capabilities.incomingCallsProvider and true or false,
+            cond = client_supports 'incomingCallsProvider' and true or false,
             desc = 'Fzf: incoming calls',
           },
           { 'o>',
             function()
               require('fzf-lua').lsp_outgoing_calls()
             end,
-            cond = capabilities.outgoindCallsProvider and true or false,
+            cond = client_supports 'outgoindCallsProvider' and true or false,
             desc = 'Fzf: outgoing calls',
           },
           { 'r>',
             function()
               require('fzf-lua').lsp_references()
             end,
-            cond = capabilities.referencesProvider and true or false,
+            cond = client_supports 'referencesProvider' and true or false,
             desc = "Fzf: symbol's references",
           },
           { 's>',
             function()
               require('fzf-lua').lsp_workspace_symbols()
             end,
-            cond = capabilities.workspaceSymbolProvider and true or false,
+            cond = client_supports 'workspaceSymbolProvider' and true or false,
             desc = 'Fzf: workspace symbols',
           },
         }},

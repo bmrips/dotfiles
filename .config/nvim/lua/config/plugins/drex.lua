@@ -8,7 +8,7 @@ return {
         ['o'] = function() -- open a file
           local line = vim.api.nvim_get_current_line()
           local element = require('drex.utils').get_element(line)
-          vim.fn.jobstart('xdg-open "' .. element .. '" &', { detach = true })
+          vim.ui.open(element)
         end,
         ['L'] = function()
           require('drex').open_directory()

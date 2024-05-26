@@ -15,7 +15,7 @@ function M.handler(_, result, ctx)
     vim.cmd(split_command)
   end
 
-  if vim.tbl_islist(result) then
+  if vim.islist(result) then
     util.jump_to_location(result[1], 'utf-8', false)
 
     if #result > 1 then

@@ -866,13 +866,13 @@ return {
           vim.lsp.buf.code_action,
           cond = client_supports 'codeActionProvider' and true or false,
           desc = 'Invoke a code action',
+          mode = '',
         },
         { 'f',
-          function()
-            vim.lsp.buf.format {async = false}
-          end,
+          vim.lsp.buf.format,
           cond = client_supports 'documentFormatProvider' and true or false,
           desc = 'Format the buffer',
+          mode = '',
         },
         { 'i',
           vim.lsp.buf.incoming_calls,

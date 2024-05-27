@@ -45,11 +45,13 @@ local servers = {
     },
   },
   lua_ls = {
-    Lua = {
-      ['runtime.version'] = 'LuaJIT', -- the Lua version
-      ['workspace.library'] = {
-        -- make the server aware of Neovim runtime files
-        vim.api.nvim_get_runtime_file('', true),
+    settings = {
+      Lua = {
+        ['runtime.version'] = 'LuaJIT', -- the Lua version
+        ['workspace.library'] = {
+          -- make the server aware of Neovim runtime files
+          vim.api.nvim_get_runtime_file('', true),
+        },
       },
     },
   },

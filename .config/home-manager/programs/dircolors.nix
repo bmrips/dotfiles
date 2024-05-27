@@ -1,6 +1,138 @@
-{ ... }:
+{ lib, ... }:
 
-{
+with lib;
+
+let
+  colorise = extensions: color:
+    listToAttrs
+    (map (ext: nameValuePair ".${ext}" (toString color)) extensions);
+
+  archives = [
+    "7z"
+    "ace"
+    "alz"
+    "arc"
+    "arj"
+    "bz"
+    "bz2"
+    "cab"
+    "cpio"
+    "deb"
+    "dwm"
+    "dz"
+    "ear"
+    "esd"
+    "gz"
+    "jar"
+    "lha"
+    "lrz"
+    "lz"
+    "lz4"
+    "lzh"
+    "lzma"
+    "lzo"
+    "rar"
+    "rpm"
+    "rz"
+    "sar"
+    "swm"
+    "t7z"
+    "tar"
+    "taz"
+    "tbz"
+    "tbz2"
+    "tgz"
+    "tlz"
+    "txz"
+    "tz"
+    "tzo"
+    "tzst"
+    "war"
+    "wim"
+    "xz"
+    "z"
+    "Z"
+    "zip"
+    "zoo"
+    "zst"
+  ];
+
+  audio = [
+    "aac"
+    "au"
+    "flac"
+    "m4a"
+    "mid"
+    "midi"
+    "mka"
+    "mp3"
+    "mpc"
+    "oga"
+    "ogg"
+    "ogv"
+    "ogx"
+    "opus"
+    "ra"
+    "spx"
+    "wav"
+    "xspf"
+  ];
+
+  video = [
+    "asf"
+    "avi"
+    "bmp"
+    "cgm"
+    "dl"
+    "emf"
+    "flc"
+    "fli"
+    "flv"
+    "gif"
+    "gl"
+    "jpeg"
+    "jpg"
+    "m2v"
+    "m4v"
+    "mjpeg"
+    "mjpg"
+    "mkv"
+    "mng"
+    "mov"
+    "mp4"
+    "mp4v"
+    "mpeg"
+    "mpg"
+    "nuv"
+    "ogm"
+    "pbm"
+    "pcx"
+    "pgm"
+    "png"
+    "ppm"
+    "qt"
+    "rm"
+    "rmvb"
+    "svg"
+    "svgz"
+    "tga"
+    "tif"
+    "tiff"
+    "vob"
+    "webm"
+    "wmv"
+    "xbm"
+    "xcf"
+    "xpm"
+    "xwd"
+    "yuv"
+  ];
+
+  documents = [ "md" "markdown" "pdf" ];
+
+  versionControl = [ "gitattributes" "gitignore" "gitmodules" ];
+
+in {
   programs.dircolors.settings = {
     "NORMAL" = "00"; # normal text
     "RESET" = "00"; # reset to "normal" color
@@ -26,133 +158,6 @@
     "STICKY_OTHER_WRITABLE" = "34;07";
     "OTHER_WRITABLE" = "36;07";
     "STICKY" = "35;07";
-
-    # Archives
-    ".7z" = "91";
-    ".ace" = "91";
-    ".alz" = "91";
-    ".arc" = "91";
-    ".arj" = "91";
-    ".bz" = "91";
-    ".bz2" = "91";
-    ".cab" = "91";
-    ".cpio" = "91";
-    ".deb" = "91";
-    ".dwm" = "91";
-    ".dz" = "91";
-    ".ear" = "91";
-    ".esd" = "91";
-    ".gz" = "91";
-    ".jar" = "91";
-    ".lha" = "91";
-    ".lrz" = "91";
-    ".lz" = "91";
-    ".lz4" = "91";
-    ".lzh" = "91";
-    ".lzma" = "91";
-    ".lzo" = "91";
-    ".rar" = "91";
-    ".rpm" = "91";
-    ".rz" = "91";
-    ".sar" = "91";
-    ".swm" = "91";
-    ".t7z" = "91";
-    ".tar" = "91";
-    ".taz" = "91";
-    ".tbz" = "91";
-    ".tbz2" = "91";
-    ".tgz" = "91";
-    ".tlz" = "91";
-    ".txz" = "91";
-    ".tz" = "91";
-    ".tzo" = "91";
-    ".tzst" = "91";
-    ".war" = "91";
-    ".wim" = "91";
-    ".xz" = "91";
-    ".z" = "91";
-    ".Z" = "91";
-    ".zip" = "91";
-    ".zoo" = "91";
-    ".zst" = "91";
-
-    # Images
-    ".asf" = "95";
-    ".avi" = "95";
-    ".bmp" = "95";
-    ".cgm" = "95";
-    ".dl" = "95";
-    ".emf" = "95";
-    ".flc" = "95";
-    ".fli" = "95";
-    ".flv" = "95";
-    ".gif" = "95";
-    ".gl" = "95";
-    ".jpeg" = "95";
-    ".jpg" = "95";
-    ".m2v" = "95";
-    ".m4v" = "95";
-    ".mjpeg" = "95";
-    ".mjpg" = "95";
-    ".mkv" = "95";
-    ".mng" = "95";
-    ".mov" = "95";
-    ".mp4" = "95";
-    ".mp4v" = "95";
-    ".mpeg" = "95";
-    ".mpg" = "95";
-    ".nuv" = "95";
-    ".ogm" = "95";
-    ".pbm" = "95";
-    ".pcx" = "95";
-    ".pgm" = "95";
-    ".png" = "95";
-    ".ppm" = "95";
-    ".qt" = "95";
-    ".rm" = "95";
-    ".rmvb" = "95";
-    ".svg" = "95";
-    ".svgz" = "95";
-    ".tga" = "95";
-    ".tif" = "95";
-    ".tiff" = "95";
-    ".vob" = "95";
-    ".webm" = "95";
-    ".wmv" = "95";
-    ".xbm" = "95";
-    ".xcf" = "95";
-    ".xpm" = "95";
-    ".xwd" = "95";
-    ".yuv" = "95";
-
-    # Audio
-    ".aac" = "95";
-    ".au" = "95";
-    ".flac" = "95";
-    ".m4a" = "95";
-    ".mid" = "95";
-    ".midi" = "95";
-    ".mka" = "95";
-    ".mp3" = "95";
-    ".mpc" = "95";
-    ".oga" = "95";
-    ".ogg" = "95";
-    ".ogv" = "95";
-    ".ogx" = "95";
-    ".opus" = "95";
-    ".ra" = "95";
-    ".spx" = "95";
-    ".wav" = "95";
-    ".xspf" = "95";
-
-    # Documents
-    ".md" = "33";
-    ".markdown" = "33";
-    ".pdf" = "35";
-
-    # Version control
-    ".gitattributes" = "90";
-    ".gitignore" = "90";
-    ".gitmodules" = "90";
-  };
+  } // colorise archives "91" // colorise (audio ++ video) "95"
+    // colorise documents "33" // colorise versionControl "90";
 }

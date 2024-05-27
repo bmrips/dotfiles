@@ -173,12 +173,10 @@ for _, abb in ipairs(abbreviations) do
 end
 
 local lsp_goto = require 'util.lsp.goto'
-vim.tbl_extend('force', vim.lsp.handlers, {
-  ['textDocument/declaration'] = lsp_goto.handler,
-  ['textDocument/definition'] = lsp_goto.handler,
-  ['textDocument/implementation'] = lsp_goto.handler,
-  ['textDocument/typeDefinition'] = lsp_goto.handler,
-})
+vim.lsp.handlers['textDocument/declaration*'] = lsp_goto.handler
+vim.lsp.handlers['textDocument/definition'] = lsp_goto.handler
+vim.lsp.handlers['textDocument/implementation'] = lsp_goto.handler
+vim.lsp.handlers['textDocument/typeDefinition'] = lsp_goto.handler
 
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'Set settings specific to buffers with attached language server',

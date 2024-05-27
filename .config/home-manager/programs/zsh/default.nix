@@ -61,6 +61,7 @@ in {
         useInNixShell = true;
         enableVimMode = true;
         syntaxHighlighting.enable = true;
+        historySubstringSearch.enable = true;
         autosuggestion.enable = true;
         history = rec {
           extended = true;

@@ -1,9 +1,7 @@
 local servers = {
   bashls = {
     settings = {
-      bashIde = {
-        includeAllWorkspaceSymbols = true,
-      },
+      ['bashIde.includeAllWorkspaceSymbols'] = true,
     },
     filetypes = { 'bash', 'sh' },
   },
@@ -11,13 +9,7 @@ local servers = {
     settings = {
       haskell = {
         formattingProvider = 'fourmolu',
-        plugin = {
-          rename = {
-            config = {
-              crossModule = true, -- renaming across modules
-            },
-          },
-        },
+        ['plugin.rename.config.diff'] = true, -- renaming across modules
       },
     },
   },
@@ -47,43 +39,31 @@ local servers = {
     settings = {
       ltex = {
         language = 'en-GB',
-        additionalRules = {
-          enablePickyRules = true,
-        },
+        ['additionalRules.enablePickyRules'] = true,
+        completionEnabled = true,
       },
     },
   },
   lua_ls = {
     Lua = {
-      -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-      runtime = {
-        version = 'LuaJIT',
-      },
-      -- Make the server aware of Neovim runtime files
-      workspace = {
-        library = {
-          vim.api.nvim_get_runtime_file('', true),
-        },
+      ['runtime.version'] = 'LuaJIT', -- the Lua version
+      ['workspace.library'] = {
+        -- make the server aware of Neovim runtime files
+        vim.api.nvim_get_runtime_file('', true),
       },
     },
   },
   marksman = {},
   nil_ls = {
     settings = {
-      ['nil'] = {
-        formatting = {
-          command = { 'nixfmt' },
-        },
-      },
+      ['nil.formatting.command'] = { 'nixfmt' },
     },
   },
   texlab = {
     settings = {
       texlab = {
-        build = {
-          -- Build with LuaLaTeX.
-          args = { '-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f' },
-        },
+        -- Build with LuaLaTeX.
+        ['build.args'] = { '-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f' },
         forwardSearch = {
           executable = 'okular',
           args = { '--unique', 'file:%p#src:%l%f' },

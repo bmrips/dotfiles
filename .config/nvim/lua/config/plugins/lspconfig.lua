@@ -5,6 +5,7 @@ local servers = {
     },
     filetypes = { 'bash', 'sh' },
   },
+  digestif = {},
   hls = {
     settings = {
       haskell = {
@@ -74,6 +75,7 @@ local servers = {
       },
     },
   },
+  vale_ls = {},
   yamlls = {
     settings = {
       ['yaml.schemas'] = {

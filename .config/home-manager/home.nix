@@ -60,6 +60,7 @@ let
     extra = with pkgs; [
       cbfmt
       difftastic
+      lua54Packages.digestif
       eza
       gfold
       git-cliff
@@ -76,6 +77,7 @@ let
       sd
       translate-shell
       treefmt
+      vale-ls
     ];
   };
 

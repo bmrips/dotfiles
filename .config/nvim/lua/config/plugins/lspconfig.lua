@@ -53,7 +53,6 @@ local servers = {
       },
     },
   },
-  marksman = {},
   nil_ls = {
     settings = {
       ['nil.formatting.command'] = { 'nixfmt' },

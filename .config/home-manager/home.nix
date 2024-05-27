@@ -30,7 +30,6 @@ let
       lua-language-server
       man-db
       markdownlint-cli
-      marksman
       ncdu
       (nerdfonts.override {
         fonts = [

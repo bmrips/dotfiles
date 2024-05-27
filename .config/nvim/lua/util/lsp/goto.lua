@@ -21,8 +21,14 @@ function M.handler(_, result, ctx)
 
   util.jump_to_location(result[1], 'utf-8', false)
 
-  if #result > 1 then
-    local items = util.locations_to_items(result, 'utf-8')
+  local items = util.locations_to_items(result, 'utf-8')
+
+  if
+    #items > 2
+    -- do not open a quickfix window if there are only two items that refer to the
+    -- same line
+    or (#items == 2 and items[1].lnum ~= items[2].lnum)
+  then
     vim.fn.setqflist(items)
     vim.cmd.copen()
     vim.cmd.wincmd 'p'

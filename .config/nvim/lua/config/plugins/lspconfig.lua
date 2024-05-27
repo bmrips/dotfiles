@@ -47,6 +47,7 @@ local servers = {
   lua_ls = {
     settings = {
       Lua = {
+        ['diagnostics.globals'] = { 'vim' },
         ['format.enable'] = false,
         ['runtime.version'] = 'LuaJIT', -- the Lua version
         ['workspace.library'] = {

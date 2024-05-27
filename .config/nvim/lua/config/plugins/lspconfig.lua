@@ -47,6 +47,7 @@ local servers = {
   lua_ls = {
     settings = {
       Lua = {
+        ['format.enable'] = false,
         ['runtime.version'] = 'LuaJIT', -- the Lua version
         ['workspace.library'] = {
           -- make the server aware of Neovim runtime files

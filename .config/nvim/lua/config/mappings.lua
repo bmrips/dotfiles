@@ -860,7 +860,6 @@ return {
           function()
             require('fzf-lua').lsp_finder()
           end,
-          cond = client_supports 'codeActionProvider' and true or false,
           desc = 'Fzf: all locations',
         },
         { 'a',

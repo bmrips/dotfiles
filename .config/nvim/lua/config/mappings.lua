@@ -749,11 +749,6 @@ return {
   },
   lsp = function(client_supports) -- Adapt the keymaps to the client's capabilities
     return {
-      { 'S',
-        vim.lsp.buf.rename,
-        cond = client_supports 'renameProvider' and true or false,
-        desc = 'Rename symbol under cursor',
-      },
       { 'g', {
         { 'd',
           function()
@@ -892,9 +887,9 @@ return {
           desc = 'Toggle outline',
         },
         { 'r',
-          vim.lsp.buf.references,
-          cond = client_supports 'referencesProvider' and true or false,
-          desc = "List the symbol's references",
+          vim.lsp.buf.rename,
+          cond = client_supports 'renameProvider' and true or false,
+          desc = 'Rename symbol under cursor',
         },
         { 's',
           vim.lsp.buf.workspace_symbol,
@@ -905,6 +900,11 @@ return {
           vim.lsp.buf.document_symbol,
           cond = client_supports 'documentSymbolProvider' and true or false,
           desc = 'List all document symbols',
+        },
+        { 'u',
+          vim.lsp.buf.references,
+          cond = client_supports 'referencesProvider' and true or false,
+          desc = "List the symbol's usages",
         },
         { '<C-', {
           { 'a>',

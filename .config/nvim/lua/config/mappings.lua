@@ -904,22 +904,6 @@ return {
           cond = client_supports 'documentSymbolProvider' and true or false,
           desc = 'List all document symbols',
         },
-        { 'w', {
-          { 'a',
-            vim.lsp.buf.add_workspace_folder,
-            desc = 'Add workspace folder',
-          },
-          { 'l',
-            function()
-              vim.print(vim.lsp.buf.list_workspace_folders())
-            end,
-            desc = 'List workspace folders',
-          },
-          { 'r',
-            vim.lsp.buf.remove_workspace_folder,
-            desc = 'Remove workspace folder',
-          },
-        }},
         { '<C-', {
           { 'a>',
             function()

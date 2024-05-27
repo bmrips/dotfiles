@@ -1,4 +1,4 @@
 return {
-  'tpope/vim-surround',
-  dependencies = 'tpope/vim-repeat',
+  'kylechui/nvim-surround',
+  config = true,
 }

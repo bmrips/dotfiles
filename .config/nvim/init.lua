@@ -41,8 +41,8 @@ opt.textwidth = 80
 opt.undofile = true
 opt.wildmode = { 'longest', 'full' } -- Complete till longest common string
 
-vim.g.mapleader = '\\'
-vim.g.maplocalleader = vim.keycode '<C-\\>'
+vim.g.mapleader = vim.keycode '<C-\\>'
+vim.g.maplocalleader = '\\'
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then

@@ -10,17 +10,14 @@ return {
 
     local Rule = require 'nvim-autopairs.rule'
     local cond = require 'nvim-autopairs.conds'
-    local ts_cond = require 'nvim-autopairs.ts-conds'
 
     -- stylua: ignore
     autopairs.add_rules {
       Rule('$', '$', { 'markdown', 'tex' })
-        :with_pair(ts_cond.is_not_ts_node { 'comment' })
         :with_move(function(info)
           return info.char == '$' and info.next_char == info.rule.end_pair
         end),
       Rule('\\[', '\\]', 'tex')
-        :with_pair(ts_cond.is_not_ts_node { 'comment' })
         :with_move(function(info)
           local followed_by_end_pair =
             vim.startswith(info.line:sub(info.col), info.rule.end_pair)
@@ -30,8 +27,7 @@ return {
         :with_pair(function(info)
           local prev_char = info.line:sub(info.col - 2, info.col - 2)
           local rest_of_line = info.line:sub(info.col)
-          return ts_cond.is_not_ts_node_comment()
-            and prev_char:match('[%w%s]') ~= nil
+          return prev_char:match('[%w%s]') ~= nil
             and rest_of_line:match('^%s*$') ~= nil
         end)
         :with_move(function(info)
@@ -40,8 +36,7 @@ return {
       Rule('with ', ';', 'nix')
         :with_pair(function(info)
           local prev_char = info.line:sub(info.col - 5, info.col - 5)
-          return ts_cond.is_not_ts_node_comment()
-            and prev_char:match('[%w_-]') == nil
+          return prev_char:match('[%w_-]') == nil
         end)
         :with_move(function(info)
           return info.char == ';'

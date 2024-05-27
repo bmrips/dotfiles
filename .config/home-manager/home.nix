@@ -54,6 +54,7 @@ let
       tokei
       tree
       tree-sitter
+      yaml-language-server
       yamlfmt
     ];
     extra = with pkgs; [
@@ -75,7 +76,6 @@ let
       sd
       translate-shell
       treefmt
-      yaml-language-server
     ];
   };
 

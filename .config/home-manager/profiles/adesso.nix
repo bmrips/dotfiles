@@ -28,13 +28,6 @@ with lib;
         user = "git";
         identityFile = "~/.ssh/adesso/github";
       };
-      "adesso/bos/gitlab" = {
-        host = "10.236.32.3";
-        port = 8090;
-        user = "git";
-        identityFile = "~/.ssh/adesso/bos/gitlab";
-      };
     };
-
   };
 }

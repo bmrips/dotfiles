@@ -22,6 +22,11 @@ with lib;
         user = "git";
         identityFile = "~/.ssh/adesso/azure";
       };
+      "adesso/bitbucket" = {
+        host = "bitbucket.adesso-group.com";
+        user = "git";
+        identityFile = "~/.ssh/adesso/bitbucket";
+      };
       "adesso/github" = {
         host = "adesso.github.com";
         hostname = "github.com";

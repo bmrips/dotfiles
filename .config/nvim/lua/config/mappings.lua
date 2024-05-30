@@ -777,28 +777,28 @@ return {
           function()
             require('util.lsp.goto').location('definition')
           end,
-          cond = client_supports 'definitionProvider' and true or false,
+          cond = client_supports 'definitionProvider',
           desc = 'Go to/list definition(s)',
         },
         { 'D',
           function()
             require('util.lsp.goto').location('declaration')
           end,
-          cond = client_supports 'declarationProvider' and true or false,
+          cond = client_supports 'declarationProvider',
           desc = 'Go to/list declaration(s)',
         },
         { 'i',
           function()
             require('util.lsp.goto').location('implementation')
           end,
-          cond = client_supports 'implementationProvider' and true or false,
+          cond = client_supports 'implementationProvider',
           desc = 'Go to/list implementation(s)',
         },
         { 't',
           function()
             require('util.lsp.goto').location('type_definition')
           end,
-          cond = client_supports 'typeDefinitionProvider' and true or false,
+          cond = client_supports 'typeDefinitionProvider',
           desc = 'Go to/list type definition(s)',
         },
       }},
@@ -807,63 +807,63 @@ return {
           function()
             require('util.lsp.goto').location('definition', 'split')
           end,
-          cond = client_supports 'definitionProvider' and true or false,
+          cond = client_supports 'definitionProvider',
           desc = 'Open definition(s) in split',
         },
         { 'D',
           function()
             require('util.lsp.goto').location('definition', 'tab split')
           end,
-          cond = client_supports 'definitionProvider' and true or false,
+          cond = client_supports 'definitionProvider',
           desc = 'Open definition(s) in tab split',
         },
         { '<C-d>',
           function()
             require('util.lsp.goto').location('definition', 'vert split')
           end,
-          cond = client_supports 'definitionProvider' and true or false,
+          cond = client_supports 'definitionProvider',
           desc = 'Open definition(s) in vert split',
         },
         { 'i',
           function()
             require('util.lsp.goto').location('implementation', 'split')
           end,
-          cond = client_supports 'implementationProvider' and true or false,
+          cond = client_supports 'implementationProvider',
           desc = 'Open implementation(s) in split',
         },
         { 'I',
           function()
             require('util.lsp.goto').location('implementation', 'tab split')
           end,
-          cond = client_supports 'implementationProvider' and true or false,
+          cond = client_supports 'implementationProvider',
           desc = 'Open implementation(s) in tab split',
         },
         { '<C-i>',
           function()
             require('util.lsp.goto').location('implementation', 'vert split')
           end,
-          cond = client_supports 'implementationProvider' and true or false,
+          cond = client_supports 'implementationProvider',
           desc = 'Open implementation(s) in vert split',
         },
         { 't',
           function()
             require('util.lsp.goto').location('type_definition', 'split')
           end,
-          cond = client_supports 'typeDefinitionProvider' and true or false,
+          cond = client_supports 'typeDefinitionProvider',
           desc = 'Open type definition(s) in split',
         },
         { 'T',
           function()
             require('util.lsp.goto').location('type_definition', 'tab split')
           end,
-          cond = client_supports 'typeDefinitionProvider' and true or false,
+          cond = client_supports 'typeDefinitionProvider',
           desc = 'Open type definition(s) in tab split',
         },
         { '<C-t>',
           function()
             require('util.lsp.goto').location('type_definition', 'vert split')
           end,
-          cond = client_supports 'typeDefinitionProvider' and true or false,
+          cond = client_supports 'typeDefinitionProvider',
           desc = 'Open type definition(s) in vert split',
         },
       }},
@@ -876,31 +876,31 @@ return {
         },
         { 'a',
           vim.lsp.buf.code_action,
-          cond = client_supports 'codeActionProvider' and true or false,
+          cond = client_supports 'codeActionProvider',
           desc = 'Invoke a code action',
           mode = '',
         },
         { 'c', {
           { 'i',
             vim.lsp.buf.incoming_calls,
-            cond = client_supports 'incomingCallsProvider' and true or false,
+            cond = client_supports 'incomingCallsProvider',
             desc = 'List incoming calls',
           },
           { 'o',
             vim.lsp.buf.outgoing_calls,
-            cond = client_supports 'outgoingCallsProvider' and true or false,
+            cond = client_supports 'outgoingCallsProvider',
             desc = 'List outgoing calls',
           },
         }},
         { 'f',
           vim.lsp.buf.format,
-          cond = client_supports 'documentFormatProvider' and true or false,
+          cond = client_supports 'documentFormatProvider',
           desc = 'Format the buffer',
           mode = '',
         },
         { 'k',
           vim.lsp.buf.signature_help,
-          cond = client_supports 'signatureHelpProvider' and true or false,
+          cond = client_supports 'signatureHelpProvider',
           desc = "Show the symbol's signature",
         },
         { 'o',
@@ -911,22 +911,22 @@ return {
         },
         { 'r',
           vim.lsp.buf.rename,
-          cond = client_supports 'renameProvider' and true or false,
+          cond = client_supports 'renameProvider',
           desc = 'Rename symbol under cursor',
         },
         { 's',
           vim.lsp.buf.workspace_symbol,
-          cond = client_supports 'workspaceSymbolProvider' and true or false,
+          cond = client_supports 'workspaceSymbolProvider',
           desc = 'List all workspace symbols',
         },
         { 'S',
           vim.lsp.buf.document_symbol,
-          cond = client_supports 'documentSymbolProvider' and true or false,
+          cond = client_supports 'documentSymbolProvider',
           desc = 'List all document symbols',
         },
         { 'u',
           vim.lsp.buf.references,
-          cond = client_supports 'referencesProvider' and true or false,
+          cond = client_supports 'referencesProvider',
           desc = "List the symbol's usages",
         },
         { '<C-', {
@@ -934,35 +934,35 @@ return {
             function()
               require('fzf-lua').lsp_code_actions()
             end,
-            cond = client_supports 'codeActionProvider' and true or false,
+            cond = client_supports 'codeActionProvider',
             desc = 'Fzf: code actions',
           },
           { 'i>',
             function()
               require('fzf-lua').lsp_incoming_calls()
             end,
-            cond = client_supports 'incomingCallsProvider' and true or false,
+            cond = client_supports 'incomingCallsProvider',
             desc = 'Fzf: incoming calls',
           },
           { 'o>',
             function()
               require('fzf-lua').lsp_outgoing_calls()
             end,
-            cond = client_supports 'outgoindCallsProvider' and true or false,
+            cond = client_supports 'outgoindCallsProvider',
             desc = 'Fzf: outgoing calls',
           },
           { 'r>',
             function()
               require('fzf-lua').lsp_references()
             end,
-            cond = client_supports 'referencesProvider' and true or false,
+            cond = client_supports 'referencesProvider',
             desc = "Fzf: symbol's references",
           },
           { 's>',
             function()
               require('fzf-lua').lsp_workspace_symbols()
             end,
-            cond = client_supports 'workspaceSymbolProvider' and true or false,
+            cond = client_supports 'workspaceSymbolProvider',
             desc = 'Fzf: workspace symbols',
           },
         }},

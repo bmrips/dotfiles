@@ -677,7 +677,7 @@ return {
     { '<LocalLeader>', {
       { 'd',
         '<Cmd>TroubleToggle<CR>',
-        desc = 'Toggle diagnostics list',
+        desc = 'Diagnostics',
       },
       { 'D',
         function()
@@ -699,7 +699,7 @@ return {
         function()
           require('fzf-lua').diagnostics_workspace()
         end,
-        desc = 'Fzf: diagnostics',
+        desc = 'Diagnostics (fuzzy)',
       },
     }},
 
@@ -778,28 +778,28 @@ return {
             require('util.lsp.goto').location('definition')
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Go to/list definition(s)',
+          desc = 'Go to definition',
         },
         { 'D',
           function()
             require('util.lsp.goto').location('declaration')
           end,
           cond = client_supports 'declarationProvider',
-          desc = 'Go to/list declaration(s)',
+          desc = 'Go to declaration',
         },
         { 'i',
           function()
             require('util.lsp.goto').location('implementation')
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Go to/list implementation(s)',
+          desc = 'Go to implementation',
         },
         { 't',
           function()
             require('util.lsp.goto').location('type_definition')
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Go to/list type definition(s)',
+          desc = 'Go to type definition',
         },
       }},
       { '<C-w>', {
@@ -808,63 +808,63 @@ return {
             require('util.lsp.goto').location('definition', 'split')
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Open definition(s) in split',
+          desc = 'Open definition in split',
         },
         { 'D',
           function()
             require('util.lsp.goto').location('definition', 'tab split')
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Open definition(s) in tab split',
+          desc = 'Open definition in tab split',
         },
         { '<C-d>',
           function()
             require('util.lsp.goto').location('definition', 'vert split')
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Open definition(s) in vert split',
+          desc = 'Open definition in vert split',
         },
         { 'i',
           function()
             require('util.lsp.goto').location('implementation', 'split')
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Open implementation(s) in split',
+          desc = 'Open implementation in split',
         },
         { 'I',
           function()
             require('util.lsp.goto').location('implementation', 'tab split')
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Open implementation(s) in tab split',
+          desc = 'Open implementation in tab split',
         },
         { '<C-i>',
           function()
             require('util.lsp.goto').location('implementation', 'vert split')
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Open implementation(s) in vert split',
+          desc = 'Open implementation in vert split',
         },
         { 't',
           function()
             require('util.lsp.goto').location('type_definition', 'split')
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Open type definition(s) in split',
+          desc = 'Open type definition in split',
         },
         { 'T',
           function()
             require('util.lsp.goto').location('type_definition', 'tab split')
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Open type definition(s) in tab split',
+          desc = 'Open type definition in tab split',
         },
         { '<C-t>',
           function()
             require('util.lsp.goto').location('type_definition', 'vert split')
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Open type definition(s) in vert split',
+          desc = 'Open type definition in vert split',
         },
       }},
       { '<LocalLeader>', {
@@ -872,7 +872,7 @@ return {
           function()
             require('fzf-lua').lsp_finder()
           end,
-          desc = 'Fzf: all locations',
+          desc = 'All LSP locations',
         },
         { 'a',
           vim.lsp.buf.code_action,
@@ -935,35 +935,35 @@ return {
               require('fzf-lua').lsp_code_actions()
             end,
             cond = client_supports 'codeActionProvider',
-            desc = 'Fzf: code actions',
+            desc = 'Code actions (fuzzy)',
           },
           { 'i>',
             function()
               require('fzf-lua').lsp_incoming_calls()
             end,
             cond = client_supports 'incomingCallsProvider',
-            desc = 'Fzf: incoming calls',
+            desc = 'Incoming calls (fuzzy)',
           },
           { 'o>',
             function()
               require('fzf-lua').lsp_outgoing_calls()
             end,
             cond = client_supports 'outgoindCallsProvider',
-            desc = 'Fzf: outgoing calls',
+            desc = 'Outgoing calls (fuzzy)',
           },
           { 'r>',
             function()
               require('fzf-lua').lsp_references()
             end,
             cond = client_supports 'referencesProvider',
-            desc = "Fzf: symbol's references",
+            desc = "Symbol's references (fuzzy)",
           },
           { 's>',
             function()
               require('fzf-lua').lsp_workspace_symbols()
             end,
             cond = client_supports 'workspaceSymbolProvider',
-            desc = 'Fzf: workspace symbols',
+            desc = 'Workspace symbols (fuzzy)',
           },
         }},
       }},

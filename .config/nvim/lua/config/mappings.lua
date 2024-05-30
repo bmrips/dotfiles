@@ -676,7 +676,7 @@ return {
     }},
     { '<LocalLeader>', {
       { 'd',
-        '<Cmd>TroubleToggle<CR>',
+        '<Cmd>Trouble diagnostics toggle<CR>',
         desc = 'Diagnostics',
       },
       { 'D',

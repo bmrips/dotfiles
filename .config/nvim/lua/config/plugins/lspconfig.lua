@@ -51,10 +51,6 @@ local servers = {
         ['diagnostics.globals'] = { 'vim' },
         ['format.enable'] = false,
         ['runtime.version'] = 'LuaJIT', -- the Lua version
-        ['workspace.library'] = {
-          -- make the server aware of Neovim runtime files
-          vim.api.nvim_get_runtime_file('', true),
-        },
       },
     },
   },
@@ -90,7 +86,6 @@ return {
   'neovim/nvim-lspconfig',
   dependencies = {
     'barreiroleo/ltex-extra.nvim',
-    'folke/neodev.nvim',
     'hrsh7th/cmp-nvim-lsp',
   },
   opts = servers,

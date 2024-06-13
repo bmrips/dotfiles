@@ -99,7 +99,7 @@ in {
 
   nix = {
     package = pkgs.nix;
-    path = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
+    nixPath = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
     settings = {
       auto-optimise-store = true;
       experimental-features = "flakes nix-command";

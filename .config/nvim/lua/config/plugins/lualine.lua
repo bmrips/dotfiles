@@ -31,7 +31,6 @@ return {
       lualine_c = { filename },
     },
     extensions = {
-      'drex',
       'fzf',
       'lazy',
       'man',

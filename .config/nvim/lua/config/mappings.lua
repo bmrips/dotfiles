@@ -641,18 +641,6 @@ return {
         '<Cmd>ToggleSession<CR>',
         desc = 'Toggle session recording',
       },
-      { 't',
-        '<Cmd>Drex<CR>',
-        desc = 'Open explorer',
-      },
-      { 'T',
-        ':Drex ',
-        desc = 'Open explorer in given dir',
-      },
-      { '<C-t>',
-        '<Cmd>DrexDrawerOpen<CR>',
-        desc = 'Open file drawer',
-      },
       { 'p', {
         { 'c',
           function()

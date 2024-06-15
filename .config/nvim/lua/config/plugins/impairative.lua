@@ -28,6 +28,19 @@ return {
           end
         end,
       }
+      h:getter_setter {
+        key = 'e',
+        name = 'inline diagnostics',
+        get = function()
+          return vim.diagnostic.config().virtual_lines or false
+        end,
+        set = function(flag)
+          vim.diagnostic.config {
+            virtual_text = not flag,
+            virtual_lines = flag,
+          }
+        end,
+      }
       h:option {
         key = 'h',
         option = 'hlsearch',

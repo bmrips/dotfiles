@@ -679,18 +679,6 @@ return {
         '<Cmd>Trouble diagnostics toggle<CR>',
         desc = 'Diagnostics',
       },
-      { 'D',
-        function()
-          local config =
-            vim.diagnostic.config() or
-            { virtual_text = true, virtual_lines = false }
-          vim.diagnostic.config {
-            virtual_text = not config.virtual_text,
-            virtual_lines = not config.virtual_lines,
-          }
-        end,
-        desc = 'Toggle inline/virtual diagnostics',
-      },
       { 'e',
         vim.diagnostic.open_float,
         desc = 'Show diagnostics under cursor',

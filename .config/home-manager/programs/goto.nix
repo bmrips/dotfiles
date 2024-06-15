@@ -17,9 +17,7 @@ in {
   options.programs.goto = {
     enable = mkEnableOption "{command}`goto`.";
     package = mkPackageOption pkgs "goto" { };
-    enableFzfWidget = mkEnableOption "the {command}`fzf` widget." // {
-      default = true;
-    };
+    enableFzfWidget = mkEnableOption "the {command}`fzf` widget.";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -27,6 +25,7 @@ in {
     {
       home.packages = [ cfg.package ];
       programs.bash.initExtra = init;
+      programs.goto.enableFzfWidget = true;
       programs.zsh.initExtra = init;
     }
 

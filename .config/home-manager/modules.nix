@@ -5,7 +5,6 @@
   ./profiles/linux.nix
   ./profiles/macos.nix
   ./profiles/uni-muenster.nix
-  ./programs/cdhist.nix
   ./programs/dircolors.nix
   ./programs/firefox.nix
   ./programs/fzf-tab-completion.nix
@@ -21,6 +20,7 @@
   ./programs/starship.nix
   ./programs/taskell.nix
   ./programs/yamllint.nix
+  ./programs/zoxide.nix
   ./programs/zsh/default.nix
   ./programs/zsh/vimMode.nix
 ]

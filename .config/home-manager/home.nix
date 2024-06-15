@@ -218,8 +218,6 @@ in {
     };
   };
 
-  programs.cdhist.enable = true;
-
   programs.command-not-found.enable = true;
 
   programs.dircolors.enable = true;
@@ -392,6 +390,8 @@ in {
       };
     };
   };
+
+  programs.zoxide.enable = true;
 
   programs.zsh = {
     enable = true;

@@ -64,7 +64,6 @@ let
       eza
       gfold
       git-cliff
-      # git-latexdiff # conflicts with texlive
       gitui
       glow
       gum
@@ -390,6 +389,8 @@ in {
       };
     };
   };
+
+  programs.yazi.enable = true;
 
   programs.zoxide.enable = true;
 

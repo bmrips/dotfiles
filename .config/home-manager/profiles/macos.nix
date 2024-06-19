@@ -7,6 +7,11 @@ let
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';
 
+  setBackgroundEnvVar = ''
+    # determine the background from the iTerm profile
+    export BACKGROUND="$(tr '[:upper:]' '[:lower:]' <<<"$ITERM_PROFILE")"
+  '';
+
 in {
   options.profiles.macos.enable = mkEnableOption "the macOS profile";
 
@@ -24,6 +29,9 @@ in {
     # Read Nix's initialisation script here to survive macOS system updates.
     programs.bash.profileExtra = readNixInitScript;
     programs.zsh.profileExtra = readNixInitScript;
+
+    programs.bash.initExtra = setBackgroundEnvVar;
+    programs.zsh.initExtra = setBackgroundEnvVar;
 
     programs.firefox.package = null;
 

@@ -79,3 +79,10 @@
    - For "Simple Translate":
      - Enable the DeepL API,
      - set German as primary and English as secondary language.
+
+## macOS specific customization
+
+1. Disable accent character suggestions when pressing and holding keys.
+```
+defaults write -g ApplePressAndHoldEnabled -bool false
+```

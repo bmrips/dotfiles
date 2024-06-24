@@ -15,6 +15,7 @@ let
 
   packageSets = {
     core = with pkgs; [
+      bash-language-server
       checkbashisms
       coreutils-full
       diffutils
@@ -41,7 +42,6 @@ let
       nix-bash-completions
       nixfmt-classic
       nodejs # for markdown-preview.nvim
-      nodePackages.bash-language-server
       podman
       pre-commit
       python3Packages.mdformat

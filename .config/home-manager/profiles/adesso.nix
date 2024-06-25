@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -8,6 +8,8 @@ with lib;
   config = mkIf config.profiles.adesso.enable {
 
     home.username = mkForce "benedikt.rips";
+
+    home.packages = with pkgs; [ azure-cli ];
 
     home.shellAliases.sudo =
       ''sudo bash -c ">/etc/sudo.conf"; unalias sudo; sudo'';

@@ -8,7 +8,7 @@ in {
   options.programs.kubectl.enable = mkEnableOption "{command}`kubectl`";
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ kubectl kubectx ];
+    home.packages = with pkgs; [ kubectl kubectx yq-go ];
 
     home.shellAliases.k = "kubectl";
 

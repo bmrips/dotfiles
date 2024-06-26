@@ -26,7 +26,7 @@ in mkIf cfg.enable {
   '';
 
   programs.zsh = {
-    siteFunctions = { git = gitWrapper; };
+    siteFunctions.git = gitWrapper;
     initExtra = "autoload -Uz git";
   };
 

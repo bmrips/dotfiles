@@ -397,9 +397,7 @@ in {
   programs.zsh = {
     enable = true;
     siteFunctions.mkcd = mkcd;
-    initExtra = ''
-      autoload -Uz mkcd
-    '';
+    initExtra = "autoload -Uz mkcd";
   };
 
   home.packages = with packageSets; core ++ extra;

@@ -1,6 +1,6 @@
 return {
   'iamcco/markdown-preview.nvim',
-  build = 'env --chdir app npm install',
+  build = 'env --chdir app npm install && git restore .',
   ft = 'markdown',
   opts = {
     -- Do not close the current preview when changing the buffer.

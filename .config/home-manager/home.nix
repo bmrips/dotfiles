@@ -75,7 +75,7 @@ let
       sad
       sd
       translate-shell
-      treefmt
+      treefmt2
       vale-ls
     ];
   };

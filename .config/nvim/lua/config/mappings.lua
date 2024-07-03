@@ -685,19 +685,19 @@ return {
           local luasnip = require 'luasnip'
           if luasnip.expand_or_jumpable() then
             luasnip.jump(1)
+            return ''
           else
-            require('tabout').tabout()
+            return '<Tab>'
           end
         end,
         desc = 'Jump to next snippet node',
+        expr = true,
       },
       { '<S-Tab>',
         function()
           local luasnip = require 'luasnip'
           if luasnip.jumpable(-1) then
             luasnip.jump(-1)
-          else
-            require('tabout').taboutBack()
           end
         end,
         desc = 'Jump to previous snippet node',
@@ -899,6 +899,23 @@ return {
           vim.lsp.buf.document_symbol,
           cond = client_supports 'documentSymbolProvider',
           desc = 'List all document symbols',
+        },
+        { 't',
+          '<leader>cs',
+          '<cmd>Trouble symbols toggle focus=false<cr>',
+          desc = 'Symbols',
+        },
+        { 'T',
+          '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+          desc = 'All LSP locations',
+        },
+        { 'q',
+          '<cmd>Trouble loclist toggle<cr>',
+          desc = 'Location list',
+        },
+        { 'Q',
+          '<cmd>Trouble qflist toggle<cr>',
+          desc = 'Quickfix list',
         },
         { 'u',
           vim.lsp.buf.references,

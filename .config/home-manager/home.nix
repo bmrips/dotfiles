@@ -407,7 +407,7 @@ in {
   profiles.kde-plasma.enable = isLinux;
   profiles.linux.enable = isLinux;
   profiles.macos.enable = isDarwin;
-  profiles.uni-muenster.enable = isLinux;
+  profiles.uni-muenster.enable = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

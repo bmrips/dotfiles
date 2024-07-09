@@ -8,9 +8,5 @@
     ../profiles/uni-muenster.nix
   ];
 
-  home.packages = with pkgs; [
-    # git-latexdiff # conflicts with texlive
-    texlab
-    texliveFull
-  ];
+  home.packages = with pkgs; [ texlab texliveFull ];
 }

@@ -100,7 +100,6 @@ in {
     package = pkgs.nix;
     nixPath = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
     settings = {
-      auto-optimise-store = true;
       experimental-features = "flakes nix-command";
       use-xdg-base-directories = true;
     };

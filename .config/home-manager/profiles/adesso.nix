@@ -14,6 +14,11 @@ with lib;
     home.shellAliases.sudo =
       ''sudo bash -c ">/etc/sudo.conf"; unalias sudo; sudo'';
 
+    programs.firefox.profiles.default.settings = {
+      # always show the bookmarks toolbar
+      "browser.toolbars.bookmarks.visibility" = mkForce "always";
+    };
+
     programs.git.userEmail = mkForce "${config.home.username}@adesso.de";
 
     programs.kubectl.enable = true;

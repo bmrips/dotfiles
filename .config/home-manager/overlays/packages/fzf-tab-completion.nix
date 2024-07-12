@@ -1,16 +1,14 @@
 { coreutils-full, fetchFromGitHub, fzf, gawk, gnugrep, lib, stdenv, }:
 
-let owner = "f1rstlady";
-
-in stdenv.mkDerivation rec {
+stdenv.mkDerivation rec {
   pname = "fzf-tab-completion";
-  version = "4d667e0df455478071ce9d35fc5962e5d211afec";
+  version = "11122590127ab62c51dd4bbfd0d432cee30f9984";
 
   src = fetchFromGitHub {
-    inherit owner;
+    owner = "lincheney";
     repo = pname;
     rev = version;
-    hash = "sha256-sVCRaTudPvNF8SdMabZU7EWZxEpswlbxBUy+cDGE3oA=";
+    hash = "sha256-ds+GgCTXXavaELCy0MxAGHTPp2MFoFohm/gPkQCRuXU=";
   };
 
   strictDeps = true;

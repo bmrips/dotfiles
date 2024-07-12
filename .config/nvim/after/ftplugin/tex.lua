@@ -3,7 +3,6 @@ local file = require 'util.file'
 local tex = require 'util.filetype.tex'
 
 opt.breakindentopt = {}
-opt.colorcolumn:append '+1'
 opt.comments = ':%'
 opt.iskeyword:remove '_'
 opt.makeprg = file.makeOr "latexmk '%'"
@@ -27,8 +26,7 @@ opt.include:append [[
 ]]
 
 vim.b.undo_ftplugin = vim.b.undo_ftplugin
-  .. '| set breakindentopt< colorcolumn< comments< define< include< iskeyword<'
-  .. ' path< showbreak< suffixesadd< textwidth<'
+  .. '| set breakindentopt< comments< define< include< iskeyword< path< showbreak< suffixesadd< textwidth<'
 
 local augroup = vim.api.nvim_create_augroup('tex', { clear = false })
 

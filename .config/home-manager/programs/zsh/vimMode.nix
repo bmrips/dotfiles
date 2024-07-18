@@ -17,9 +17,9 @@ with lib;
       autoload -Uz add-zsh-hook add-zsh-hook-widget
 
       typeset -Ag __vi_cursor=(
-          insert '\e[6 q' # beam
-          normal '\e[0 q' # underline
-          operator_pending '\e[4 q' # block
+          insert '\e[6 q' # steady bar
+          normal '\e[2 q' # steady block
+          operator_pending '\e[4 q' # steady underline
       )
 
       function __restore_cursor() {

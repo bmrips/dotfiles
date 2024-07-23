@@ -11,8 +11,11 @@ with lib;
 
     home.packages = with pkgs; [ azure-cli ];
 
-    home.shellAliases.sudo =
-      ''sudo bash -c ">/etc/sudo.conf"; unalias sudo; sudo'';
+    home.shellAliases.sudo = concatStringsSep "; " [
+      "[[ -s /etc/sudo.conf ]] && sudo bash -c '>/etc/sudo.conf'"
+      "unalias sudo"
+      "sudo"
+    ];
 
     programs.firefox.profiles.default.settings = {
       # always show the bookmarks toolbar

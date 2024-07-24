@@ -26,6 +26,7 @@ with lib;
           echo -ne "''${__vi_cursor[normal]}"
       }
       add-zsh-hook precmd __restore_cursor
+      add-zsh-hook preexec __restore_cursor
 
       function zle-line-init() {
           echo -ne "''${__vi_cursor[insert]}"

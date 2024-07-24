@@ -650,7 +650,12 @@ return {
         desc = 'Include file under cursor',
       },
       { 'n',
-        function() require('notify').dismiss() end,
+        function()
+          require('notify').dismiss {
+            pending = false,
+            silent = true,
+          }
+        end,
         desc = 'Dismiss notifications',
       },
       { 's',

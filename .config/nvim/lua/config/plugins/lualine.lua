@@ -31,7 +31,19 @@ return {
     inactive_sections = {
       lualine_c = { filename },
     },
+    tabline = {
+      lualine_a = {
+        {
+          'tabs',
+          max_length = vim.opt.columns:get(),
+          mode = 2,
+          path = 1,
+          show_modified_status = false,
+        },
+      },
+    },
     extensions = {
+      'aerial',
       'fzf',
       'lazy',
       'man',
@@ -43,5 +55,6 @@ return {
   config = function(_, opts)
     require('lualine').setup(opts)
     vim.opt.showmode = false
+    vim.opt.showtabline = 1
   end,
 }

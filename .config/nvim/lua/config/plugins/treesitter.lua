@@ -1,5 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
+  event = 'FileType',
   build = ':TSUpdate',
   opts = {
     highlight = { enable = true },

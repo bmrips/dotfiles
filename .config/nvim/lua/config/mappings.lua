@@ -149,11 +149,15 @@ return {
       },
       { '<C-', {
         { 'a>',
-          require('dial.map').inc_gnormal(),
+          function()
+            require('dial.map').manipulate('increment', 'gnormal')
+          end,
           desc = 'Increment stepwise',
         },
         { 'a>',
-          require('dial.map').inc_gvisual(),
+          function()
+            require('dial.map').manipulate('increment', 'gvisual')
+          end,
           desc = 'Increment stepwise',
           mode = 'x',
         },
@@ -164,11 +168,15 @@ return {
           desc = 'Split/join blocks of code',
         },
         { 'x>',
-          require('dial.map').dec_gnormal(),
+          function()
+            require('dial.map').manipulate('decrement', 'gnormal')
+          end,
           desc = 'Decrement stepwise',
         },
         { 'x>',
-          require('dial.map').dec_gvisual(),
+          function()
+            require('dial.map').manipulate('decrement', 'gvisual')
+          end,
           desc = 'Decrement stepwise',
           mode = 'x',
         },
@@ -311,11 +319,15 @@ return {
         desc = 'Increase window width',
       },
       { 'a>',
-        require('dial.map').inc_normal(),
+        function()
+          require('dial.map').manipulate('increment', 'normal')
+        end,
         desc = 'Increment',
       },
       { 'a>',
-        require('dial.map').inc_visual(),
+        function()
+          require('dial.map').manipulate('increment', 'visual')
+        end,
         desc = 'Increment',
         mode = 'x',
       },
@@ -431,11 +443,15 @@ return {
         }},
       }},
       { 'x>',
-        require('dial.map').dec_normal(),
+        function()
+          require('dial.map').manipulate('decrement', 'normal')
+        end,
         desc = 'Decrement',
       },
       { 'x>',
-        require('dial.map').dec_visual(),
+        function()
+          require('dial.map').manipulate('decrement', 'visual')
+        end,
         desc = 'Decrement',
         mode = 'x',
       },
@@ -664,7 +680,9 @@ return {
     }},
     { '<LocalLeader>', {
       { 'd',
-        '<Cmd>Trouble diagnostics toggle<CR>',
+        function()
+          require('trouble.api').toggle 'diagnostics'
+        end,
         desc = 'Diagnostics',
       },
       { 'e',
@@ -902,19 +920,27 @@ return {
         },
         { 't',
           '<leader>cs',
-          '<cmd>Trouble symbols toggle focus=false<cr>',
+          function()
+            require('trouble.api').toggle 'symbols'
+          end,
           desc = 'Symbols',
         },
         { 'T',
-          '<cmd>Trouble lsp toggle focus=false win.position=right<cr>',
+          function()
+            require('trouble.api').toggle 'lsp'
+          end,
           desc = 'All LSP locations',
         },
         { 'q',
-          '<cmd>Trouble loclist toggle<cr>',
+          function()
+            require('trouble.api').toggle 'loclist'
+          end,
           desc = 'Location list',
         },
         { 'Q',
-          '<cmd>Trouble qflist toggle<cr>',
+          function()
+            require('trouble.api').toggle 'qflist'
+          end,
           desc = 'Quickfix list',
         },
         { 'u',

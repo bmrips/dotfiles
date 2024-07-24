@@ -1,5 +1,6 @@
 return {
   'idanarye/nvim-impairative',
+  event = 'VeryLazy',
   opts = {
     enable = '[o',
     disable = ']o',

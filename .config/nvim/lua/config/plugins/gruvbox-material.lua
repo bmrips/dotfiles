@@ -1,6 +1,5 @@
 return {
   'sainnhe/gruvbox-material',
-  lazy = true,
   opts = {
     better_performance = 1,
     disable_terminal_colors = 1,
@@ -11,6 +10,7 @@ return {
   },
   config = function(_, opts)
     require('compat.vimscript.plugin').setup 'gruvbox_material_'(nil, opts)
+
     vim.api.nvim_create_autocmd('Colorscheme', {
       pattern = 'gruvbox-material',
       desc = 'Colorscheme overrides',

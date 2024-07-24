@@ -1,5 +1,6 @@
 return {
   'kdheepak/tabline.nvim',
+  event = 'VeryLazy',
   dependencies = 'nvim-tree/nvim-web-devicons',
   opts = {
     options = {

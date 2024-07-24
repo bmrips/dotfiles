@@ -2,6 +2,7 @@ local tty = require 'util.tty'
 
 return {
   'ibhagwan/fzf-lua',
+  cmd = 'FzfLua',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'vijaymarupudi/nvim-fzf',

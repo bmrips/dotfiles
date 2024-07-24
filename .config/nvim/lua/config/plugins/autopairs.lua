@@ -1,5 +1,6 @@
 return {
   'windwp/nvim-autopairs',
+  event = 'InsertEnter',
   opts = {
     enable_bracket_in_quote = false,
     ignored_next_char = [=[[%w%%%'%[%"%.%`]]=],

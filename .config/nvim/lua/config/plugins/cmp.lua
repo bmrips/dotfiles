@@ -3,6 +3,7 @@ local word_with_umlauts =
 
 return {
   'hrsh7th/nvim-cmp',
+  event = 'InsertEnter',
   dependencies = {
     'dmitmel/cmp-cmdline-history',
     'f3fora/cmp-spell',

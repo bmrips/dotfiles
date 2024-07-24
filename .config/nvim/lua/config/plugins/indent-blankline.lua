@@ -1,5 +1,6 @@
 return {
   'lukas-reineke/indent-blankline.nvim',
+  event = 'VeryLazy',
   opts = {
     indent = {
       char = require('util.tty').if_in_pts '⏐',

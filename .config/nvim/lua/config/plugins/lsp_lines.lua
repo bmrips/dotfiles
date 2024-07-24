@@ -1,5 +1,6 @@
 return {
   'Maan2003/lsp_lines.nvim',
+  event = 'VeryLazy',
   config = function()
     require('lsp_lines').setup()
 

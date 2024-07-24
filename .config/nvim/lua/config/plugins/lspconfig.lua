@@ -71,7 +71,7 @@ local servers = {
       },
     },
   },
-  vale_ls = {},
+  -- vale_ls = {},
   yamlls = {
     settings = {
       ['yaml.schemas'] = {
@@ -84,9 +84,23 @@ local servers = {
 
 return {
   'neovim/nvim-lspconfig',
+  event = 'FileType',
+  cmd = {
+    'LspInfo',
+    'LspLog',
+    'LspRestart',
+    'LspStart',
+    'LspStop',
+  },
   dependencies = {
-    'barreiroleo/ltex-extra.nvim',
-    'hrsh7th/cmp-nvim-lsp',
+    {
+      'barreiroleo/ltex-extra.nvim',
+      event = 'LspAttach',
+    },
+    {
+      'hrsh7th/cmp-nvim-lsp',
+      event = 'LspAttach',
+    },
   },
   opts = servers,
   config = function(_, opts)

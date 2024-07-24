@@ -7,9 +7,7 @@ opt.path = { '.', '', 'include', '$HOME/.local/include', '/usr/local/include', '
 
 vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| set cindent< cinoptions< comments< path<'
 
-if not vim.g.no_plugin_maps then
-  vim.cmd.inoreabbrev { '#i', '#include' }
-  vim.cmd.inoreabbrev { '#d', '#define' }
+vim.cmd.inoreabbrev { '#i', '#include' }
+vim.cmd.inoreabbrev { '#d', '#define' }
 
-  vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| abclear <buffer>'
-end
+vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| abclear <buffer>'

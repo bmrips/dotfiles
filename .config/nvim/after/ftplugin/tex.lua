@@ -60,23 +60,21 @@ vim.api.nvim_create_autocmd('QuickFixCmdPre', {
   end,
 })
 
-if not vim.g.no_plugin_maps then
-  -- stylua: ignore
-  require('nest').applyKeymaps {
-    { buffer = true, {
-      { '<LocalLeader>v',
-        '<Cmd>TexlabForward<CR>',
-        desc = 'View generated PDF document',
-      },
-      { vim.keycode '<C-\\>' .. 'e',
-        function()
-          vim.ui.input({ prompt = 'Environment: ' }, tex.createEnvironment)
-        end,
-        desc = 'Create an environment',
-        mode = 'i',
-      },
-    }},
-  }
+-- stylua: ignore
+require('nest').applyKeymaps {
+  { buffer = true, {
+    { '<LocalLeader>v',
+      '<Cmd>TexlabForward<CR>',
+      desc = 'View generated PDF document',
+    },
+    { vim.keycode '<C-\\>' .. 'e',
+      function()
+        vim.ui.input({ prompt = 'Environment: ' }, tex.createEnvironment)
+      end,
+      desc = 'Create an environment',
+      mode = 'i',
+    },
+  }},
+}
 
-  vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| mapclear <buffer>'
-end
+vim.b.undo_ftplugin = vim.b.undo_ftplugin .. '| mapclear <buffer>'

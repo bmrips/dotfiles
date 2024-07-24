@@ -67,9 +67,6 @@ require('lazy').setup('config.plugins', {
   },
   performance = {
     rtp = {
-      paths = {
-        '/usr/share/vim/vimfiles',
-      },
       disable_plugins = {
         'matchit',
         'matchparen',

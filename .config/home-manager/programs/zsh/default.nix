@@ -144,6 +144,10 @@ in {
             zle reset-prompt
             return $ret
           '';
+          edit-command-line-and-restore-cursor = ''
+            edit-command-line
+            bar_cursor
+          '';
           rationalise-dot = ''
             if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
               LBUFFER+=/..
@@ -180,10 +184,10 @@ in {
           add-zsh-hook preexec block_cursor
 
           # Edit the command line with $EDITOR
-          autoload -Uz edit-command-line
-          zle -N edit-command-line
-          bindkey          '^V' edit-command-line
-          bindkey -M vicmd '^V' edit-command-line
+          autoload -Uz edit-command-line edit-command-line-and-restore-cursor
+          zle -N edit-command-line-and-restore-cursor
+          bindkey          '^V' edit-command-line-and-restore-cursor
+          bindkey -M vicmd '^V' edit-command-line-and-restore-cursor
 
           # Help for builtin commands
           unalias run-help

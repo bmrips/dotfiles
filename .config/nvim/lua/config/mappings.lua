@@ -658,30 +658,16 @@ return {
         end,
         desc = 'Dismiss notifications',
       },
+      { 'p',
+        function()
+          require('lazy').home()
+        end,
+        desc = 'Plugins',
+      },
       { 's',
         '<Cmd>ToggleSession<CR>',
         desc = 'Toggle session recording',
       },
-      { 'p', {
-        { 'c',
-          function()
-            require('lazy').clean()
-          end,
-          desc = 'Compile',
-        },
-        { 'i',
-          function()
-            require('lazy').home()
-          end,
-          desc = 'Status',
-        },
-        { 's',
-          function()
-            require('lazy').sync()
-          end,
-          desc = 'Synchronise',
-        },
-      }},
     }},
     { '<LocalLeader>', {
       { 'd',

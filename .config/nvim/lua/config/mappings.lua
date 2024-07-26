@@ -5,9 +5,12 @@ local ctrl_slash = (vim.g.neovide or vim.env.ITERM_PROFILE)
 return {
   init = {
     { '<BS>',
-      '<Cmd>nohlsearch | call loupe#private#clear_highlight() | diffupdate | normal! <C-l><CR>',
-      desc = 'Clear search highlighting',
-      remap = true,
+      function()
+        vim.cmd.nohlsearch()
+        vim.cmd.diffupdate()
+        vim.cmd.mode() -- clear and redraw the screen
+      end,
+      desc = 'Clear screen and redraw',
     },
     { '<CR>',
       function()

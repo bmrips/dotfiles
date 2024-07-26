@@ -13,31 +13,12 @@ with lib;
     programs.zsh.initExtra = ''
       bindkey -M viins 'jk' vi-cmd-mode
 
-      # Adapt the __vi_cursor to the mode
-      autoload -Uz add-zsh-hook add-zsh-hook-widget
-
-      typeset -Ag __vi_cursor=(
-          insert '\e[6 q' # steady bar
-          normal '\e[2 q' # steady block
-          operator_pending '\e[4 q' # steady underline
-      )
-
-      function __restore_cursor() {
-          echo -ne "''${__vi_cursor[normal]}"
-      }
-      add-zsh-hook precmd __restore_cursor
-      add-zsh-hook preexec __restore_cursor
-
-      function zle-line-init() {
-          echo -ne "''${__vi_cursor[insert]}"
-      }
-      zle -N zle-line-init
-
+      # Adapt the cursor shape to the mode
       function zle-keymap-select {
           case $KEYMAP in
-              viins|main) echo -ne "''${__vi_cursor[insert]}"  ;;
-              viins|main) echo -ne "''${__vi_cursor[operator_pending]}" ;;
-              *)          __restore_cursor ;;
+              viins|main) bar_cursor ;;
+              viopp)      underline_cursor ;;
+              *)          block_cursor ;;
           esac
       }
       zle -N zle-keymap-select

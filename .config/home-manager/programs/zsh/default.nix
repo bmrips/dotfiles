@@ -157,6 +157,29 @@ in {
           [[ $- != *i* ]] && return
         '';
         initExtra = ''
+          # Display the cursor as a bar
+          autoload -Uz add-zsh-hook add-zsh-hook-widget
+
+          function bar_cursor() {
+              echo -ne "\e[6 q"
+          }
+
+          function block_cursor() {
+              echo -ne "\e[2 q"
+          }
+
+          function underline_cursor() {
+              echo -ne "\e[4 q"
+          }
+
+          function zle-line-init() {
+              bar_cursor
+          }
+          zle -N zle-line-init
+
+          add-zsh-hook preexec block_cursor
+
+          # Edit the command line with $EDITOR
           autoload -Uz edit-command-line
           zle -N edit-command-line
           bindkey          '^V' edit-command-line

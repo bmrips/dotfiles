@@ -3,6 +3,40 @@
 with lib;
 
 let
+  plasma-dark-mode = pkgs.writeShellApplication {
+    name = "plasma-dark-mode";
+    runtimeInputs = with pkgs; [ kdePackages.plasma-workspace ];
+    text = ''
+      is_enabled() {
+          [[ $(plasma-apply-colorscheme --list-schemes | grep current) = *[dD]ark* ]]
+      }
+
+      disable() {
+          plasma-apply-lookandfeel --apply org.kde.breezetwilight.desktop
+      }
+
+      enable() {
+          plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
+      }
+
+      toggle() {
+          if is_enabled; then
+              disable
+          else
+              enable
+          fi
+      }
+
+      case $1 in
+          isEnabled) is_enabled ;;
+          disable) disable ;;
+          enable) enable ;;
+          toggle) toggle ;;
+          *) echo "Error: unknown command" >&2 ;;
+      esac
+    '';
+  };
+
   smartly-sized-konsole = pkgs.writeShellApplication {
     name = "smartly-sized-konsole";
     runtimeInputs = with pkgs; [ jq kdePackages.konsole kdePackages.kscreen ];
@@ -23,7 +57,7 @@ in {
 
   config = mkIf config.profiles.kde-plasma.enable {
 
-    home.packages = [ smartly-sized-konsole ];
+    home.packages = [ plasma-dark-mode smartly-sized-konsole ];
 
     programs.firefox = {
       nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];

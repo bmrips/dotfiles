@@ -66,15 +66,6 @@ require('lazy').setup('config.plugins', {
     patterns = { 'f1rstlady' },
     fallback = true,
   },
-  performance = {
-    rtp = {
-      disabled_plugins = {
-        'matchit',
-        'matchparen',
-        'netrwPlugin',
-      },
-    },
-  },
 })
 
 vim.cmd.colorscheme 'gruvbox-material'

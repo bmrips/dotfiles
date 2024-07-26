@@ -665,8 +665,10 @@ return {
         desc = 'Plugins',
       },
       { 's',
-        '<Cmd>ToggleSession<CR>',
-        desc = 'Toggle session recording',
+        function()
+          require('session').toggleAutosave()
+        end,
+        desc = 'Toggle session autosave',
       },
     }},
     { '<LocalLeader>', {

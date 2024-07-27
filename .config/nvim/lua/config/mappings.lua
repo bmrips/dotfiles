@@ -222,7 +222,9 @@ return {
       mode = { 'n', 'x', 'o' },
     },
     { 'U',
-      '<Cmd>MundoToggle<CR>',
+      function()
+        require('undotree').toggle()
+      end,
       desc = 'Open undo tree',
     },
     { 'y',

@@ -7,10 +7,10 @@ return {
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = 'gti',
-        node_decremental = 'gt[',
-        node_incremental = 'gt]',
-        scope_incremental = 'gts',
+        init_selection = 'gyi',
+        node_decremental = 'gy[',
+        node_incremental = 'gy]',
+        scope_incremental = 'gys',
       },
     },
     indent = { enable = true },

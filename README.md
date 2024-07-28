@@ -75,6 +75,7 @@
      - sync my sessions,
      - disable auto-save.
    - Synchronise the skip-redirect plugin's settings.
+   - Configure the dark reader plugin follow the system's theme.
    - Enable per-website dark theme detection in the dark reader plugin.
    - For "Simple Translate":
      - Enable the DeepL API,

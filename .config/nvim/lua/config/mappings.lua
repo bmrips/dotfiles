@@ -990,6 +990,10 @@ return {
           },
         }},
       }},
+      { '<F5>',
+        '<Cmd>LspRestart<CR>',
+        desc = 'Restart language servers',
+      },
     }
   end,
 }

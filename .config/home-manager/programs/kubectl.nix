@@ -2,7 +2,31 @@
 
 with lib;
 
-let cfg = config.programs.kubectl;
+let
+  cfg = config.programs.kubectl;
+
+  kubectl-show-secrets = ''
+    local single_secret_recipe='.data[] |= @base64d | .name = .metadata.name | pick(["name", "data"])'
+    local multiple_secrets_recipe=".items | .[] |= ($single_secret_recipe)"
+    local recipe
+
+    if (($# == 1)); then
+        recipe="$single_secret_recipe"
+    else
+        recipe="$multiple_secrets_recipe"
+    fi
+
+    kubectl get --output=yaml secret "$@" | yq "$recipe"
+  '';
+
+  kubectl-wrapper = ''
+    if [[ $1 = show-secrets ]]; then
+        shift
+        kubectl-show-secrets "$@"
+    else
+        command kubectl "$@"
+    fi
+  '';
 
 in {
   options.programs.kubectl.enable = mkEnableOption "{command}`kubectl`";
@@ -13,6 +37,16 @@ in {
     home.shellAliases.k = "kubectl";
 
     programs.starship.settings.kubernetes.disabled = false;
+
+    programs.bash.initExtra = ''
+      # Enable `kubectl show-secrets`
+      kubectl() {
+        ${kubectl-wrapper}
+      }
+      kubectl-show-secrets() {
+        ${kubectl-show-secrets}
+      }
+    '';
 
     programs.zsh = {
       siteFunctions = {
@@ -32,8 +66,13 @@ in {
           zle reset-prompt
           return $ret
         '';
+        inherit kubectl-show-secrets;
+        kubectl = kubectl-wrapper;
       };
       initExtra = ''
+        # Enable `kubectl show-secrets`
+        autoload -Uz kubectl kubectl-show-secrets
+
         # Switch Kubernetes context
         autoload -Uz fzf-kubectx-widget
         zle -N fzf-kubectx-widget

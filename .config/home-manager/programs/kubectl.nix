@@ -20,12 +20,10 @@ let
   '';
 
   kubectl-wrapper = ''
-    if [[ $1 = show-secrets ]]; then
-        shift
-        kubectl-show-secrets "$@"
-    else
-        command kubectl "$@"
-    fi
+    case $1 in
+      show-secrets) shift && kubectl-show-secrets "$@" ;;
+      *) command kubectl "$@" ;;
+    esac
   '';
 
 in {

@@ -7,12 +7,10 @@ let
   cfg = config.programs.git;
 
   gitWrapper = ''
-    if [[ -n $1 && $1 == "cd-root" ]]; then
-        declare -r top_level="$(command git rev-parse --show-toplevel)" &&
-          cd "$top_level"
-    else
-        command git "$@"
-    fi
+    case $1 in
+      cd-root) local repo_root="$(command git rev-parse --show-toplevel)" && cd "$repo_root" ;;
+      *) command git "$@" ;;
+    esac
   '';
 
 in mkIf cfg.enable {

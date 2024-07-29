@@ -135,49 +135,26 @@ return {
         forward = 'blast',
       }
       h:command_pair {
-        key = 'l',
-        backward = 'lprevious',
-        forward = 'lnext',
+        key = 'b',
+        backward = 'bprevious',
+        forward = 'bnext',
       }
-      h:command_pair {
-        key = 'L',
-        backward = 'lfirst',
-        forward = 'llast',
+      h:text_manipulation {
+        key = 'C',
+        line_key = true,
+        desc = '{escape|unescape} strings (C escape rules)',
+        backward = require('impairative.helpers').encode_string,
+        forward = require('impairative.helpers').decode_string,
       }
-      h:command_pair {
-        key = '<C-l>',
-        backward = 'lpfile',
-        forward = 'lnfile',
-      }
-      h:command_pair {
-        key = 'q',
-        backward = 'cprevious',
-        forward = 'cnext',
-      }
-      h:command_pair {
-        key = 'Q',
-        backward = 'cfirst',
-        forward = 'clast',
-      }
-      h:command_pair {
-        key = '<C-q>',
-        backward = 'cpfile',
-        forward = 'cnfile',
-      }
-      h:command_pair {
-        key = 't',
-        backward = 'tprevious',
-        forward = 'tnext',
-      }
-      h:command_pair {
-        key = 'T',
-        backward = 'tfirst',
-        forward = 'tlast',
-      }
-      h:command_pair {
-        key = '<C-t>',
-        backward = 'ptprevious',
-        forward = 'ptnext',
+      h:function_pair {
+        key = 'e',
+        desc = 'exchange lines',
+        forward = function()
+          vim.cmd.move('+' .. tostring(vim.v.count1))
+        end,
+        backward = function()
+          vim.cmd.move('-' .. tostring(vim.v.count1 + 1))
+        end,
       }
       h:unified_function {
         key = 'f',
@@ -219,6 +196,21 @@ return {
           end
         end,
       }
+      h:command_pair {
+        key = 'l',
+        backward = 'lprevious',
+        forward = 'lnext',
+      }
+      h:command_pair {
+        key = 'L',
+        backward = 'lfirst',
+        forward = 'llast',
+      }
+      h:command_pair {
+        key = '<C-l>',
+        backward = 'lpfile',
+        forward = 'lnfile',
+      }
       h:jump_in_buf {
         key = 'n',
         desc = 'jump to the {previous|next} SCM conflict marker or diff/path hunk',
@@ -228,27 +220,35 @@ return {
         },
         fun = require('impairative.helpers').conflict_marker_locations,
       }
-      h:unified_function {
-        key = '<Space>',
-        desc = 'add blank line(s) {above|below} the current line',
-        fun = function(direction)
-          local line_number = vim.api.nvim_win_get_cursor(0)[1]
-          if direction == 'backward' then
-            line_number = line_number - 1
-          end
-          local lines = vim.fn['repeat']({ '' }, vim.v.count1)
-          vim.api.nvim_buf_set_lines(0, line_number, line_number, true, lines)
-        end,
+      h:command_pair {
+        key = 'q',
+        backward = 'cprevious',
+        forward = 'cnext',
       }
-      h:function_pair {
-        key = 'e',
-        desc = 'exchange lines',
-        forward = function()
-          vim.cmd.move('+' .. tostring(vim.v.count1))
-        end,
-        backward = function()
-          vim.cmd.move('-' .. tostring(vim.v.count1 + 1))
-        end,
+      h:command_pair {
+        key = 'Q',
+        backward = 'cfirst',
+        forward = 'clast',
+      }
+      h:command_pair {
+        key = '<C-q>',
+        backward = 'cpfile',
+        forward = 'cnfile',
+      }
+      h:command_pair {
+        key = 't',
+        backward = 'tprevious',
+        forward = 'tnext',
+      }
+      h:command_pair {
+        key = 'T',
+        backward = 'tfirst',
+        forward = 'tlast',
+      }
+      h:command_pair {
+        key = '<C-t>',
+        backward = 'ptprevious',
+        forward = 'ptnext',
       }
       h:text_manipulation {
         key = 'u',
@@ -271,12 +271,17 @@ return {
         desc = '{escape|unescape} strings (C escape rules)',
         forward = require('impairative.helpers').decode_string,
       }
-      h:text_manipulation {
-        key = 'C',
-        line_key = true,
-        desc = '{escape|unescape} strings (C escape rules)',
-        backward = require('impairative.helpers').encode_string,
-        forward = require('impairative.helpers').decode_string,
+      h:unified_function {
+        key = '<Space>',
+        desc = 'add blank line(s) {above|below} the current line',
+        fun = function(direction)
+          local line_number = vim.api.nvim_win_get_cursor(0)[1]
+          if direction == 'backward' then
+            line_number = line_number - 1
+          end
+          local lines = vim.fn['repeat']({ '' }, vim.v.count1)
+          vim.api.nvim_buf_set_lines(0, line_number, line_number, true, lines)
+        end,
       }
     end,
   },

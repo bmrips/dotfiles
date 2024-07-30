@@ -36,6 +36,15 @@ in {
 
     programs.starship.settings.kubernetes.disabled = false;
 
+    programs.k9s = {
+      enable = true;
+      settings.k9s = {
+        liveViewAutoRefresh = true;
+        skipLatestRevCheck = true;
+        ui.logoless = true;
+      };
+    };
+
     programs.bash.initExtra = ''
       # Enable `kubectl show-secrets`
       kubectl() {

@@ -4,7 +4,6 @@ with lib;
 
 let
   inherit (pkgs.lib) gnuCommandArgs gnuCommandLine;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin isLinux;
 
   nixpkgs_23_05 = import (fetchTarball {
     name = "nixpks-23.05-darwin-20231231";
@@ -400,13 +399,6 @@ in {
   };
 
   home.packages = with packageSets; core ++ extra;
-
-  profiles.adesso.enable = isDarwin;
-  profiles.gui.enable = true;
-  profiles.kde-plasma.enable = isLinux;
-  profiles.linux.enable = isLinux;
-  profiles.macos.enable = isDarwin;
-  profiles.uni-muenster.enable = true;
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

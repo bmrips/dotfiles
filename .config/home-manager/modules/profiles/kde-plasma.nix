@@ -57,7 +57,27 @@ in {
 
   config = mkIf config.profiles.kde-plasma.enable {
 
-    home.packages = [ plasma-dark-mode smartly-sized-konsole ];
+    home.packages = with pkgs;
+      with pkgs.kdePackages; [
+        akonadi
+        akonadi-calendar
+        akonadi-contacts
+        akonadi-import-wizard
+        akonadi-mime
+        akonadi-notes
+        akonadi-search
+        akregator
+        kcalc
+        kcolorchooser
+        kdepim-runtime
+        kmail
+        kmail-account-wizard
+        kmailtransport
+        plasma-dark-mode
+        qt6.qtimageformats
+        skanpage
+        smartly-sized-konsole
+      ];
 
     programs.firefox = {
       nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];

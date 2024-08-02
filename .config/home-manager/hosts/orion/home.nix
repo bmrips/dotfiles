@@ -1,5 +1,5 @@
 {
-  imports = [ ../default.nix ];
+  imports = [ ../../default.nix ];
 
   profiles = {
     gui.enable = true;

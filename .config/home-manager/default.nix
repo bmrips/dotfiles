@@ -79,24 +79,18 @@ let
     ];
   };
 
-  locales = {
-    english = "en_GB.UTF-8";
-    german = "de_DE.UTF-8";
-  };
-
   mkcd = ''mkdir --parents "$1" && cd "$1"'';
 
 in {
   nixpkgs.overlays = import ./overlays/default.nix;
 
-  imports = import ./modules.nix;
+  imports = import ./modules/module-list.nix;
 
   programs.home-manager.enable = true;
 
   home.username = "bmr";
 
   nix = {
-    package = pkgs.nix;
     nixPath = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
     settings = {
       experimental-features = "flakes nix-command";
@@ -110,12 +104,10 @@ in {
 
   xdg.enable = true;
 
-  i18n.glibcLocales = pkgs.glibcLocales.override {
-    allLocales = false;
-    locales = with locales; builtins.map (l: l + "/UTF-8") [ english german ];
-  };
-
-  home.language = with locales; {
+  home.language = let
+    english = "en_GB.UTF-8";
+    german = "de_DE.UTF-8";
+  in {
     base = english;
     address = german;
     ctype = german;

@@ -4,6 +4,7 @@
   ./profiles/kde-plasma.nix
   ./profiles/linux.nix
   ./profiles/macos.nix
+  ./profiles/standalone.nix
   ./profiles/uni-muenster.nix
   ./programs/dircolors.nix
   ./programs/firefox.nix

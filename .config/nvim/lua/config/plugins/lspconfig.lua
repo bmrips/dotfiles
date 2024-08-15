@@ -63,7 +63,9 @@ local servers = {
     settings = {
       texlab = {
         -- Build with LuaLaTeX.
-        ['build.args'] = { '-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f' },
+        build = {
+          args = { '-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f' },
+        },
         forwardSearch = {
           executable = 'okular',
           args = { '--unique', 'file:%p#src:%l%f' },

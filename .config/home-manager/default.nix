@@ -82,6 +82,7 @@ let
   mkcd = ''mkdir --parents "$1" && cd "$1"'';
 
 in {
+  nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = import ./overlays/default.nix;
 
   imports = import ./modules/module-list.nix;

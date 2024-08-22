@@ -70,6 +70,7 @@ in {
         kcalc
         kcolorchooser
         kdepim-runtime
+        kgpg
         kmail
         kmail-account-wizard
         kmailtransport

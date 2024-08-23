@@ -176,8 +176,6 @@ in {
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  home.username = "bmr";
-
   nix = {
     nixPath = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
     settings = {

@@ -12,8 +12,6 @@ with lib;
       message = "This profile is only available on Linux.";
     }];
 
-    home.homeDirectory = "/home/${config.home.username}";
-
     home.shellAliases = {
       open = "xdg-open";
       trash = "mv -t ${config.xdg.dataHome}/Trash/files";

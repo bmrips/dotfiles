@@ -10,7 +10,7 @@ with lib;
     development.container.enable = true;
     development.kubernetes.enable = true;
 
-    home.username = mkForce "benedikt.rips";
+    home.username = "benedikt.rips";
 
     home.packages = with pkgs; [ azure-cli ];
 

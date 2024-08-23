@@ -17,7 +17,7 @@ in {
     }
 
     (mkIf cfg.enable {
-      home.shellAliases.g = "goto";
+      home.shellAliases.b = "goto";
       programs.zsh.initExtra = ''
         # Go to `goto` bookmark
         autoload -Uz fzf-goto-widget

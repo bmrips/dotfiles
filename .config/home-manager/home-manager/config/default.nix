@@ -3,7 +3,7 @@
 with lib;
 
 let
-  inherit (pkgs.lib) ansiEscapeCodes gnuCommandArgs gnuCommandLine;
+  inherit (pkgs.lib) ansiEscapeCodes gnuCommandLine;
   inherit (pkgs.lib.ansiEscapeCodes) base16 reset;
 
   nixpkgs_23_05 = import (fetchTarball {
@@ -15,22 +15,14 @@ let
 
   packageSets = {
     core = with pkgs; [
-      bash-language-server
-      checkbashisms
       coreutils-full
       diffutils
-      dockerfile-language-server-nodejs
       dos2unix
       fd
       file
       findutils
-      gitlint
-      gnumake # for markdown-preview.nvim
       gnused
-      ltex-ls
-      lua-language-server
       man-db
-      markdownlint-cli
       ncdu
       (nerdfonts.override {
         fonts = [
@@ -38,24 +30,8 @@ let
           "JetBrainsMono"
         ];
       })
-      nil
-      nix-bash-completions
-      nixfmt-classic
-      nodejs # for markdown-preview.nvim
-      podman
-      pre-commit
-      python3Packages.mdformat
-      python3Packages.mdformat-footnote
-      python3Packages.mdformat-gfm
-      python3Packages.mdformat-tables
-      selene
-      shfmt
-      stylua
       tokei
       tree
-      tree-sitter
-      yaml-language-server
-      yamlfmt
     ];
     extra = with pkgs; [
       cbfmt
@@ -80,13 +56,16 @@ let
     ];
   };
 
-  mkcd = ''mkdir --parents "$1" && cd "$1"'';
-
-  normal = c: with base16; color [ fg c ];
-  bold = c: ansiEscapeCodes.combine [ ansiEscapeCodes.bold (normal c) ];
-
 in {
   imports = [
+    ./ci/pre-commit.nix
+    ./development/bash.nix
+    ./development/container.nix
+    ./development/kubernetes.nix
+    ./development/lua.nix
+    ./development/markdown.nix
+    ./development/nix.nix
+    ./development/yaml.nix
     ./profiles/adesso.nix
     ./profiles/gui.nix
     ./profiles/kde-plasma.nix
@@ -94,14 +73,35 @@ in {
     ./profiles/macos.nix
     ./profiles/standalone.nix
     ./profiles/uni-muenster.nix
+    ./programs/bash.nix
+    ./programs/bat.nix
     ./programs/dircolors.nix
+    ./programs/direnv.nix
     ./programs/firefox.nix
+    ./programs/fzf-tab-completion.nix
     ./programs/fzf.nix
     ./programs/git/default.nix
+    ./programs/goto.nix
+    ./programs/less.nix
+    ./programs/mkcd.nix
+    ./programs/neovim.nix
+    ./programs/ripgrep.nix
+    ./programs/shellcheck.nix
+    ./programs/ssh.nix
     ./programs/starship.nix
+    ./programs/taskell.nix
+    ./programs/yamllint.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
   ];
+
+  ci.pre-commit.enable = true;
+
+  development.bash.enable = true;
+  development.lua.enable = true;
+  development.markdown.enable = true;
+  development.nix.enable = true;
+  development.yaml.enable = true;
 
   fonts.fontconfig.enable = true;
 
@@ -165,7 +165,6 @@ in {
     };
   in settings // {
     ip = "ip -color=auto";
-    nvim = "TTY=$TTY nvim";
 
     c = "cd";
     hm = "home-manager";
@@ -181,9 +180,6 @@ in {
     o = "open";
     p = "podman";
     t = "tree --gitignore";
-    v = "nvim";
-    vi = "nvim";
-    vim = "nvim";
   };
 
   # This value determines the Home Manager release that your configuration is
@@ -211,56 +207,25 @@ in {
 
   nixpkgs.config.allowUnfree = true;
 
-  programs.bash = {
-    enable = true;
-    historyControl = [ "ignoredups" ];
-    historyFile = "${config.xdg.stateHome}/bash/history";
-    initExtra = ''
-      function mkcd() {
-        ${mkcd}
-      }
-    '';
-  };
-
-  programs.bat = {
-    enable = true;
-    config = {
-      italic-text = "always";
-      plain = true;
-      theme = "base16";
-    };
-  };
-
+  programs.bash.enable = true;
+  programs.bat.enable = true;
   programs.command-not-found.enable = true;
-
   programs.dircolors.enable = true;
-
-  programs.direnv = {
-    enable = true;
-    nix-direnv.enable = true;
-    config.global.hide_env_diff = true;
-  };
-
+  programs.direnv.enable = true;
   programs.fzf.enable = true;
-
   programs.fzf-tab-completion.enable = true;
 
-  programs.gcc = {
-    enable = true; # for nvim-treesitter
-    colors = with base16; {
-      error = bold red;
-      warning = bold magenta;
-      note = bold cyan;
-      caret = bold green;
-      locus = bold yellow;
-      quote = bold blue;
-    };
+  programs.gcc.colors = with base16; {
+    error = bold red;
+    warning = bold magenta;
+    note = bold cyan;
+    caret = bold green;
+    locus = bold yellow;
+    quote = bold blue;
   };
 
   programs.git.enable = true;
-
   programs.gpg.enable = true;
-
   programs.goto.enable = true;
 
   programs.grep = {
@@ -278,143 +243,17 @@ in {
   };
 
   programs.home-manager.enable = true;
-
-  programs.less = {
-    enable = true;
-    settings = {
-      LONG-PROMPT = true;
-      RAW-CONTROL-CHARS = true;
-      quiet = true;
-      quit-if-one-screen = true;
-      wheel-lines = 3;
-    };
-  };
-
+  programs.less.enable = true;
   programs.man.generateCaches = true;
-
-  programs.neovim = {
-    enable = true;
-    defaultEditor = true;
-    withRuby = false;
-  };
-
-  programs.ripgrep = {
-    enable = true;
-    arguments = gnuCommandArgs {
-      smart-case = true;
-      colors = [
-        "path:style:intense"
-        "line:style:intense"
-        "match:style:intense"
-        "column:fg:green"
-        "column:style:intense"
-        "match:style:intense"
-      ];
-    };
-  };
-
-  programs.shellcheck = {
-    enable = true;
-    settings = {
-      shell = "bash";
-      enable = [ # enable optional checks
-        "add-default-case"
-        "avoid-nullary-conditions"
-        "check-deprecate-which"
-        "check-set-e-suppressed"
-        "deprecate-which"
-        "require-double-brackets"
-      ];
-    };
-  };
-
-  programs.ssh = {
-    enable = true;
-    package = pkgs.openssh;
-    addKeysToAgent = "yes";
-    matchBlocks = {
-      "private/aur" = {
-        host = "aur.archlinux.org";
-        user = "aur";
-        identityFile = "~/.ssh/private/aur";
-      };
-      "private/github" = {
-        host = "github.com";
-        user = "git";
-        identityFile = "~/.ssh/private/github";
-      };
-    };
-  };
-
+  programs.neovim.enable = true;
+  programs.ripgrep.enable = true;
+  programs.ssh.enable = true;
   programs.starship.enable = true;
-
-  programs.taskell = {
-    enable = true;
-    package = nixpkgs_23_05.taskell;
-    bindings = {
-      new = "n, a";
-      edit = "e";
-      clear = "c";
-      delete = "d";
-      listNew = "N, A";
-      listEdit = "E";
-      listDelete = "D";
-    };
-    config = {
-      general.filename = "taskell.md";
-      layout = {
-        padding = 1;
-        column_width = 30;
-        column_padding = 3;
-        description_indicator = "≡";
-        statusbar = true;
-      };
-      markdown = {
-        title = "##";
-        task = "-";
-        summary = "    >";
-        due = "    @";
-        subtask = "    *";
-        localTimes = false;
-      };
-    };
-    template = ''
-      ## To Do
-      ## Done
-    '';
-    theme.other = {
-      statusBar.fg = "default";
-      statusBar.bg = "brightBlack";
-      subtaskCurrent.fg = "magenta";
-      subtaskIncomplete.fg = "default";
-      subtaskComplete.fg = "blue";
-    };
-  };
-
+  programs.taskell.enable = true;
   programs.thefuck.enable = true;
-
-  programs.yamllint = {
-    enable = true;
-    settings = {
-      extends = "default";
-      rules = {
-        document-end = "disable";
-        document-start = "disable";
-        empty-values = "enable";
-        float-values.require-numeral-before-decimal = true;
-      };
-    };
-  };
-
   programs.yazi.enable = true;
-
   programs.zoxide.enable = true;
-
-  programs.zsh = {
-    enable = true;
-    siteFunctions.mkcd = mkcd;
-    initExtra = "autoload -Uz mkcd";
-  };
+  programs.zsh.enable = true;
 
   xdg.enable = true;
 }

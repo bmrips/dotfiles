@@ -3,10 +3,10 @@
 with lib;
 
 let
-  cfg = config.programs.kubectl;
+  cfg = config.development.kubernetes;
 
   kubectl-show-secrets = ''
-    local single_secret_recipe='.data[] |= @base64d | .name = .metadata.name | pick(["name", "data"])'
+    local single_secret_recipe='.data[] |= @base64d | .name = .metadata.name | pick(["name", " data"])'
     local multiple_secrets_recipe=".items | .[] |= ($single_secret_recipe)"
     local recipe
 
@@ -27,7 +27,12 @@ let
   '';
 
 in {
+
+  options.development.kubernetes.enable =
+    mkEnableOption "Kubernetes development tools";
+
   config = mkIf cfg.enable {
+
     home.packages = with pkgs; [ kubectx yq-go ];
 
     home.shellAliases.k = "kubectl";
@@ -43,6 +48,8 @@ in {
         ${kubectl-show-secrets}
       }
     '';
+
+    programs.kubectl.enable = true;
 
     programs.zsh = {
       initExtra = ''

@@ -7,6 +7,9 @@ with lib;
 
   config = mkIf config.profiles.adesso.enable {
 
+    development.container.enable = true;
+    development.kubernetes.enable = true;
+
     home.username = mkForce "benedikt.rips";
 
     home.packages = with pkgs; [ azure-cli ];
@@ -23,8 +26,6 @@ with lib;
     };
 
     programs.git.userEmail = mkForce "${config.home.username}@adesso.de";
-
-    programs.kubectl.enable = true;
 
     programs.ssh.matchBlocks = {
       "adesso/azure" = {

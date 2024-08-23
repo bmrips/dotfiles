@@ -13,9 +13,14 @@ with lib;
         ++ unique (attrValues config.i18n.extraLocaleSettings));
     };
 
+    nix.gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+
     nix.package = pkgs.nix;
 
-    serices.home-manager.autoUpgrade.enable = true;
+    services.home-manager.autoUpgrade.enable = true;
 
   });
 }

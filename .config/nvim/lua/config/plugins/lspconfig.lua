@@ -73,7 +73,6 @@ local servers = {
       },
     },
   },
-  -- vale_ls = {},
   yamlls = {
     settings = {
       ['yaml.schemas'] = {

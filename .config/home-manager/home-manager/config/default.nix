@@ -51,7 +51,6 @@ let
       sd
       translate-shell
       treefmt2
-      vale-ls
     ];
   };
 

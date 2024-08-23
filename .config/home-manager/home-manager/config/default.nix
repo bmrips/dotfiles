@@ -164,7 +164,6 @@ in {
     nvim = "TTY=$TTY nvim";
 
     c = "cd";
-    gl = "glab";
     hm = "home-manager";
     l = "ll";
     "l." = "ld .*";

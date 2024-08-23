@@ -3,9 +3,6 @@
 with lib;
 
 let
-  inherit (pkgs.lib) ansiEscapeCodes gnuCommandLine;
-  inherit (pkgs.lib.ansiEscapeCodes) base16 reset;
-
   nixpkgs_23_05 = import (fetchTarball {
     name = "nixpks-23.05-darwin-20231231";
     url =
@@ -78,8 +75,10 @@ in {
     ./programs/firefox.nix
     ./programs/fzf-tab-completion.nix
     ./programs/fzf.nix
+    ./programs/gcc.nix
     ./programs/git/default.nix
     ./programs/goto.nix
+    ./programs/grep.nix
     ./programs/less.nix
     ./programs/mkcd.nix
     ./programs/neovim.nix
@@ -103,6 +102,31 @@ in {
 
   fonts.fontconfig.enable = true;
 
+  home.defaultCommandFlags = {
+    chgrp.preserve-root = true;
+    chmod.preserve-root = true;
+    chown.preserve-root = true;
+    cp.interactive = true;
+    df.human-readable = true;
+    diff.color = "auto";
+    dmesg.color = "auto";
+    du.human-readable = true;
+    free.human = true;
+    ls = {
+      color = true;
+      group-directories-first = true;
+      human-readable = true;
+      literal = true;
+      time-style = "long-iso";
+    };
+    make.jobs = 4;
+    mv.interactive = true;
+    rm.preserve-root = true;
+    tree.C = true; # always colorise output
+    tree.dirsfirst = true;
+    wget.continue = true;
+  };
+
   home.language = let
     english = "en_GB.UTF-8";
     german = "de_DE.UTF-8";
@@ -125,35 +149,7 @@ in {
   home.sessionVariables.TEXEDIT =
     "${config.home.sessionVariables.EDITOR} +%d %s";
 
-  home.shellAliases = let
-    settings = mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") {
-      chgrp.preserve-root = true;
-      chmod.preserve-root = true;
-      chown.preserve-root = true;
-      cp.interactive = true;
-      df.human-readable = true;
-      diff.color = "auto";
-      dmesg.color = "auto";
-      du.human-readable = true;
-      free.human = true;
-      grep.binary-files = "without-match";
-      grep.color = "auto";
-      ls = {
-        color = true;
-        group-directories-first = true;
-        human-readable = true;
-        literal = true;
-        time-style = "long-iso";
-      };
-      make.jobs = 4;
-      mv.interactive = true;
-      rm.preserve-root = true;
-      stylua.search-parent-directories = true;
-      tree.C = true; # always colorise output
-      tree.dirsfirst = true;
-      wget.continue = true;
-    };
-  in settings // {
+  home.shellAliases = {
     ip = "ip -color=auto";
 
     c = "cd";
@@ -200,34 +196,10 @@ in {
   programs.direnv.enable = true;
   programs.fzf.enable = true;
   programs.fzf-tab-completion.enable = true;
-
-  programs.gcc.colors = with base16; {
-    error = bold red;
-    warning = bold magenta;
-    note = bold cyan;
-    caret = bold green;
-    locus = bold yellow;
-    quote = bold blue;
-  };
-
   programs.git.enable = true;
   programs.gpg.enable = true;
   programs.goto.enable = true;
-
-  programs.grep = {
-    enable = true;
-    colors = with base16; {
-      ms = bold red;
-      mc = bold red;
-      sl = reset;
-      cx = reset;
-      fn = normal magenta;
-      ln = normal green;
-      bn = normal green;
-      se = normal cyan;
-    };
-  };
-
+  programs.grep.enable = true;
   programs.home-manager.enable = true;
   programs.less.enable = true;
   programs.man.generateCaches = true;

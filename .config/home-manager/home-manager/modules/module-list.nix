@@ -1,4 +1,5 @@
 [
+  ./home.nix
   ./programs/fzf-tab-completion.nix
   ./programs/gcc.nix
   ./programs/goto.nix

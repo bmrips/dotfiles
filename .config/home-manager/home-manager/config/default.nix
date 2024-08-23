@@ -44,7 +44,6 @@ let
       glow
       gum
       ocrmypdf
-      onefetch
       nixpkgs_23_05.haskellPackages.friendly
       ripgrep-all
       rmlint
@@ -149,14 +148,6 @@ in {
       };
       make.jobs = 4;
       mv.interactive = true;
-      onefetch = {
-        include-hidden = true;
-        no-art = true;
-        no-bots = true;
-        no-color-palette = true;
-        no-title = true;
-        true-color = "never";
-      };
       rm.preserve-root = true;
       stylua.search-parent-directories = true;
       tree.C = true; # always colorise output

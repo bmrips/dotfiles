@@ -27,23 +27,12 @@ let
   '';
 
 in {
-  options.programs.kubectl.enable = mkEnableOption "{command}`kubectl`";
-
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ kubectl kubectx yq-go ];
+    home.packages = with pkgs; [ kubectx yq-go ];
 
     home.shellAliases.k = "kubectl";
 
     programs.starship.settings.kubernetes.disabled = false;
-
-    programs.k9s = {
-      enable = true;
-      settings.k9s = {
-        liveViewAutoRefresh = true;
-        skipLatestRevCheck = true;
-        ui.logoless = true;
-      };
-    };
 
     programs.bash.initExtra = ''
       # Enable `kubectl show-secrets`
@@ -56,6 +45,20 @@ in {
     '';
 
     programs.zsh = {
+      initExtra = ''
+        # Enable `kubectl show-secrets`
+        autoload -Uz kubectl kubectl-show-secrets
+
+        # Switch Kubernetes context
+        autoload -Uz fzf-kubectx-widget
+        zle -N fzf-kubectx-widget
+        bindkey '^Bc' fzf-kubectx-widget
+
+        # Switch Kubernetes namespace
+        autoload -Uz fzf-kubens-widget
+        zle -N fzf-kubens-widget
+        bindkey '^Bn' fzf-kubens-widget
+      '';
       siteFunctions = {
         fzf-kubectx-widget = ''
           zle push-line
@@ -76,20 +79,16 @@ in {
         inherit kubectl-show-secrets;
         kubectl = kubectl-wrapper;
       };
-      initExtra = ''
-        # Enable `kubectl show-secrets`
-        autoload -Uz kubectl kubectl-show-secrets
-
-        # Switch Kubernetes context
-        autoload -Uz fzf-kubectx-widget
-        zle -N fzf-kubectx-widget
-        bindkey '^Bc' fzf-kubectx-widget
-
-        # Switch Kubernetes namespace
-        autoload -Uz fzf-kubens-widget
-        zle -N fzf-kubens-widget
-        bindkey '^Bn' fzf-kubens-widget
-      '';
     };
+
+    programs.k9s = {
+      enable = true;
+      settings.k9s = {
+        liveViewAutoRefresh = true;
+        skipLatestRevCheck = true;
+        ui.logoless = true;
+      };
+    };
+
   };
 }

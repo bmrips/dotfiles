@@ -82,28 +82,24 @@ let
   mkcd = ''mkdir --parents "$1" && cd "$1"'';
 
 in {
-  nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = import ./overlays/default.nix;
+  imports = [
+    ./profiles/adesso.nix
+    ./profiles/gui.nix
+    ./profiles/kde-plasma.nix
+    ./profiles/linux.nix
+    ./profiles/macos.nix
+    ./profiles/standalone.nix
+    ./profiles/uni-muenster.nix
+    ./programs/dircolors.nix
+    ./programs/firefox.nix
+    ./programs/fzf.nix
+    ./programs/git/default.nix
+    ./programs/starship.nix
+    ./programs/zoxide.nix
+    ./programs/zsh.nix
+  ];
 
-  imports = import ./modules/module-list.nix;
-
-  programs.home-manager.enable = true;
-
-  home.username = "bmr";
-
-  nix = {
-    nixPath = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
-    settings = {
-      experimental-features = "flakes nix-command";
-      use-xdg-base-directories = true;
-    };
-    gc = {
-      automatic = true;
-      options = "--delete-older-than 30d";
-    };
-  };
-
-  xdg.enable = true;
+  fonts.fontconfig.enable = true;
 
   home.language = let
     english = "en_GB.UTF-8";
@@ -119,6 +115,8 @@ in {
     telephone = german;
     time = german;
   };
+
+  home.packages = with packageSets; core ++ extra;
 
   home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
 
@@ -165,7 +163,6 @@ in {
     ip = "ip -color=auto";
     nvim = "TTY=$TTY nvim";
 
-    b = "goto";
     c = "cd";
     gl = "glab";
     hm = "home-manager";
@@ -186,7 +183,30 @@ in {
     vim = "nvim";
   };
 
-  fonts.fontconfig.enable = true;
+  # This value determines the Home Manager release that your configuration is
+  # compatible with. This helps avoid breakage when a new Home Manager release
+  # introduces backwards incompatible changes.
+  #
+  # You should not change this value, even if you update Home Manager. If you do
+  # want to update the value, then make sure to first check the Home Manager
+  # release notes.
+  home.stateVersion = "23.11"; # Please read the comment before changing.
+
+  home.username = "bmr";
+
+  nix = {
+    nixPath = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
+    settings = {
+      experimental-features = "flakes nix-command";
+      use-xdg-base-directories = true;
+    };
+    gc = {
+      automatic = true;
+      options = "--delete-older-than 30d";
+    };
+  };
+
+  nixpkgs.config.allowUnfree = true;
 
   programs.bash = {
     enable = true;
@@ -253,6 +273,8 @@ in {
       se = "36";
     };
   };
+
+  programs.home-manager.enable = true;
 
   programs.less = {
     enable = true;
@@ -391,14 +413,5 @@ in {
     initExtra = "autoload -Uz mkcd";
   };
 
-  home.packages = with packageSets; core ++ extra;
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "23.11"; # Please read the comment before changing.
+  xdg.enable = true;
 }

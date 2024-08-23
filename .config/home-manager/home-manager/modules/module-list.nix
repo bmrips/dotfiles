@@ -1,0 +1,12 @@
+[
+  ./programs/fzf-tab-completion.nix
+  ./programs/gcc.nix
+  ./programs/goto.nix
+  ./programs/grep.nix
+  ./programs/kubectl.nix
+  ./programs/less.nix
+  ./programs/shellcheck.nix
+  ./programs/taskell.nix
+  ./programs/yamllint.nix
+  ./programs/zsh.nix
+]

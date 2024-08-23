@@ -1,5 +1,5 @@
 {
-  imports = [ ../../default.nix ];
+  imports = [ ../../home-manager ];
 
   profiles = {
     adesso.enable = true;

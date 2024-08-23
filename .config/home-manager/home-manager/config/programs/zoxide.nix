@@ -21,7 +21,12 @@ in {
 
     programs.zsh.siteFunctions.fzf-zoxide-widget = ''
       zle push-line
-      BUFFER="zi"
+      local dir="$(${cfg.package}/bin/zoxide query --interactive)"
+      if [[ -z "$dir" ]]; then
+          zle redisplay
+          return 0
+      fi
+      BUFFER="cd -- ''${(q)dir}"
       zle accept-line
       local ret=$?
       zle reset-prompt

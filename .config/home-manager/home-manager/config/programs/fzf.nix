@@ -41,7 +41,6 @@ let
 in mkIf cfg.enable {
 
   home.sessionVariables = rec {
-    FZF_COMPLETION_OPTS = gnuCommandLine { height = "60%"; };
     FZF_GREP_COMMAND = "fzf-state get-source grep";
     FZF_GREP_OPTS = let
       batArgs = gnuCommandLine (filePreviewArgs // {

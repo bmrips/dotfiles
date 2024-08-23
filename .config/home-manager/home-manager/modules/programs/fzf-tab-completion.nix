@@ -2,7 +2,10 @@
 
 with lib;
 
-let cfg = config.programs.fzf-tab-completion;
+let
+  cfg = config.programs.fzf-tab-completion;
+
+  inherit (pkgs.lib) gnuCommandLine;
 
 in {
 
@@ -12,12 +15,18 @@ in {
 
     package = mkPackageOption pkgs "fzf-tab-completion" { };
 
+    fzfOptions = mkOption {
+      type = with types; attrsOf str;
+      default = { };
+      description = "Options for fzf, set through {env}`FZF_COMPLETION_OPTS`";
+      example = { height = "60%"; };
+    };
+
     prompt = mkOption {
       type = with types; nullOr str;
       default = null;
-      description = ''
-        The search prompt; set through `FZF_TAB_COMPLETION_PROMPT`
-      '';
+      description =
+        "The search prompt; set through {env}`FZF_TAB_COMPLETION_PROMPT`";
       example = "❯ ";
     };
 
@@ -49,6 +58,10 @@ in {
   config = mkIf cfg.enable (mkMerge [
 
     { home.packages = [ cfg.package ]; }
+
+    (mkIf (cfg.fzfOptions != { }) {
+      home.sessionVariables.FZF_COMPLETION_OPTS = gnuCommandLine cfg.fzfOptions;
+    })
 
     (mkIf (cfg.prompt != null) {
       home.sessionVariables.FZF_TAB_COMPLETION_PROMPT = cfg.prompt;

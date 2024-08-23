@@ -42,5 +42,7 @@ in {
       ignores = [ ".DS_Store" ]; # macOS directory preferences
     };
 
+    services.home-manager.autoUpgrade.enable = mkForce false;
+
   };
 }

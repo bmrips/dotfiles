@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-pacman --query --info --info |
-    rg '^MODIFIED' |
-    cut --delimiter="\t" --fields=2

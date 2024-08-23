@@ -76,7 +76,7 @@ in {
     ./programs/fzf-tab-completion.nix
     ./programs/fzf.nix
     ./programs/gcc.nix
-    ./programs/git/default.nix
+    ./programs/git
     ./programs/goto.nix
     ./programs/grep.nix
     ./programs/less.nix

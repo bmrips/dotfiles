@@ -57,6 +57,11 @@ in {
 
   config = mkIf config.profiles.kde-plasma.enable {
 
+    assertions = [{
+      assertion = pkgs.stdenv.isLinux;
+      message = "This profile is only available on Linux.";
+    }];
+
     home.packages = with pkgs;
       with pkgs.kdePackages; [
         akonadi

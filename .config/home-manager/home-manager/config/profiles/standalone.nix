@@ -7,6 +7,11 @@ with lib;
 
   config = mkIf config.profiles.standalone.enable ({
 
+    assertions = [{
+      assertion = !config.submoduleSupport.enable;
+      message = "This profile only available on standalone installations.";
+    }];
+
     i18n.glibcLocales = pkgs.glibcLocales.override {
       allLocales = false;
       locales = builtins.map (l: l + "/UTF-8") ([ "C.UTF-8" "en_US.UTF-8" ]

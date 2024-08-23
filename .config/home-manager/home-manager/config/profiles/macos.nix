@@ -17,6 +17,11 @@ in {
 
   config = mkIf config.profiles.macos.enable {
 
+    assertions = [{
+      assertion = pkgs.stdenv.isDarwin;
+      message = "This profile is only available on macOS.";
+    }];
+
     home.homeDirectory = "/Users/${config.home.username}";
 
     home.packages = with pkgs; [ iterm2 rectangle unnaturalscrollwheels ];

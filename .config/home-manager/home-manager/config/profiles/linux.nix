@@ -7,6 +7,11 @@ with lib;
 
   config = mkIf config.profiles.linux.enable {
 
+    assertions = [{
+      assertion = pkgs.stdenv.isLinux;
+      message = "This profile is only available on Linux.";
+    }];
+
     home.homeDirectory = "/home/${config.home.username}";
 
     home.shellAliases = {

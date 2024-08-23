@@ -2,6 +2,7 @@
 
 let
   myUser = "bmr";
+
   jetbrains-mono = {
     package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
     variant = "JetbrainsMono NF Medium";
@@ -401,7 +402,7 @@ in {
     extraGroups =
       [ config.hardware.i2c.group "lp" "networkmanager" "scanner" "wheel" ];
   };
-  home-manager.users.bmr = import ./home.nix;
+  home-manager.users."${myUser}" = import ./home.nix;
 
   system.autoUpgrade = {
     enable = true;

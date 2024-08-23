@@ -1,4 +1,5 @@
 map import [
+  ./ansi_escape_codes.nix
   ./fzf.nix
   ./gnu_option_constructors.nix
   ./nix-user-repository.nix

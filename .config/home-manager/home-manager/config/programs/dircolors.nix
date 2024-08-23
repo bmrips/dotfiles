@@ -1,11 +1,17 @@
-{ lib, ... }:
+{ lib, pkgs, ... }:
 
 with lib;
 
 let
+  inherit (pkgs.lib) ansiEscapeCodes;
+  inherit (pkgs.lib.ansiEscapeCodes) base16 combine reset;
+
+  fg = c: base16.color [ base16.fg base16.bright c ];
+  reverse = c:
+    combine [ ansiEscapeCodes.reverse (base16.color [ base16.fg c ]) ];
+
   colorise = extensions: color:
-    listToAttrs
-    (map (ext: nameValuePair ".${ext}" (toString color)) extensions);
+    listToAttrs (map (ext: nameValuePair ".${ext}" color) extensions);
 
   archives = [
     "7z"
@@ -133,31 +139,32 @@ let
   versionControl = [ "gitattributes" "gitignore" "gitmodules" ];
 
 in {
-  programs.dircolors.settings = {
-    "NORMAL" = "00"; # normal text
-    "RESET" = "00"; # reset to "normal" color
+  programs.dircolors.settings = with base16;
+    {
+      NORMAL = reset; # normal text
+      RESET = reset; # reset to "normal" color
 
-    # File type
-    "FILE" = "00";
-    "DIR" = "94";
-    "LINK" = "96";
-    "ORPHAN" = "91"; # symlink to nonexistent file
-    "MISSING" = "31;07"; # a nonexistent target of a symlink
-    "MULTIHARDLINK" = "00"; # regular file with more than one link
-    "FIFO" = "93"; # pipe
-    "SOCK" = "95";
-    "DOOR" = "95";
-    "BLK" = "93"; # block device
-    "CHR" = "93"; # character device
+      # File type
+      FILE = reset;
+      DIR = fg blue;
+      LINK = fg cyan;
+      ORPHAN = fg red; # symlink to nonexistent file
+      MISSING = reverse red; # a nonexistent target of a symlink
+      MULTIHARDLINK = reset; # regular file with more than one link
+      FIFO = fg yellow; # pipe
+      SOCK = fg magenta;
+      DOOR = fg magenta;
+      BLK = fg yellow; # block device
+      CHR = fg yellow; # character device
 
-    # Permissions
-    "EXEC" = "92";
-    "SETUID" = "31;07";
-    "SETGID" = "33;07";
-    "CAPABILITY" = "31;07";
-    "STICKY_OTHER_WRITABLE" = "34;07";
-    "OTHER_WRITABLE" = "36;07";
-    "STICKY" = "35;07";
-  } // colorise archives "91" // colorise (audio ++ video) "95"
-    // colorise documents "33" // colorise versionControl "90";
+      # Permissions
+      EXEC = fg green;
+      SETUID = reverse white;
+      SETGID = reverse yellow;
+      CAPABILITY = reverse red;
+      STICKY_OTHER_WRITABLE = reverse blue;
+      OTHER_WRITABLE = reverse cyan;
+      STICKY = reverse magenta;
+    } // colorise archives (fg red) // colorise (audio ++ video) (fg magenta)
+    // colorise documents (fg yellow) // colorise versionControl (fg black);
 }

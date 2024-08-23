@@ -3,7 +3,8 @@
 with lib;
 
 let
-  inherit (pkgs.lib) gnuCommandArgs gnuCommandLine;
+  inherit (pkgs.lib) ansiEscapeCodes gnuCommandArgs gnuCommandLine;
+  inherit (pkgs.lib.ansiEscapeCodes) base16 reset;
 
   nixpkgs_23_05 = import (fetchTarball {
     name = "nixpks-23.05-darwin-20231231";
@@ -80,6 +81,9 @@ let
   };
 
   mkcd = ''mkdir --parents "$1" && cd "$1"'';
+
+  normal = c: with base16; color [ fg c ];
+  bold = c: ansiEscapeCodes.combine [ ansiEscapeCodes.bold (normal c) ];
 
 in {
   imports = [
@@ -243,13 +247,13 @@ in {
 
   programs.gcc = {
     enable = true; # for nvim-treesitter
-    colors = {
-      error = "01;31";
-      warning = "01;35";
-      note = "01;36";
-      caret = "01;32";
-      locus = "01;33";
-      quote = "01;34";
+    colors = with base16; {
+      error = bold red;
+      warning = bold magenta;
+      note = bold cyan;
+      caret = bold green;
+      locus = bold yellow;
+      quote = bold blue;
     };
   };
 
@@ -261,15 +265,15 @@ in {
 
   programs.grep = {
     enable = true;
-    colors = {
-      ms = "01;31";
-      mc = "01;31";
-      sl = "";
-      cx = "";
-      fn = "35";
-      ln = "32";
-      bn = "32";
-      se = "36";
+    colors = with base16; {
+      ms = bold red;
+      mc = bold red;
+      sl = reset;
+      cx = reset;
+      fn = normal magenta;
+      ln = normal green;
+      bn = normal green;
+      se = normal cyan;
     };
   };
 

@@ -119,7 +119,6 @@ in {
       literal = true;
       time-style = "long-iso";
     };
-    make.jobs = 4;
     mv.interactive = true;
     rm.preserve-root = true;
     tree.C = true; # always colorise output

@@ -9,10 +9,19 @@ let
   inherit (pkgs.lib.shell) dirPreview subshell;
   inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
+  fzf-state = let
+    drv = pkgs.writeShellApplication {
+      name = "fzf-state";
+      runtimeInputs = with pkgs; [ coreutils fd ripgrep ];
+      bashOptions = [ "errexit" "pipefail" ];
+      text = readFile ./fzf-state.sh;
+    };
+  in "${drv}/bin/fzf-state";
+
   fzf-state-keybindings = reloadCmd:
     escapeShellArg (concatStringsSep "," [
-      "alt-h:execute(fzf-state toggle hide-hidden-files)+reload(${reloadCmd})"
-      "alt-i:execute(fzf-state toggle show-ignored-files)+reload(${reloadCmd})"
+      "alt-h:execute(${fzf-state} toggle hide-hidden-files)+reload(${reloadCmd})"
+      "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})"
     ]);
 
   filePreviewArgs = {
@@ -41,10 +50,11 @@ let
 in mkIf cfg.enable {
 
   home.sessionVariables = rec {
-    FZF_GREP_COMMAND = "fzf-state get-source grep";
+    FZF_GREP_COMMAND = "${fzf-state} get-source grep";
     FZF_GREP_OPTS = let
       batArgs = gnuCommandLine (filePreviewArgs // {
-        line-range = subshell "fzf-state context {2}: --highlight-line={2} {1}";
+        line-range =
+          subshell "${fzf-state} context {2}: --highlight-line={2} {1}";
       });
     in gnuCommandLine {
       bind = fzf-state-keybindings "${FZF_GREP_COMMAND} {q}";
@@ -55,7 +65,7 @@ in mkIf cfg.enable {
   };
 
   programs.fzf = {
-    changeDirWidgetCommand = "fzf-state get-source directories";
+    changeDirWidgetCommand = "${fzf-state} get-source directories";
 
     changeDirWidgetOptions = gnuCommandArgs {
       bind = fzf-state-keybindings cfg.changeDirWidgetCommand;
@@ -92,7 +102,7 @@ in mkIf cfg.enable {
       preview-window = "right,border,hidden";
     };
 
-    fileWidgetCommand = "fzf-state get-source files";
+    fileWidgetCommand = "${fzf-state} get-source files";
 
     fileWidgetOptions = gnuCommandArgs {
       bind = fzf-state-keybindings cfg.fileWidgetCommand;

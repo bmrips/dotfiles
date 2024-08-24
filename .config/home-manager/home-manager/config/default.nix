@@ -70,8 +70,8 @@ in {
     ./programs/dircolors.nix
     ./programs/direnv.nix
     ./programs/firefox.nix
+    ./programs/fzf
     ./programs/fzf-tab-completion.nix
-    ./programs/fzf.nix
     ./programs/gcc.nix
     ./programs/git
     ./programs/goto.nix

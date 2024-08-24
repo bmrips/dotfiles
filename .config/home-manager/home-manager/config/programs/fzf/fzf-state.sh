@@ -1,7 +1,5 @@
-#!/usr/bin/env bash
-
-FZF_STATE_PREFIX=/tmp/fzf
-mkdir --parents $FZF_STATE_PREFIX
+state_dir=/tmp/fzf
+mkdir --parents $state_dir
 
 case $1 in
 context)
@@ -14,12 +12,12 @@ context)
     exit
     ;;
 get-source)
-    if [[ -f $FZF_STATE_PREFIX/hide-hidden-files ]]; then
+    if [[ -f $state_dir/hide-hidden-files ]]; then
         unset hidden
     else
         hidden="--hidden"
     fi
-    if [[ -f $FZF_STATE_PREFIX/show-ignored-files ]]; then
+    if [[ -f $state_dir/show-ignored-files ]]; then
         ignored="--no-ignore"
     else
         unset ignored
@@ -48,7 +46,7 @@ toggle)
         exit 1
     fi
 
-    file="$FZF_STATE_PREFIX/$2"
+    file="$state_dir/$2"
 
     if [[ -f $file ]]; then
         rm "$file"

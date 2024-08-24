@@ -1,1 +1,0 @@
-[ ./fonts/jetbrains-mono.nix ]

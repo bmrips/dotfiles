@@ -19,6 +19,7 @@ in {
         gnumake # for markdown-preview.nvim
         nodejs # for markdown-preview.nvim
         tree-sitter
+        wl-clipboard
       ];
       home.shellAliases = {
         nvim = "TTY=$TTY nvim";

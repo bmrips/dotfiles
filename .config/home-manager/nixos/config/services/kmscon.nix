@@ -1,9 +1,8 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
 {
-
   config.services.kmscon = {
 
     hwRender = true;
@@ -42,6 +41,10 @@ with lib;
       ${colorConfigStr}
     '';
 
-  };
+    fonts = [{
+      name = "JetbrainsMono NF Medium";
+      package = pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; };
+    }];
 
+  };
 }

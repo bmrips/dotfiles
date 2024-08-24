@@ -10,7 +10,7 @@ in {
   config = mkIf config.profiles.gui.enable {
     home.packages = with pkgs;
       [ keepassxc spotify ]
-      ++ (if isLinux then [ libreoffice-qt signal-desktop vlc ] else [ ]);
+      ++ optionals isLinux [ libreoffice-qt signal-desktop vlc ];
     programs.firefox.enable = true;
   };
 }

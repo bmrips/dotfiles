@@ -76,7 +76,7 @@ in {
         kcolorchooser
         kdepim-runtime
         kgpg
-        kleopatra
+        kleopatra # for KMail
         kmail
         kmail-account-wizard
         kmailtransport

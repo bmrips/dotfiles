@@ -3,6 +3,22 @@
 with lib;
 
 let
+  # Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
+  # editor.
+  copy-forms = pkgs.writeShellApplication {
+    name = "copy-forms";
+    runtimeInputs = with pkgs; [ ghostscript_headless ];
+    text = ''
+      if [[ -z $1 ]]; then
+          echo "Error: no argument given!" >&2
+          exit 1
+      fi
+
+      base="''${1%.pdf}"
+      gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$base.copy.pdf" "$base.pdf"
+    '';
+  };
+
   plasma-dark-mode = pkgs.writeShellApplication {
     name = "plasma-dark-mode";
     runtimeInputs = with pkgs; [ gnugrep kdePackages.plasma-workspace ];
@@ -44,6 +60,7 @@ in {
         akonadi-notes
         akonadi-search
         akregator
+        copy-forms
         kcalc
         kcolorchooser
         kdepim-runtime

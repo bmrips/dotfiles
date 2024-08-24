@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -100,6 +100,16 @@ in {
           zle reset-prompt
           return $ret
         '';
+        common_commands = ''
+          PATH='${makeBinPath (with pkgs; [ coreutils gnused ])}' \
+          cat '${cfg.history.path}' |
+            sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
+            cut --delimiter=" " --fields=1 |
+            sort |
+            uniq --count |
+            sort --numeric-sort --reverse |
+            head --lines=15
+        '';
         edit-command-line-and-restore-cursor = ''
           edit-command-line
           bar_cursor
@@ -182,6 +192,9 @@ in {
         bindkey '^[[F' end-of-line
         bindkey '^[[3~' delete-char
         bindkey '^[3;5~' delete-char
+
+        # Show the ten most common commands
+        autoload -Uz common_commands
       '';
     }
 

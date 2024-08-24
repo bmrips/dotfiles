@@ -16,13 +16,13 @@ let
         recipe="$multiple_secrets_recipe"
     fi
 
-    kubectl get --output=yaml secret "$@" | yq "$recipe"
+    ${pkgs.kubectl}/bin/kubectl get --output=yaml secret "$@" | ${pkgs.yq-go}/bin/yq "$recipe"
   '';
 
   kubectl-wrapper = ''
     case $1 in
       show-secrets) shift && kubectl-show-secrets "$@" ;;
-      *) command kubectl "$@" ;;
+      *) command ${pkgs.kubectl}/bin/kubectl "$@" ;;
     esac
   '';
 

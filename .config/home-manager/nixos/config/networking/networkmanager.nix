@@ -1,8 +1,5 @@
 { config, lib, user, ... }:
 
-with lib;
-
-{
-  config.users.users."${user}".extraGroups =
-    mkIf config.networking.networkmanager.enable [ "networkmanager" ];
+lib.mkIf config.networking.networkmanager.enable {
+  users.users."${user}".extraGroups = [ "networkmanager" ];
 }

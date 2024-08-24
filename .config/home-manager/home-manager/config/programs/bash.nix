@@ -2,18 +2,17 @@
 
 with lib;
 
-let cfg = config.programs.bash;
+mkMerge [
 
-in {
-  config = mkMerge [
-    {
-      programs.bash = {
-        historyControl = [ "ignoredups" ];
-        historyFile = "${config.xdg.stateHome}/bash/history";
-      };
-    }
+  {
+    programs.bash = {
+      historyControl = [ "ignoredups" ];
+      historyFile = "${config.xdg.stateHome}/bash/history";
+    };
+  }
 
-    (mkIf cfg.enable { home.packages = with pkgs; [ nix-bash-completions ]; })
+  (mkIf config.programs.bash.enable {
+    home.packages = with pkgs; [ nix-bash-completions ];
+  })
 
-  ];
-}
+]

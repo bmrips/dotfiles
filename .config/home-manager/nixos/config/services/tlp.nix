@@ -1,16 +1,12 @@
 { config, lib, ... }:
 
-with lib;
-
-{
-  config = mkIf config.services.tlp.enable {
-    services.power-profiles-daemon.enable = false; # conflicts with TLP
-    services.tlp.settings = {
-      CPU_BOOST_ON_AC = 1;
-      CPU_BOOST_ON_BAT = 0;
-      CPU_HWP_DYN_BOOST_ON_AC = 1;
-      CPU_HWP_DYN_BOOST_ON_BAT = 0;
-      DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth nfc wifi wwan";
-    };
+lib.mkIf config.services.tlp.enable {
+  services.power-profiles-daemon.enable = false; # conflicts with TLP
+  services.tlp.settings = {
+    CPU_BOOST_ON_AC = 1;
+    CPU_BOOST_ON_BAT = 0;
+    CPU_HWP_DYN_BOOST_ON_AC = 1;
+    CPU_HWP_DYN_BOOST_ON_BAT = 0;
+    DEVICES_TO_DISABLE_ON_BAT_NOT_IN_USE = "bluetooth nfc wifi wwan";
   };
 }

@@ -2,8 +2,6 @@
 
 with lib;
 
-{
-  config = mkIf config.services.displayManager.sddm.enable {
-    services.xserver.enable = true;
-  };
+mkIf config.services.displayManager.sddm.enable {
+  services.xserver.enable = true;
 }

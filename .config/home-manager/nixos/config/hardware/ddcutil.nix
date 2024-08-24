@@ -3,8 +3,6 @@
 with lib;
 
 let
-  cfg = config.hardware.ddcutil;
-
   brightness = pkgs.writeShellApplication {
     name = "brightness";
     runtimeInputs = with pkgs; [ coreutils ddcutil gnugrep ];
@@ -19,7 +17,7 @@ in {
 
   options.hardware.ddcutil.enable = mkEnableOption "{command}`ddcutil`";
 
-  config = mkIf cfg.enable {
+  config = mkIf config.hardware.ddcutil.enable {
     environment.systemPackages = [ brightness pkgs.ddcutil ];
     hardware.i2c.enable = true;
     users.users."${user}".extraGroups = [ config.hardware.i2c.group ];

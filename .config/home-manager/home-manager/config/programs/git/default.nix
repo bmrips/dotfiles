@@ -3,9 +3,6 @@
 with lib;
 
 let
-
-  cfg = config.programs.git;
-
   gitWrapper = ''
     case $1 in
       cd-root) local repo_root="$(command git rev-parse --show-toplevel)" && cd "$repo_root" ;;
@@ -13,7 +10,7 @@ let
     esac
   '';
 
-in mkIf cfg.enable {
+in mkIf config.programs.git.enable {
 
   home.shellAliases.g = "git";
 

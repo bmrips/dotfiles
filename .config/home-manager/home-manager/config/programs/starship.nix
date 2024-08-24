@@ -1,9 +1,7 @@
 { lib, ... }:
 
-with lib;
-
 let
-  format = concatMapStrings (s: "\$${s}") [
+  format = lib.concatMapStrings (s: "\$${s}") [
     "all"
     "fill"
     "jobs"

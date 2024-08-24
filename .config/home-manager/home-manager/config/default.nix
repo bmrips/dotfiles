@@ -1,6 +1,4 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
+{ config, pkgs, ... }:
 
 let
   nixpkgs_23_05 = import (fetchTarball {

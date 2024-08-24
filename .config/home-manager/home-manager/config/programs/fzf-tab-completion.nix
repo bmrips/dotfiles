@@ -1,5 +1,5 @@
 {
-  config.programs.fzf-tab-completion = {
+  programs.fzf-tab-completion = {
     fzfOptions.height = "60%";
     prompt = "❯ ";
     zshExtraConfig = ''

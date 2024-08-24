@@ -1,10 +1,6 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.programs.firefox;
-
-in mkIf cfg.enable {
+lib.mkIf config.programs.firefox.enable {
   programs.firefox = {
 
     policies = {

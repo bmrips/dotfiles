@@ -1,8 +1,5 @@
 { config, lib, user, ... }:
 
-with lib;
-
-{
-  config.users.users."${user}".extraGroups =
-    mkIf config.hardware.sane.enable [ "scanner" ];
+lib.mkIf config.hardware.sane.enable {
+  users.users."${user}".extraGroups = [ "scanner" ];
 }

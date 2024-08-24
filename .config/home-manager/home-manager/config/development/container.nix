@@ -2,14 +2,11 @@
 
 with lib;
 
-let cfg = config.development.container;
-
-in {
-
+{
   options.development.container.enable =
     mkEnableOption "container development tools";
 
-  config.home.packages =
-    mkIf cfg.enable (with pkgs; [ dockerfile-language-server-nodejs podman ]);
-
+  config = mkIf config.development.container.enable {
+    home.packages = (with pkgs; [ dockerfile-language-server-nodejs podman ]);
+  };
 }

@@ -2,12 +2,10 @@
 
 with lib;
 
-let cfg = config.development.bash;
-
-in {
+{
   options.development.bash.enable = mkEnableOption "Bash development tools";
 
-  config = mkIf cfg.enable {
+  config = mkIf config.development.bash.enable {
     home.packages = with pkgs; [ bash-language-server checkbashisms shfmt ];
 
     programs.bash.enable = true;

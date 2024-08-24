@@ -8,37 +8,35 @@ let
   inherit (pkgs.lib) gnuCommandLine;
   inherit (pkgs.lib.shell) dirPreview subshell;
 
-in {
-  config = mkIf cfg.enable {
+in mkIf cfg.enable {
 
-    home.sessionVariables._ZO_FZF_OPTS = concatStringsSep " " [
-      config.home.sessionVariables.FZF_DEFAULT_OPTS
-      (gnuCommandLine {
-        preview = dirPreview
-          (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
-      })
-    ];
+  home.sessionVariables._ZO_FZF_OPTS = concatStringsSep " " [
+    config.home.sessionVariables.FZF_DEFAULT_OPTS
+    (gnuCommandLine {
+      preview = dirPreview
+        (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
+    })
+  ];
 
-    programs.zsh.siteFunctions.fzf-zoxide-widget = ''
-      zle push-line
-      local dir="$(${cfg.package}/bin/zoxide query --interactive)"
-      if [[ -z "$dir" ]]; then
-          zle redisplay
-          return 0
-      fi
-      BUFFER="cd -- ''${(q)dir}"
-      zle accept-line
-      local ret=$?
-      zle reset-prompt
-      return $ret
-    '';
+  programs.zsh.siteFunctions.fzf-zoxide-widget = ''
+    zle push-line
+    local dir="$(${cfg.package}/bin/zoxide query --interactive)"
+    if [[ -z "$dir" ]]; then
+        zle redisplay
+        return 0
+    fi
+    BUFFER="cd -- ''${(q)dir}"
+    zle accept-line
+    local ret=$?
+    zle reset-prompt
+    return $ret
+  '';
 
-    programs.zsh.initExtra = ''
-      # Go to directory with zoxide
-      autoload -Uz fzf-zoxide-widget
-      zle -N fzf-zoxide-widget
-      bindkey '^Y' fzf-zoxide-widget
-    '';
+  programs.zsh.initExtra = ''
+    # Go to directory with zoxide
+    autoload -Uz fzf-zoxide-widget
+    zle -N fzf-zoxide-widget
+    bindkey '^Y' fzf-zoxide-widget
+  '';
 
-  };
 }

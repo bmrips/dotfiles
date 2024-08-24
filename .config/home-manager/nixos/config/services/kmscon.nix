@@ -3,7 +3,7 @@
 with lib;
 
 {
-  config.services.kmscon = {
+  services.kmscon = {
 
     hwRender = true;
 

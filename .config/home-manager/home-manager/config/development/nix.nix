@@ -2,10 +2,10 @@
 
 with lib;
 
-let cfg = config.development.nix;
-
-in {
+{
   options.development.nix.enable = mkEnableOption "Nix development tools";
 
-  config.home.packages = mkIf cfg.enable (with pkgs; [ nil nixfmt-classic ]);
+  config = mkIf config.development.nix.enable {
+    home.packages = with pkgs; [ nil nixfmt-classic ];
+  };
 }

@@ -100,7 +100,7 @@ in {
           zle reset-prompt
           return $ret
         '';
-        common_commands = ''
+        common-commands = ''
           PATH='${makeBinPath (with pkgs; [ coreutils gnused ])}' \
           cat '${cfg.history.path}' |
             sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |

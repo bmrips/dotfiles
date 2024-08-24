@@ -2,7 +2,22 @@
 
 with lib;
 
-mkMerge [
+let
+  nvim-prune-undodir = pkgs.writeShellApplication {
+    name = "nvim-prune-undodir";
+    runtimeInputs = with pkgs; [ coreutils ];
+    text = ''
+      IFS=$'\n'
+      for file in ${config.xdg.stateHome}/nvim/undo/*; do
+        name="$(basename "$file")"
+        if [[ ! -f ''${name//\%//} ]]; then
+          rm "$file"
+        fi
+      done
+    '';
+  };
+
+in mkMerge [
 
   {
     programs.neovim = {
@@ -15,6 +30,7 @@ mkMerge [
     home.packages = with pkgs; [
       gnumake # for markdown-preview.nvim
       nodejs # for markdown-preview.nvim
+      nvim-prune-undodir
       tree-sitter
       wl-clipboard
     ];

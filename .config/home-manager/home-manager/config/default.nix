@@ -59,7 +59,6 @@ in {
     ./development/markdown.nix
     ./development/nix.nix
     ./development/yaml.nix
-    ./profiles/adesso.nix
     ./profiles/gui.nix
     ./profiles/kde-plasma.nix
     ./profiles/linux.nix

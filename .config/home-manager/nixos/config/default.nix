@@ -48,58 +48,6 @@
   networking.networkmanager = {
     enable = true;
     wifi.powersave = true;
-    ensureProfiles.profiles = {
-      home = {
-        connection = {
-          id = "Home";
-          uuid = "ba58bd83-b999-4c98-8946-4c29a6c83a6a";
-          type = "wifi";
-          permissions = "user:${user}:;";
-        };
-        wifi = {
-          mode = "infrastructure";
-          ssid = "in omnia paratus";
-        };
-        wifi-security = {
-          key-mgmt = "sae";
-          psk-flags = "1";
-        };
-        ipv4.method = "auto";
-        ipv6 = {
-          addr-gen-mode = "stable-privacy";
-          method = "auto";
-        };
-      };
-      uni-muenster = {
-        connection = {
-          id = "Uni Münster";
-          uuid = "0a5feb3b-73c5-47bb-92e4-8d3915e4f3b3";
-          type = "vpn";
-          permissions = "user:${user}:;";
-        };
-        vpn = {
-          cookie-flags = "2";
-          enable_csd_trojan = "no";
-          "form:main:password-flags" = "2";
-          "form:main:secondary_password-flags" = "2";
-          gateway = "vpn.uni-muenster.de";
-          gateway-flags = "2";
-          gwcert-flags = "2";
-          pem_passphrase_fsid = "no";
-          prevent_invalid_cert = "no";
-          protocol = "anyconnect";
-          reported_os = "";
-          stoken_source = "disabled";
-          stoken_string-flags = "1";
-          service-type = "org.freedesktop.NetworkManager.openconnect";
-        };
-        ipv4.method = "auto";
-        ipv6 = {
-          addr-gen-mode = "default";
-          method = "auto";
-        };
-      };
-    };
   };
 
   time.timeZone = "Europe/Berlin";

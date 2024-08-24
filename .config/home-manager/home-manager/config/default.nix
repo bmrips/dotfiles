@@ -154,8 +154,6 @@ in {
 
   home.packages = with packageSets; core ++ extra;
 
-  home.sessionPath = [ "${config.home.homeDirectory}/.local/bin" ];
-
   home.sessionVariables.TEXEDIT =
     "${config.home.sessionVariables.EDITOR} +%d %s";
 

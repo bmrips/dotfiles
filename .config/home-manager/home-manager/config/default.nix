@@ -25,6 +25,7 @@ let
           "JetBrainsMono"
         ];
       })
+      print-colors
       tokei
       tree
     ];
@@ -47,6 +48,19 @@ let
       translate-shell
       treefmt2
     ];
+  };
+
+  print-colors = pkgs.writeShellApplication {
+    name = "print-colors";
+    text = ''
+      for C in {40..47}; do
+        printf "\e[''${C}m%3s" "$C"
+      done
+      echo
+      for C in {100..107}; do
+        printf "\e[''${C}m%3s" "$C"
+      done
+    '';
   };
 
 in {

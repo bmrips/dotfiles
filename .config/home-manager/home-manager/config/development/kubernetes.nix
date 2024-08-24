@@ -51,16 +51,11 @@ in {
 
     programs.zsh = {
       initExtra = ''
-        # Enable `kubectl show-secrets`
-        autoload -Uz kubectl kubectl-show-secrets
-
         # Switch Kubernetes context
-        autoload -Uz fzf-kubectx-widget
         zle -N fzf-kubectx-widget
         bindkey '^Bc' fzf-kubectx-widget
 
         # Switch Kubernetes namespace
-        autoload -Uz fzf-kubens-widget
         zle -N fzf-kubens-widget
         bindkey '^Bn' fzf-kubens-widget
       '';

@@ -152,7 +152,7 @@ in {
         add-zsh-hook preexec block_cursor
 
         # Edit the command line with $EDITOR
-        autoload -Uz edit-command-line edit-command-line-and-restore-cursor
+        autoload -Uz edit-command-line
         zle -N edit-command-line-and-restore-cursor
         bindkey          '^V' edit-command-line-and-restore-cursor
         bindkey -M vicmd '^V' edit-command-line-and-restore-cursor
@@ -162,7 +162,6 @@ in {
         autoload -Uz run-help
 
         # Go upwards quickly by typing sequences of dots
-        autoload -Uz rationalise-dot
         zle -N rationalise-dot
         bindkey . rationalise-dot
 
@@ -178,12 +177,10 @@ in {
         bindkey '^F' autosuggest-execute
 
         # Go back with <C-o>
-        autoload -Uz cd_undo
         zle -N cd_undo
         bindkey '^O' cd_undo
 
         # Go to parent dir with <C-p>
-        autoload -Uz cd_parent
         zle -N cd_parent
         bindkey '^P' cd_parent
 
@@ -192,9 +189,6 @@ in {
         bindkey '^[[F' end-of-line
         bindkey '^[[3~' delete-char
         bindkey '^[3;5~' delete-char
-
-        # Show the ten most common commands
-        autoload -Uz common_commands
       '';
     }
 

@@ -8,8 +8,5 @@ in {
         }
     '';
   };
-  programs.zsh = {
-    siteFunctions.mkcd = mkcd;
-    initExtra = "autoload -Uz mkcd";
-  };
+  programs.zsh.siteFunctions.mkcd = mkcd;
 }

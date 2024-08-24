@@ -132,7 +132,6 @@ in mkIf cfg.enable {
     zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
 
     # Interactive grep
-    autoload -Uz fzf-grep-widget
     zle -N fzf-grep-widget
     bindkey '^G' fzf-grep-widget
   '';

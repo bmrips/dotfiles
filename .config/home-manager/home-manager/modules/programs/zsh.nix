@@ -51,6 +51,8 @@ in {
       home.packages = mapAttrsToList
         (name: pkgs.writeTextDir "share/zsh/site-functions/${name}")
         cfg.siteFunctions;
+      programs.zsh.initExtra = concatStringsSep " "
+        ([ "autoload -Uz" ] ++ attrNames cfg.siteFunctions);
     })
 
     (mkIf (cfg.useInNixShell) {

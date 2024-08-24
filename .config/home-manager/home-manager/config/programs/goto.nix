@@ -16,7 +16,6 @@ in mkMerge [
     home.shellAliases.b = "goto";
     programs.zsh.initExtra = ''
       # Go to `goto` bookmark
-      autoload -Uz fzf-goto-widget
       zle -N fzf-goto-widget
       bindkey '^B' fzf-goto-widget
     '';

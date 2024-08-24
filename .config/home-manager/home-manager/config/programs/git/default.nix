@@ -20,10 +20,7 @@ in mkIf config.programs.git.enable {
     }
   '';
 
-  programs.zsh = {
-    siteFunctions.git = gitWrapper;
-    initExtra = "autoload -Uz git";
-  };
+  programs.zsh.siteFunctions.git = gitWrapper;
 
   programs.git = {
     userName = "Benedikt Rips";

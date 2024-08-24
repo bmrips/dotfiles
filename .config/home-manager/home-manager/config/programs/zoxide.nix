@@ -34,7 +34,6 @@ in mkIf cfg.enable {
 
   programs.zsh.initExtra = ''
     # Go to directory with zoxide
-    autoload -Uz fzf-zoxide-widget
     zle -N fzf-zoxide-widget
     bindkey '^Y' fzf-zoxide-widget
   '';

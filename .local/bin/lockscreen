@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-# Lock the screen, with an darkened and blurred screenshot as background.
-scrot /tmp/screenshot.png
-convert /tmp/screenshot.png -blur 0x5 -level 0%,100%,0.7 /tmp/screenshot-mod.png
-i3lock --image=/tmp/screenshot-mod.png

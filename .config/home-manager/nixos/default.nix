@@ -1,6 +1,14 @@
 { host, lib, pkgs, user, ... }:
 
-{
+let
+  kmod-params = pkgs.writeShellApplication {
+    name = "kmod-params";
+    runtimeInputs = with pkgs; [ coreutils fd gnused kmod ripgrep ];
+    excludeShellChecks = [ "SC2059" ];
+    text = builtins.readFile ./kmod-params.sh;
+  };
+
+in {
   imports = [
     ./boot/plymouth.nix
     ./hardware/ddcutil.nix
@@ -48,7 +56,12 @@
     man-db.enable = true;
   };
 
-  environment.systemPackages = with pkgs; [ coreutils-full nix psmisc ];
+  environment.systemPackages = with pkgs; [
+    coreutils-full
+    kmod-params
+    nix
+    psmisc
+  ];
 
   hardware.ddcutil.enable = true;
 

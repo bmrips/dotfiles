@@ -6,7 +6,10 @@
     ./hardware/ddcutil.nix
     ./hardware/sane.nix
     ./networking/networkmanager.nix
+    ./profiles/gui.nix
+    ./programs/ausweisapp.nix
     ./security/sudo.nix
+    ./services/desktopManager/plasma6.nix
     ./services/displayManager/sddm.nix
     ./services/kmscon.nix
     ./services/pipewire.nix
@@ -50,6 +53,8 @@
   hardware.ddcutil.enable = true;
 
   hardware.sane.enable = true;
+
+  home-manager.users."${user}".profiles.linux.enable = true;
 
   i18n = let
     english = "en_GB.UTF-8";
@@ -96,16 +101,10 @@
     warnUndeclaredOptions = true;
   };
 
-  programs.ausweisapp = {
-    enable = true;
-    openFirewall = true;
-  };
-
   programs.zsh.enable = true;
 
   services.colord.enable = true;
   services.desktopManager.plasma6.enable = true;
-  services.displayManager.sddm.enable = true;
   services.kmscon.enable = true;
   services.logind.powerKey = "ignore";
   services.pipewire.enable = true;

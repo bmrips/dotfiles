@@ -86,6 +86,8 @@ in {
         smartly-sized-konsole
       ];
 
+    profiles.gui.enable = true;
+
     programs.firefox = {
       nativeMessagingHosts = [ pkgs.kdePackages.plasma-browser-integration ];
       profiles.default = {

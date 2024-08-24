@@ -1,5 +1,9 @@
-{ config, ... }:
+{ config, lib, ... }:
+
+with lib;
 
 {
-  config.services.xserver.enable = config.services.displayManager.sddm.enable;
+  config = mkIf config.services.displayManager.sddm.enable {
+    services.xserver.enable = true;
+  };
 }

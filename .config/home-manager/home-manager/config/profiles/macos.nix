@@ -31,6 +31,8 @@ in {
       xp = "pbpaste";
     };
 
+    profiles.gui.enable = true;
+
     # Read Nix's initialisation script here to survive macOS system updates.
     programs.bash.profileExtra = readNixInitScript;
     programs.zsh.profileExtra = readNixInitScript;

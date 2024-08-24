@@ -17,6 +17,9 @@ with lib;
       trash = "mv -t ${config.xdg.dataHome}/Trash/files";
       xc = "wl-copy";
       xp = "wl-paste";
+
+      # List all processes and the systemd units they belong to.
+      ps-systemd = "ps xawf -eo pid,user,cgroup,args";
     };
 
     programs.git.ignores = [ ".directory" ]; # KDE directory preferences

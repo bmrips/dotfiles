@@ -74,7 +74,7 @@ in {
     ./development/nix.nix
     ./development/yaml.nix
     ./profiles/gui.nix
-    ./profiles/kde-plasma.nix
+    ./profiles/kde-plasma
     ./profiles/linux.nix
     ./profiles/macos.nix
     ./profiles/standalone.nix

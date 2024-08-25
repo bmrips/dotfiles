@@ -57,6 +57,8 @@ in {
     };
   };
 
+  boot.kernelModules = [ "kvm-intel" ];
+
   boot.kernelParams = [
     "resume=${swapDevice}"
     "video=efifb:nobgrt" # hide UEFI vendor logo
@@ -77,8 +79,6 @@ in {
     "i915.enable_dc=7"
   ];
 
-  boot.kernelModules = [ "kvm-intel" ];
-
   boot.loader = {
     grub = {
       device = "nodev";
@@ -97,31 +97,31 @@ in {
     "/home" = btrfsSubvolume "home";
   };
 
-  swapDevices = [{ device = swapDevice; }];
+  hardware.bluetooth = {
+    enable = true;
+    settings.General.Experimental = true; # show battery charge of devices
+  };
+
+  hardware.cpu.intel.updateMicrocode = true;
+
+  home-manager.users."${user}" = {
+    imports = [ ../../home-manager ];
+    profiles.uni-muenster.enable = true;
+  };
+
+  nixpkgs.hostPlatform = "x86_64-linux";
 
   services.btrfs.autoScrub = {
     enable = true;
     fileSystems = [ "/" ];
   };
 
+  services.hardware.bolt.enable = true;
+
   services.udev.extraRules = ''
     # turn off keyboard backlight after ten seconds
     SUBSYSTEM=="leds", KERNEL=="dell::kbd_backlight", ATTR{stop_timeout}="10"
   '';
 
-  services.hardware.bolt.enable = true;
-
-  hardware.cpu.intel.updateMicrocode = true;
-
-  hardware.bluetooth = {
-    enable = true;
-    settings.General.Experimental = true; # show battery charge of devices
-  };
-
-  nixpkgs.hostPlatform = "x86_64-linux";
-
-  home-manager.users."${user}" = {
-    imports = [ ../../home-manager ];
-    profiles.uni-muenster.enable = true;
-  };
+  swapDevices = [{ device = swapDevice; }];
 }

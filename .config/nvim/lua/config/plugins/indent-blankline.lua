@@ -3,7 +3,7 @@ return {
   event = 'VeryLazy',
   opts = {
     indent = {
-      char = require('util.tty').if_in_pts '⏐',
+      char = '⏐',
     },
     exclude = {
       filetypes = {

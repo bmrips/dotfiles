@@ -1,5 +1,3 @@
-local tty = require 'util.tty'
-
 local filename = { 'filename', path = 1 }
 
 return {
@@ -9,8 +7,8 @@ return {
   opts = {
     options = {
       theme = 'gruvbox-material',
-      component_separators = tty.if_in_pts { left = '', right = '' } or '|',
-      section_separators = tty.if_in_pts { left = '', right = '' } or '',
+      component_separators = { left = '', right = '' },
+      section_separators = { left = '', right = '' },
     },
     sections = {
       lualine_b = { 'diagnostics' },

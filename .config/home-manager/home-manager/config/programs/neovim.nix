@@ -35,7 +35,6 @@ in mkMerge [
       wl-clipboard
     ];
     home.shellAliases = {
-      nvim = "TTY=$TTY nvim";
       v = "nvim";
       vi = "nvim";
       vim = "nvim";

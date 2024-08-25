@@ -7,7 +7,6 @@ let
 
   inherit (pkgs.lib) gnuCommandArgs gnuCommandLine;
   inherit (pkgs.lib.shell) dirPreview subshell;
-  inherit (pkgs.stdenv.hostPlatform) isDarwin;
 
   fzf-state = let
     drv = pkgs.writeShellApplication {
@@ -38,13 +37,6 @@ let
     _fzf_compgen_dir() {
         ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" --type=directory . "$1"
     }
-  '';
-
-  plainArrowInTTY = ''
-    # use ASCII arrow head in non-pseudo TTYs
-    if [[ $TTY == /dev/${if isDarwin then "console" else "tty*"} ]]; then
-        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --marker='>' --pointer='>' --prompt='> '"
-    fi
   '';
 
 in mkIf cfg.enable {
@@ -110,7 +102,7 @@ in mkIf cfg.enable {
     };
   };
 
-  programs.bash.initExtra = useFdForPathListings + plainArrowInTTY;
+  programs.bash.initExtra = useFdForPathListings;
 
   programs.zsh.siteFunctions.fzf-grep-widget = let
     grep = stringAsChars (c: if c == "\n" then "; " else c) ''
@@ -129,7 +121,7 @@ in mkIf cfg.enable {
     return $ret
   '';
 
-  programs.zsh.initExtra = useFdForPathListings + plainArrowInTTY + ''
+  programs.zsh.initExtra = useFdForPathListings + ''
     # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
     bindkey '^ ' fzf-file-widget
     bindkey '^_' fzf-history-widget

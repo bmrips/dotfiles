@@ -70,12 +70,12 @@ in {
     # videos. Disable this option if you experience freezing, e.g. after
     # resuming from hibernation.
     #
-    # Additionally, enable all RC6 states since the kernel log does not show
-    # any masking.
+    # Additionally, enable only the RC6p sleep state (other RC6 states are not
+    # available on this graphics card.
     #
     # https://gist.github.com/Brainiarc7/aa43570f512906e882ad6cdd835efe57
     "i915.enable_guc=2"
-    "i915.enable_dc=7"
+    "i915.enable_dc=1"
   ];
 
   boot.loader = {

@@ -1,8 +1,7 @@
-{ modulesPath, ... }:
+{ modulesPath, pkgs, ... }:
 
 let
-  uuid = id: "/dev/disk/by-uuid/" + id;
-  partuuid = id: "/dev/disk/by-partuuid/" + id;
+  inherit (pkgs.lib) uuid partuuid;
 
   btrfsSubvolume = subvolume: {
     device = uuid "5c603a46-9506-4eb4-b68a-31ee0408b775";

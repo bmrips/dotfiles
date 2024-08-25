@@ -12,6 +12,7 @@ in {
   imports = [
     ./boot/plymouth.nix
     ./hardware/devices/microsoft_ergonomic_keyboard.nix
+    ./hardware/devices/lacie_drive.nix
     ./hardware/ddcutil.nix
     ./hardware/sane.nix
     ./networking/networkmanager.nix

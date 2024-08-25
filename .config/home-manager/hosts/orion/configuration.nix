@@ -103,6 +103,8 @@ in {
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  hardware.devices.lacie_drive.enable = true;
+
   home-manager.users."${user}" = {
     imports = [ ../../home-manager ];
     profiles.uni-muenster.enable = true;

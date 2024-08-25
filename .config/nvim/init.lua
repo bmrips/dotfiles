@@ -191,7 +191,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   nested = true,
   callback = function(args)
     require('util.windows').for_windows_of_buf(args.buf, function(win)
-      vim.wo[win].signcolumn = 'yes'
+      vim.wo[win].signcolumn = 'yes:1'
     end)
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)

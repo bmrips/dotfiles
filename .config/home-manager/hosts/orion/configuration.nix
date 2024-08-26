@@ -60,9 +60,9 @@ in {
 
   boot.kernelParams = [
     "resume=${swapDevice}"
+    "retbleed=stuff"
     "video=efifb:nobgrt" # hide UEFI vendor logo
     "zswap.enabled=1"
-    "retbleed=stuff"
 
     # For the Gen 9+ iHD graphics card, enable HuC load but disable GuC
     # submission since the latter is not available on this chip. Passing this

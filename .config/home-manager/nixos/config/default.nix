@@ -133,6 +133,7 @@ in {
 
   system.autoUpgrade = {
     enable = true;
+    flags = [ "--upgrade-all" ];
     dates = "weekly";
     randomizedDelaySec = "1h";
   };

@@ -9,8 +9,9 @@ in {
 
   config = mkIf config.profiles.gui.enable {
     home.packages = with pkgs;
-      [ keepassxc spotify ]
+      [ keepassxc logseq spotify ]
       ++ optionals isLinux [ libreoffice-qt signal-desktop vlc ];
+    nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
     programs.firefox.enable = true;
   };
 }

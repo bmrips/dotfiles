@@ -15,6 +15,7 @@ return {
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-path',
     'kdheepak/cmp-latex-symbols',
+    'octaltree/cmp-look',
     {
       'petertriho/cmp-git',
       dependencies = 'nvim-lua/plenary.nvim',
@@ -57,6 +58,7 @@ return {
             keyword_pattern = word_with_umlauts,
           },
         },
+        { name = 'look' },
         { name = 'calc' },
         { name = 'path' },
         { name = 'spell' },

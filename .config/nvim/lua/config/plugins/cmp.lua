@@ -10,6 +10,7 @@ return {
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-calc',
     'hrsh7th/cmp-cmdline',
+    'hrsh7th/cmp-emoji',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-path',
@@ -38,6 +39,13 @@ return {
         ['<C-f>'] = cmp.mapping.scroll_docs(4),
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<CR>'] = cmp.mapping.confirm { select = false },
+        ['<C-x>e'] = cmp.mapping.complete {
+          config = {
+            sources = {
+              { name = 'emoji' },
+            },
+          },
+        },
       },
       sources = {
         { name = 'nvim_lsp' },

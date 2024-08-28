@@ -62,7 +62,9 @@ in {
     coreutils-full
     kmod-params
     nix
+    pciutils
     psmisc
+    usbutils
   ];
 
   hardware.ddcutil.enable = true;

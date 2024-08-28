@@ -25,17 +25,20 @@ let
     text = builtins.readFile ./plasma-dark-mode.sh;
   };
 
-  smartly-sized-konsole = pkgs.writeShellApplication {
+  smartly-sized-konsole = let
+    jq = "${pkgs.jq}/bin/jq";
+    konsole = "${pkgs.kdePackages.konsole}/bin/konsole";
+    kscreen-console = "${pkgs.kdePackages.kscreen}/bin/kscreen-console";
+  in pkgs.writeShellApplication {
     name = "smartly-sized-konsole";
-    runtimeInputs = with pkgs; [ jq kdePackages.konsole kdePackages.kscreen ];
     text = ''
       background=''${1-Dark}
-      screen_width="$(kscreen-console json | jq .screen.currentSize.width)"
+      screen_width="$(${kscreen-console} json | ${jq} .screen.currentSize.width)"
 
       if (( screen_width == 1920 )); then
-          konsole --profile "$background"
+          ${konsole} --profile "$background"
       else
-          konsole --profile "$background-11pt"
+          ${konsole} --profile "$background-11pt"
       fi
     '';
   };

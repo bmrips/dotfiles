@@ -13,6 +13,7 @@ return {
     'hrsh7th/cmp-emoji',
     'hrsh7th/cmp-nvim-lsp',
     'hrsh7th/cmp-nvim-lsp-signature-help',
+    'hrsh7th/cmp-omni',
     'hrsh7th/cmp-path',
     'kdheepak/cmp-latex-symbols',
     'octaltree/cmp-look',
@@ -52,6 +53,7 @@ return {
         { name = 'nvim_lsp' },
         { name = 'nvim_lsp_signature_help' },
         { name = 'luasnip' },
+        { name = 'omni' },
         {
           name = 'buffer',
           option = {

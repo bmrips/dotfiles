@@ -67,6 +67,8 @@ in {
     usbutils
   ];
 
+  environment.wordlist.enable = true;
+
   hardware.ddcutil.enable = true;
 
   hardware.sane.enable = true;

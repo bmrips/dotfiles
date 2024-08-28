@@ -20,12 +20,6 @@ return {
       config = true,
     },
     'saadparwaiz1/cmp_luasnip',
-    {
-      'tamago324/cmp-zsh',
-      opts = {
-        filetypes = { 'zsh' },
-      },
-    },
   },
   opts = function()
     local cmp = require 'cmp'
@@ -59,7 +53,6 @@ return {
         { name = 'path' },
         { name = 'spell' },
         { name = 'git' },
-        { name = 'zsh' },
         {
           name = 'latex_symbols',
           option = {

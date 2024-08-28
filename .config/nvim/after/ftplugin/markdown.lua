@@ -1,5 +1,6 @@
 local opt = vim.opt_local
 
+opt.formatoptions:remove 't'
 opt.joinspaces = false
 opt.shiftwidth = 0
 opt.softtabstop = 0

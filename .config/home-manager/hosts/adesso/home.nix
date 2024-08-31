@@ -28,6 +28,9 @@ with lib;
   programs.firefox.profiles.default.settings = {
     # always show the bookmarks toolbar
     "browser.toolbars.bookmarks.visibility" = mkForce "always";
+
+    # The device's name.
+    "identity.fxaccounts.account.device.name" = "adesso";
   };
 
   programs.git.userEmail = mkForce "${config.home.username}@adesso.de";

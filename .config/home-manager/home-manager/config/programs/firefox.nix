@@ -29,9 +29,6 @@ lib.mkIf config.programs.firefox.enable {
         # Do not check whether Firefox is the default browser.
         "browser.shell.checkDefaultBrowser" = true;
 
-        # The device's name.
-        "identity.fxaccounts.account.device.name" = "orion";
-
         # Configure synchronisation.
         "services.sync.username" = "benedikt.rips@gmail.com";
 

@@ -19,11 +19,12 @@ let
 
   swapDevice = uuid "a09ffe4f-168e-4b89-be3f-a0f9fbc83364";
 
+  host = "orion";
   user = "bmr";
 
 in {
   _module.args = {
-    host = "orion";
+    inherit host;
     inherit user;
   };
 
@@ -108,6 +109,11 @@ in {
   home-manager.users."${user}" = {
     imports = [ ../../home-manager ];
     profiles.uni-muenster.enable = true;
+
+    # The device's name.
+    programs.firefox.profiles.default.settings = {
+      "identity.fxaccounts.account.device.name" = host;
+    };
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";

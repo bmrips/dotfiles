@@ -26,6 +26,7 @@ let
   };
 
   smartly-sized-konsole = let
+    grep = "${pkgs.gnugrep}/bin/grep";
     jq = "${pkgs.jq}/bin/jq";
     konsole = "${pkgs.kdePackages.konsole}/bin/konsole";
     kscreen-console = "${pkgs.kdePackages.kscreen}/bin/kscreen-console";
@@ -33,7 +34,7 @@ let
     name = "smartly-sized-konsole";
     text = ''
       background=''${1-Dark}
-      screen_width="$(${kscreen-console} json | ${jq} .screen.currentSize.width)"
+      screen_width="$(${kscreen-console} json | ${grep} '^[ {}]' | ${jq} .screen.currentSize.width)"
 
       if (( screen_width == 1920 )); then
           ${konsole} --profile "$background"

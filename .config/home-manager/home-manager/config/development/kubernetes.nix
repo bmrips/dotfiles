@@ -4,7 +4,7 @@ with lib;
 
 let
   kubectl-show-secrets = ''
-    local single_secret_recipe='.data[] |= @base64d | .name = .metadata.name | pick(["name", " data"])'
+    local single_secret_recipe='.data[] |= @base64d | .name = .metadata.name | pick(["name", "data"])'
     local multiple_secrets_recipe=".items | .[] |= ($single_secret_recipe)"
     local recipe
 

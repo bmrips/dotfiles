@@ -63,10 +63,16 @@ vim.api.nvim_create_autocmd('QuickFixCmdPre', {
 -- stylua: ignore
 require('nest').applyKeymaps {
   { buffer = true, {
-    { '<LocalLeader>v',
-      '<Cmd>TexlabForward<CR>',
-      desc = 'View generated PDF document',
-    },
+    { '<LocalLeader>', {
+      { 'E',
+        '<Cmd>TexlabChangeEnvironment<CR>',
+        desc = 'Change environment',
+      },
+      { 'v',
+        '<Cmd>TexlabForward<CR>',
+        desc = 'View generated PDF document',
+      },
+    }},
     { vim.keycode '<C-\\>' .. 'e',
       function()
         vim.ui.input({ prompt = 'Environment: ' }, tex.createEnvironment)

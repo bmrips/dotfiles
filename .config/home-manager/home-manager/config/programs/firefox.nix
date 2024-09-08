@@ -176,6 +176,14 @@ lib.mkIf config.programs.firefox.enable {
             "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         in {
           Bing.metaData.hidden = true;
+          CTAN = {
+            definedAliases = [ "@ctan" ];
+            iconUpdateURL =
+              "https://ctan.org/assets/favicon/favicon-16x16-ecad89e8a3475c9b10c36f82efef3bcd.png";
+            updateInterval = 24 * 60 * 60 * 1000; # every day
+            urls =
+              [{ template = "https://ctan.org/search?phrase={searchTerms}"; }];
+          };
           Hoogle = {
             definedAliases = [ "@h" "@hoogle" ];
             iconUpdateURL = "https://hoogle.haskell.org/favicon.png";
@@ -205,6 +213,10 @@ lib.mkIf config.programs.firefox.enable {
             urls = [{
               template = "https://nixos.wiki/index.php?search={searchTerms}";
             }];
+          };
+          texdoc = {
+            definedAliases = [ "@texdoc" ];
+            urls = [{ template = "https://texdoc.org/serve/{searchTerms}/0"; }];
           };
         };
       };

@@ -22,6 +22,22 @@ in {
       message = "This profile is only available on macOS.";
     }];
 
+    # Need to create aliases because Spotlight doesn't consider symlinks.
+    home.activation.link-apps = hm.dag.entryAfter [ "writeBarrier" ] (let
+      aliasesDir =
+        "${config.home.homeDirectory}/Applications/Home Manager Apps Aliases";
+      find = "${pkgs.findutils}/bin/find";
+    in ''
+      rm --recursive --force "${aliasesDir}"
+      mkdir --parents "${aliasesDir}"
+      ${find} -L "$newGenPath/home-files/Applications/Home Manager Apps/" -maxdepth 1 -name '*.app' -exec sh -c '
+        real_app=$(readlink --canonicalize "{}")
+        target_app="${aliasesDir}/$(basename "{}")"
+        echo "Alias \"$real_app\" to \"$target_app\""
+        ${pkgs.mkalias}/bin/mkalias "$real_app" "$target_app"
+      ' \;
+    '');
+
     home.homeDirectory = "/Users/${config.home.username}";
 
     home.packages = with pkgs; [ iterm2 rectangle unnaturalscrollwheels ];

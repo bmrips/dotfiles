@@ -95,6 +95,7 @@ in {
     ./programs/neovim.nix
     ./programs/ripgrep.nix
     ./programs/shellcheck.nix
+    ./programs/sioyek.nix
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/taskell.nix
@@ -211,6 +212,7 @@ in {
   programs.man.generateCaches = true;
   programs.neovim.enable = true;
   programs.ripgrep.enable = true;
+  programs.sioyek.enable = true;
   programs.ssh.enable = true;
   programs.starship.enable = true;
   programs.taskell.enable = true;

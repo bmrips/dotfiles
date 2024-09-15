@@ -184,6 +184,14 @@ lib.mkIf config.programs.firefox.enable {
             urls =
               [{ template = "https://ctan.org/search?phrase={searchTerms}"; }];
           };
+          "Home Manager" = {
+            definedAliases = [ "@hm" "@home-manager" ];
+            icon = nixIcon;
+            urls = [{
+              template =
+                "https://home-manager-options.extranix.com/?release=master&query={searchTerms}";
+            }];
+          };
           Hoogle = {
             definedAliases = [ "@h" "@hoogle" ];
             iconUpdateURL = "https://hoogle.haskell.org/favicon.png";

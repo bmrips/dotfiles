@@ -68,6 +68,7 @@ in mkIf config.programs.git.enable {
       merge.tool = "nvim";
       pull.rebase = true;
       push.gpgSign = "if-asked";
+      push.useForceIfIncludes = true;
       rebase.missingCommitsCheck = "error";
       rerere.enabled = true;
       stash.showStat = true;

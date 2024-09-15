@@ -36,7 +36,6 @@ let
       eza
       gfold
       git-cliff
-      gitui
       glow
       gum
       ocrmypdf
@@ -90,6 +89,7 @@ in {
     ./programs/git
     ./programs/goto.nix
     ./programs/grep.nix
+    ./programs/lazygit.nix
     ./programs/less.nix
     ./programs/mkcd.nix
     ./programs/neovim.nix
@@ -204,6 +204,7 @@ in {
   programs.direnv.enable = true;
   programs.fzf.enable = true;
   programs.fzf-tab-completion.enable = true;
+  programs.lazygit.enable = true;
   programs.git.enable = true;
   programs.gpg.enable = true;
   programs.goto.enable = true;

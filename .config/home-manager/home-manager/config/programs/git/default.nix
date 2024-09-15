@@ -58,6 +58,7 @@ in mkIf config.programs.git.enable {
       diff.algorithm = "histogram";
       diff.colorMoved = "default";
       diff.renames = "copy";
+      fetch.all = true;
       fetch.prune = true;
       fetch.writeCommitGraph = true;
       init.defaultBranch = "main";

@@ -216,6 +216,7 @@ lib.mkIf config.programs.firefox.enable {
           };
           texdoc = {
             definedAliases = [ "@texdoc" ];
+            icon = ./TeX.svg;
             urls = [{ template = "https://texdoc.org/serve/{searchTerms}/0"; }];
           };
         };

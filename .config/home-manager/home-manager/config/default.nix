@@ -83,7 +83,7 @@ in {
     ./programs/bat.nix
     ./programs/dircolors.nix
     ./programs/direnv.nix
-    ./programs/firefox.nix
+    ./programs/firefox
     ./programs/fzf
     ./programs/fzf-tab-completion.nix
     ./programs/gcc.nix

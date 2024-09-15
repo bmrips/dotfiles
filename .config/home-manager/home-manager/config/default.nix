@@ -100,6 +100,7 @@ in {
     ./programs/starship.nix
     ./programs/taskell.nix
     ./programs/yamllint.nix
+    ./programs/yazi.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
   ];

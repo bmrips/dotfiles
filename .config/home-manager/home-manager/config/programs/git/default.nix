@@ -124,7 +124,7 @@ in mkIf config.programs.git.enable {
       pushf = "push --force-with-lease";
       r = "reset";
       rb = "rebase";
-      rbf = "rebase --interactive --autosquash --autostash";
+      rbf = "rebase --autostash --autosquash";
       s = "status --short";
       sl = "shortlog";
       sw = "switch";

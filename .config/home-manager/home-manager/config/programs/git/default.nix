@@ -70,6 +70,7 @@ in mkIf config.programs.git.enable {
       push.gpgSign = "if-asked";
       push.useForceIfIncludes = true;
       rebase.missingCommitsCheck = "error";
+      rebase.updateRefs = true;
       rerere.enabled = true;
       stash.showStat = true;
       status.showStash = true;

@@ -205,14 +205,15 @@ lib.mkIf config.programs.firefox.enable {
             icon = nixIcon;
             urls = [{
               template =
-                "https://search.nixos.org/packages?query={searchTerms}";
+                "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
             }];
           };
           "NixOS Options" = {
             definedAliases = [ "@no" "@nixosopts" ];
             icon = nixIcon;
             urls = [{
-              template = "https://search.nixos.org/options?query={searchTerms}";
+              template =
+                "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
             }];
           };
           "NixOS Wiki" = {

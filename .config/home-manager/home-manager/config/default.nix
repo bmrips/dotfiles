@@ -87,6 +87,7 @@ in {
     ./programs/fzf-tab-completion.nix
     ./programs/gcc.nix
     ./programs/git
+    ./programs/gh.nix
     ./programs/goto.nix
     ./programs/grep.nix
     ./programs/lazygit.nix
@@ -205,6 +206,7 @@ in {
   programs.fzf.enable = true;
   programs.fzf-tab-completion.enable = true;
   programs.lazygit.enable = true;
+  programs.gh.enable = true;
   programs.git.enable = true;
   programs.gpg.enable = true;
   programs.goto.enable = true;

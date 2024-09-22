@@ -129,6 +129,22 @@ return {
         forward = require('impairative.helpers').decode_string,
       }
       h:function_pair {
+        key = 'd',
+        desc = '{Previous|Next} diagnostic',
+        backward = vim.diagnostic.goto_prev,
+        forward = vim.diagnostic.goto_next,
+      }
+      h:function_pair {
+        key = 'D',
+        desc = '{Previous|Next} error',
+        backward = function()
+          vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+        end,
+        forward = function()
+          vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+        end,
+      }
+      h:function_pair {
         key = 'e',
         desc = 'Exchange lines',
         forward = function()

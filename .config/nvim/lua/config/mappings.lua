@@ -51,30 +51,6 @@ return {
       mode = { 'n', 'o', 'x' },
       remap = true,
     },
-    { '[', {
-      { 'd',
-        vim.diagnostic.goto_prev,
-        desc = 'Previous diagnostic',
-      },
-      { 'D',
-        function()
-          vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
-        end,
-        desc = 'Previous error',
-      },
-    }},
-    { ']', {
-      { 'd',
-        vim.diagnostic.goto_next,
-        desc = 'Next diagnostic',
-      },
-      { 'D',
-        function()
-          vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
-        end,
-        desc = 'Next error',
-      },
-    }},
     { 'g', {
       { 'a',
         '<Plug>(EasyAlign)',

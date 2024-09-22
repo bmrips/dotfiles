@@ -121,11 +121,6 @@ return {
         backward = 'bfirst',
         forward = 'blast',
       }
-      h:command_pair {
-        key = 'b',
-        backward = 'bprevious',
-        forward = 'bnext',
-      }
       h:text_manipulation {
         key = 'C',
         line_key = true,

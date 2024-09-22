@@ -124,13 +124,13 @@ return {
       h:text_manipulation {
         key = 'C',
         line_key = true,
-        desc = '{escape|unescape} strings (C escape rules)',
+        desc = '{Escape|Unescape} strings (C escape rules)',
         backward = require('impairative.helpers').encode_string,
         forward = require('impairative.helpers').decode_string,
       }
       h:function_pair {
         key = 'e',
-        desc = 'exchange lines',
+        desc = 'Exchange lines',
         forward = function()
           vim.cmd.move('+' .. tostring(vim.v.count1))
         end,
@@ -140,7 +140,7 @@ return {
       }
       h:unified_function {
         key = 'f',
-        desc = 'jump to the {previous|next} file in the directory tree',
+        desc = 'Jump to {previous|next} file in dir',
         fun = function(direction)
           local win_info = vim.fn.getwininfo(vim.api.nvim_get_current_win())[1] or {}
           if win_info.quickfix == 1 then
@@ -195,10 +195,10 @@ return {
       }
       h:jump_in_buf {
         key = 'n',
-        desc = 'jump to the {previous|next} SCM conflict marker or diff/path hunk',
+        desc = 'Jump to {previous|next} SCM conflict marker or diff/path hunk',
         extreme = {
           key = 'N',
-          desc = 'jump to the {first|last} SCM conflict marker or diff/path hunk',
+          desc = 'Jump to {first|last} SCM conflict marker or diff/path hunk',
         },
         fun = require('impairative.helpers').conflict_marker_locations,
       }
@@ -235,14 +235,14 @@ return {
       h:text_manipulation {
         key = 'u',
         line_key = true,
-        desc = '{encode|decode} URL',
+        desc = '{Encode|Decode} URL',
         backward = require('impairative.helpers').encode_url,
         forward = require('impairative.helpers').decode_url,
       }
       h:text_manipulation {
         key = 'x',
         line_key = true,
-        desc = '{encode|decode} XML',
+        desc = '{Encode|Decode} XML',
         backward = require('impairative.helpers').encode_xml,
         forward = require('impairative.helpers').decode_xml,
       }
@@ -250,12 +250,12 @@ return {
         key = 'y',
         line_key = true,
         backward = require('impairative.helpers').encode_string,
-        desc = '{escape|unescape} strings (C escape rules)',
+        desc = '{Escape|Unescape} strings (C escape rules)',
         forward = require('impairative.helpers').decode_string,
       }
       h:unified_function {
         key = '<Space>',
-        desc = 'add blank line(s) {above|below} the current line',
+        desc = 'Add blank line(s) {above|below} the current line',
         fun = function(direction)
           local line_number = vim.api.nvim_win_get_cursor(0)[1]
           if direction == 'backward' then

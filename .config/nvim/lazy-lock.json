@@ -41,7 +41,7 @@
   "nvim-better-n": { "branch": "master", "commit": "f7cc2ce7bbfede13cc62ba28d4c3d1353d79a5eb" },
   "nvim-cmp": { "branch": "main", "commit": "ae644feb7b67bf1ce4260c231d1d4300b19c6f30" },
   "nvim-fzf": { "branch": "master", "commit": "c89b15aee136eeb4649901552da37a404415c356" },
-  "nvim-impairative": { "branch": "develop", "commit": "77a3b4a0819553adb2719d31a8b1582fad7ff50c" },
+  "nvim-impairative": { "branch": "develop", "commit": "6999363a4f772fadcf0fe067afc8c550a4cee947" },
   "nvim-lastplace": { "branch": "main", "commit": "0bb6103c506315044872e0f84b1f736c4172bb20" },
   "nvim-lspconfig": { "branch": "master", "commit": "38d4b239aab2dc3fdfe56b42e3f0f20c237ca695" },
   "nvim-luapad": { "branch": "master", "commit": "176686eb616a5ada5dfc748f2b5109194bbe8a71" },

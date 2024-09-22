@@ -1,6 +1,7 @@
 return {
   'idanarye/nvim-impairative',
   event = 'VeryLazy',
+  dependencies = 'jonatan-branting/nvim-better-n',
   opts = {
     enable = '[o',
     disable = ']o',
@@ -105,6 +106,7 @@ return {
         key = 'a',
         backward = 'previous',
         forward = 'next',
+        better_n = true,
       }
       h:command_pair {
         key = 'A',
@@ -115,6 +117,7 @@ return {
         key = 'b',
         backward = 'bprevious',
         forward = 'bnext',
+        better_n = true,
       }
       h:command_pair {
         key = 'B',
@@ -131,12 +134,14 @@ return {
       h:function_pair {
         key = 'd',
         desc = '{Previous|Next} diagnostic',
+        better_n = true,
         backward = vim.diagnostic.goto_prev,
         forward = vim.diagnostic.goto_next,
       }
       h:function_pair {
         key = 'D',
         desc = '{Previous|Next} error',
+        better_n = true,
         backward = function()
           vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
         end,
@@ -157,6 +162,7 @@ return {
       h:unified_function {
         key = 'f',
         desc = 'Jump to {previous|next} file in dir',
+        better_n = true,
         fun = function(direction)
           local win_info = vim.fn.getwininfo(vim.api.nvim_get_current_win())[1] or {}
           if win_info.quickfix == 1 then
@@ -196,6 +202,7 @@ return {
       }
       h:command_pair {
         key = 'l',
+        better_n = true,
         backward = 'lprevious',
         forward = 'lnext',
       }
@@ -206,12 +213,14 @@ return {
       }
       h:command_pair {
         key = '<C-l>',
+        better_n = true,
         backward = 'lpfile',
         forward = 'lnfile',
       }
       h:jump_in_buf {
         key = 'n',
         desc = 'Jump to {previous|next} SCM conflict marker or diff/path hunk',
+        better_n = true,
         extreme = {
           key = 'N',
           desc = 'Jump to {first|last} SCM conflict marker or diff/path hunk',
@@ -220,6 +229,7 @@ return {
       }
       h:command_pair {
         key = 'q',
+        better_n = true,
         backward = 'cprevious',
         forward = 'cnext',
       }
@@ -230,11 +240,13 @@ return {
       }
       h:command_pair {
         key = '<C-q>',
+        better_n = true,
         backward = 'cpfile',
         forward = 'cnfile',
       }
       h:command_pair {
         key = 't',
+        better_n = true,
         backward = 'tprevious',
         forward = 'tnext',
       }
@@ -245,6 +257,7 @@ return {
       }
       h:command_pair {
         key = '<C-t>',
+        better_n = true,
         backward = 'ptprevious',
         forward = 'ptnext',
       }

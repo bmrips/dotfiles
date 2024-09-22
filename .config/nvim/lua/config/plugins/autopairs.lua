@@ -19,6 +19,9 @@ return {
           return info.char == '$' and info.next_char == info.rule.end_pair
         end),
       Rule('\\[', '\\]', 'tex')
+        :with_pair(function(info)
+          return info.line:sub(info.col-2, info.col-2) ~= '\\'
+        end)
         :with_move(function(info)
           local followed_by_end_pair =
             vim.startswith(info.line:sub(info.col), info.rule.end_pair)

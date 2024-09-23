@@ -64,7 +64,7 @@ vim.api.nvim_create_autocmd('QuickFixCmdPre', {
 require('nest').applyKeymaps {
   { buffer = true, {
     { '<LocalLeader>', {
-      { 'E',
+      { '<C-e>',
         '<Cmd>TexlabChangeEnvironment<CR>',
         desc = 'Change environment',
       },
@@ -73,7 +73,7 @@ require('nest').applyKeymaps {
         desc = 'View generated PDF document',
       },
     }},
-    { vim.keycode '<C-\\>' .. 'e',
+    { '<C-e>',
       function()
         vim.ui.input({ prompt = 'Environment: ' }, tex.createEnvironment)
       end,

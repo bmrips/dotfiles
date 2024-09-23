@@ -42,7 +42,7 @@ opt.textwidth = 80
 opt.undofile = true
 opt.wildmode = { 'longest', 'full' } -- Complete till longest common string
 
-vim.g.mapleader = vim.keycode '<C-\\>'
+vim.g.mapleader = vim.keycode '<Space>'
 vim.g.maplocalleader = '\\'
 
 -- synchronize the background color with the terminal to remove the padding

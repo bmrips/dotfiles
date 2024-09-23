@@ -9,6 +9,10 @@ return {
         vim.cmd.nohlsearch()
         vim.cmd.diffupdate()
         vim.cmd.mode() -- clear and redraw the screen
+        require('notify').dismiss {
+          pending = false,
+          silent = true,
+        }
       end,
       desc = 'Clear screen and redraw',
     },
@@ -463,15 +467,6 @@ return {
           require('kubectl').open()
         end,
         desc = 'Kubectl',
-      },
-      { 'n',
-        function()
-          require('notify').dismiss {
-            pending = false,
-            silent = true,
-          }
-        end,
-        desc = 'Dismiss notifications',
       },
       { 'p',
         function()

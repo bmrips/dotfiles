@@ -458,6 +458,10 @@ return {
         end,
         desc = 'Open file',
       },
+      { 'd',
+        '<Cmd>bdelete<CR>',
+        desc = 'Delete the buffer'
+      },
       { 'i',
         '<Cmd>call append(".", readfile(findfile(expand("<cfile>")))) | delete<CR>',
         desc = 'Include file under cursor',

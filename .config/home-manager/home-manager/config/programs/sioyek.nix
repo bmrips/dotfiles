@@ -11,6 +11,7 @@
     open_last_document = ";";
     prev_state = [ "," "<M-<left>>" ];
     previous_page = "K";
+    reload = "<C-r>";
     toggle_custom_color = "i";
     toggle_horizontal_scroll_lock = "<C-h>";
     toggle_statusbar = "<F3>";

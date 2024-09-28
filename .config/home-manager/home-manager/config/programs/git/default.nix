@@ -40,7 +40,7 @@ in mkIf config.programs.git.enable {
         hunk-header-style = "${hunk_color} line-number";
         minus-style = "${fg} auto";
         minus-emph-style = "${fg} auto";
-        navigate = "true";
+        navigate = true;
         plus-style = "${fg} auto";
         plus-emph-style = "${fg} auto";
         syntax-theme = "base16";

@@ -36,6 +36,7 @@ TrimTrailingSpacesInSelectedText=true
 UnderlineFilesEnabled=true
 
 [Scrolling]
+HighlightScrolledLines=false
 HistoryMode=1
 HistorySize=10000
 ScrollBarPosition=2

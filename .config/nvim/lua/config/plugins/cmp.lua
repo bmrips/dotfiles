@@ -2,7 +2,8 @@ local word_with_umlauts =
   [[\%(-\?\d\+\%(\.\d\+\)\?\|[A-ZÄÖÜa-zäöüß_][0-9A-ZÄÖÜa-zäöüß_]*\%([\-.][0-9A-ZÄÖÜa-zäöü_]+\)*\)]]
 
 return {
-  'hrsh7th/nvim-cmp',
+  'yioneko/nvim-cmp',
+  branch = 'perf',
   event = 'InsertEnter',
   dependencies = {
     'dmitmel/cmp-cmdline-history',

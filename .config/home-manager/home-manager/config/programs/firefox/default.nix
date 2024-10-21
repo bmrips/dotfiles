@@ -71,6 +71,9 @@ lib.mkIf config.programs.firefox.enable {
         # Disable the full screen warning.
         "full-screen-api.warning.timeout" = 0;
 
+        # Unload tabs after 5 minutes.
+        "browser.tabs.min_inactive_duration_before_unload" = "300000";
+
         # Improve the rendering performance by enabling Webrender.
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;

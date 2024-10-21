@@ -181,6 +181,9 @@ lib.mkIf config.programs.firefox.enable {
 
         # Download mixed content via HTTPS.
         "security.mixed_content.upgrade_display_content" = true;
+
+        # Disable VPN promotion.
+        "browser.vpn_promo.enabled" = false;
       };
 
       search = {

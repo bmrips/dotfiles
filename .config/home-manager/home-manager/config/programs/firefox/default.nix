@@ -17,9 +17,6 @@ lib.mkIf config.programs.firefox.enable {
         # Restore the last session.
         "browser.startup.page" = 3;
 
-        # Warn when quitting multiple windows.
-        "browser.sessionstore.warnOnQuit" = true;
-
         # Disable accessibility.
         "acessibility.force_disabled" = true;
 
@@ -38,8 +35,10 @@ lib.mkIf config.programs.firefox.enable {
         # Do not create default bookmarks.
         "browser.bookmarks.restore_default_bookmarks" = false;
 
-        # Never show the bookmarks and menu toolbar.
+        # Never show the bookmarks toolbar.
         "browser.toolbars.bookmarks.visibility" = "never";
+
+        # Do not show the menu toolbar when pressing Alt.
         "ui.key.menuAccessKeyFocuses" = false;
 
         # Save files to ~/Downloads without asking.

@@ -104,6 +104,7 @@ in {
     ./programs/yazi.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
+    ./remove-leaked-path-entries.nix
   ];
 
   ci.pre-commit.enable = true;

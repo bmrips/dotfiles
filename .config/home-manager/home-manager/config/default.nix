@@ -25,6 +25,7 @@ let
           "JetBrainsMono"
         ];
       })
+      nvd
       print-colors
       tokei
       tree

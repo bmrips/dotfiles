@@ -110,6 +110,7 @@ in {
 
   nix.settings = {
     auto-optimise-store = true;
+    trusted-users = [ user ];
     use-xdg-base-directories = true;
   };
 

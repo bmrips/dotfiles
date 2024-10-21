@@ -64,6 +64,13 @@ lib.mkIf config.programs.firefox.enable {
         # Use system locale settings.
         "intl.regional_prefs.use_os_locales" = true;
 
+        # Smooth full-screen transitions.
+        "full-screen-api.transition-duration.enter" = "200 200";
+        "full-screen-api.transition-duration.leave" = "200 200";
+
+        # Disable the full screen warning.
+        "full-screen-api.warning.timeout" = 0;
+
         # Improve the rendering performance by enabling Webrender.
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;

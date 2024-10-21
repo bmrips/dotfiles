@@ -73,7 +73,12 @@ in {
 
   hardware.sane.enable = true;
 
-  home-manager.users."${user}".profiles.linux.enable = true;
+  home-manager.users."${user}" = {
+    profiles.linux.enable = true;
+
+    # Compact Firefox UI.
+    programs.firefox.profiles.default.settings."browser.uidensity" = 1;
+  };
 
   i18n = let
     english = "en_GB.UTF-8";

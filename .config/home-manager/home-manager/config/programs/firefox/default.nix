@@ -112,6 +112,9 @@ lib.mkIf config.programs.firefox.enable {
         "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
           false;
 
+        # Disable extension recommendations.
+        "extensions.htmlaboutaddons.recommendations.enabled" = false;
+
         # Disable Safe Browsing.
         "browser.safebrowsing.blockedURIs.enabled" = false;
         "browser.safebrowsing.downloads.enabled" = false;

@@ -52,6 +52,9 @@ lib.mkIf config.programs.firefox.enable {
         # Do not suggest open tabs.
         "browser.urlbar.suggest.openpage" = false;
 
+        # Hide the tab close button.
+        "browser.tabs.tabClipWidth" = 999;
+
         # Highlight all search results on a page.
         "findbar.highlightAll" = true;
 

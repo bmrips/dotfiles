@@ -78,8 +78,22 @@ lib.mkIf config.programs.firefox.enable {
         "gfx.webrender.all" = true;
         "gfx.webrender.compositor.force-enabled" = true;
 
+        # Increase the speed of processing images.
+        "image.mem.decode_bytes_at_a_time" = 131072;
+
         # Enable hardware video acceleration via VAAPI.
         "media.ffmpeg.vaapi.enabled" = true;
+
+        # http://forums.mozillazine.org/viewtopic.php?f=7&t=2416193
+        # https://www.mail-archive.com/support-seamonkey@lists.mozilla.org/msg74561.html
+        "network.buffer.cache.size" = 262144;
+        "network.buffer.cache.count" = 128;
+
+        # Increase SSL and DNS caches
+        "network.ssl_tokens_cache_capacity" = 32768;
+        "network.dnsCacheExpiration" = 7200; # 2 hours
+        "network.dnsCacheExpirationGracePeriod" = 3600; # 1 hour
+        "dnsCacheEntries" = 2000;
 
         # Use the XDG desktop portal.
         "widget.use-xdg-desktop-portal.file-picker" = 1;

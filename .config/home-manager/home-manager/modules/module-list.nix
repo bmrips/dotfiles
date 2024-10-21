@@ -4,6 +4,7 @@
   ./programs/gcc.nix
   ./programs/goto.nix
   ./programs/grep.nix
+  ./programs/keepassxc.nix
   ./programs/kubectl.nix
   ./programs/less.nix
   ./programs/shellcheck.nix

@@ -10,10 +10,13 @@ with lib;
     home.packages = with pkgs; [
       ltex-ls
       markdownlint-cli
-      python3Packages.mdformat
-      python3Packages.mdformat-footnote
-      python3Packages.mdformat-gfm
-      python3Packages.mdformat-tables
+      (mdformat.withPlugins (ps:
+        with ps; [
+          mdformat-footnote
+          mdformat-gfm
+          mdformat-gfm-alerts
+          mdformat-tables
+        ]))
     ];
   };
 }

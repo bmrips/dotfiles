@@ -79,4 +79,3 @@ repos:
         entry: yamlfmt
         language: system
         types: [yaml]
-        exclude: '^.config/gh/config.yaml$'

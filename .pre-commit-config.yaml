@@ -54,6 +54,16 @@ repos:
         language: system
         args: [--staged, --msg-filename]
         stages: [commit-msg]
+      - id: markdownlint
+        name: lint with markdownlint
+        entry: markdownlint
+        language: system
+        types: [markdown]
+      - id: mdformat
+        name: format with mdformat
+        entry: mdformat
+        language: system
+        types: [markdown]
       - id: nixfmt
         name: format with nixfmt
         entry: nixfmt

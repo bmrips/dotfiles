@@ -1,6 +1,19 @@
 { config, lib, pkgs, ... }:
 
-lib.mkIf config.programs.firefox.enable {
+with lib;
+
+let
+  inherit (builtins) replaceStrings;
+
+  toAction = name: addon:
+    let
+      normalizedAddonId = toLower
+        (replaceStrings [ "." "@" "{" "}" ] [ "_" "_" "_" "_" ] addon.addonId);
+    in "${normalizedAddonId}-browser-action";
+
+  addonActions = mapAttrs toAction pkgs.nur.repos.rycee.firefox-addons;
+
+in mkIf config.programs.firefox.enable {
   programs.firefox = {
 
     policies = {
@@ -198,6 +211,68 @@ lib.mkIf config.programs.firefox.enable {
 
         # Disable VPN promotion.
         "browser.vpn_promo.enabled" = false;
+
+        # UI state
+        "browser.uiCustomization.state" = builtins.toJSON {
+          placements = {
+            widget-overflow-fixed-list = [ ];
+            nav-bar = with addonActions; [
+              "back-button"
+              "forward-button"
+              "stop-reload-button"
+              "urlbar-container"
+              "fxa-toolbar-menu-button"
+              tab-session-manager
+              javascript-restrictor
+              "unified-extensions-button"
+            ];
+            unified-extensions-area = with addonActions; [
+              auto-sort-bookmarks
+              canvasblocker
+              darkreader
+              decentraleyes
+              i-dont-care-about-cookies
+              keepassxc-browser
+              languagetool
+              plasma-integration
+              sidebery
+              simple-translate
+              skip-redirect
+              smart-referer
+              ublock-origin
+              web-search-navigator
+            ];
+            toolbar-menubar = [ "menubar-items" ];
+            TabsToolbar = [ "tabbrowser-tabs" "alltabs-button" ];
+            PersonalToolbar = [ "personal-bookmarks" ];
+          };
+          seen = with addonActions; [
+            auto-sort-bookmarks
+            canvasblocker
+            darkreader
+            decentraleyes
+            i-dont-care-about-cookies
+            javascript-restrictor
+            keepassxc-browser
+            languagetool
+            plasma-integration
+            sidebery
+            simple-translate
+            skip-redirect
+            smart-referer
+            tab-session-manager
+            ublock-origin
+            web-search-navigator
+            "developer-button"
+          ];
+          dirtyAreaCache = [
+            "unified-extensions-area"
+            "nav-bar"
+            "widget-overflow-fixed-list"
+          ];
+          currentVersion = 20;
+          newElementCount = 7;
+        };
       };
 
       search = {

@@ -272,6 +272,7 @@ lib.mkIf config.programs.firefox.enable {
         javascript-restrictor # aka jshelter
         keepassxc-browser
         languagetool
+        sidebery
         simple-translate
         skip-redirect
         smart-referer

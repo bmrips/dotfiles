@@ -24,6 +24,7 @@ in {
     ./services/kmscon.nix
     ./services/pipewire.nix
     ./services/printing.nix
+    ./services/resolved.nix
     ./services/tlp.nix
   ];
 
@@ -134,6 +135,7 @@ in {
   services.logind.powerKey = "ignore";
   services.pipewire.enable = true;
   services.printing.enable = true;
+  services.resolved.enable = true;
   services.tlp.enable = true;
 
   services.xserver.xkb = {

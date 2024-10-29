@@ -150,7 +150,7 @@ in mkIf config.programs.git.enable {
     in [ "* text=auto" ]
     ++ mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
 
-    ignores = [ "/.direnv/" "Session*.vim" "taskell.md" ];
+    ignores = [ "/.direnv/" "/result" "Session*.vim" "taskell.md" ];
   };
 
 }

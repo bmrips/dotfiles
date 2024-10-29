@@ -95,5 +95,8 @@ in {
       };
     };
 
+    # Git ignores Dolphin's directory preferences.
+    programs.git.ignores = [ ".directory" ];
+
   };
 }

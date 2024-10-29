@@ -42,17 +42,11 @@ repos:
         name: executable shell scripts filename omit the .sh extension
   - repo: local
     hooks:
-      - id: shellcheck
-        name: lint with shellcheck
-        entry: shellcheck
-        language: system
-        types: [shell]
-        exclude_types: [zsh]
       - id: gitlint
         name: check commit message is in conventional commits format
         entry: gitlint
-        language: system
         args: [--staged, --msg-filename]
+        language: system
         stages: [commit-msg]
       - id: markdownlint
         name: lint with markdownlint
@@ -67,21 +61,27 @@ repos:
       - id: nixfmt
         name: format with nixfmt
         entry: nixfmt
-        language: system
         args: [--verify]
+        language: system
         types: [nix]
+      - id: shellcheck
+        name: lint with shellcheck
+        entry: shellcheck
+        language: system
+        types: [shell]
+        exclude_types: [zsh]
       - id: shfmt
         name: format with shfmt
         entry: shfmt
-        language: system
         args: [--write, --simplify, --indent=4]
+        language: system
         types: [shell]
         exclude_types: [zsh]
       - id: stylua
         name: format with stylua
         entry: stylua
-        language: system
         args: [--search-parent-directories]
+        language: system
         types: [lua]
         exclude: '^.config/nvim/lua/config/mappings\.lua$'
       - id: yamlfmt

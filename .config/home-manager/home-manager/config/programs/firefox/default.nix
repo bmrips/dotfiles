@@ -31,10 +31,10 @@ in mkIf config.programs.firefox.enable {
         "browser.startup.page" = 3;
 
         # Disable accessibility.
-        "acessibility.force_disabled" = true;
+        "accessibility.force_disabled" = true;
 
         # Enable automatic scrolling.
-        "general.autoscroll" = true;
+        "general.autoScroll" = true;
 
         # Do not check whether Firefox is the default browser.
         "browser.shell.checkDefaultBrowser" = true;

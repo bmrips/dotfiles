@@ -6,7 +6,7 @@
 
    On macOS, the installation script may fail with the error:
 
-   ```
+   ```txt
    ---- sudo execution ------------------------------------------------------------
    I am executing:
 
@@ -18,19 +18,13 @@
    <dscl_cmd> DS Error: -14135 (eDSRecordAlreadyExists)
    ```
 
-   The cause of
-   [this issue](https://github.com/NixOS/nix/issues/6153#issuecomment-1068508475)
-   is that Nix assumes user ID 301, the next one after your user ID (300), to be
-   vacant but it being assigned to another already. To tell the installation
-   script the first vacant user ID that it can assign to the build users, you
-   have to set the `NIX_FIRST_BUILD_UID` environment variable:
+   The cause of [this issue](https://github.com/NixOS/nix/issues/6153#issuecomment-1068508475) is that Nix assumes user ID 301, the next one after your user ID (300), to be vacant but it being assigned to another already. To tell the installation script the first vacant user ID that it can assign to the build users, you have to set the `NIX_FIRST_BUILD_UID` environment variable:
 
    ```bash
    NIX_FIRST_BUILD_UID=302 sh <(curl -L https://nixos.org/nix/install)
    ```
 
-1. Enable `auto-optimise-store` and `use-xdg-base-directories` (potentially in
-   `/etc/nix/nix.conf`).
+1. Enable `auto-optimise-store` and `use-xdg-base-directories` (potentially in `/etc/nix/nix.conf`).
 
 1. Enter a nix-shell with git and openssh: `nix-shell -p git openssh`.
 
@@ -47,12 +41,9 @@
 
 1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
 
-1. Deactivate listing untracked files in `git status` by setting `git config
-   status.showUntrackedFiles no`.
+1. Deactivate listing untracked files in `git status` by setting `git config status.showUntrackedFiles no`.
 
-1. Check for any tracked files that would be overwritten by the repo: `git
-   status`. If no file would be overwritten, reset the working directory: `git
-   reset --hard`.
+1. Check for any tracked files that would be overwritten by the repo: `git status`. If no file would be overwritten, reset the working directory: `git reset --hard`.
 
 1. Install home-manager:
 
@@ -84,6 +75,7 @@
 ## macOS specific customization
 
 1. Disable accent character suggestions when pressing and holding keys.
-```
+
+```bash
 defaults write -g ApplePressAndHoldEnabled -bool false
 ```

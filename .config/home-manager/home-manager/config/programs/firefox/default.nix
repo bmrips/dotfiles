@@ -62,7 +62,8 @@ in mkIf config.programs.firefox.enable {
         # Never translate German.
         "browser.translations.neverTranslateLanguages" = "de";
 
-        # Do not suggest open tabs.
+        # Do not suggest recent searches or open tabs.
+        "browser.urlbar.suggest.searches" = false;
         "browser.urlbar.suggest.openpage" = false;
 
         # Hide the tab close button.
@@ -166,7 +167,6 @@ in mkIf config.programs.firefox.enable {
 
         # Disable live search suggestions.
         "browser.search.suggest.enabled" = false;
-        "browser.urlbar.suggest.searches" = false;
 
         # Disable geo localization.
         "geo.enabled" = false;

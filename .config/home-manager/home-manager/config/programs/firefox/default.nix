@@ -74,6 +74,8 @@ in mkIf config.programs.firefox.enable {
 
         # Use Jetbrains Mono with Nerd font patches as monospaced font.
         "font.name.monospace.x-western" = "JetBrainsMono Nerd Font Mono";
+        "font.size.monospace.x-western" = 14;
+        "font.size.variable.x-western" = 17;
 
         # Use system locale settings.
         "intl.regional_prefs.use_os_locales" = true;

@@ -466,12 +466,6 @@ return {
         '<Cmd>call append(".", readfile(findfile(expand("<cfile>")))) | delete<CR>',
         desc = 'Include file under cursor',
       },
-      { 'k',
-        function()
-          require('kubectl').open()
-        end,
-        desc = 'Kubectl',
-      },
       { 'p',
         function()
           require('lazy').home()

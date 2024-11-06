@@ -95,6 +95,7 @@ in {
     ./programs/less.nix
     ./programs/mkcd.nix
     ./programs/neovim.nix
+    ./programs/readline.nix
     ./programs/ripgrep.nix
     ./programs/shellcheck.nix
     ./programs/sioyek.nix
@@ -217,6 +218,7 @@ in {
   programs.less.enable = true;
   programs.man.generateCaches = true;
   programs.neovim.enable = true;
+  programs.readline.enable = true;
   programs.ripgrep.enable = true;
   programs.sioyek.enable = true;
   programs.ssh.enable = true;

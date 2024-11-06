@@ -21,6 +21,7 @@ with lib;
     nix.gc = {
       automatic = true;
       options = "--delete-older-than 30d";
+      randomizedDelaySec = "1h";
     };
 
     nix.package = pkgs.nix;

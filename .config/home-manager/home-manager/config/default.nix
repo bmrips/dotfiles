@@ -33,7 +33,6 @@ let
     extra = with pkgs; [
       cbfmt
       difftastic
-      lua54Packages.digestif
       eza
       gfold
       git-cliff

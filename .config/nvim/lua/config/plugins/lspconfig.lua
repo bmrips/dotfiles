@@ -5,7 +5,6 @@ local servers = {
     },
     filetypes = { 'bash', 'sh' },
   },
-  digestif = {},
   hls = {
     settings = {
       haskell = {

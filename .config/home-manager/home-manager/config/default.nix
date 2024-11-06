@@ -198,7 +198,11 @@ in {
     };
   };
 
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowAliases = false;
+    allowUnfree = true;
+    warnUndeclaredOptions = true;
+  };
 
   programs.bash.enable = true;
   programs.bat.enable = true;

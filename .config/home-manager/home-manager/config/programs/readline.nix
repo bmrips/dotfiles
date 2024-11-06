@@ -1,4 +1,13 @@
 {
+  # See `bind -p`
+  programs.readline.bindings = {
+    "jk" = "vi-movement-mode";
+    "\\C-i" = "menu-complete";
+    "\\C-j" = "history-search-forward";
+    "\\C-k" = "history-search-backward";
+    "\\C-l" = "clear-screen";
+  };
+
   programs.readline.variables = {
     editing-mode = "vi";
 

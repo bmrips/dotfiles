@@ -71,7 +71,7 @@ in {
   environment.wordlist.enable = true;
 
   hardware.ddcutil.enable = true;
-
+  hardware.graphics.enable = true;
   hardware.sane.enable = true;
 
   home-manager.users."${user}" = {

@@ -1,8 +1,0 @@
-# Webcam mode, simply specify the url(s), e.g. feh -Twebcam http://cam1 http://cam2.
-webcam --multiwindow --reload 20
-
-# Thumbnails
-thumb_s  --thumbnails --thumb-width 128 --thumb-height 128
-thumb_b  --thumbnails --thumb-width 256 --thumb-height 256
-
-# vi: ft=conf

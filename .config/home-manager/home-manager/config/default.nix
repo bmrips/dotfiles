@@ -199,7 +199,6 @@ in {
   };
 
   nixpkgs.config = {
-    allowAliases = false;
     allowUnfree = true;
     warnUndeclaredOptions = true;
   };

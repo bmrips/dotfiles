@@ -27,6 +27,7 @@ let
       })
       nvd
       print-colors
+      prismlauncher
       tokei
       tree
     ];

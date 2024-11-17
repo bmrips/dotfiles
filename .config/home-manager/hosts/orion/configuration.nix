@@ -98,6 +98,7 @@ in {
     };
     "/etc/keys" = btrfsSubvolume "keys";
     "/home" = btrfsSubvolume "home";
+    "/mnt/btr_pool" = btrfsSubvolume "/";
   };
 
   hardware.bluetooth = {
@@ -120,6 +121,17 @@ in {
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
+
+  services.btrbk.instances."${host}".settings.volume."/mnt/btr_pool" = {
+    snapshot_dir = "btrbk_snapshots";
+    target = "/mnt/lacie/backup/${host}";
+    target_preserve_min = "no";
+    subvolume.home = {
+      snapshot_preserve_min = "2d";
+      snapshot_preserve = "14d";
+      target_preserve = "12w *m";
+    };
+  };
 
   services.btrfs.autoScrub = {
     enable = true;

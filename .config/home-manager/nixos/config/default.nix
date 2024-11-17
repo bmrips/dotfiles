@@ -131,6 +131,7 @@ in {
 
   services.colord.enable = true;
   services.desktopManager.plasma6.enable = true;
+  services.fwupd.enable = true;
   services.kmscon.enable = true;
   services.logind.powerKey = "ignore";
   services.pipewire.enable = true;

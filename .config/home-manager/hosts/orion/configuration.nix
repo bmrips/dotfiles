@@ -1,4 +1,4 @@
-{ modulesPath, pkgs, ... }:
+{ config, modulesPath, pkgs, ... }:
 
 let
   inherit (pkgs.lib) uuid partuuid;
@@ -82,6 +82,7 @@ in {
   ];
 
   boot.loader = {
+    efi.efiSysMountPoint = "/efi";
     grub = {
       device = "nodev";
       # efiSupport = true;
@@ -91,7 +92,7 @@ in {
 
   fileSystems = {
     "/" = btrfsSubvolume "nixos";
-    "/efi" = {
+    "${config.boot.loader.efi.efiSysMountPoint}" = {
       device = uuid "B2BD-72B9";
       fsType = "vfat";
     };

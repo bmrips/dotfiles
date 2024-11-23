@@ -86,7 +86,8 @@ in {
     efi.efiSysMountPoint = "/efi";
     grub = {
       device = "nodev";
-      # efiSupport = true;
+      efiSupport = true;
+      enableCryptodisk = true;
     };
   };
 

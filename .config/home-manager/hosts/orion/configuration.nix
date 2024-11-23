@@ -88,7 +88,6 @@ in {
       device = "nodev";
       # efiSupport = true;
     };
-    timeout = null;
   };
 
   fileSystems = {

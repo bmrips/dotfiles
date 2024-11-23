@@ -82,6 +82,7 @@ in {
   ];
 
   boot.loader = {
+    efi.canTouchEfiVariables = true;
     efi.efiSysMountPoint = "/efi";
     grub = {
       device = "nodev";

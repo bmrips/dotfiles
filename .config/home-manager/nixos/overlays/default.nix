@@ -1,1 +1,1 @@
-map import [ ./uuid.nix ]
+map import [ ./packages ./uuid.nix ]

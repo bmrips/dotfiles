@@ -100,6 +100,11 @@ in {
     "/etc/keys" = btrfsSubvolume "keys";
     "/home" = btrfsSubvolume "home";
     "/mnt/btr_pool" = btrfsSubvolume "/";
+    "/mnt/windows" = {
+      device = uuid "16E2EEDDE2EEBFDB";
+      fsType = "ntfs-3g";
+      options = [ "noauto" ];
+    };
   };
 
   hardware.bluetooth = {
@@ -122,6 +127,11 @@ in {
   };
 
   nixpkgs.hostPlatform = "x86_64-linux";
+
+  services.bt-dualboot = {
+    enable = true;
+    mountPoint = "/mnt/windows";
+  };
 
   services.btrbk.instances."${host}".settings.volume."/mnt/btr_pool" = {
     snapshot_dir = "btrbk_snapshots";

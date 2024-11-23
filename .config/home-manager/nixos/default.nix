@@ -1,4 +1,4 @@
 {
   nixpkgs.overlays = import ./overlays;
-  imports = [ ./config ];
+  imports = import ./modules/module-list.nix ++ [ ./config ];
 }

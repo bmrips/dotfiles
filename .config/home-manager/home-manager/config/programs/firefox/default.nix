@@ -332,6 +332,11 @@ in mkIf config.programs.firefox.enable {
               template = "https://nixos.wiki/index.php?search={searchTerms}";
             }];
           };
+          Noogle = {
+            definedAliases = [ "@noogle" ];
+            icon = nixIcon;
+            urls = [{ template = "https://noogle.dev/q?term={searchTerms}"; }];
+          };
           texdoc = {
             definedAliases = [ "@texdoc" ];
             icon = ./TeX.svg;

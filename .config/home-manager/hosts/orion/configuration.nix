@@ -1,7 +1,7 @@
-{ config, modulesPath, pkgs, ... }:
+{ config, host, lib, modulesPath, pkgs, user, ... }:
 
 let
-  inherit (pkgs.lib) uuid partuuid;
+  inherit (lib) uuid partuuid;
 
   btrfsSubvolume = subvolume: {
     device = uuid "5c603a46-9506-4eb4-b68a-31ee0408b775";
@@ -19,21 +19,8 @@ let
 
   swapDevice = uuid "a09ffe4f-168e-4b89-be3f-a0f9fbc83364";
 
-  host = "orion";
-  user = "bmr";
-
 in {
-  _module.args = {
-    inherit host;
-    inherit user;
-  };
-
-  imports = [
-    ../../nixos
-    (modulesPath + "/installer/scan/not-detected.nix")
-    <nixos-hardware/dell/xps/13-9360>
-    <home-manager/nixos>
-  ];
+  imports = [ ../../nixos (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd = {
     systemd.enable = true;
@@ -116,18 +103,6 @@ in {
 
   hardware.devices.lacie_drive.enable = true;
 
-  home-manager.users."${user}" = {
-    imports = [ ../../home-manager ];
-    profiles.uni-muenster.enable = true;
-
-    # The device's name.
-    programs.firefox.profiles.default.settings = {
-      "identity.fxaccounts.account.device.name" = host;
-    };
-  };
-
-  nixpkgs.hostPlatform = "x86_64-linux";
-
   services.bt-dualboot = {
     enable = true;
     mountPoint = "/mnt/windows";
@@ -157,4 +132,15 @@ in {
   '';
 
   swapDevices = [{ device = swapDevice; }];
+
+  home-manager.users."${user}" = {
+    imports = [ ../../home-manager ];
+    profiles.uni-muenster.enable = true;
+
+    # The device's name.
+    programs.firefox.profiles.default.settings = {
+      "identity.fxaccounts.account.device.name" = host;
+    };
+  };
+
 }

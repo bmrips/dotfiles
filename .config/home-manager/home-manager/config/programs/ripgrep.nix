@@ -1,6 +1,6 @@
-{ pkgs, ... }:
+{ lib, ... }:
 
-let inherit (pkgs.lib) gnuCommandArgs;
+let inherit (lib) gnuCommandArgs;
 
 in {
   config.programs.ripgrep.arguments = gnuCommandArgs {

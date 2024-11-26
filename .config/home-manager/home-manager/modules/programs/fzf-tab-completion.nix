@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.programs.fzf-tab-completion;
 
-  inherit (pkgs.lib) gnuCommandLine;
+  inherit (lib) gnuCommandLine;
 
 in {
 

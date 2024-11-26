@@ -1,13 +1,6 @@
-{ config, pkgs, ... }:
+{ config, pkgs_23_05, pkgs, ... }:
 
 let
-  nixpkgs_23_05 = import (fetchTarball {
-    name = "nixpks-23.05-darwin-20231231";
-    url =
-      "https://github.com/NixOS/nixpkgs/archive/2c9c58e98243930f8cb70387934daa4bc8b00373.tar.gz";
-    sha256 = "0mk8p5sr5b507q4045ssrjmc4rghkfxa1fzr25idj2z9gbyf1f3s";
-  }) { };
-
   packageSets = {
     core = with pkgs; [
       coreutils-full
@@ -40,7 +33,7 @@ let
       glow
       gum
       ocrmypdf
-      nixpkgs_23_05.haskellPackages.friendly
+      pkgs_23_05.haskellPackages.friendly
       ripgrep-all
       rmlint
       sad
@@ -191,17 +184,9 @@ in {
   # release notes.
   home.stateVersion = "23.11"; # Please read the comment before changing.
 
-  nix = {
-    nixPath = [ "${config.xdg.stateHome}/nix/defexpr/channels" ];
-    settings = {
-      experimental-features = "flakes nix-command";
-      use-xdg-base-directories = true;
-    };
-  };
-
-  nixpkgs.config = {
-    allowUnfree = true;
-    warnUndeclaredOptions = true;
+  nix.settings = {
+    experimental-features = "flakes nix-command";
+    use-xdg-base-directories = true;
   };
 
   programs.bash.enable = true;

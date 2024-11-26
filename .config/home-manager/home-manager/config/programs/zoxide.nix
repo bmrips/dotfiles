@@ -1,12 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
 let
   cfg = config.programs.zoxide;
 
-  inherit (pkgs.lib) gnuCommandLine;
-  inherit (pkgs.lib.shell) dirPreview subshell;
+  inherit (lib) gnuCommandLine;
+  inherit (lib.shell) dirPreview subshell;
 
 in mkIf cfg.enable {
 

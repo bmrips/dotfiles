@@ -11,7 +11,6 @@ in {
     home.packages = with pkgs;
       [ logseq signal-desktop spotify ]
       ++ optionals isLinux [ libreoffice-qt vlc ];
-    nixpkgs.config.permittedInsecurePackages = [ "electron-27.3.11" ];
     programs.firefox.enable = true;
     programs.keepassxc.enable = true;
   };

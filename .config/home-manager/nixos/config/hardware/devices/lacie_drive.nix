@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
@@ -11,7 +11,7 @@ with lib;
       lacie UUID=17a21a62-269e-4d40-a28d-1d49ae100d36 /etc/keys/lacie.key noauto
     '';
     fileSystems."/mnt/lacie" = {
-      device = pkgs.lib.uuid "0f7e2383-88f3-4915-be43-f4b47053812a";
+      device = lib.uuid "0f7e2383-88f3-4915-be43-f4b47053812a";
       fsType = "btrfs";
       options = [
         "rw"

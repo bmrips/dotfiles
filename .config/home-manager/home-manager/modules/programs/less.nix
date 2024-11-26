@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
 let
   cfg = config.programs.less;
-  inherit (pkgs.lib) gnuCommandLine;
+  inherit (lib) gnuCommandLine;
 
 in {
 

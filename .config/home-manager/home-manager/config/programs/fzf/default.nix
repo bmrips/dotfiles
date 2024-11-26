@@ -5,8 +5,8 @@ with lib;
 let
   cfg = config.programs.fzf;
 
-  inherit (pkgs.lib) gnuCommandArgs gnuCommandLine;
-  inherit (pkgs.lib.shell) dirPreview subshell;
+  inherit (lib) gnuCommandArgs gnuCommandLine;
+  inherit (lib.shell) dirPreview subshell;
 
   fzf-state = let
     drv = pkgs.writeShellApplication {

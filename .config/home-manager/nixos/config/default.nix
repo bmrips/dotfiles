@@ -1,4 +1,4 @@
-{ host, lib, pkgs, user, ... }:
+{ host, inputs, lib, pkgs, user, ... }:
 
 let
   kmod-params = pkgs.writeShellApplication {
@@ -114,17 +114,17 @@ in {
     randomizedDelaySec = "1h";
   };
 
+  nix.channel.enable = false;
+
   nix.settings = {
     auto-optimise-store = true;
     trusted-users = [ user ];
     use-xdg-base-directories = true;
   };
 
-  nixpkgs.config = {
-    allowAliases = false;
-    allowUnfree = true;
-    checkMeta = true;
-    warnUndeclaredOptions = true;
+  programs.git.config.user = {
+    name = "Benedikt Rips";
+    email = "benedikt.rips@gmail.com";
   };
 
   programs.zsh.enable = true;
@@ -146,7 +146,10 @@ in {
 
   system.autoUpgrade = {
     enable = true;
-    flags = [ "--upgrade-all" ];
+    flake = inputs.self.outPath;
+    flags = [ "--print-build-logs" "--commit-lock-file" ]
+      ++ builtins.concatMap (i: [ "--update-input" i ])
+      (lib.attrNames (removeAttrs inputs [ "self" ]));
     dates = "weekly";
     randomizedDelaySec = "1h";
   };

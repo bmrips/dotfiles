@@ -1,8 +1,8 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
-let inherit (pkgs.lib.shell) dirPreview subshell;
+let inherit (lib.shell) dirPreview subshell;
 
 in mkMerge [
 

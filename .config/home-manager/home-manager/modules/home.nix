@@ -1,11 +1,11 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
 let
   defaultFlags = config.home.defaultCommandFlags;
 
-  inherit (pkgs.lib) gnuCommandLine;
+  inherit (lib) gnuCommandLine;
 
 in {
 

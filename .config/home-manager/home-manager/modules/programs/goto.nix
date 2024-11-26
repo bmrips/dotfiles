@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.programs.goto;
 
-  inherit (pkgs.lib) gnuCommandLine;
+  inherit (lib) gnuCommandLine;
 
   init = ''
     source ${pkgs.goto}/share/goto.sh

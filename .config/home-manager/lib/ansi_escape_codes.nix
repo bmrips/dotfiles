@@ -1,8 +1,8 @@
-final: prev:
+lib:
 
-let
-  inherit (final.lib) lists strings;
+let inherit (lib) lists strings;
 
+in {
   ansiEscapeCodes = {
     combine = strings.concatStringsSep ";";
 
@@ -33,5 +33,4 @@ let
       white = 7;
     };
   };
-
-in { lib = prev.lib // { inherit ansiEscapeCodes; }; }
+}

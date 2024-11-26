@@ -1,10 +1,10 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, ... }:
 
 with lib;
 
 let
-  inherit (pkgs.lib) ansiEscapeCodes;
-  inherit (pkgs.lib.ansiEscapeCodes) base16 reset;
+  inherit (lib) ansiEscapeCodes;
+  inherit (lib.ansiEscapeCodes) base16 reset;
 
   normal = c: with base16; color [ fg c ];
   bold = c: ansiEscapeCodes.combine [ ansiEscapeCodes.bold (normal c) ];

@@ -12,10 +12,14 @@
     nixpkgs_23_05.url =
       "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
     nur.url = "github:nix-community/NUR";
+    programs-db = {
+      url = "github:wamserma/flake-programs-sqlite";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs =
-    { self, home-manager, nixos-hardware, nixpkgs, nixpkgs_23_05, nur }@inputs:
+  outputs = { self, home-manager, nixos-hardware, nixpkgs, nixpkgs_23_05, nur
+    , programs-db, ... }@inputs:
     let lib = nixpkgs.lib.extend (import ./lib);
     in {
 
@@ -34,7 +38,10 @@
           {
             nixpkgs.overlays = [ nur.overlay ];
             home-manager.useGlobalPkgs = true;
-            home-manager.extraSpecialArgs = { inherit pkgs_23_05; };
+            home-manager.extraSpecialArgs = {
+              inherit pkgs_23_05;
+              programs-db = programs-db.packages.${system}.programs-sqlite;
+            };
           }
         ];
       };

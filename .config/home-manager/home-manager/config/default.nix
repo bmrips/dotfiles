@@ -75,6 +75,7 @@ in {
     ./profiles/uni-muenster.nix
     ./programs/bash.nix
     ./programs/bat.nix
+    ./programs/command-not-found.nix
     ./programs/dircolors.nix
     ./programs/direnv.nix
     ./programs/firefox

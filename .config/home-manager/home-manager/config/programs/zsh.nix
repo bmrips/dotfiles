@@ -26,7 +26,6 @@ in {
 
       options = {
         auto_pushd = true;
-        extended_glob = true;
         hist_reduce_blanks = true;
         inc_append_history_time = true;
         null_glob = true; # remove patterns without matches from argument list

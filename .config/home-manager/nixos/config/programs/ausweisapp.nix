@@ -1,1 +1,1 @@
-{ config.programs.ausweisapp.openFirewall = true; }
+{ programs.ausweisapp.openFirewall = true; }

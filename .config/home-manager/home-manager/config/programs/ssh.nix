@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  config.programs.ssh = {
+  programs.ssh = {
     package = pkgs.openssh;
     addKeysToAgent = "yes";
     matchBlocks = {

@@ -8,7 +8,7 @@ let
   bold = c: ansiEscapeCodes.combine [ ansiEscapeCodes.bold (normal c) ];
 
 in {
-  config.programs.gcc.colors = with base16; {
+  programs.gcc.colors = with base16; {
     error = bold red;
     warning = bold magenta;
     note = bold cyan;

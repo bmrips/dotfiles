@@ -6,7 +6,7 @@ let cfg = config.programs.zsh;
 
 in {
 
-  config.programs.zsh = mkIf cfg.enable (mkMerge [
+  programs.zsh = mkIf cfg.enable (mkMerge [
 
     {
       useInNixShell = true;

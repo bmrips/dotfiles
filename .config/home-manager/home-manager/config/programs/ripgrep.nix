@@ -3,7 +3,7 @@
 let inherit (lib) gnuCommandArgs;
 
 in {
-  config.programs.ripgrep.arguments = gnuCommandArgs {
+  programs.ripgrep.arguments = gnuCommandArgs {
     smart-case = true;
     colors = [
       "path:style:intense"

@@ -1,5 +1,5 @@
 {
-  config.programs.less.settings = {
+  programs.less.settings = {
     LONG-PROMPT = true;
     RAW-CONTROL-CHARS = true;
     quiet = true;

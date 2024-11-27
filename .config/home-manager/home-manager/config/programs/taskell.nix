@@ -1,7 +1,7 @@
 { pkgs_23_05, ... }:
 
 {
-  config.programs.taskell = {
+  programs.taskell = {
     package = pkgs_23_05.taskell;
     bindings = {
       new = "n, a";

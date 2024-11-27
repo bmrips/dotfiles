@@ -1,5 +1,5 @@
 {
-  config.programs.yamllint.settings = {
+  programs.yamllint.settings = {
     extends = "default";
     rules = {
       document-end = "disable";

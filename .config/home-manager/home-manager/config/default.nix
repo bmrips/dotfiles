@@ -5,6 +5,7 @@ let
     core = with pkgs; [
       coreutils-full
       diffutils
+      discord
       dos2unix
       fd
       file

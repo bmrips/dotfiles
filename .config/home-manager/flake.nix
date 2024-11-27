@@ -28,7 +28,7 @@
         inherit system;
         specialArgs = { inherit host inputs lib pkgs_23_05 user; };
         modules = [
-          ./hosts/orion/configuration.nix
+          ./hosts/orion.nix
           nixos-hardware.nixosModules.dell-xps-13-9360
           home-manager.nixosModules.home-manager
           {

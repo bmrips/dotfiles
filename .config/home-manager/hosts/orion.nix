@@ -20,7 +20,7 @@ let
   swapDevice = uuid "a09ffe4f-168e-4b89-be3f-a0f9fbc83364";
 
 in {
-  imports = [ ../../nixos (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [ ../nixos (modulesPath + "/installer/scan/not-detected.nix") ];
 
   boot.initrd = {
     systemd.enable = true;
@@ -134,7 +134,7 @@ in {
   swapDevices = [{ device = swapDevice; }];
 
   home-manager.users."${user}" = {
-    imports = [ ../../home-manager ];
+    imports = [ ../home-manager ];
     profiles.uni-muenster.enable = true;
 
     # The device's name.

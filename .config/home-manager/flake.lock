@@ -1,5 +1,20 @@
 {
   "nodes": {
+    "flake-compat": {
+      "locked": {
+        "lastModified": 1696250620,
+        "narHash": "sha256-LCO9XxqEcvBRiRqaZj8gBmv8/YVtGqpofBTS48k2zFA=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "c30381e188d2edb0a7bc866aa59d7ac1831f4b59",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -106,6 +121,7 @@
     },
     "root": {
       "inputs": {
+        "flake-compat": "flake-compat",
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",

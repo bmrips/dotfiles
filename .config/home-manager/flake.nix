@@ -3,7 +3,7 @@
   description = "NixOS configuration";
 
   inputs = {
-    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.url = "github:edolstra/flake-compat/v1.0.0";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

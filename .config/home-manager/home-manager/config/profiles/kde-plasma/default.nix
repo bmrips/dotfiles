@@ -34,9 +34,11 @@ let
     name = "smartly-sized-konsole";
     text = ''
       background=''${1-Dark}
-      screen_width="$(${kscreen-console} json | ${grep} '^[ {}]' | ${jq} .screen.currentSize.width)"
+      kscreen_output="$(${kscreen-console} json | ${grep} '^[ {}]')"
+      screen_width="$(${jq} .screen.currentSize.width <<<"$kscreen_output")"
+      screen_name="$(${jq} --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
 
-      if (( screen_width == 1920 )); then
+      if (( screen_width == 1920 )) && [[ ! $screen_name = eDP-* ]]; then
           ${konsole} --profile "$background"
       else
           ${konsole} --profile "$background-11pt"

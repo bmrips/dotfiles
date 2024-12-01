@@ -56,8 +56,6 @@ in {
     programs.bash.initExtra = setBackgroundEnvVar;
     programs.zsh.initExtra = setBackgroundEnvVar;
 
-    programs.firefox.package = null;
-
     programs.fzf-tab-completion.enable = mkForce false;
 
     programs.git = {

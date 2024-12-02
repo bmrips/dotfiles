@@ -285,6 +285,10 @@ in mkIf config.programs.firefox.enable {
             "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
         in {
           Bing.metaData.hidden = true;
+          Cloogle = {
+            definedAliases = [ "@cloogle" ];
+            urls = [{ template = "https://cloogle.org/#{searchTerms}"; }];
+          };
           CTAN = {
             definedAliases = [ "@ctan" ];
             iconUpdateURL =

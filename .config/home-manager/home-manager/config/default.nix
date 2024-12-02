@@ -39,6 +39,7 @@ let
       rmlint
       sad
       sd
+      slack
       translate-shell
       treefmt2
     ];

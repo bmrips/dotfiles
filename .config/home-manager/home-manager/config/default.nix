@@ -19,6 +19,7 @@ let
       prismlauncher
       tokei
       tree
+      ungoogled-chromium
     ];
     extra = with pkgs; [
       cbfmt

@@ -13,12 +13,7 @@ let
       gnused
       man-db
       ncdu
-      (nerdfonts.override {
-        fonts = [
-          # "Hasklig"
-          "JetBrainsMono"
-        ];
-      })
+      nerd-fonts.jetbrains-mono
       nvd
       print-colors
       prismlauncher

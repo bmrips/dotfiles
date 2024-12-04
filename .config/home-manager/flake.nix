@@ -21,32 +21,37 @@
 
   outputs = { self, home-manager, nixos-hardware, nixpkgs, nixpkgs_23_05, nur
     , programs-db, ... }@inputs:
-    let lib = nixpkgs.lib.extend (import ./lib);
+    let
+      lib = nixpkgs.lib.extend (import ./lib);
+      user = "bmr";
+
+      mkNixosConfig = { system ? "x86_64-linux", host, extraModules ? [ ] }:
+        let pkgs_23_05 = import nixpkgs_23_05 { inherit system; };
+        in nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit host inputs lib user; };
+          modules = [
+            ./nixos
+            home-manager.nixosModules.home-manager
+            {
+              nixpkgs.overlays = [ nur.overlay ];
+              home-manager = {
+                useGlobalPkgs = true;
+                extraSpecialArgs = {
+                  inherit pkgs_23_05;
+                  programs-db = programs-db.packages.${system}.programs-sqlite;
+                };
+                sharedModules = [ ./home-manager ];
+              };
+            }
+          ] ++ extraModules;
+        };
+
     in {
-
-      nixosConfigurations.orion = let
+      nixosConfigurations.orion = mkNixosConfig {
         host = "orion";
-        user = "bmr";
-        system = "x86_64-linux";
-        pkgs_23_05 = import nixpkgs_23_05 { inherit system; };
-      in nixpkgs.lib.nixosSystem {
-        inherit system;
-        specialArgs = { inherit host inputs lib pkgs_23_05 user; };
-        modules = [
-          ./hosts/orion.nix
-          nixos-hardware.nixosModules.dell-xps-13-9360
-          home-manager.nixosModules.home-manager
-          {
-            nixpkgs.overlays = [ nur.overlay ];
-            home-manager.useGlobalPkgs = true;
-            home-manager.extraSpecialArgs = {
-              inherit pkgs_23_05;
-              programs-db = programs-db.packages.${system}.programs-sqlite;
-            };
-          }
-        ];
+        extraModules = [ ./hosts/orion.nix ];
       };
-
     };
 
 }

@@ -1,4 +1,4 @@
-{ config, host, lib, modulesPath, pkgs, user, ... }:
+{ config, host, inputs, lib, modulesPath, pkgs, user, ... }:
 
 let
   inherit (lib) uuid partuuid;
@@ -20,7 +20,10 @@ let
   swapDevice = uuid "a09ffe4f-168e-4b89-be3f-a0f9fbc83364";
 
 in {
-  imports = [ ../nixos (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.dell-xps-13-9360
+  ];
 
   boot.initrd = {
     systemd.enable = true;
@@ -134,7 +137,6 @@ in {
   swapDevices = [{ device = swapDevice; }];
 
   home-manager.users."${user}" = {
-    imports = [ ../home-manager ];
     profiles.uni-muenster.enable = true;
 
     # The device's name.

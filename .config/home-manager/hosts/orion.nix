@@ -136,6 +136,15 @@ in {
 
   swapDevices = [{ device = swapDevice; }];
 
+  # This option defines the first version of NixOS you have installed on this particular machine,
+  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
+  #
+  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
+  # and migrated your data accordingly.
+  #
+  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "24.05";
+
   home-manager.users.${user} = {
     profiles.uni-muenster.enable = true;
 
@@ -143,6 +152,15 @@ in {
     programs.firefox.profiles.default.settings = {
       "identity.fxaccounts.account.device.name" = host;
     };
+
+    # This value determines the Home Manager release that your configuration is
+    # compatible with. This helps avoid breakage when a new Home Manager release
+    # introduces backwards incompatible changes.
+    #
+    # You should not change this value, even if you update Home Manager. If you do
+    # want to update the value, then make sure to first check the Home Manager
+    # release notes.
+    home.stateVersion = "23.11"; # Please read the comment before changing.
   };
 
 }

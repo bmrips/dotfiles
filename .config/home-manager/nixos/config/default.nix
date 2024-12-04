@@ -74,7 +74,7 @@ in {
   hardware.graphics.enable = true;
   hardware.sane.enable = true;
 
-  home-manager.users."${user}" = {
+  home-manager.users.${user} = {
     profiles.linux.enable = true;
 
     # Compact Firefox UI.
@@ -165,7 +165,7 @@ in {
 
   time.timeZone = "Europe/Berlin";
 
-  users.users."${user}" = {
+  users.users.${user} = {
     isNormalUser = true;
     description = "Benedikt Rips";
     shell = pkgs.zsh;

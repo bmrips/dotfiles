@@ -111,7 +111,7 @@ in {
     mountPoint = "/mnt/windows";
   };
 
-  services.btrbk.instances."${host}".settings.volume."/mnt/btr_pool" = {
+  services.btrbk.instances.${host}.settings.volume."/mnt/btr_pool" = {
     snapshot_dir = "btrbk_snapshots";
     target = "/mnt/lacie/backup/${host}";
     target_preserve_min = "no";
@@ -136,7 +136,7 @@ in {
 
   swapDevices = [{ device = swapDevice; }];
 
-  home-manager.users."${user}" = {
+  home-manager.users.${user} = {
     profiles.uni-muenster.enable = true;
 
     # The device's name.

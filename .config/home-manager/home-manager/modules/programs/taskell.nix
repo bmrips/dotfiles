@@ -24,7 +24,7 @@ let
   # Flattens an attrset, i.e. `flattenAttrs { a.b = 0; } = { "a.b" = 0 }`.
   flattenAttrs = concatMapAttrs (n: v:
     if !(isAttrs v) then {
-      "${n}" = v;
+      ${n} = v;
     } else
       mapAttrs' (n': v': nameValuePair "${n}.${n'}" v') (flattenAttrs v));
 

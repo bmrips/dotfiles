@@ -20,7 +20,7 @@ in {
   config = mkIf config.hardware.ddcutil.enable {
     environment.systemPackages = [ brightness pkgs.ddcutil ];
     hardware.i2c.enable = true;
-    users.users."${user}".extraGroups = [ config.hardware.i2c.group ];
+    users.users.${user}.extraGroups = [ config.hardware.i2c.group ];
   };
 
 }

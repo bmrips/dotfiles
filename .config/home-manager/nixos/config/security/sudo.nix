@@ -24,7 +24,7 @@ mkMerge [
   }
 
   (mkIf config.security.sudo.enable {
-    users.users."${user}".extraGroups = [ "wheel" ];
+    users.users.${user}.extraGroups = [ "wheel" ];
   })
 
 ]

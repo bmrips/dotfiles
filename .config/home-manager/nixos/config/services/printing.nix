@@ -10,5 +10,5 @@ lib.mkIf config.services.printing.enable {
     openFirewall = true;
   };
 
-  users.users."${user}".extraGroups = [ "lp" ];
+  users.users.${user}.extraGroups = [ "lp" ];
 }

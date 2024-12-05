@@ -2,16 +2,35 @@
 
 with lib;
 
-let inherit (pkgs.stdenv.hostPlatform) isLinux;
+let
+  inherit (pkgs.stdenv.hostPlatform) isLinux;
+  cfg = config.profiles.gui;
 
 in {
-  options.profiles.gui.enable = mkEnableOption "the GUI profile";
-
-  config = mkIf config.profiles.gui.enable {
-    home.packages = with pkgs;
-      [ logseq signal-desktop spotify ]
-      ++ optionals isLinux [ libreoffice-qt vlc ];
-    programs.firefox.enable = true;
-    programs.keepassxc.enable = true;
+  options.profiles.gui = {
+    enable = mkEnableOption "the GUI profile";
+    extra.enable = mkEnableOption "extra GUI applications";
   };
+
+  config = mkIf cfg.enable (mkMerge [
+
+    {
+      programs.firefox.enable = true;
+      programs.keepassxc.enable = true;
+    }
+
+    (mkIf config.profiles.gui.enable {
+      home.packages = with pkgs;
+        [
+          discord
+          logseq
+          prismlauncher
+          signal-desktop
+          slack
+          spotify
+          ungoogled-chromium
+        ] ++ optionals isLinux [ libreoffice-qt vlc ];
+    })
+
+  ]);
 }

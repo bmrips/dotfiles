@@ -146,6 +146,7 @@ in {
   system.stateVersion = "24.05";
 
   home-manager.users.${user} = {
+    profiles.gui.extra.enable = true;
     profiles.uni-muenster.enable = true;
 
     # The device's name.

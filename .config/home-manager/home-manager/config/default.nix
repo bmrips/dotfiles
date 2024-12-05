@@ -5,7 +5,6 @@ let
     core = with pkgs; [
       coreutils-full
       diffutils
-      discord
       dos2unix
       fd
       file
@@ -16,10 +15,8 @@ let
       nerd-fonts.jetbrains-mono
       nvd
       print-colors
-      prismlauncher
       tokei
       tree
-      ungoogled-chromium
     ];
     extra = with pkgs; [
       cbfmt
@@ -35,7 +32,6 @@ let
       rmlint
       sad
       sd
-      slack
       translate-shell
       treefmt2
     ];

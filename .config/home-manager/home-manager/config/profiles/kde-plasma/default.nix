@@ -57,7 +57,9 @@ in {
     }];
 
     home.packages = with pkgs;
-      with pkgs.kdePackages; [
+      with pkgs.kdePackages;
+      [ copy-forms kcalc kcolorchooser plasma-dark-mode qt6.qtimageformats ]
+      ++ optionals config.profiles.gui.extra.enable [
         akonadi
         akonadi-calendar
         akonadi-contacts
@@ -66,17 +68,12 @@ in {
         akonadi-notes
         akonadi-search
         akregator
-        copy-forms
-        kcalc
-        kcolorchooser
         kdepim-runtime
         kgpg
         kleopatra # for KMail
         kmail
         kmail-account-wizard
         kmailtransport
-        plasma-dark-mode
-        qt6.qtimageformats
         skanpage
         smartly-sized-konsole
       ];

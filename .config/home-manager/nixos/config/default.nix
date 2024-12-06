@@ -100,7 +100,7 @@ in {
 
   networking = {
     hostName = host;
-    useDHCP = lib.mkDefault true;
+    useDHCP = true;
     networkmanager = {
       enable = true;
       wifi.powersave = true;

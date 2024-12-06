@@ -100,7 +100,6 @@ in {
 
   networking = {
     hostName = host;
-    useDHCP = true;
     networkmanager = {
       enable = true;
       wifi.powersave = true;

@@ -326,6 +326,10 @@ return {
         desc = 'Increment',
         mode = 'x',
       },
+      { 'c>',
+        'ciw',
+        desc = 'Change word under cursor',
+      },
       { 'g>',
         function()
           require('fzf-lua').grep_visual()

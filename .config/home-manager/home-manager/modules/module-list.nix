@@ -5,6 +5,7 @@
   ./programs/goto.nix
   ./programs/grep.nix
   ./programs/keepassxc.nix
+  ./programs/konsole.nix
   ./programs/kubectl.nix
   ./programs/less.nix
   ./programs/shellcheck.nix

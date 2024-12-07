@@ -79,6 +79,7 @@ in {
     ./programs/gh.nix
     ./programs/goto.nix
     ./programs/grep.nix
+    ./programs/konsole
     ./programs/lazygit.nix
     ./programs/less.nix
     ./programs/mkcd.nix

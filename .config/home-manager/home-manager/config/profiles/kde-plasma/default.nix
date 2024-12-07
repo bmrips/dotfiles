@@ -25,27 +25,6 @@ let
     text = builtins.readFile ./plasma-dark-mode.sh;
   };
 
-  smartly-sized-konsole = let
-    grep = "${pkgs.gnugrep}/bin/grep";
-    jq = "${pkgs.jq}/bin/jq";
-    konsole = "${pkgs.kdePackages.konsole}/bin/konsole";
-    kscreen-console = "${pkgs.kdePackages.kscreen}/bin/kscreen-console";
-  in pkgs.writeShellApplication {
-    name = "smartly-sized-konsole";
-    text = ''
-      background=''${1-Dark}
-      kscreen_output="$(${kscreen-console} json | ${grep} '^[ {}]')"
-      screen_width="$(${jq} .screen.currentSize.width <<<"$kscreen_output")"
-      screen_name="$(${jq} --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
-
-      if (( screen_width == 1920 )) && [[ ! $screen_name = eDP-* ]]; then
-          ${konsole} --profile "$background"
-      else
-          ${konsole} --profile "$background-11pt"
-      fi
-    '';
-  };
-
 in {
   options.profiles.kde-plasma.enable = mkEnableOption "the KDE Plasma profile";
 
@@ -75,7 +54,6 @@ in {
         kmail-account-wizard
         kmailtransport
         skanpage
-        smartly-sized-konsole
       ];
 
     profiles.gui.enable = true;
@@ -96,6 +74,8 @@ in {
 
     # Git ignores Dolphin's directory preferences.
     programs.git.ignores = [ ".directory" ];
+
+    programs.konsole.enable = true;
 
   };
 }

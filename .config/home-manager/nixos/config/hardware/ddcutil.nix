@@ -21,6 +21,19 @@ in {
     environment.systemPackages = [ brightness pkgs.ddcutil ];
     hardware.i2c.enable = true;
     users.users.${user}.extraGroups = [ config.hardware.i2c.group ];
+
+    home-manager.users.${user}.programs.plasma.hotkeys.commands = {
+      decrease-screen-brightness = {
+        name = "Decrease screen brightness";
+        command = "brightness - 10";
+        key = "Meta+Shift+PgDown";
+      };
+      increase-screen-brightness = {
+        name = "Increase screen brightness";
+        command = "brightness + 10";
+        key = "Meta+Shift+PgUp";
+      };
+    };
   };
 
 }

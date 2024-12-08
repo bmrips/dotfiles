@@ -61,7 +61,6 @@ in {
     ./development/nix.nix
     ./development/yaml.nix
     ./profiles/gui.nix
-    ./profiles/kde-plasma
     ./profiles/linux.nix
     ./profiles/macos.nix
     ./profiles/standalone.nix
@@ -79,11 +78,12 @@ in {
     ./programs/gh.nix
     ./programs/goto.nix
     ./programs/grep.nix
-    ./programs/konsole
+    ./programs/konsole.nix
     ./programs/lazygit.nix
     ./programs/less.nix
     ./programs/mkcd.nix
     ./programs/neovim.nix
+    ./programs/plasma
     ./programs/readline.nix
     ./programs/ripgrep.nix
     ./programs/shellcheck.nix

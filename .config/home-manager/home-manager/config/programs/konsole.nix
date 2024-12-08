@@ -118,6 +118,19 @@ in mkMerge [
 
   (mkIf config.programs.konsole.enable {
     home.packages = [ smartly-sized-konsole ];
+
+    programs.plasma.hotkeys.commands = {
+      smartly-sized-konsole-dark = {
+        name = "Smartly sized Konsole (dark)";
+        command = "smartly-sized-konsole Dark";
+        key = "Meta+Return";
+      };
+      smartly-sized-konsole-light = {
+        name = "Smartly sized Konsole (light)";
+        command = "smartly-sized-konsole Light";
+        key = "Meta+Ctrl+Return";
+      };
+    };
   })
 
 ]

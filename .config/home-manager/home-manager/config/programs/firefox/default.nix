@@ -14,6 +14,7 @@ let
   addonActions = mapAttrs toAction pkgs.nur.repos.rycee.firefox-addons;
 
 in mkIf config.programs.firefox.enable {
+
   programs.firefox = {
 
     policies = {
@@ -369,4 +370,33 @@ in mkIf config.programs.firefox.enable {
     };
 
   };
+
+  programs.plasma.window-rules = [
+    {
+      description = "Firefox master pasword dialog";
+      match = {
+        window-class = "firefox firefox";
+        title = "Password Required - Mozilla Firefox";
+      };
+      apply = {
+        placement.apply = "force";
+        placement.value = 5; # centered
+      };
+    }
+    {
+      description = "Picture in Picture";
+      match = {
+        window-class = "firefox firefox";
+        title = "Picture-in-Picture";
+      };
+      apply = {
+        above = true;
+        noborder = true;
+        skippager = true;
+        skipswitcher = true;
+        skiptaskbar = true;
+      };
+    }
+  ];
+
 }

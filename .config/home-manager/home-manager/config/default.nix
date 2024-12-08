@@ -84,6 +84,7 @@ in {
     ./programs/less.nix
     ./programs/mkcd.nix
     ./programs/neovim.nix
+    ./programs/okular.nix
     ./programs/plasma
     ./programs/readline.nix
     ./programs/ripgrep.nix

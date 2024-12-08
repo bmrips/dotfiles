@@ -539,6 +539,7 @@ in mkMerge [
 
     programs.dolphin.enable = true;
     programs.konsole.enable = true;
+    programs.okular.enable = true;
 
   })
 

@@ -70,6 +70,7 @@ in {
     ./programs/command-not-found.nix
     ./programs/dircolors.nix
     ./programs/direnv.nix
+    ./programs/dolphin.nix
     ./programs/firefox
     ./programs/fzf
     ./programs/fzf-tab-completion.nix

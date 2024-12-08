@@ -378,11 +378,6 @@ in mkMerge [
         };
       in [
         {
-          description = "Dolphin";
-          match.window-class.value = "dolphin org.kde.dolphin";
-          apply.size.value = "764,470";
-        }
-        {
           description = "KeePassXC";
           match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
           apply = centered // {
@@ -542,6 +537,7 @@ in mkMerge [
       };
     };
 
+    programs.dolphin.enable = true;
     programs.konsole.enable = true;
 
   })

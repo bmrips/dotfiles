@@ -12,7 +12,10 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs_23_05.url =
       "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
-    nur.url = "github:nix-community/NUR";
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";
       inputs.home-manager.follows = "home-manager";
@@ -37,9 +40,9 @@
           specialArgs = { inherit host inputs lib user; };
           modules = [
             ./nixos
+            nur.modules.nixos.default
             home-manager.nixosModules.home-manager
             {
-              nixpkgs.overlays = [ nur.overlay ];
               home-manager = {
                 useGlobalPkgs = true;
                 extraSpecialArgs = {

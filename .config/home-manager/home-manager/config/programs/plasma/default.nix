@@ -309,8 +309,10 @@ in mkMerge [
           "stopmedia" = "Media Stop";
         };
         org_kde_powerdevil = {
-          "Decrease Screen Brightness" = "Meta+PgDown";
-          "Increase Screen Brightness" = "Meta+PgUp";
+          "Decrease Screen Brightness" =
+            [ "Monitor Brightness Down" "Meta+PgDown" ];
+          "Increase Screen Brightness" =
+            [ "Monitor Brightness Up" "Meta+PgUp" ];
           "PowerDown" = "Meta+End";
         };
         plasmashell = {

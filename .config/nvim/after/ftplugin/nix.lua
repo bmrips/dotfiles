@@ -1,5 +1,6 @@
 local opt = vim.opt_local
 
+opt.iskeyword:append "'"
 opt.iskeyword:append '-'
 opt.suffixesadd = { '.nix', '/default.nix' }
 opt.tabstop = 2

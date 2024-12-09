@@ -1,8 +1,6 @@
 { config, lib, user, ... }:
 
-with lib;
-
-mkMerge [
+lib.mkMerge [
 
   {
     security.sudo.extraConfig = ''
@@ -23,7 +21,7 @@ mkMerge [
     '';
   }
 
-  (mkIf config.security.sudo.enable {
+  (lib.mkIf config.security.sudo.enable {
     users.users.${user}.extraGroups = [ "wheel" ];
   })
 

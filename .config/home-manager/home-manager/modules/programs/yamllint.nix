@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkEnableOption mkIf mkMerge mkOption mkPackageOption;
   cfg = config.programs.yamllint;
   yaml = pkgs.formats.yaml { };
 

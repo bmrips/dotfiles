@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    mkEnableOption mkIf mkOption removePrefix removeSuffix strings types;
   cfg = config.services.bt-dualboot;
 
   escape = s:

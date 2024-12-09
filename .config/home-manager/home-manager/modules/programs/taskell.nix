@@ -1,9 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
-
+  inherit (lib)
+    concatLines concatMapAttrs generators hasInfix isAttrs isBool isString
+    mapAttrs mapAttrs' mapAttrsToList mkEnableOption mkIf mkOption
+    mkPackageOption nameValuePair types;
   cfg = config.programs.taskell;
 
   # Taskell assumes that string values are quoted only if the contain spaces

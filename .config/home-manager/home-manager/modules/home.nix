@@ -1,16 +1,13 @@
 { config, lib, ... }:
 
-with lib;
-
 let
+  inherit (lib) gnuCommandLine mapAttrs;
   defaultFlags = config.home.defaultCommandFlags;
-
-  inherit (lib) gnuCommandLine;
 
 in {
 
-  options.home.defaultCommandFlags = mkOption {
-    type = with types; attrsOf (attrsOf (oneOf [ bool int str ]));
+  options.home.defaultCommandFlags = lib.mkOption {
+    type = with lib.types; attrsOf (attrsOf (oneOf [ bool int str ]));
     default = { };
     description = "Default flags for shell commands";
     example = {

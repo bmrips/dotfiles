@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
+let inherit (lib) attrValues mkEnableOption mkIf mkMerge unique;
 
-{
+in {
   options.profiles.standalone.enable = mkEnableOption "the standalone profile";
 
   config = mkIf config.profiles.standalone.enable (mkMerge [

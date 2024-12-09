@@ -1,11 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    concatLines gnuCommandLine mkEnableOption mkIf mkMerge mkOption
+    mkPackageOption optional types;
   cfg = config.programs.fzf-tab-completion;
-
-  inherit (lib) gnuCommandLine;
 
 in {
 

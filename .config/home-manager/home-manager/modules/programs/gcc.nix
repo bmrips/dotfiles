@@ -1,8 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.programs.gcc;
+let
+  inherit (lib)
+    concatStringsSep mapAttrsToList mkEnableOption mkIf mkMerge mkOption
+    mkPackageOption types;
+  cfg = config.programs.gcc;
 
 in {
 

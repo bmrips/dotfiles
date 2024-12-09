@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
+let inherit (lib) concatLines mapAttrsToList;
 
-{
+in {
   services.kmscon = {
 
     hwRender = true;

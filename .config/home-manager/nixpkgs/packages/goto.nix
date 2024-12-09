@@ -22,13 +22,13 @@ in stdenv.mkDerivation rec {
     install -Dm644 goto.sh -t $out/share/
   '';
 
-  meta = with lib; {
+  meta = {
     description =
       "Alias and navigate to directories with tab completion in Linux";
     homepage = "https://github.com/${owner}/${pname}";
     downloadPage = "https://github.com/${owner}/${pname}/tags";
     changelog =
       "https://github.com/${owner}/${pname}/blob/v${version}/CHANGELOG.md";
-    license = licenses.mit;
+    license = lib.licenses.mit;
   };
 }

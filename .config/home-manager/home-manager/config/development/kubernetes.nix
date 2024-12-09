@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
   kubectl-show-secrets = ''
     local single_secret_recipe='.data[] |= @base64d | .name = .metadata.name | pick(["name", "data"])'
@@ -27,9 +25,9 @@ let
 in {
 
   options.development.kubernetes.enable =
-    mkEnableOption "Kubernetes development tools";
+    lib.mkEnableOption "Kubernetes development tools";
 
-  config = mkIf config.development.kubernetes.enable {
+  config = lib.mkIf config.development.kubernetes.enable {
 
     home.packages = with pkgs; [ kubectx yq-go ];
 

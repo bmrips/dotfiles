@@ -1,9 +1,7 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
-  inherit (builtins) replaceStrings;
+  inherit (lib) mapAttrs mkIf replaceStrings toLower;
 
   toAction = name: addon:
     let

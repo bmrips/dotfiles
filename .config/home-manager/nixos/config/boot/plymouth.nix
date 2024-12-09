@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-mkMerge [
+lib.mkMerge [
 
   {
     boot.plymouth = {
@@ -12,6 +10,6 @@ mkMerge [
     };
   }
 
-  (mkIf config.boot.plymouth.enable { boot.kernelParams = [ "quiet" ]; })
+  (lib.mkIf config.boot.plymouth.enable { boot.kernelParams = [ "quiet" ]; })
 
 ]

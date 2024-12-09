@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.programs.kubectl;
+let
+  inherit (lib) mkEnableOption mkIf mkPackageOption;
+  cfg = config.programs.kubectl;
 
 in {
   options.programs.kubectl = {

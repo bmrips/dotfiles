@@ -1,11 +1,11 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
   cfg = config.programs.fzf;
 
-  inherit (lib) gnuCommandArgs gnuCommandLine;
+  inherit (lib)
+    concatStringsSep escapeShellArg gnuCommandArgs gnuCommandLine mkIf readFile
+    stringAsChars;
   inherit (lib.shell) dirPreview subshell;
 
   fzf-state = let

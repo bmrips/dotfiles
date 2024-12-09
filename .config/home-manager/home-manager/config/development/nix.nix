@@ -1,11 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
-  options.development.nix.enable = mkEnableOption "Nix development tools";
+  options.development.nix.enable = lib.mkEnableOption "Nix development tools";
 
-  config = mkIf config.development.nix.enable {
+  config = lib.mkIf config.development.nix.enable {
     home.packages = with pkgs; [ nil nixfmt-classic ];
   };
 }

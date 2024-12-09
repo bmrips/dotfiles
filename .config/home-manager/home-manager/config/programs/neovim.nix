@@ -1,7 +1,5 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
   nvim-prune-undodir = pkgs.writeShellApplication {
     name = "nvim-prune-undodir";
@@ -17,7 +15,7 @@ let
     '';
   };
 
-in mkMerge [
+in lib.mkMerge [
 
   {
     programs.neovim = {
@@ -26,7 +24,7 @@ in mkMerge [
     };
   }
 
-  (mkIf config.programs.neovim.enable {
+  (lib.mkIf config.programs.neovim.enable {
     home.packages = with pkgs; [
       gnumake # for markdown-preview.nvim
       nodejs # for markdown-preview.nvim

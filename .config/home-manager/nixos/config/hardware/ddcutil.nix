@@ -1,7 +1,5 @@
 { config, lib, pkgs, user, ... }:
 
-with lib;
-
 let
   brightness = pkgs.writeShellApplication {
     name = "brightness";
@@ -15,9 +13,9 @@ let
 
 in {
 
-  options.hardware.ddcutil.enable = mkEnableOption "{command}`ddcutil`";
+  options.hardware.ddcutil.enable = lib.mkEnableOption "{command}`ddcutil`";
 
-  config = mkIf config.hardware.ddcutil.enable {
+  config = lib.mkIf config.hardware.ddcutil.enable {
     environment.systemPackages = [ brightness pkgs.ddcutil ];
     hardware.i2c.enable = true;
     users.users.${user}.extraGroups = [ config.hardware.i2c.group ];
@@ -30,7 +28,7 @@ in {
       };
       increase-screen-brightness = {
         name = "Increase screen brightness";
-        command = "brightness + 10";
+        command = "";
         key = "Meta+Shift+PgUp";
       };
     };

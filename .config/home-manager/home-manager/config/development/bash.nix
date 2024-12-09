@@ -1,11 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
-  options.development.bash.enable = mkEnableOption "Bash development tools";
+  options.development.bash.enable = lib.mkEnableOption "Bash development tools";
 
-  config = mkIf config.development.bash.enable {
+  config = lib.mkIf config.development.bash.enable {
     home.packages = with pkgs; [ bash-language-server checkbashisms shfmt ];
 
     programs.bash.enable = true;

@@ -1,16 +1,14 @@
 { config, lib, ... }:
 
-with lib;
-
 let
   cfg = config.programs.zoxide;
 
   inherit (lib) gnuCommandLine;
   inherit (lib.shell) dirPreview subshell;
 
-in mkIf cfg.enable {
+in lib.mkIf cfg.enable {
 
-  home.sessionVariables._ZO_FZF_OPTS = concatStringsSep " " [
+  home.sessionVariables._ZO_FZF_OPTS = lib.concatStringsSep " " [
     config.home.sessionVariables.FZF_DEFAULT_OPTS
     (gnuCommandLine {
       preview = dirPreview

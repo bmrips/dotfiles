@@ -1,12 +1,10 @@
 { config, lib, ... }:
 
-with lib;
-
 {
   options.profiles.uni-muenster.enable =
-    mkEnableOption "the University of Münster profile";
+    lib.mkEnableOption "the University of Münster profile";
 
-  config = mkIf config.profiles.uni-muenster.enable {
+  config = lib.mkIf config.profiles.uni-muenster.enable {
 
     programs.ssh.matchBlocks.uni-muenster = {
       host = "*.uni-muenster.de";

@@ -1,10 +1,8 @@
 { config, lib, ... }:
 
-with lib;
-
 let
+  inherit (lib) gnuCommandLine mkIf mkOption types;
   cfg = config.programs.less;
-  inherit (lib) gnuCommandLine;
 
 in {
 

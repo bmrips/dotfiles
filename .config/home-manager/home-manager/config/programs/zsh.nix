@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.programs.zsh;
+let
+  inherit (lib) mkIf makeBinPath mkMerge;
+  cfg = config.programs.zsh;
 
 in {
 

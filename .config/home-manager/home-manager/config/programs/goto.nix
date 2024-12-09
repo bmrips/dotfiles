@@ -1,10 +1,8 @@
 { config, lib, ... }:
 
-with lib;
-
 let inherit (lib.shell) dirPreview subshell;
 
-in mkMerge [
+in lib.mkMerge [
 
   {
     programs.goto.fzfWidgetOptions = {
@@ -12,7 +10,7 @@ in mkMerge [
     };
   }
 
-  (mkIf config.programs.goto.enable {
+  (lib.mkIf config.programs.goto.enable {
     home.shellAliases.b = "goto";
     programs.zsh.initExtra = ''
       # Go to `goto` bookmark

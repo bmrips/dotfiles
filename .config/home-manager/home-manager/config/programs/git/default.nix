@@ -1,7 +1,5 @@
 { config, lib, ... }:
 
-with lib;
-
 let
   gitWrapper = ''
     case $1 in
@@ -10,7 +8,7 @@ let
     esac
   '';
 
-in mkIf config.programs.git.enable {
+in lib.mkIf config.programs.git.enable {
 
   home.shellAliases.g = "git";
 
@@ -148,7 +146,7 @@ in mkIf config.programs.git.enable {
         xhtml = "html";
       };
     in [ "* text=auto" ]
-    ++ mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
+    ++ lib.mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
 
     ignores = [ "/.direnv/" "/result" "Session*.vim" "taskell.md" ];
   };

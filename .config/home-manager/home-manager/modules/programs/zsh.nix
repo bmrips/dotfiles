@@ -1,8 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    attrNames concatLines concatStringsSep mapAttrsToList mkEnableOption mkIf
+    mkMerge mkOption types;
   cfg = config.programs.zsh;
   setOpt = name: flag: "${if flag then "setopt" else "unsetopt"} ${name}";
 

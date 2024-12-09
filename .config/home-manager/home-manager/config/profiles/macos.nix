@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) hm mkEnableOption mkForce mkIf;
+
   readNixInitScript = ''
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';

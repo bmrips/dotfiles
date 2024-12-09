@@ -1,8 +1,7 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkEnableOption mkIf mkMerge optionals;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   cfg = config.profiles.gui;
 

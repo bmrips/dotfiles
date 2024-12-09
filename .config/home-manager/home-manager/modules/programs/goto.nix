@@ -1,11 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib)
+    gnuCommandLine mkEnableOption mkIf mkMerge mkOption mkPackageOption types;
   cfg = config.programs.goto;
-
-  inherit (lib) gnuCommandLine;
 
   init = ''
     source ${pkgs.goto}/share/goto.sh

@@ -1,8 +1,8 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 let
+  inherit (lib) mkIf mkMerge optionals;
+
   # Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
   # editor.
   copy-forms = pkgs.writeShellApplication {

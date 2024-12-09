@@ -1,8 +1,6 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-mkMerge [
+lib.mkMerge [
 
   {
     programs.bash = {
@@ -11,7 +9,7 @@ mkMerge [
     };
   }
 
-  (mkIf config.programs.bash.enable {
+  (lib.mkIf config.programs.bash.enable {
     home.packages = with pkgs; [ nix-bash-completions ];
   })
 

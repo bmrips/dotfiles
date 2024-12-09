@@ -22,9 +22,9 @@ in stdenv.mkDerivation rec {
     cp --recursive bash/ zsh/ $out/share/${pname}/
   '';
 
-  meta = with lib; {
+  meta = {
     description = "Tab completion using fzf";
     homepage = "https://github.com/${owner}/${pname}";
-    license = licenses.gpl3Plus;
+    license = lib.licenses.gpl3Plus;
   };
 }

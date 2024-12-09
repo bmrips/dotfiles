@@ -1,9 +1,7 @@
 { lib, ... }:
 
-with lib;
-
 let
-  inherit (lib) ansiEscapeCodes;
+  inherit (lib) ansiEscapeCodes listToAttrs nameValuePair;
   inherit (lib.ansiEscapeCodes) base16 combine reset;
 
   fg = c: base16.color [ base16.fg base16.bright c ];

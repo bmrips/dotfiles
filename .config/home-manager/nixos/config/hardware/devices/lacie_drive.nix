@@ -1,12 +1,10 @@
 { config, lib, ... }:
 
-with lib;
-
 {
   options.hardware.devices.lacie_drive.enable =
-    mkEnableOption "the external Lacie drive";
+    lib.mkEnableOption "the external Lacie drive";
 
-  config = mkIf config.hardware.devices.lacie_drive.enable {
+  config = lib.mkIf config.hardware.devices.lacie_drive.enable {
     environment.etc.crypttab.text = ''
       lacie UUID=17a21a62-269e-4d40-a28d-1d49ae100d36 /etc/keys/lacie.key noauto
     '';

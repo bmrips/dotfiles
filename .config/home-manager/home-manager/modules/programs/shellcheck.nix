@@ -1,8 +1,10 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
-let cfg = config.programs.shellcheck;
+let
+  inherit (lib)
+    concatLines flatten flip isList mapAttrsToList mkEnableOption mkIf mkMerge
+    mkOption mkPackageOption types;
+  cfg = config.programs.shellcheck;
 
 in {
 

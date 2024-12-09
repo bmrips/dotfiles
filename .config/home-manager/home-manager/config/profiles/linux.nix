@@ -1,11 +1,9 @@
 { config, lib, pkgs, ... }:
 
-with lib;
-
 {
-  options.profiles.linux.enable = mkEnableOption "the Linux profile";
+  options.profiles.linux.enable = lib.mkEnableOption "the Linux profile";
 
-  config = mkIf config.profiles.linux.enable {
+  config = lib.mkIf config.profiles.linux.enable {
 
     assertions = [{
       assertion = pkgs.stdenv.isLinux;

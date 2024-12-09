@@ -75,8 +75,8 @@ in mkMerge [
 
       # Rebind mouse buttons for Evoluent VerticalMouse
       configFile.kcminputrc."ButtonRebinds/Mouse" = {
-        ExtraButton1 = "Meta+Right";
-        ExtraButton3 = "Meta+Left";
+        ExtraButton1 = "Key,Meta+Right";
+        ExtraButton3 = "Key,Meta+Left";
       };
 
       # Builtin touchpad

@@ -21,15 +21,11 @@ in {
 
     (mkIf config.profiles.gui.enable {
       home.packages = with pkgs;
-        [
-          discord
-          logseq
-          prismlauncher
-          signal-desktop
-          slack
-          spotify
-          ungoogled-chromium
-        ] ++ optionals isLinux [ libreoffice-qt vlc ];
+        [ discord logseq prismlauncher spotify ungoogled-chromium ]
+        ++ optionals isLinux [ libreoffice-qt vlc ];
+
+      programs.signal-desktop.enable = true;
+      programs.slack.enable = true;
     })
 
   ]);

@@ -1,0 +1,1 @@
+{ programs.keepassxc.autostart = true; }

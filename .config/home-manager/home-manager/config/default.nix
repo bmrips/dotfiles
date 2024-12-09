@@ -79,6 +79,7 @@ in {
     ./programs/gh.nix
     ./programs/goto.nix
     ./programs/grep.nix
+    ./programs/keepassxc.nix
     ./programs/konsole.nix
     ./programs/lazygit.nix
     ./programs/less.nix
@@ -89,7 +90,9 @@ in {
     ./programs/readline.nix
     ./programs/ripgrep.nix
     ./programs/shellcheck.nix
+    ./programs/signal-desktop.nix
     ./programs/sioyek.nix
+    ./programs/slack.nix
     ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/taskell.nix

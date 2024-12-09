@@ -1,0 +1,1 @@
+{ programs.slack.autostart = true; }

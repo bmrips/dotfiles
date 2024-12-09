@@ -5,11 +5,15 @@
   ./programs/goto.nix
   ./programs/grep.nix
   ./programs/keepassxc.nix
+  ./programs/keepassxc.nix
   ./programs/konsole.nix
   ./programs/kubectl.nix
   ./programs/less.nix
   ./programs/shellcheck.nix
+  ./programs/signal-desktop.nix
+  ./programs/slack.nix
   ./programs/taskell.nix
   ./programs/yamllint.nix
   ./programs/zsh.nix
+  ./xdg.nix
 ]

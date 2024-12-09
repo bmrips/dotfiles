@@ -2,8 +2,8 @@
 
 let
   inherit (lib)
-    concatMapAttrs intersectAttrs isString mapAttrs' mkIf mkOption optionalAttrs
-    recursiveUpdate types;
+    concatMapAttrs concatStringsSep intersectAttrs isString mapAttrs'
+    mapAttrsToList mkIf mkMerge mkOption optionalAttrs recursiveUpdate types;
 
   cfg = config.programs.konsole;
 
@@ -101,17 +101,49 @@ let
   } // concatMapAttrs mkColorWithVariants (intersectAttrs nameMap scheme))
   scheme.extraConfig;
 
+  mkShortcutScheme = let
+    mkAction = name: value:
+      let keys = if isString value then value else concatStringsSep "; " value;
+      in ''<Action name="${name}" shortcut="${keys}"/>'';
+  in scheme: ''
+    <gui version="1" name="konsole">
+      <ActionProperties>
+        ${concatStringsSep "\n    " (mapAttrsToList mkAction scheme)}
+      </ActionProperties>
+    </gui>
+  '';
 
 in {
 
-  options.programs.konsole.colorSchemes = mkOption {
-    type = with types; attrsOf (submodule colorScheme);
-    default = { };
-    description = "Color schemes.";
+  options.programs.konsole = {
+
+    colorSchemes = mkOption {
+      type = with types; attrsOf (submodule colorScheme);
+      default = { };
+      description = "Color schemes.";
+    };
+
+    shortcutSchemes = mkOption {
+      type = with types;
+        let shortcut = either str (listOf str);
+        in attrsOf (attrsOf shortcut);
+      default = { };
+      description = "Shortcut schemes.";
+    };
+
   };
 
-  config.xdg.dataFile = mkIf cfg.enable (mapAttrs' (name: value: {
-    name = "konsole/${name}.colorscheme";
-    value.source = ini.generate "${name}.colorscheme" (mkColorScheme value);
-  }) cfg.colorSchemes);
+  config.xdg.dataFile = mkIf cfg.enable (mkMerge [
+
+    (mapAttrs' (name: value: {
+      name = "konsole/${name}.colorscheme";
+      value.source = ini.generate "${name}.colorscheme" (mkColorScheme value);
+    }) cfg.colorSchemes)
+
+    (mapAttrs' (name: value: {
+      name = "konsole/shortcuts/${name}.xml";
+      value.text = mkShortcutScheme value;
+    }) cfg.shortcutSchemes)
+
+  ]);
 }

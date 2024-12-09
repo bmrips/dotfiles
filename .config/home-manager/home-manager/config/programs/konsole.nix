@@ -106,6 +106,47 @@ in mkMerge [
         Gruvbox_light = mkColorScheme "light";
       };
 
+      shortcutSchemes.Custom = {
+        close-session = "Ctrl+Shift+W";
+        close-window = "Ctrl+Shift+Q";
+        new-window = "Ctrl+Shift+N";
+        new-tab = "Ctrl+Shift+T";
+        clone-tab = "Ctrl+Shift+R";
+        detach-tab = "Ctrl+Shift+D";
+        next-tab = "Ctrl+Tab";
+        previous-tab = "Ctrl+Shift+Tab";
+        move-tab-to-right = "Ctrl+Shift+Right";
+        move-tab-to-left = "Ctrl+Shift+Left";
+        split-view-left-right = "Ctrl+(";
+        split-view-top-bottom = "Ctrl+)";
+        split-view-auto = "Ctrl+*";
+        focus-view-above = "Ctrl+Shift+K";
+        focus-view-below = "Ctrl+Shift+J";
+        focus-view-left = "Ctrl+Shift+H";
+        focus-view-right = "Ctrl+Shift+L";
+        expand-active-view = "Ctrl+Shift+]";
+        shrink-active-view = "Ctrl+Shift+[";
+        toggle-maximize-current-view = "Ctrl+Shift+E";
+        detach-view = "Alt+Shift+D";
+        edit_copy = "Ctrl+Shift+C";
+        edit_paste = [ "Ctrl+Shift+V" "Shift+Ins" ];
+        paste-selection = "Ctrl+Shift+Ins";
+        file_save_as = "Ctrl+Shift+S";
+        file_print = "Ctrl+Shift+P";
+        edit_find = "Ctrl+Shift+F";
+        edit_find_next = "F3";
+        edit_find_prev = "Shift+F3";
+        monitor-activity = "Ctrl+Shift+A";
+        monitor-silence = "Ctrl+Shift+I";
+        enlarge-font = [ "Ctrl++" "Ctrl+=" ];
+        shrink-font = "Ctrl+-";
+        reset-font-size = "Ctrl+0";
+        open_kcommand_bar = "Ctrl+Alt+I";
+        options_show_menubar = "Ctrl+Shift+M";
+        options_configure = "Ctrl+Shift+,";
+        options_configure_keybinding = "Ctrl+>";
+      };
+
       profiles = {
         Dark = mkProfile "dark" { fontSize = 10; };
         Dark-11pt = mkProfile "dark" { fontSize = 11; };

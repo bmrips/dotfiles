@@ -90,7 +90,6 @@ in mkMerge [
         rightClickMethod = "twoFingers";
         scrollMethod = "twoFingers";
         tapAndDrag = true;
-        # tapDragLock = true; # TODO: enable
         tapToClick = true;
         twoFingerTap = "rightClick";
       }];

@@ -40,7 +40,7 @@ let
           EmojiFont = "Noto Color Emoji,${
               toString fontSize
             },-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
-          Font = "JetBrainsMono Nerd Font Mono,${
+          Font = "JetBrainsMono Nerd Font,${
               toString fontSize
             },-1,5,500,0,0,0,0,0,0,0,0,0,0,1,Medium";
         };

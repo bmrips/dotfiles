@@ -38,7 +38,7 @@ in mkMerge [
       # _sep1=false
 
       fonts.fixedWidth = {
-        family = "JetBrainsMono Nerd Font Mono";
+        family = "JetBrainsMono Nerd Font";
         pointSize = 10;
         styleName = "Medium";
         weight = "medium";

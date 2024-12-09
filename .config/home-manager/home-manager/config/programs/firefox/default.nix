@@ -72,7 +72,7 @@ in mkIf config.programs.firefox.enable {
         "findbar.highlightAll" = true;
 
         # Use Jetbrains Mono with Nerd font patches as monospaced font.
-        "font.name.monospace.x-western" = "JetBrainsMono Nerd Font Mono";
+        "font.name.monospace.x-western" = "JetBrainsMono Nerd Font";
         "font.size.monospace.x-western" = 14;
         "font.size.variable.x-western" = 17;
 

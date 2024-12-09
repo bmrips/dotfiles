@@ -43,7 +43,6 @@ let
           Font = "JetBrainsMono Nerd Font Mono,${
               toString fontSize
             },-1,5,500,0,0,0,0,0,0,0,0,0,0,1,Medium";
-          UseFontLineChararacters = true;
         };
         General = {
           Environment = concatStringsSep ","
@@ -54,7 +53,6 @@ let
               TERM = "konsole-256color";
             });
           ShowTerminalSizeHint = false;
-          TerminalCenter = true;
           TerminalColumns = 90;
           TerminalMargin = 0;
           TerminalRows = 25;
@@ -65,9 +63,6 @@ let
           DropUrlsAsText = false;
           MiddleClickPasteMode = 1;
           MouseWheelZoomEnabled = false;
-          OpenLinksByDirectClickEnabled = false;
-          TextEditorCmd = 6;
-          TextEditorCmdCustom = "nvim PATH '+call cursor(LINE, COLUMN)'";
           TrimTrailingSpacesInSelectedText = true;
           UnderlineFilesEnabled = true;
         };
@@ -76,7 +71,6 @@ let
           HistorySize = 10000;
           ScrollBarPosition = 2;
         };
-        "Terminal Features".FlowControlEnabled = false;
       };
     };
 

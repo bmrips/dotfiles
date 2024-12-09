@@ -371,37 +371,18 @@ in mkMerge [
           VideoSave.videoFilenameTemplate = filenameTemplate;
         };
 
-      window-rules = let
-        centered = {
+      window-rules = [{
+        description = "Pinentry";
+        match.window-class = {
+          type = "regex";
+          value = "pinentry-.*";
+        };
+        apply = {
           placement.apply = "force";
           placement.value = 5;
+          size.value = "460,220";
         };
-      in [
-        {
-          description = "KeePassXC";
-          match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
-          apply = centered // {
-            ignoregeometry.value = true;
-            size.value = "600,528";
-          };
-        }
-        {
-          description = "Pinentry";
-          match.window-class = {
-            type = "regex";
-            value = "pinentry-.*";
-          };
-          apply = centered // { size.value = "460,220"; };
-        }
-        {
-          description = "Signal";
-          match.window-class.value = "signal Signal";
-          apply = centered // {
-            ignoregeometry.value = true;
-            size.value = "780,556";
-          };
-        }
-      ];
+      }];
 
       windows.allowWindowsToRememberPositions = false;
 

@@ -314,6 +314,7 @@ in mkMerge [
           "PowerDown" = "Meta+End";
         };
         plasmashell = {
+          "activate application launcher" = "Meta+F1";
           "activate task manager entry 1" = "Meta+1";
           "activate task manager entry 2" = "Meta+2";
           "activate task manager entry 3" = "Meta+3";
@@ -460,7 +461,6 @@ in mkMerge [
 
       configFile.kwinrc = {
         ElectricBorders.TopLeft = "None";
-        ModifierOnlyShortcuts.Meta = "";
         MouseBindings.CommandActiveTitlebar2 = "Close";
         MouseBindings.CommandAllKey = "Meta";
         MouseBindings.CommandInactiveTitlebar2 = "Close";

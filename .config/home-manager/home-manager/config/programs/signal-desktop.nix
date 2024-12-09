@@ -10,6 +10,8 @@ in {
     match.window-class.value = "signal Signal";
     apply = {
       ignoregeometry.value = true;
+      maximizehoriz = false;
+      maximizevert = false;
       placement.apply = "force";
       placement.value = 5;
       size.value = "780,556";

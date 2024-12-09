@@ -10,6 +10,8 @@ in {
     match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
     apply = {
       ignoregeometry.value = true;
+      maximizehoriz = false;
+      maximizevert = false;
       placement.apply = "force";
       placement.value = 5; # centered
       size.value = "600,528";

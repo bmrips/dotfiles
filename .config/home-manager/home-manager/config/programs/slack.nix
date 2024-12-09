@@ -12,6 +12,8 @@ in {
       window-role.value = "browser-window";
     };
     apply = {
+      maximizehoriz = false;
+      maximizevert = false;
       placement.apply = "force";
       placement.value = 5;
     };

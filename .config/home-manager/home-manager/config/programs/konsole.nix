@@ -16,10 +16,10 @@ let
       screen_width="$(${jq} .screen.currentSize.width <<<"$kscreen_output")"
       screen_name="$(${jq} --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
 
-      if (( screen_width == 1920 )) && [[ ! $screen_name = eDP-* ]]; then
+      if (( screen_width != 1920 )) || [[ $screen_name = eDP-* ]]; then
           ${konsole} --profile "$background"
       else
-          ${konsole} --profile "$background-11pt"
+          ${konsole} --profile "$background-10pt"
       fi
     '';
   };
@@ -142,10 +142,10 @@ in mkMerge [
       };
 
       profiles = {
-        Dark = mkProfile "dark" { fontSize = 10; };
-        Dark-11pt = mkProfile "dark" { fontSize = 11; };
-        Light = mkProfile "light" { fontSize = 10; };
-        Light-11pt = mkProfile "light" { fontSize = 11; };
+        Dark-10pt = mkProfile "dark" { fontSize = 10; };
+        Dark = mkProfile "dark" { fontSize = 11; };
+        Light-10pt = mkProfile "light" { fontSize = 10; };
+        Light = mkProfile "light" { fontSize = 11; };
       };
 
     };

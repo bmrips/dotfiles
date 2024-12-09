@@ -154,6 +154,20 @@ in {
       "identity.fxaccounts.account.device.name" = host;
     };
 
+    programs.plasma.input.touchpads = [{
+      name = "DLL075B:01 06CB:76AF Touchpad";
+      vendorId = "1739";
+      productId = "30383";
+      disableWhileTyping = true;
+      naturalScroll = true;
+      pointerSpeed = 0.0;
+      rightClickMethod = "twoFingers";
+      scrollMethod = "twoFingers";
+      tapAndDrag = true;
+      tapToClick = true;
+      twoFingerTap = "rightClick";
+    }];
+
     services.nextcloud-client.enable = true;
 
     # This value determines the Home Manager release that your configuration is

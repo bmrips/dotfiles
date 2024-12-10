@@ -426,7 +426,7 @@ in mkMerge [
 
       configFile.plasmaparc.General = {
         AudioFeedback = false;
-        VolumeStep = 3;
+        VolumeStep = 5;
       };
 
       configFile.plasma-localerc.Formats = let

@@ -24,7 +24,10 @@ in {
         ShowAddToPlaces = false;
         ShowViewMode = false;
       };
-      DetailsMode.PreviewSize = 16;
+      DetailsMode = {
+        PreviewSize = 16;
+        SidePadding = 0;
+      };
       General = {
         GlobalViewProps = false;
         OpenExternallyCalledFolderInNewTab = false;

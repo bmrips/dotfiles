@@ -83,7 +83,10 @@ in mkMerge [
       defaultProfile = "Dark";
 
       extraConfig = {
-        KonsoleWindow.RememberWindowSize = false;
+        KonsoleWindow = {
+          RememberWindowSize = false;
+          ShowMenuBarByDefault = false;
+        };
         FileLocation = {
           scrollbackUseCacheLocation = true;
           scrollbackUseSystemLocation = false;

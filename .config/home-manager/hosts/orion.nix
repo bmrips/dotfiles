@@ -1,4 +1,4 @@
-{ config, host, inputs, lib, modulesPath, pkgs, user, ... }:
+{ config, host, inputs, lib, modulesPath, user, ... }:
 
 let
   inherit (lib) uuid partuuid;
@@ -46,8 +46,6 @@ in {
       };
     };
   };
-
-  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelModules = [ "kvm-intel" ];
 

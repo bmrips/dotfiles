@@ -28,6 +28,8 @@ in {
     ./services/tlp.nix
   ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.plymouth.enable = true;
 
   console = {

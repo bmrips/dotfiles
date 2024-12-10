@@ -9,7 +9,6 @@
     programs.ssh.matchBlocks.uni-muenster = {
       host = "*.uni-muenster.de";
       user = "git";
-      identityFile = "~/.ssh/uni-muenster";
     };
 
   };

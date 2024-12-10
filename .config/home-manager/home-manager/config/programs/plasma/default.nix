@@ -487,20 +487,10 @@ in mkMerge [
       with pkgs.kdePackages;
       [ copy-forms kcalc kcolorchooser qt6.qtimageformats plasma-dark-mode ]
       ++ optionals config.profiles.gui.extra.enable [
-        akonadi
-        akonadi-calendar
-        akonadi-contacts
-        akonadi-import-wizard
-        akonadi-mime
-        akonadi-notes
-        akonadi-search
         akregator
-        kdepim-runtime
         kgpg
         kleopatra # for KMail
         kmail
-        kmail-account-wizard
-        kmailtransport
         skanpage
       ];
 

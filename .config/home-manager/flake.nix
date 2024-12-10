@@ -59,9 +59,15 @@
         };
 
     in {
-      nixosConfigurations.orion = mkNixosConfig {
-        host = "orion";
-        extraModules = [ ./hosts/orion.nix ];
+      nixosConfigurations = {
+        orion = mkNixosConfig {
+          host = "orion";
+          extraModules = [ ./hosts/orion.nix ];
+        };
+        radboud = mkNixosConfig {
+          host = "radboud";
+          extraModules = [ ./hosts/radboud.nix ];
+        };
       };
     };
 

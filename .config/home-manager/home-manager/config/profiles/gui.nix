@@ -24,7 +24,6 @@ in {
         ++ optionals isLinux [ libreoffice-qt vlc ];
 
       programs.signal-desktop.enable = true;
-      programs.slack.enable = true;
     })
 
   ]);

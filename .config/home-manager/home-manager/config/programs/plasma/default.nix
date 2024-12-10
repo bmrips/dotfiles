@@ -374,18 +374,28 @@ in mkMerge [
           VideoSave.videoFilenameTemplate = filenameTemplate;
         };
 
-      window-rules = [{
-        description = "Pinentry";
-        match.window-class = {
-          type = "regex";
-          value = "pinentry-.*";
-        };
-        apply = {
-          placement.apply = "force";
-          placement.value = 5;
-          size.value = "460,220";
-        };
-      }];
+      window-rules = [
+        {
+          description = "KMail Composer";
+          match = {
+            title.value = "Composer — KMail";
+            window-class.value = "kmail org.kde.kmail2";
+          };
+          apply.size.value = "660,770";
+        }
+        {
+          description = "Pinentry";
+          match.window-class = {
+            type = "regex";
+            value = "pinentry-.*";
+          };
+          apply = {
+            placement.apply = "force";
+            placement.value = 5;
+            size.value = "460,220";
+          };
+        }
+      ];
 
       windows.allowWindowsToRememberPositions = false;
 

@@ -13,7 +13,6 @@ in {
         window-class.value = "keepassxc org.keepassxc.KeePassXC";
       };
       apply = {
-        ignoregeometry.value = true;
         maximizehoriz = false;
         maximizevert = false;
         placement.apply = "force";
@@ -25,7 +24,6 @@ in {
       description = "KeePassXC";
       match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
       apply = {
-        ignoregeometry.value = true;
         maximizehoriz = false;
         maximizevert = false;
         placement.apply = "force";

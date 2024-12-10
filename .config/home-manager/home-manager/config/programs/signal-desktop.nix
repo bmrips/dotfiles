@@ -9,7 +9,6 @@ in {
     description = "Signal";
     match.window-class.value = "signal Signal";
     apply = {
-      ignoregeometry.value = true;
       maximizehoriz = false;
       maximizevert = false;
       placement.apply = "force";

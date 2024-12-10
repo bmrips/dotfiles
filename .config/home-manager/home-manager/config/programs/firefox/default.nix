@@ -348,6 +348,7 @@ in mkIf config.programs.firefox.enable {
         };
       };
 
+      settings."extensions.update.autoUpdateDefault" = false;
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         auto-sort-bookmarks
         canvasblocker

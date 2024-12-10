@@ -41,10 +41,10 @@ in {
           run = "close";
           desc = "Close tasks";
         }];
-        select.prepend_keymap = [{
+        pick.prepend_keymap = [{
           on = "<C-q>";
           run = "close";
-          desc = "Close select";
+          desc = "Close pick";
         }];
         input.prepend_keymap = [{
           on = "<C-q>";

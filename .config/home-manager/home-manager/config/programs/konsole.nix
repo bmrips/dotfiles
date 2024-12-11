@@ -38,6 +38,9 @@ let
     { fontSize }: {
       extraConfig = {
         Appearance = {
+          # Nerd symbols are messed up in the bold series of the medium weight
+          # variant of JetBrains Mono, hence we avoid the bold series.
+          BoldIntense = false;
           ColorScheme = "Gruvbox_${darkness}";
           EmojiFont = "Noto Color Emoji,${
               toString fontSize

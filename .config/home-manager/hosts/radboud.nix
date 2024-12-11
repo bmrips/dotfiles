@@ -68,6 +68,8 @@ in {
 
   system.stateVersion = "24.11";
 
+  programs.nitrile.enable = true;
+
   home-manager.users.${user} = {
     home.packages = with pkgs; [ zoom-us ];
 

@@ -18,6 +18,7 @@ in {
     ./networking/networkmanager.nix
     ./profiles/gui.nix
     ./programs/ausweisapp.nix
+    ./programs/nitrile.nix
     ./security/sudo.nix
     ./services/desktopManager/plasma6.nix
     ./services/displayManager/sddm.nix

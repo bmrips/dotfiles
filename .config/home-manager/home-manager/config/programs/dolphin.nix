@@ -15,7 +15,10 @@ in {
 
     programs.plasma.window-rules = [{
       description = "Dolphin";
-      match.window-class.value = "dolphin org.kde.dolphin";
+      match = {
+        title = "Home — Dolphin";
+        window-class.value = "dolphin org.kde.dolphin";
+      };
       apply.size.value = "764,470";
     }];
 

@@ -10,6 +10,7 @@
   ./programs/konsole.nix
   ./programs/kubectl.nix
   ./programs/less.nix
+  ./programs/okular.nix
   ./programs/plasma.nix
   ./programs/shellcheck.nix
   ./programs/signal-desktop.nix

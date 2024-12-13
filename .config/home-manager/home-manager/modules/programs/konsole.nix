@@ -2,8 +2,8 @@
 
 let
   inherit (lib)
-    concatMapAttrs concatStringsSep intersectAttrs isString mapAttrs'
-    mapAttrsToList mkIf mkMerge mkOption optionalAttrs recursiveUpdate types;
+    concatMapAttrs intersectAttrs isString mapAttrs' mkIf mkOption optionalAttrs
+    plasma recursiveUpdate types;
 
   cfg = config.programs.konsole;
 
@@ -101,18 +101,6 @@ let
   } // concatMapAttrs mkColorWithVariants (intersectAttrs nameMap scheme))
   scheme.extraConfig;
 
-  mkShortcutScheme = let
-    mkAction = name: value:
-      let keys = if isString value then value else concatStringsSep "; " value;
-      in ''<Action name="${name}" shortcut="${keys}"/>'';
-  in scheme: ''
-    <gui version="1" name="konsole">
-      <ActionProperties>
-        ${concatStringsSep "\n    " (mapAttrsToList mkAction scheme)}
-      </ActionProperties>
-    </gui>
-  '';
-
 in {
 
   options.programs.konsole = {
@@ -123,27 +111,18 @@ in {
       description = "Color schemes.";
     };
 
-    shortcutSchemes = mkOption {
-      type = with types;
-        let shortcut = either str (listOf str);
-        in attrsOf (attrsOf shortcut);
-      default = { };
-      description = "Shortcut schemes.";
-    };
+    shortcutSchemes = plasma.shortcutSchemesOption;
 
   };
 
-  config.xdg.dataFile = mkIf cfg.enable (mkMerge [
+  config = mkIf cfg.enable {
 
-    (mapAttrs' (name: value: {
+    xdg.dataFile = mapAttrs' (name: value: {
       name = "konsole/${name}.colorscheme";
       value.source = ini.generate "${name}.colorscheme" (mkColorScheme value);
-    }) cfg.colorSchemes)
+    }) cfg.colorSchemes;
 
-    (mapAttrs' (name: value: {
-      name = "konsole/shortcuts/${name}.xml";
-      value.text = mkShortcutScheme value;
-    }) cfg.shortcutSchemes)
+    programs.plasma.shortcutSchemes.konsole = cfg.shortcutSchemes;
 
-  ]);
+  };
 }

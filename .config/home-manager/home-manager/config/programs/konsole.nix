@@ -94,7 +94,7 @@ in mkMerge [
           scrollbackUseCacheLocation = true;
           scrollbackUseSystemLocation = false;
         };
-        "Shortcut Schemes"."Current Scheme" = "Custom.xml";
+        "Shortcut Schemes"."Current Scheme" = "Custom";
         TabBar = {
           CloseTabOnMiddleMouseButton = true;
           ExpandTabWidth = true;

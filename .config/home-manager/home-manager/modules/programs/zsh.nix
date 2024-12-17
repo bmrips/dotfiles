@@ -35,9 +35,6 @@ in {
       };
     };
 
-    useInNixShell =
-      mkEnableOption "zsh-nix-shell, i.e. to spawn Zsh in Nix shells";
-
   };
 
   config = mkMerge [
@@ -54,13 +51,6 @@ in {
         cfg.siteFunctions;
       programs.zsh.initExtra = concatStringsSep " "
         ([ "autoload -Uz" ] ++ attrNames cfg.siteFunctions);
-    })
-
-    (mkIf (cfg.useInNixShell) {
-      home.packages = [ pkgs.zsh-nix-shell ];
-      programs.zsh.initExtra = ''
-        source ${pkgs.zsh-nix-shell}/share/zsh-nix-shell/nix-shell.plugin.zsh
-      '';
     })
 
   ];

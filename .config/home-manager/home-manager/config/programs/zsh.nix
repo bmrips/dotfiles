@@ -9,7 +9,6 @@ in {
   programs.zsh = mkIf cfg.enable (mkMerge [
 
     {
-      useInNixShell = true;
       enableViMode = true;
       syntaxHighlighting.enable = true;
       historySubstringSearch.enable = true;

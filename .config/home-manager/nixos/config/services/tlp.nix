@@ -1,7 +1,10 @@
 { config, lib, ... }:
 
-lib.mkIf config.services.tlp.enable {
-  services.power-profiles-daemon.enable = false; # conflicts with TLP
+{
+  # conflicts with TLP
+  services.power-profiles-daemon.enable =
+    lib.mkIf config.services.tlp.enable false;
+
   services.tlp.settings = {
     CPU_BOOST_ON_AC = 1;
     CPU_BOOST_ON_BAT = 0;

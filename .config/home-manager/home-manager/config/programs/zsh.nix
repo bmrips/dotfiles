@@ -6,141 +6,140 @@
 }:
 
 let
-  inherit (lib) mkIf makeBinPath mkMerge;
+  inherit (lib) makeBinPath optionalString;
   cfg = config.programs.zsh;
 
 in
 {
+  programs.zsh = {
 
-  programs.zsh = mkIf cfg.enable (mkMerge [
+    enableViMode = true;
+    syntaxHighlighting.enable = true;
+    historySubstringSearch.enable = true;
+    autosuggestion.enable = true;
 
-    {
-      enableViMode = true;
-      syntaxHighlighting.enable = true;
-      historySubstringSearch.enable = true;
-      autosuggestion.enable = true;
+    history = rec {
+      extended = true;
+      ignoreSpace = false;
+      path = "${config.xdg.stateHome}/zsh/history";
+      save = size;
+      share = false;
+      size = 100000;
+    };
 
-      history = rec {
-        extended = true;
-        ignoreSpace = false;
-        path = "${config.xdg.stateHome}/zsh/history";
-        save = size;
-        share = false;
-        size = 100000;
-      };
+    options = {
+      auto_pushd = true;
+      hist_reduce_blanks = true;
+      inc_append_history_time = true;
+      null_glob = true; # remove patterns without matches from argument list
+      sh_word_split = true; # split fields like in Bash
+    };
 
-      options = {
-        auto_pushd = true;
-        hist_reduce_blanks = true;
-        inc_append_history_time = true;
-        null_glob = true; # remove patterns without matches from argument list
-        sh_word_split = true; # split fields like in Bash
-      };
+    shellGlobalAliases = {
+      C = "| wc -l";
+      G = "| rg";
+      H = "| head";
+      L = "| less";
+      NE = "2>/dev/null";
+      NO = "&>/dev/null";
+      S = "| sort";
+      T = "| tail";
+      U = "| uniq";
+      V = "| nvim";
+      X = "| xargs";
+    };
 
-      shellGlobalAliases = {
-        C = "| wc -l";
-        G = "| rg";
-        H = "| head";
-        L = "| less";
-        NE = "2>/dev/null";
-        NO = "&>/dev/null";
-        S = "| sort";
-        T = "| tail";
-        U = "| uniq";
-        V = "| nvim";
-        X = "| xargs";
-      };
+    completionInit = ''
+      zmodload zsh/complist
 
-      completionInit = ''
-        zmodload zsh/complist
+      bindkey -M menuselect '^A' send-break # abort
+      bindkey -M menuselect '^H' vi-backward-char # left
+      bindkey -M menuselect '^J' vi-down-line-or-history # down
+      bindkey -M menuselect '^K' vi-up-line-or-history # up
+      bindkey -M menuselect '^L' vi-forward-char # right
+      bindkey -M menuselect '^N' vi-forward-blank-word # next group
+      bindkey -M menuselect '^P' vi-backward-blank-word # previous group
+      bindkey -M menuselect '^T' accept-and-hold # hold
+      bindkey -M menuselect '^U' undo
+      bindkey -M menuselect '^Y' accept-and-infer-next-history # next
 
-        bindkey -M menuselect '^A' send-break # abort
-        bindkey -M menuselect '^H' vi-backward-char # left
-        bindkey -M menuselect '^J' vi-down-line-or-history # down
-        bindkey -M menuselect '^K' vi-up-line-or-history # up
-        bindkey -M menuselect '^L' vi-forward-char # right
-        bindkey -M menuselect '^N' vi-forward-blank-word # next group
-        bindkey -M menuselect '^P' vi-backward-blank-word # previous group
-        bindkey -M menuselect '^T' accept-and-hold # hold
-        bindkey -M menuselect '^U' undo
-        bindkey -M menuselect '^Y' accept-and-infer-next-history # next
+      autoload -Uz compinit
+      compinit -d "${config.xdg.cacheHome}/zsh/zcompdump-$ZSH_VERSION"
 
-        autoload -Uz compinit
-        compinit -d "${config.xdg.cacheHome}/zsh/zcompdump-$ZSH_VERSION"
+      _comp_option+=(globdots)  # include hidden files in completion
 
-        _comp_option+=(globdots)  # include hidden files in completion
+      zstyle ':completion:*' menu select  # enable menu style completion
 
-        zstyle ':completion:*' menu select  # enable menu style completion
+      zstyle ':completion:*' use-cache yes
+      zstyle ':completion:*' cache-path '${config.xdg.cacheHome}/zsh/completion'
 
-        zstyle ':completion:*' use-cache yes
-        zstyle ':completion:*' cache-path '${config.xdg.cacheHome}/zsh/completion'
+      zstyle ':completion:*' verbose yes
+      zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"
+      zstyle ':completion:*:messages' format '%d'
+      zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
+      zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
+      zstyle ':completion:*' group-name '''
 
-        zstyle ':completion:*' verbose yes
-        zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"
-        zstyle ':completion:*:messages' format '%d'
-        zstyle ':completion:*:warnings' format "$fg[red]No matches for:$reset_color %d"
-        zstyle ':completion:*:corrections' format '%B%d (errors: %e)%b'
-        zstyle ':completion:*' group-name '''
+      zstyle ':completion:*' keep-prefix yes  # keep a prefix containing ~ or a param
+      zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}  # colorized completion
+      zstyle ':completion:*' squeeze-slashes yes  # remove trailing slashes
+    '';
 
-        zstyle ':completion:*' keep-prefix yes  # keep a prefix containing ~ or a param
-        zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}  # colorized completion
-        zstyle ':completion:*' squeeze-slashes yes  # remove trailing slashes
+    siteFunctions = {
+      cd_parent = ''
+        zle push-line
+        BUFFER="cd .."
+        zle accept-line
+        local ret=$?
+        zle reset-prompt
+        return $ret
       '';
-
-      siteFunctions = {
-        cd_parent = ''
-          zle push-line
-          BUFFER="cd .."
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-        '';
-        cd_undo = ''
-          zle push-line
-          BUFFER="popd"
-          zle accept-line
-          local ret=$?
-          zle reset-prompt
-          return $ret
-        '';
-        common-commands = ''
-          PATH='${
-            makeBinPath (
-              with pkgs;
-              [
-                coreutils
-                gnused
-              ]
-            )
-          }' \
-          cat '${cfg.history.path}' |
-            sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
-            cut --delimiter=" " --fields=1 |
-            sort |
-            uniq --count |
-            sort --numeric-sort --reverse |
-            head --lines=15
-        '';
-        edit-command-line-and-restore-cursor = ''
-          edit-command-line
-          bar_cursor
-        '';
-        rationalise-dot = ''
-          if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
-            LBUFFER+=/..
-          else
-            LBUFFER+=.
-          fi
-        '';
-      };
-
-      initExtraFirst = ''
-        # If not running interactively, don't do anything
-        [[ $- != *i* ]] && return
+      cd_undo = ''
+        zle push-line
+        BUFFER="popd"
+        zle accept-line
+        local ret=$?
+        zle reset-prompt
+        return $ret
       '';
+      common-commands = ''
+        PATH='${
+          makeBinPath (
+            with pkgs;
+            [
+              coreutils
+              gnused
+            ]
+          )
+        }' \
+        cat '${cfg.history.path}' |
+          sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
+          cut --delimiter=" " --fields=1 |
+          sort |
+          uniq --count |
+          sort --numeric-sort --reverse |
+          head --lines=15
+      '';
+      edit-command-line-and-restore-cursor = ''
+        edit-command-line
+        bar_cursor
+      '';
+      rationalise-dot = ''
+        if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
+          LBUFFER+=/..
+        else
+          LBUFFER+=.
+        fi
+      '';
+    };
 
-      initExtra = ''
+    initExtraFirst = ''
+      # If not running interactively, don't do anything
+      [[ $- != *i* ]] && return
+    '';
+
+    initExtra =
+      ''
         # Display the cursor as a bar
         autoload -Uz add-zsh-hook add-zsh-hook-widget
 
@@ -201,11 +200,8 @@ in
         bindkey '^[[F' end-of-line
         bindkey '^[[3~' delete-char
         bindkey '^[3;5~' delete-char
-      '';
-    }
-
-    (mkIf cfg.enableViMode {
-      initExtra = ''
+      ''
+      + (optionalString cfg.enableViMode ''
         bindkey -M viins 'jk' vi-cmd-mode
 
         # Adapt the cursor shape to the mode
@@ -245,9 +241,8 @@ in
         bindkey -a 'dz' delete-surround
         bindkey -a 'yz' add-surround
         bindkey -M visual 'Z' add-surround
-      '';
-    })
+      '');
 
-  ]);
+  };
 
 }

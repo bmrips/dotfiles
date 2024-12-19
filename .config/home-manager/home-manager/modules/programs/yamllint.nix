@@ -9,7 +9,6 @@ let
   inherit (lib)
     mkEnableOption
     mkIf
-    mkMerge
     mkOption
     mkPackageOption
     ;
@@ -42,15 +41,11 @@ in
 
   };
 
-  config = mkIf cfg.enable (mkMerge [
-
-    { home.packages = [ cfg.package ]; }
-
-    (mkIf (cfg.settings != { }) {
-      home.sessionVariables.YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
-      xdg.configFile."yamllint.yaml".source = yaml.generate "yamllint.yaml" cfg.settings;
-    })
-
-  ]);
+  config = mkIf cfg.enable {
+    home.packages = [ cfg.package ];
+    home.sessionVariables.YAMLLINT_CONFIG_FILE = mkIf (cfg.settings != { }) (
+      yaml.generate "yamllint.yaml" cfg.settings
+    );
+  };
 
 }

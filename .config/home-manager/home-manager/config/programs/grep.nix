@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) ansiEscapeCodes mkIf mkMerge;
+  inherit (lib) ansiEscapeCodes mkIf;
   inherit (lib.ansiEscapeCodes) base16 reset;
 
   normal =
@@ -19,26 +19,22 @@ let
     ];
 
 in
-mkMerge [
+{
 
-  {
-    programs.grep.colors = with base16; {
-      ms = bold red;
-      mc = bold red;
-      sl = reset;
-      cx = reset;
-      fn = normal magenta;
-      ln = normal green;
-      bn = normal green;
-      se = normal cyan;
-    };
-  }
+  home.defaultCommandFlags.grep = mkIf config.programs.grep.enable {
+    binary-files = "without-match";
+    color = "auto";
+  };
 
-  (mkIf config.programs.grep.enable {
-    home.defaultCommandFlags.grep = {
-      binary-files = "without-match";
-      color = "auto";
-    };
-  })
+  programs.grep.colors = with base16; {
+    ms = bold red;
+    mc = bold red;
+    sl = reset;
+    cx = reset;
+    fn = normal magenta;
+    ln = normal green;
+    bn = normal green;
+    se = normal cyan;
+  };
 
-]
+}

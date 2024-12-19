@@ -14,7 +14,6 @@ let
     mapAttrsToList
     mkEnableOption
     mkIf
-    mkMerge
     mkOption
     mkPackageOption
     types
@@ -49,20 +48,20 @@ in
 
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = mkIf cfg.enable {
 
-    { home.packages = [ cfg.package ]; }
+    home.packages = [ cfg.package ];
 
-    (mkIf (cfg.settings != { }) {
-      xdg.configFile.shellcheckrc.text = concatLines (
+    xdg.configFile.shellcheckrc.text = mkIf (cfg.settings != { }) (
+      concatLines (
         flatten (
           flip mapAttrsToList cfg.settings (
             name: value: if isList value then map (v: "${name}=${v}") value else "${name}=${value}"
           )
         )
-      );
-    })
+      )
+    );
 
-  ]);
+  };
 
 }

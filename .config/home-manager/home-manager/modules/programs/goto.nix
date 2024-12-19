@@ -10,7 +10,6 @@ let
     gnuCommandLine
     mkEnableOption
     mkIf
-    mkMerge
     mkOption
     mkPackageOption
     types
@@ -37,35 +36,31 @@ in
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = mkIf cfg.enable {
+    home.packages = [ cfg.package ];
 
-    {
-      home.packages = [ cfg.package ];
+    home.sessionVariables.FZF_GOTO_OPTS = mkIf (cfg.fzfWidgetOptions != { }) (
+      gnuCommandLine cfg.fzfWidgetOptions
+    );
 
-      programs.bash.initExtra = init;
+    programs.bash.initExtra = init;
 
-      programs.zsh.initExtra = init;
+    programs.zsh.initExtra = init;
 
-      programs.zsh.siteFunctions.fzf-goto-widget = ''
-        _goto_resolve_db
-        local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
-        if [[ -z "$dir" ]]; then
-            zle redisplay
-            return 0
-        fi
-        zle push-line
-        BUFFER="cd -- ''${(q)dir}"
-        zle accept-line
-        local ret=$?
-        zle reset-prompt
-        return $ret
-      '';
-    }
-
-    (mkIf (cfg.fzfWidgetOptions != { }) {
-      home.sessionVariables.FZF_GOTO_OPTS = gnuCommandLine cfg.fzfWidgetOptions;
-    })
-
-  ]);
+    programs.zsh.siteFunctions.fzf-goto-widget = ''
+      _goto_resolve_db
+      local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
+      if [[ -z "$dir" ]]; then
+          zle redisplay
+          return 0
+      fi
+      zle push-line
+      BUFFER="cd -- ''${(q)dir}"
+      zle accept-line
+      local ret=$?
+      zle reset-prompt
+      return $ret
+    '';
+  };
 
 }

@@ -5,17 +5,11 @@
   ...
 }:
 
-lib.mkMerge [
+{
+  home.packages = lib.mkIf config.programs.bash.enable [ pkgs.nix-bash-completions ];
 
-  {
-    programs.bash = {
-      historyControl = [ "ignoredups" ];
-      historyFile = "${config.xdg.stateHome}/bash/history";
-    };
-  }
-
-  (lib.mkIf config.programs.bash.enable {
-    home.packages = with pkgs; [ nix-bash-completions ];
-  })
-
-]
+  programs.bash = {
+    historyControl = [ "ignoredups" ];
+    historyFile = "${config.xdg.stateHome}/bash/history";
+  };
+}

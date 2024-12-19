@@ -7,14 +7,12 @@
 
 let
   inherit (lib)
-    concatLines
     gnuCommandLine
     mkEnableOption
     mkIf
-    mkMerge
     mkOption
     mkPackageOption
-    optional
+    optionalString
     types
     ;
   cfg = config.programs.fzf-tab-completion;
@@ -69,39 +67,30 @@ in
 
   };
 
-  config = mkIf cfg.enable (mkMerge [
+  config = mkIf cfg.enable {
 
-    { home.packages = [ cfg.package ]; }
+    home.packages = [ cfg.package ];
 
-    (mkIf (cfg.fzfOptions != { }) {
-      home.sessionVariables.FZF_COMPLETION_OPTS = gnuCommandLine cfg.fzfOptions;
-    })
+    home.sessionVariables = {
+      FZF_COMPLETION_OPTS = mkIf (cfg.fzfOptions != { }) (gnuCommandLine cfg.fzfOptions);
+      FZF_TAB_COMPLETION_PROMPT = mkIf (cfg.prompt != null) cfg.prompt;
+    };
 
-    (mkIf (cfg.prompt != null) {
-      home.sessionVariables.FZF_TAB_COMPLETION_PROMPT = cfg.prompt;
-    })
+    programs.bash.initExtra = mkIf config.programs.bash.enableCompletion (
+      ''
+        source ${cfg.package}/share/fzf-tab-completion/bash/fzf-bash-completion.sh
+        bind -x '"\t": fzf_bash_completion'
+      ''
+      + optionalString (cfg.bashExtraConfig != null) cfg.bashExtraConfig
+    );
 
-    (mkIf config.programs.bash.enableCompletion {
-      programs.bash.initExtra = concatLines (
-        [
-          ''
-            source ${cfg.package}/share/fzf-tab-completion/bash/fzf-bash-completion.sh
-            bind -x '"\t": fzf_bash_completion'
-          ''
-        ]
-        ++ optional (cfg.bashExtraConfig != null) cfg.bashExtraConfig
-      );
-    })
+    programs.zsh.initExtra = mkIf config.programs.zsh.enableCompletion (
+      ''
+        source ${cfg.package}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
+      ''
+      + optionalString (cfg.zshExtraConfig != null) cfg.zshExtraConfig
+    );
 
-    (mkIf config.programs.zsh.enableCompletion {
-      programs.zsh.initExtra = concatLines (
-        [
-          "source ${cfg.package}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh"
-        ]
-        ++ optional (cfg.zshExtraConfig != null) cfg.zshExtraConfig
-      );
-    })
-
-  ]);
+  };
 
 }

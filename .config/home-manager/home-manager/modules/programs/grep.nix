@@ -11,7 +11,6 @@ let
     mapAttrsToList
     mkEnableOption
     mkIf
-    mkMerge
     mkOption
     mkPackageOption
     types
@@ -34,16 +33,11 @@ in
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-
-    { home.packages = [ cfg.package ]; }
-
-    (mkIf (cfg.colors != { }) {
-      home.sessionVariables.GREP_COLORS = concatStringsSep ":" (
-        mapAttrsToList (n: v: "${n}=${v}") cfg.colors
-      );
-    })
-
-  ]);
+  config = mkIf cfg.enable {
+    home.packages = [ cfg.package ];
+    home.sessionVariables.GREP_COLORS = mkIf (cfg.colors != { }) (
+      concatStringsSep ":" (mapAttrsToList (n: v: "${n}=${v}") cfg.colors)
+    );
+  };
 
 }

@@ -423,6 +423,7 @@ mkIf config.programs.firefox.enable {
       };
       apply = {
         above = true;
+        desktops = "\\0";
         noborder = true;
         skippager = true;
         skipswitcher = true;

@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.development.markdown.enable {
     home.packages = with pkgs; [
-      ltex-ls
+      ltex-ls-plus
       markdownlint-cli
       (mdformat.withPlugins (
         ps: with ps; [

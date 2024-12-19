@@ -13,23 +13,7 @@ local servers = {
       },
     },
   },
-  ltex = {
-    filetypes = {
-      -- 'bib',
-      'gitcommit',
-      'markdown',
-      'org',
-      'plaintex',
-      'rst',
-      'rnoweb',
-      'tex',
-      'pandoc',
-      'quarto',
-      'rmd',
-      'context',
-      'html',
-      'xhtml',
-    },
+  ltex_plus = {
     on_attach = function()
       require('ltex_extra').setup {
         load_langs = { 'en-US', 'de-DE' },

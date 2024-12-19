@@ -1,8 +1,10 @@
 lib:
 
-let inherit (lib) mergeAttrsList;
+let
+  inherit (lib) mergeAttrsList;
 
-in rec {
+in
+rec {
 
   colors = {
     background.dark = {
@@ -57,22 +59,37 @@ in rec {
     };
   };
 
-  mkScheme = darkness:
+  mkScheme =
+    darkness:
     { background, bright }:
     let
       offset = if darkness == "light" then "-1" else "1";
       first = if bright then "dimmed" else "normal";
       second = if bright then "normal" else "bright";
-    in {
+    in
+    {
       background = colors.background.${darkness}.${background};
       foreground = colors.white.${offset};
       black.normal = colors.black.${offset};
       black.bright = colors.black."0";
-    } // mergeAttrsList (map (c: {
-      ${c} = {
-        ${first} = colors.${c}."0";
-        ${second} = colors.${c}.${offset};
-      };
-    }) [ "red" "green" "yellow" "blue" "magenta" "cyan" "white" ]);
+    }
+    // mergeAttrsList (
+      map
+        (c: {
+          ${c} = {
+            ${first} = colors.${c}."0";
+            ${second} = colors.${c}.${offset};
+          };
+        })
+        [
+          "red"
+          "green"
+          "yellow"
+          "blue"
+          "magenta"
+          "cyan"
+          "white"
+        ]
+    );
 
 }

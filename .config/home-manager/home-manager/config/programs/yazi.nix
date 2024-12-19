@@ -8,7 +8,8 @@ let
     hash = "sha256-XHaQjudV9YSMm4vF7PQrKGJ078oVF1U1Du10zXEJ9I0=";
   };
 
-in {
+in
+{
   programs.yazi = lib.mkMerge [
 
     {
@@ -29,38 +30,49 @@ in {
             desc = "Open shell here";
           }
           {
-            on = [ "g" "r" ];
+            on = [
+              "g"
+              "r"
+            ];
             run = ''
               shell 'ya pub dds-cd --str "$(git rev-parse --show-toplevel)"' --confirm
             '';
             desc = "Go to root of Git repo";
           }
         ];
-        tasks.prepend_keymap = [{
-          on = "<C-q>";
-          run = "close";
-          desc = "Close tasks";
-        }];
-        pick.prepend_keymap = [{
-          on = "<C-q>";
-          run = "close";
-          desc = "Close pick";
-        }];
-        input.prepend_keymap = [{
-          on = "<C-q>";
-          run = "close";
-          desc = "Close input";
-        }];
+        tasks.prepend_keymap = [
+          {
+            on = "<C-q>";
+            run = "close";
+            desc = "Close tasks";
+          }
+        ];
+        pick.prepend_keymap = [
+          {
+            on = "<C-q>";
+            run = "close";
+            desc = "Close pick";
+          }
+        ];
+        input.prepend_keymap = [
+          {
+            on = "<C-q>";
+            run = "close";
+            desc = "Close input";
+          }
+        ];
       };
     }
 
     {
       plugins.hide-preview = "${yazi-plugins}/hide-preview.yazi";
-      keymap.manager.prepend_keymap = [{
-        on = "|";
-        run = "plugin --sync hide-preview";
-        desc = "Toggle preview";
-      }];
+      keymap.manager.prepend_keymap = [
+        {
+          on = "|";
+          run = "plugin --sync hide-preview";
+          desc = "Toggle preview";
+        }
+      ];
     }
 
     {

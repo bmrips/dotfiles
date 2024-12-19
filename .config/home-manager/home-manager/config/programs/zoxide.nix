@@ -6,13 +6,13 @@ let
   inherit (lib) gnuCommandLine;
   inherit (lib.shell) dirPreview subshell;
 
-in lib.mkIf cfg.enable {
+in
+lib.mkIf cfg.enable {
 
   home.sessionVariables._ZO_FZF_OPTS = lib.concatStringsSep " " [
     config.home.sessionVariables.FZF_DEFAULT_OPTS
     (gnuCommandLine {
-      preview = dirPreview
-        (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
+      preview = dirPreview (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
     })
   ];
 

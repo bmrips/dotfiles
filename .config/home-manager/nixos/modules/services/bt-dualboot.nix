@@ -1,16 +1,31 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    mkEnableOption mkIf mkOption removePrefix removeSuffix strings types;
+    mkEnableOption
+    mkIf
+    mkOption
+    removePrefix
+    removeSuffix
+    strings
+    types
+    ;
   cfg = config.services.bt-dualboot;
 
-  escape = s:
-    builtins.replaceStrings [ "/" ] [ "-" ]
-    (removePrefix "/" (removeSuffix "/" (strings.normalizePath s)));
+  escape =
+    s:
+    builtins.replaceStrings [ "/" ] [ "-" ] (
+      removePrefix "/" (removeSuffix "/" (strings.normalizePath s))
+    );
   escapedMountPoint = escape cfg.mountPoint;
 
-in {
+in
+{
 
   options.services.bt-dualboot = {
     enable = mkEnableOption "{command}`bt-dualboot`";
@@ -32,8 +47,7 @@ in {
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart =
-          "${pkgs.bt-dualboot}/bin/bt-dualboot --win ${cfg.mountPoint} --no-backup --sync-all";
+        ExecStart = "${pkgs.bt-dualboot}/bin/bt-dualboot --win ${cfg.mountPoint} --no-backup --sync-all";
       };
     };
 

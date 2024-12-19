@@ -7,15 +7,30 @@
 
     shortcutSchemes.Custom = {
       go_goto_page = "Ctrl+G";
-      first_page = [ "G" "Home" ];
-      last_page = [ "Shift+G" "End" ];
+      first_page = [
+        "G"
+        "Home"
+      ];
+      last_page = [
+        "Shift+G"
+        "End"
+      ];
       view_scroll_up = "Shift+Up";
       view_scroll_down = "Shift+Down";
       view_scroll_page_up = "Backspace";
       view_scroll_page_down = "Space";
-      go_document_back = [ "Shift+H" "Alt+Left" ];
-      go_document_forward = [ "Shift+L" "Alt+Right" ];
-      edit_find = [ "Ctrl+F" "/" ];
+      go_document_back = [
+        "Shift+H"
+        "Alt+Left"
+      ];
+      go_document_forward = [
+        "Shift+L"
+        "Alt+Right"
+      ];
+      edit_find = [
+        "Ctrl+F"
+        "/"
+      ];
       edit_find_next = "N";
       edit_find_prev = "Shift+N";
       close_find_bar = "Esc";
@@ -24,8 +39,14 @@
       file_save = "Ctrl+S";
       file_save_as = "Ctrl+Shift+S";
       presentation = "Shift+P";
-      view_zoom_in = [ "=" "Ctrl+=" ];
-      view_zoom_out = [ "-" "Ctrl+-" ];
+      view_zoom_in = [
+        "="
+        "Ctrl+="
+      ];
+      view_zoom_out = [
+        "-"
+        "Ctrl+-"
+      ];
       view_actual_size = "Ctrl+0";
       view_orientation_rotate_cw = "]";
       view_orientation_rotate_ccw = "[";
@@ -44,10 +65,19 @@
       mouse_textselect = "Ctrl+4";
       mouse_tableselect = "Ctrl+5";
       mouse_magnifier = "Ctrl+6";
-      edit_copy = [ "Ctrl+C" "Ctrl+Ins" ];
+      edit_copy = [
+        "Ctrl+C"
+        "Ctrl+Ins"
+      ];
       edit_select_all = "Ctrl+A";
-      edit_undo = [ "U" "Ctrl+Z" ];
-      edit_redo = [ "R" "Ctrl+Shift+Z" ];
+      edit_undo = [
+        "U"
+        "Ctrl+Z"
+      ];
+      edit_redo = [
+        "R"
+        "Ctrl+Shift+Z"
+      ];
       annotation_highlighter = "Alt+1";
       annotation_underline = "Alt+2";
       annotation_squiggle = "Alt+3";
@@ -64,12 +94,21 @@
       file_open = "Ctrl+O";
       file_quit = "Ctrl+Q";
       file_close = "Ctrl+W";
-      tab-next = [ "Ctrl+Tab" "Ctrl+]" ];
-      tab-previous = [ "Ctrl+Shift+Tab" "Ctrl+[" ];
+      tab-next = [
+        "Ctrl+Tab"
+        "Ctrl+]"
+      ];
+      tab-previous = [
+        "Ctrl+Shift+Tab"
+        "Ctrl+["
+      ];
       undo-close-tab = "Ctrl+Shift+T";
       help_contents = "F1";
       help_whats_this = "Shift+F1";
-      file_reload = [ "F5" "Refresh" ];
+      file_reload = [
+        "F5"
+        "Refresh"
+      ];
       mouse_toggle_annotate = "F6";
       show_leftpanel = "F7";
       hamburger_menu = "F10";

@@ -1,8 +1,18 @@
-{ coreutils-full, fetchFromGitHub, fzf, gawk, gnugrep, lib, stdenv, }:
+{
+  coreutils-full,
+  fetchFromGitHub,
+  fzf,
+  gawk,
+  gnugrep,
+  lib,
+  stdenv,
+}:
 
-let owner = "lincheney";
+let
+  owner = "lincheney";
 
-in stdenv.mkDerivation rec {
+in
+stdenv.mkDerivation rec {
   pname = "fzf-tab-completion";
   version = "11122590127ab62c51dd4bbfd0d432cee30f9984";
 
@@ -15,7 +25,12 @@ in stdenv.mkDerivation rec {
 
   strictDeps = true;
 
-  buildInputs = [ coreutils-full fzf gawk gnugrep ];
+  buildInputs = [
+    coreutils-full
+    fzf
+    gawk
+    gnugrep
+  ];
 
   postInstall = ''
     mkdir --parents $out/share/${pname}/

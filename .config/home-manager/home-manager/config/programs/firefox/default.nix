@@ -1,17 +1,29 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mapAttrs mkIf replaceStrings toLower;
+  inherit (lib)
+    mapAttrs
+    mkIf
+    replaceStrings
+    toLower
+    ;
 
-  toAction = name: addon:
+  toAction =
+    name: addon:
     let
-      normalizedAddonId = toLower
-        (replaceStrings [ "." "@" "{" "}" ] [ "_" "_" "_" "_" ] addon.addonId);
-    in "${normalizedAddonId}-browser-action";
+      normalizedAddonId = toLower (replaceStrings [ "." "@" "{" "}" ] [ "_" "_" "_" "_" ] addon.addonId);
+    in
+    "${normalizedAddonId}-browser-action";
 
   addonActions = mapAttrs toAction pkgs.nur.repos.rycee.firefox-addons;
 
-in mkIf config.programs.firefox.enable {
+in
+mkIf config.programs.firefox.enable {
 
   programs.firefox = {
 
@@ -136,10 +148,8 @@ in mkIf config.programs.firefox.enable {
 
         # Disable new tab page and the activity stream.
         "browser.newtabpage.enabled" = false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" =
-          false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
-          false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
 
         # Disable extension recommendations.
         "extensions.htmlaboutaddons.recommendations.enabled" = false;
@@ -149,8 +159,7 @@ in mkIf config.programs.firefox.enable {
         "browser.safebrowsing.downloads.enabled" = false;
         "browser.safebrowsing.downloads.remote.block_dangerous" = false;
         "browser.safebrowsing.downloads.remote.block_dangerous_host" = false;
-        "browser.safebrowsing.downloads.remote.block_potentially_unwanted" =
-          false;
+        "browser.safebrowsing.downloads.remote.block_potentially_unwanted" = false;
         "browser.safebrowsing.downloads.remote.block_uncommon" = false;
         "browser.safebrowsing.downloads.remote.enabled" = false;
         "browser.safebrowsing.downloads.remote.url" = "";
@@ -244,7 +253,10 @@ in mkIf config.programs.firefox.enable {
               web-search-navigator
             ];
             toolbar-menubar = [ "menubar-items" ];
-            TabsToolbar = [ "tabbrowser-tabs" "alltabs-button" ];
+            TabsToolbar = [
+              "tabbrowser-tabs"
+              "alltabs-button"
+            ];
             PersonalToolbar = [ "personal-bookmarks" ];
           };
           seen = with addonActions; [
@@ -279,73 +291,94 @@ in mkIf config.programs.firefox.enable {
       search = {
         force = true;
         default = "Google";
-        engines = let
-          nixIcon =
-            "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
-        in {
-          Bing.metaData.hidden = true;
-          Cloogle = {
-            definedAliases = [ "@cloogle" ];
-            urls = [{ template = "https://cloogle.org/#{searchTerms}"; }];
+        engines =
+          let
+            nixIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
+          in
+          {
+            Bing.metaData.hidden = true;
+            Cloogle = {
+              definedAliases = [ "@cloogle" ];
+              urls = [ { template = "https://cloogle.org/#{searchTerms}"; } ];
+            };
+            CTAN = {
+              definedAliases = [ "@ctan" ];
+              iconUpdateURL = "https://ctan.org/assets/favicon/favicon-16x16-ecad89e8a3475c9b10c36f82efef3bcd.png";
+              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = [ { template = "https://ctan.org/search?phrase={searchTerms}"; } ];
+            };
+            "Home Manager" = {
+              definedAliases = [
+                "@hm"
+                "@home-manager"
+              ];
+              icon = nixIcon;
+              urls = [
+                {
+                  template = "https://home-manager-options.extranix.com/?release=master&query={searchTerms}";
+                }
+              ];
+            };
+            Hoogle = {
+              definedAliases = [
+                "@h"
+                "@hoogle"
+              ];
+              iconUpdateURL = "https://hoogle.haskell.org/favicon.png";
+              updateInterval = 24 * 60 * 60 * 1000; # every day
+              urls = [
+                {
+                  template = "https://hoogle.haskell.org/?hoogle={searchTerms}";
+                }
+              ];
+            };
+            "Nix Packages" = {
+              definedAliases = [
+                "@np"
+                "@nixpkgs"
+              ];
+              icon = nixIcon;
+              urls = [
+                {
+                  template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
+                }
+              ];
+            };
+            "NixOS Options" = {
+              definedAliases = [
+                "@no"
+                "@nixosopts"
+              ];
+              icon = nixIcon;
+              urls = [
+                {
+                  template = "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
+                }
+              ];
+            };
+            "NixOS Wiki" = {
+              definedAliases = [
+                "@nw"
+                "@nixoswiki"
+              ];
+              icon = nixIcon;
+              urls = [
+                {
+                  template = "https://nixos.wiki/index.php?search={searchTerms}";
+                }
+              ];
+            };
+            Noogle = {
+              definedAliases = [ "@noogle" ];
+              icon = nixIcon;
+              urls = [ { template = "https://noogle.dev/q?term={searchTerms}"; } ];
+            };
+            texdoc = {
+              definedAliases = [ "@texdoc" ];
+              icon = ./TeX.svg;
+              urls = [ { template = "https://texdoc.org/serve/{searchTerms}/0"; } ];
+            };
           };
-          CTAN = {
-            definedAliases = [ "@ctan" ];
-            iconUpdateURL =
-              "https://ctan.org/assets/favicon/favicon-16x16-ecad89e8a3475c9b10c36f82efef3bcd.png";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
-            urls =
-              [{ template = "https://ctan.org/search?phrase={searchTerms}"; }];
-          };
-          "Home Manager" = {
-            definedAliases = [ "@hm" "@home-manager" ];
-            icon = nixIcon;
-            urls = [{
-              template =
-                "https://home-manager-options.extranix.com/?release=master&query={searchTerms}";
-            }];
-          };
-          Hoogle = {
-            definedAliases = [ "@h" "@hoogle" ];
-            iconUpdateURL = "https://hoogle.haskell.org/favicon.png";
-            updateInterval = 24 * 60 * 60 * 1000; # every day
-            urls = [{
-              template = "https://hoogle.haskell.org/?hoogle={searchTerms}";
-            }];
-          };
-          "Nix Packages" = {
-            definedAliases = [ "@np" "@nixpkgs" ];
-            icon = nixIcon;
-            urls = [{
-              template =
-                "https://search.nixos.org/packages?channel=unstable&query={searchTerms}";
-            }];
-          };
-          "NixOS Options" = {
-            definedAliases = [ "@no" "@nixosopts" ];
-            icon = nixIcon;
-            urls = [{
-              template =
-                "https://search.nixos.org/options?channel=unstable&query={searchTerms}";
-            }];
-          };
-          "NixOS Wiki" = {
-            definedAliases = [ "@nw" "@nixoswiki" ];
-            icon = nixIcon;
-            urls = [{
-              template = "https://nixos.wiki/index.php?search={searchTerms}";
-            }];
-          };
-          Noogle = {
-            definedAliases = [ "@noogle" ];
-            icon = nixIcon;
-            urls = [{ template = "https://noogle.dev/q?term={searchTerms}"; }];
-          };
-          texdoc = {
-            definedAliases = [ "@texdoc" ];
-            icon = ./TeX.svg;
-            urls = [{ template = "https://texdoc.org/serve/{searchTerms}/0"; }];
-          };
-        };
       };
 
       settings."extensions.update.autoUpdateDefault" = false;

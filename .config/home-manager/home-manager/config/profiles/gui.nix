@@ -1,11 +1,22 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge optionals;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkMerge
+    optionals
+    ;
   inherit (pkgs.stdenv.hostPlatform) isLinux;
   cfg = config.profiles.gui;
 
-in {
+in
+{
   options.profiles.gui = {
     enable = mkEnableOption "the GUI profile";
     extra.enable = mkEnableOption "extra GUI applications";
@@ -19,9 +30,19 @@ in {
     }
 
     (mkIf config.profiles.gui.enable {
-      home.packages = with pkgs;
-        [ discord logseq prismlauncher spotify ungoogled-chromium ]
-        ++ optionals isLinux [ libreoffice-qt vlc ];
+      home.packages =
+        with pkgs;
+        [
+          discord
+          logseq
+          prismlauncher
+          spotify
+          ungoogled-chromium
+        ]
+        ++ optionals isLinux [
+          libreoffice-qt
+          vlc
+        ];
 
       programs.signal-desktop.enable = true;
     })

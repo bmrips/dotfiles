@@ -1,8 +1,10 @@
 lib:
 
-let inherit (lib) lists strings;
+let
+  inherit (lib) lists strings;
 
-in {
+in
+{
   ansiEscapeCodes = {
     combine = strings.concatStringsSep ";";
 

@@ -1,12 +1,26 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    concatLines gnuCommandLine mkEnableOption mkIf mkMerge mkOption
-    mkPackageOption optional types;
+    concatLines
+    gnuCommandLine
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    mkPackageOption
+    optional
+    types
+    ;
   cfg = config.programs.fzf-tab-completion;
 
-in {
+in
+{
 
   options.programs.fzf-tab-completion = {
 
@@ -18,14 +32,15 @@ in {
       type = with types; attrsOf str;
       default = { };
       description = "Options for fzf, set through {env}`FZF_COMPLETION_OPTS`";
-      example = { height = "60%"; };
+      example = {
+        height = "60%";
+      };
     };
 
     prompt = mkOption {
       type = with types; nullOr str;
       default = null;
-      description =
-        "The search prompt; set through {env}`FZF_TAB_COMPLETION_PROMPT`";
+      description = "The search prompt; set through {env}`FZF_TAB_COMPLETION_PROMPT`";
       example = "❯ ";
     };
 
@@ -67,16 +82,24 @@ in {
     })
 
     (mkIf config.programs.bash.enableCompletion {
-      programs.bash.initExtra = concatLines ([''
-        source ${cfg.package}/share/fzf-tab-completion/bash/fzf-bash-completion.sh
-        bind -x '"\t": fzf_bash_completion'
-      ''] ++ optional (cfg.bashExtraConfig != null) cfg.bashExtraConfig);
+      programs.bash.initExtra = concatLines (
+        [
+          ''
+            source ${cfg.package}/share/fzf-tab-completion/bash/fzf-bash-completion.sh
+            bind -x '"\t": fzf_bash_completion'
+          ''
+        ]
+        ++ optional (cfg.bashExtraConfig != null) cfg.bashExtraConfig
+      );
     })
 
     (mkIf config.programs.zsh.enableCompletion {
-      programs.zsh.initExtra = concatLines ([
-        "source ${cfg.package}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh"
-      ] ++ optional (cfg.zshExtraConfig != null) cfg.zshExtraConfig);
+      programs.zsh.initExtra = concatLines (
+        [
+          "source ${cfg.package}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh"
+        ]
+        ++ optional (cfg.zshExtraConfig != null) cfg.zshExtraConfig
+      );
     })
 
   ]);

@@ -7,9 +7,15 @@
     goto_mark = "'";
     goto_toc = "<tab>";
     next_page = "J";
-    next_state = [ "." "<M-<right>>" ];
+    next_state = [
+      "."
+      "<M-<right>>"
+    ];
     open_last_document = ";";
-    prev_state = [ "," "<M-<left>>" ];
+    prev_state = [
+      ","
+      "<M-<left>>"
+    ];
     previous_page = "K";
     reload = "<C-r>";
     toggle_custom_color = "i";

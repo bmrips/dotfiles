@@ -1,4 +1,9 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 
 lib.mkIf config.services.resolved.enable {
   home-manager.users.${user}.programs.firefox.profiles.default.settings = {

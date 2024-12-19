@@ -1,4 +1,9 @@
-{ config, pkgs_23_05, pkgs, ... }:
+{
+  config,
+  pkgs_23_05,
+  pkgs,
+  ...
+}:
 
 let
   packageSets = {
@@ -50,7 +55,8 @@ let
     '';
   };
 
-in {
+in
+{
   imports = [
     ./ci/pre-commit.nix
     ./development/bash.nix
@@ -137,25 +143,26 @@ in {
     wget.continue = true;
   };
 
-  home.language = let
-    english = "en_GB.UTF-8";
-    german = "de_DE.UTF-8";
-  in {
-    base = english;
-    address = german;
-    ctype = german;
-    measurement = german;
-    monetary = german;
-    numeric = german;
-    paper = german;
-    telephone = german;
-    time = german;
-  };
+  home.language =
+    let
+      english = "en_GB.UTF-8";
+      german = "de_DE.UTF-8";
+    in
+    {
+      base = english;
+      address = german;
+      ctype = german;
+      measurement = german;
+      monetary = german;
+      numeric = german;
+      paper = german;
+      telephone = german;
+      time = german;
+    };
 
   home.packages = with packageSets; core ++ extra;
 
-  home.sessionVariables.TEXEDIT =
-    "${config.home.sessionVariables.EDITOR} +%d %s";
+  home.sessionVariables.TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
 
   home.shellAliases = {
     ip = "ip -color=auto";

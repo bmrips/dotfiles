@@ -1,4 +1,12 @@
-{ config, host, inputs, lib, modulesPath, user, ... }:
+{
+  config,
+  host,
+  inputs,
+  lib,
+  modulesPath,
+  user,
+  ...
+}:
 
 let
   inherit (lib) uuid partuuid;
@@ -19,7 +27,8 @@ let
 
   swapDevice = uuid "a09ffe4f-168e-4b89-be3f-a0f9fbc83364";
 
-in {
+in
+{
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.dell-xps-13-9360
@@ -27,8 +36,13 @@ in {
 
   boot.initrd = {
     systemd.enable = true;
-    availableKernelModules =
-      [ "aesni_intel" "nvme" "rtsx_pci_sdmmc" "usbhid" "xhci_pci" ];
+    availableKernelModules = [
+      "aesni_intel"
+      "nvme"
+      "rtsx_pci_sdmmc"
+      "usbhid"
+      "xhci_pci"
+    ];
     secrets = {
       "/linux.key" = /etc/keys/linux.key;
       "/swap.key" = /etc/keys/swap.key;
@@ -41,8 +55,12 @@ in {
       swap = {
         device = partuuid "30598f9b-913c-3c4e-a918-74847e068c94";
         keyFile = "/swap.key";
-        crypttabExtraOpts =
-          [ "plain" "hash=plain" "cipher=aes-xts-plain" "nofail" ];
+        crypttabExtraOpts = [
+          "plain"
+          "hash=plain"
+          "cipher=aes-xts-plain"
+          "nofail"
+        ];
       };
     };
   };
@@ -132,7 +150,7 @@ in {
     SUBSYSTEM=="leds", KERNEL=="dell::kbd_backlight", ATTR{stop_timeout}="10"
   '';
 
-  swapDevices = [{ device = swapDevice; }];
+  swapDevices = [ { device = swapDevice; } ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
@@ -152,19 +170,21 @@ in {
       "identity.fxaccounts.account.device.name" = host;
     };
 
-    programs.plasma.input.touchpads = [{
-      name = "DLL075B:01 06CB:76AF Touchpad";
-      vendorId = "1739";
-      productId = "30383";
-      disableWhileTyping = true;
-      naturalScroll = true;
-      pointerSpeed = 0.0;
-      rightClickMethod = "twoFingers";
-      scrollMethod = "twoFingers";
-      tapAndDrag = true;
-      tapToClick = true;
-      twoFingerTap = "rightClick";
-    }];
+    programs.plasma.input.touchpads = [
+      {
+        name = "DLL075B:01 06CB:76AF Touchpad";
+        vendorId = "1739";
+        productId = "30383";
+        disableWhileTyping = true;
+        naturalScroll = true;
+        pointerSpeed = 0.0;
+        rightClickMethod = "twoFingers";
+        scrollMethod = "twoFingers";
+        tapAndDrag = true;
+        tapToClick = true;
+        twoFingerTap = "rightClick";
+      }
+    ];
 
     services.nextcloud-client.enable = true;
 

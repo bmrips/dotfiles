@@ -10,8 +10,7 @@
     };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs_23_05.url =
-      "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
+    nixpkgs_23_05.url = "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -27,17 +26,41 @@
     };
   };
 
-  outputs = { self, home-manager, nixos-hardware, nixpkgs, nixpkgs_23_05, nur
-    , plasma-manager, programs-db, ... }@inputs:
+  outputs =
+    {
+      self,
+      home-manager,
+      nixos-hardware,
+      nixpkgs,
+      nixpkgs_23_05,
+      nur,
+      plasma-manager,
+      programs-db,
+      ...
+    }@inputs:
     let
       lib = nixpkgs.lib.extend (import ./lib);
       user = "bmr";
 
-      mkNixosConfig = { system ? "x86_64-linux", host, extraModules ? [ ] }:
-        let pkgs_23_05 = import nixpkgs_23_05 { inherit system; };
-        in nixpkgs.lib.nixosSystem {
+      mkNixosConfig =
+        {
+          system ? "x86_64-linux",
+          host,
+          extraModules ? [ ],
+        }:
+        let
+          pkgs_23_05 = import nixpkgs_23_05 { inherit system; };
+        in
+        nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = { inherit host inputs lib user; };
+          specialArgs = {
+            inherit
+              host
+              inputs
+              lib
+              user
+              ;
+          };
           modules = [
             ./nixos
             nur.modules.nixos.default
@@ -58,7 +81,8 @@
           ] ++ extraModules;
         };
 
-    in {
+    in
+    {
       nixosConfigurations = {
         orion = mkNixosConfig {
           host = "orion";

@@ -1,20 +1,33 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
-let inherit (lib) isAttrs mapAttrs' mapAttrs mkOption types;
+let
+  inherit (lib)
+    isAttrs
+    mapAttrs'
+    mapAttrs
+    mkOption
+    types
+    ;
 
-in {
+in
+{
 
   options.xdg.autostart = mkOption {
     type = with types; attrsOf (either pathInStore (attrsOf anything));
     default = [ ];
     description = "Applications that are started automatically on login.";
-    apply = mapAttrs (n: v:
+    apply = mapAttrs (
+      n: v:
       if isAttrs v then
-        "${
-          pkgs.makeDesktopItem (v // { name = n; })
-        }/share/applications/${n}.desktop"
+        "${pkgs.makeDesktopItem (v // { name = n; })}/share/applications/${n}.desktop"
       else
-        v);
+        v
+    );
   };
 
   config.xdg.configFile = mapAttrs' (name: path: {

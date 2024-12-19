@@ -1,13 +1,29 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mapAttrs' mkEnableOption mkIf mkOption mkMerge plasma types;
+  inherit (lib)
+    mapAttrs'
+    mkEnableOption
+    mkIf
+    mkOption
+    mkMerge
+    plasma
+    types
+    ;
 
   cfg = config.programs.dolphin;
 
-  basicSettingsType = with types; nullOr (oneOf [ bool float int str ]);
+  basicSettingsType =
+    with types;
+    nullOr (oneOf [
+      bool
+      float
+      int
+      str
+    ]);
   viewPropertiesType = types.attrsOf basicSettingsType;
-  viewPropertiesOption = kind:
+  viewPropertiesOption =
+    kind:
     mkOption {
       type = viewPropertiesType;
       default = { };
@@ -18,7 +34,8 @@ let
       };
     };
 
-in {
+in
+{
 
   options.programs.dolphin = {
     enable = mkEnableOption "Dolphin.";
@@ -40,8 +57,10 @@ in {
     shortcutSchemes.dolphin = mkIf cfg.enable cfg.shortcutSchemes;
 
     dataFile =
-      let mkFilename = kind: "dolphin/view_properties/${kind}/.directory";
-      in mkMerge [
+      let
+        mkFilename = kind: "dolphin/view_properties/${kind}/.directory";
+      in
+      mkMerge [
         {
           ${mkFilename "global"}.Dolphin = cfg.viewProperties.global;
           ${mkFilename "remote"}.Dolphin = cfg.viewProperties.remote;

@@ -4,10 +4,22 @@ let
   inherit (lib) ansiEscapeCodes mkIf mkMerge;
   inherit (lib.ansiEscapeCodes) base16 reset;
 
-  normal = c: with base16; color [ fg c ];
-  bold = c: ansiEscapeCodes.combine [ ansiEscapeCodes.bold (normal c) ];
+  normal =
+    c:
+    with base16;
+    color [
+      fg
+      c
+    ];
+  bold =
+    c:
+    ansiEscapeCodes.combine [
+      ansiEscapeCodes.bold
+      (normal c)
+    ];
 
-in mkMerge [
+in
+mkMerge [
 
   {
     programs.grep.colors = with base16; {

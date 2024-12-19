@@ -1,12 +1,25 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    concatStringsSep mapAttrsToList mkEnableOption mkIf mkMerge mkOption
-    mkPackageOption types;
+    concatStringsSep
+    mapAttrsToList
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    mkPackageOption
+    types
+    ;
   cfg = config.programs.grep;
 
-in {
+in
+{
 
   options.programs.grep = {
     enable = mkEnableOption "{command}`grep`";
@@ -15,7 +28,9 @@ in {
       type = with types; attrsOf str;
       default = { };
       description = "Settings for {env}`GREP_COLORS`";
-      example = { error = "01;31"; };
+      example = {
+        error = "01;31";
+      };
     };
   };
 
@@ -24,8 +39,9 @@ in {
     { home.packages = [ cfg.package ]; }
 
     (mkIf (cfg.colors != { }) {
-      home.sessionVariables.GREP_COLORS =
-        concatStringsSep ":" (mapAttrsToList (n: v: "${n}=${v}") cfg.colors);
+      home.sessionVariables.GREP_COLORS = concatStringsSep ":" (
+        mapAttrsToList (n: v: "${n}=${v}") cfg.colors
+      );
     })
 
   ]);

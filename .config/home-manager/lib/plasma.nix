@@ -1,12 +1,17 @@
 lib:
 
-let inherit (lib) mkOption types;
+let
+  inherit (lib) mkOption types;
 
-in {
+in
+{
   plasma.shortcutSchemesOption = mkOption {
-    type = with types;
-      let shortcut = either str (listOf str);
-      in attrsOf (attrsOf shortcut);
+    type =
+      with types;
+      let
+        shortcut = either str (listOf str);
+      in
+      attrsOf (attrsOf shortcut);
     default = { };
     description = "Shortcut schemes.";
   };

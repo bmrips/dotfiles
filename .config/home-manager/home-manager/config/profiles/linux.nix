@@ -1,14 +1,21 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.profiles.linux.enable = lib.mkEnableOption "the Linux profile";
 
   config = lib.mkIf config.profiles.linux.enable {
 
-    assertions = [{
-      assertion = pkgs.stdenv.isLinux;
-      message = "This profile is only available on Linux.";
-    }];
+    assertions = [
+      {
+        assertion = pkgs.stdenv.isLinux;
+        message = "This profile is only available on Linux.";
+      }
+    ];
 
     home.shellAliases = {
       open = "xdg-open";

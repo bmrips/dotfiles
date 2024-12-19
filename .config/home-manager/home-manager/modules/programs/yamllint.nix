@@ -1,11 +1,23 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkEnableOption mkIf mkMerge mkOption mkPackageOption;
+  inherit (lib)
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    mkPackageOption
+    ;
   cfg = config.programs.yamllint;
   yaml = pkgs.formats.yaml { };
 
-in {
+in
+{
 
   options.programs.yamllint = {
 
@@ -35,10 +47,8 @@ in {
     { home.packages = [ cfg.package ]; }
 
     (mkIf (cfg.settings != { }) {
-      home.sessionVariables.YAMLLINT_CONFIG_FILE =
-        "${config.xdg.configHome}/yamllint.yaml";
-      xdg.configFile."yamllint.yaml".source =
-        yaml.generate "yamllint.yaml" cfg.settings;
+      home.sessionVariables.YAMLLINT_CONFIG_FILE = "${config.xdg.configHome}/yamllint.yaml";
+      xdg.configFile."yamllint.yaml".source = yaml.generate "yamllint.yaml" cfg.settings;
     })
 
   ]);

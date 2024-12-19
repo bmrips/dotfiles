@@ -4,10 +4,19 @@ let
   inherit (lib) gnuCommandLine mapAttrs;
   defaultFlags = config.home.defaultCommandFlags;
 
-in {
+in
+{
 
   options.home.defaultCommandFlags = lib.mkOption {
-    type = with lib.types; attrsOf (attrsOf (oneOf [ bool int str ]));
+    type =
+      with lib.types;
+      attrsOf (
+        attrsOf (oneOf [
+          bool
+          int
+          str
+        ])
+      );
     default = { };
     description = "Default flags for shell commands";
     example = {
@@ -17,7 +26,6 @@ in {
     };
   };
 
-  config.home.shellAliases =
-    mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") defaultFlags;
+  config.home.shellAliases = mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") defaultFlags;
 
 }

@@ -1,8 +1,10 @@
 { config, lib, ... }:
 
-let inherit (lib.shell) dirPreview subshell;
+let
+  inherit (lib.shell) dirPreview subshell;
 
-in lib.mkMerge [
+in
+lib.mkMerge [
 
   {
     programs.goto.fzfWidgetOptions = {

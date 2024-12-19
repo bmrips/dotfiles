@@ -4,10 +4,22 @@ let
   inherit (lib) ansiEscapeCodes;
   inherit (lib.ansiEscapeCodes) base16;
 
-  normal = c: with base16; color [ fg c ];
-  bold = c: ansiEscapeCodes.combine [ ansiEscapeCodes.bold (normal c) ];
+  normal =
+    c:
+    with base16;
+    color [
+      fg
+      c
+    ];
+  bold =
+    c:
+    ansiEscapeCodes.combine [
+      ansiEscapeCodes.bold
+      (normal c)
+    ];
 
-in {
+in
+{
   programs.gcc.colors = with base16; {
     error = bold red;
     warning = bold magenta;

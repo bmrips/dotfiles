@@ -10,11 +10,12 @@ let
     time-style = "+t";
   };
 
-in {
+in
+{
   shell = {
-    dirPreview = dir:
-      lib.escapeShellArg
-      "ls ${lsArgs} ${dir} | cut --delimiter=' ' --fields=1,5- | sed 's/ t / /' | tail -n+2";
+    dirPreview =
+      dir:
+      lib.escapeShellArg "ls ${lsArgs} ${dir} | cut --delimiter=' ' --fields=1,5- | sed 's/ t / /' | tail -n+2";
 
     subshell = cmd: ''\"\$(${cmd})\"'';
   };

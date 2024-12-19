@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkIf makeBinPath mkMerge;
   cfg = config.programs.zsh;
 
-in {
+in
+{
 
   programs.zsh = mkIf cfg.enable (mkMerge [
 
@@ -99,7 +105,15 @@ in {
           return $ret
         '';
         common-commands = ''
-          PATH='${makeBinPath (with pkgs; [ coreutils gnused ])}' \
+          PATH='${
+            makeBinPath (
+              with pkgs;
+              [
+                coreutils
+                gnused
+              ]
+            )
+          }' \
           cat '${cfg.history.path}' |
             sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
             cut --delimiter=" " --fields=1 |

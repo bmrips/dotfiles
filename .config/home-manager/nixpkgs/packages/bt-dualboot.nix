@@ -1,4 +1,9 @@
-{ chntpw, fetchPypi, lib, python3Packages }:
+{
+  chntpw,
+  fetchPypi,
+  lib,
+  python3Packages,
+}:
 
 python3Packages.buildPythonApplication rec {
   pname = "bt-dualboot";

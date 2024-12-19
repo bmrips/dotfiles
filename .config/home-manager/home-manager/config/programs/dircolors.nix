@@ -4,12 +4,24 @@ let
   inherit (lib) ansiEscapeCodes listToAttrs nameValuePair;
   inherit (lib.ansiEscapeCodes) base16 combine reset;
 
-  fg = c: base16.color [ base16.fg base16.bright c ];
-  reverse = c:
-    combine [ ansiEscapeCodes.reverse (base16.color [ base16.fg c ]) ];
+  fg =
+    c:
+    base16.color [
+      base16.fg
+      base16.bright
+      c
+    ];
+  reverse =
+    c:
+    combine [
+      ansiEscapeCodes.reverse
+      (base16.color [
+        base16.fg
+        c
+      ])
+    ];
 
-  colorise = extensions: color:
-    listToAttrs (map (ext: nameValuePair ".${ext}" color) extensions);
+  colorise = extensions: color: listToAttrs (map (ext: nameValuePair ".${ext}" color) extensions);
 
   archives = [
     "7z"
@@ -132,12 +144,22 @@ let
     "yuv"
   ];
 
-  documents = [ "md" "markdown" "pdf" ];
+  documents = [
+    "md"
+    "markdown"
+    "pdf"
+  ];
 
-  versionControl = [ "gitattributes" "gitignore" "gitmodules" ];
+  versionControl = [
+    "gitattributes"
+    "gitignore"
+    "gitmodules"
+  ];
 
-in {
-  programs.dircolors.settings = with base16;
+in
+{
+  programs.dircolors.settings =
+    with base16;
     {
       NORMAL = reset; # normal text
       RESET = reset; # reset to "normal" color
@@ -163,6 +185,9 @@ in {
       STICKY_OTHER_WRITABLE = reverse blue;
       OTHER_WRITABLE = reverse cyan;
       STICKY = reverse magenta;
-    } // colorise archives (fg red) // colorise (audio ++ video) (fg magenta)
-    // colorise documents (fg yellow) // colorise versionControl (fg black);
+    }
+    // colorise archives (fg red)
+    // colorise (audio ++ video) (fg magenta)
+    // colorise documents (fg yellow)
+    // colorise versionControl (fg black);
 }

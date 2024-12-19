@@ -1,14 +1,28 @@
-{ host, inputs, lib, pkgs, user, ... }:
+{
+  host,
+  inputs,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
 let
   kmod-params = pkgs.writeShellApplication {
     name = "kmod-params";
-    runtimeInputs = with pkgs; [ coreutils fd gnused kmod ripgrep ];
+    runtimeInputs = with pkgs; [
+      coreutils
+      fd
+      gnused
+      kmod
+      ripgrep
+    ];
     excludeShellChecks = [ "SC2059" ];
     text = builtins.readFile ./kmod-params.sh;
   };
 
-in {
+in
+{
   imports = [
     ./boot/plymouth.nix
     ./hardware/devices/microsoft_ergonomic_keyboard.nix
@@ -84,22 +98,24 @@ in {
     programs.firefox.profiles.default.settings."browser.uidensity" = 1;
   };
 
-  i18n = let
-    english = "en_GB.UTF-8";
-    german = "de_DE.UTF-8";
-  in {
-    defaultLocale = english;
-    extraLocaleSettings = {
-      LC_ADDRESS = german;
-      LC_CTYPE = german;
-      LC_MEASUREMENT = german;
-      LC_MONETARY = german;
-      LC_NUMERIC = german;
-      LC_PAPER = german;
-      LC_TELEPHONE = german;
-      LC_TIME = german;
+  i18n =
+    let
+      english = "en_GB.UTF-8";
+      german = "de_DE.UTF-8";
+    in
+    {
+      defaultLocale = english;
+      extraLocaleSettings = {
+        LC_ADDRESS = german;
+        LC_CTYPE = german;
+        LC_MEASUREMENT = german;
+        LC_MONETARY = german;
+        LC_NUMERIC = german;
+        LC_PAPER = german;
+        LC_TELEPHONE = german;
+        LC_TIME = german;
+      };
     };
-  };
 
   networking = {
     hostName = host;
@@ -149,9 +165,15 @@ in {
   system.autoUpgrade = {
     enable = true;
     flake = inputs.self.outPath;
-    flags = [ "--print-build-logs" "--commit-lock-file" ]
-      ++ builtins.concatMap (i: [ "--update-input" i ])
-      (lib.attrNames (removeAttrs inputs [ "self" ]));
+    flags =
+      [
+        "--print-build-logs"
+        "--commit-lock-file"
+      ]
+      ++ builtins.concatMap (i: [
+        "--update-input"
+        i
+      ]) (lib.attrNames (removeAttrs inputs [ "self" ]));
     dates = "weekly";
     randomizedDelaySec = "1h";
   };

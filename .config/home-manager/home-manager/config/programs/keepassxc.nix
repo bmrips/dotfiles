@@ -1,8 +1,10 @@
 { config, lib, ... }:
 
-let inherit (lib) mkIf;
+let
+  inherit (lib) mkIf;
 
-in {
+in
+{
   programs.keepassxc.autostart = true;
 
   programs.plasma.window-rules = mkIf config.programs.keepassxc.enable [

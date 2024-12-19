@@ -1,4 +1,10 @@
-{ config, lib, pkgs, user, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
 
 lib.mkIf config.services.printing.enable {
   services.printing.drivers = with pkgs; [ epson-workforce-635-nx625-series ];

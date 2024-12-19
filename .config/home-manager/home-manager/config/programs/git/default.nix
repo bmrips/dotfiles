@@ -8,7 +8,8 @@ let
     esac
   '';
 
-in lib.mkIf config.programs.git.enable {
+in
+lib.mkIf config.programs.git.enable {
 
   home.shellAliases.g = "git";
 
@@ -28,23 +29,25 @@ in lib.mkIf config.programs.git.enable {
 
     delta = {
       enable = true;
-      options = let
-        fg = "normal";
-        hunk_color = "magenta";
-      in {
-        file-modified-label = "𝚫";
-        hunk-header-decoration-style = "${hunk_color} ul";
-        hunk-header-line-number-style = "${hunk_color}";
-        hunk-header-style = "${hunk_color} line-number";
-        minus-style = "${fg} auto";
-        minus-emph-style = "${fg} auto";
-        navigate = true;
-        plus-style = "${fg} auto";
-        plus-emph-style = "${fg} auto";
-        syntax-theme = "base16";
-        width = 80;
-        zero-style = "${fg}";
-      };
+      options =
+        let
+          fg = "normal";
+          hunk_color = "magenta";
+        in
+        {
+          file-modified-label = "𝚫";
+          hunk-header-decoration-style = "${hunk_color} ul";
+          hunk-header-line-number-style = "${hunk_color}";
+          hunk-header-style = "${hunk_color} line-number";
+          minus-style = "${fg} auto";
+          minus-emph-style = "${fg} auto";
+          navigate = true;
+          plus-style = "${fg} auto";
+          plus-emph-style = "${fg} auto";
+          syntax-theme = "base16";
+          width = 80;
+          zero-style = "${fg}";
+        };
     };
 
     extraConfig = {
@@ -115,8 +118,7 @@ in lib.mkIf config.programs.git.enable {
       lg = "log --oneline --graph";
       lo = "log --oneline";
       ls = "ls-files";
-      lv =
-        "log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ad%C(reset)'";
+      lv = "log --format='%C(auto)%h%d %s - %C(blue)%an%C(reset), %C(magenta)%ad%C(reset)'";
       mc = "diff --name-only --diff-filter=U";
       mt = "mergetool";
       pushf = "push --force-with-lease";
@@ -128,27 +130,33 @@ in lib.mkIf config.programs.git.enable {
       sw = "switch";
     };
 
-    attributes = let
-      diffDrivers = {
-        bib = "bibtex";
-        "c++" = "cpp";
-        cpp = "cpp";
-        css = "css";
-        html = "html";
-        java = "java";
-        md = "markdown";
-        php = "php";
-        pl = "perl";
-        py = "python";
-        rb = "ruby";
-        rs = "rust";
-        tex = "tex";
-        xhtml = "html";
-      };
-    in [ "* text=auto" ]
-    ++ lib.mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
+    attributes =
+      let
+        diffDrivers = {
+          bib = "bibtex";
+          "c++" = "cpp";
+          cpp = "cpp";
+          css = "css";
+          html = "html";
+          java = "java";
+          md = "markdown";
+          php = "php";
+          pl = "perl";
+          py = "python";
+          rb = "ruby";
+          rs = "rust";
+          tex = "tex";
+          xhtml = "html";
+        };
+      in
+      [ "* text=auto" ] ++ lib.mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
 
-    ignores = [ "/.direnv/" "/result" "Session*.vim" "taskell.md" ];
+    ignores = [
+      "/.direnv/"
+      "/result"
+      "Session*.vim"
+      "taskell.md"
+    ];
   };
 
 }

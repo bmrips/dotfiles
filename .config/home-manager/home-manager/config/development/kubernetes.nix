@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   kubectl-show-secrets = ''
@@ -22,14 +27,17 @@ let
     esac
   '';
 
-in {
+in
+{
 
-  options.development.kubernetes.enable =
-    lib.mkEnableOption "Kubernetes development tools";
+  options.development.kubernetes.enable = lib.mkEnableOption "Kubernetes development tools";
 
   config = lib.mkIf config.development.kubernetes.enable {
 
-    home.packages = with pkgs; [ kubectx yq-go ];
+    home.packages = with pkgs; [
+      kubectx
+      yq-go
+    ];
 
     home.shellAliases.k = "kubectl";
 

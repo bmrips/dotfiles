@@ -1,4 +1,12 @@
-{ config, host, lib, modulesPath, pkgs, user, ... }:
+{
+  config,
+  host,
+  lib,
+  modulesPath,
+  pkgs,
+  user,
+  ...
+}:
 
 let
   inherit (lib) mkForce uuid;
@@ -16,7 +24,8 @@ let
     ];
   };
 
-in {
+in
+{
 
   imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
 
@@ -34,10 +43,15 @@ in {
 
   boot.initrd = {
     systemd.enable = true;
-    availableKernelModules =
-      [ "nvme" "sd_mod" "thunderbolt" "usb_storage" "vmd" "xhci_pci" ];
-    luks.devices.linux.device =
-      "/dev/disk/by-uuid/256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
+    availableKernelModules = [
+      "nvme"
+      "sd_mod"
+      "thunderbolt"
+      "usb_storage"
+      "vmd"
+      "xhci_pci"
+    ];
+    luks.devices.linux.device = "/dev/disk/by-uuid/256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
   };
 
   fileSystems = {
@@ -57,7 +71,10 @@ in {
   hardware.cpu.intel.updateMicrocode = true;
 
   hardware.nvidia.open = true;
-  services.xserver.videoDrivers = [ "intel" "nvidia" ];
+  services.xserver.videoDrivers = [
+    "intel"
+    "nvidia"
+  ];
 
   services.btrfs.autoScrub = {
     enable = true;
@@ -81,19 +98,21 @@ in {
       "browser.toolbars.bookmarks.visibility" = mkForce "always";
     };
 
-    programs.plasma.input.touchpads = [{
-      name = "VEN_06CB:00 06CB:CEEC Touchpad";
-      vendorId = "1739";
-      productId = "52972";
-      disableWhileTyping = true;
-      naturalScroll = true;
-      pointerSpeed = 0.0;
-      rightClickMethod = "twoFingers";
-      scrollMethod = "twoFingers";
-      tapAndDrag = true;
-      tapToClick = true;
-      twoFingerTap = "rightClick";
-    }];
+    programs.plasma.input.touchpads = [
+      {
+        name = "VEN_06CB:00 06CB:CEEC Touchpad";
+        vendorId = "1739";
+        productId = "52972";
+        disableWhileTyping = true;
+        naturalScroll = true;
+        pointerSpeed = 0.0;
+        rightClickMethod = "twoFingers";
+        scrollMethod = "twoFingers";
+        tapAndDrag = true;
+        tapToClick = true;
+        twoFingerTap = "rightClick";
+      }
+    ];
 
     programs.slack.enable = true;
 

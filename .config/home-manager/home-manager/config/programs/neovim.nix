@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   nvim-prune-undodir = pkgs.writeShellApplication {
@@ -15,7 +20,8 @@ let
     '';
   };
 
-in lib.mkMerge [
+in
+lib.mkMerge [
 
   {
     programs.neovim = {

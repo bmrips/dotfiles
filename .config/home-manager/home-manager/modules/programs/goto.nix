@@ -1,15 +1,28 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    gnuCommandLine mkEnableOption mkIf mkMerge mkOption mkPackageOption types;
+    gnuCommandLine
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    mkPackageOption
+    types
+    ;
   cfg = config.programs.goto;
 
   init = ''
     source ${pkgs.goto}/share/goto.sh
   '';
 
-in {
+in
+{
 
   options.programs.goto = {
     enable = mkEnableOption "{command}`goto`.";
@@ -17,9 +30,10 @@ in {
     fzfWidgetOptions = mkOption {
       type = with types; attrsOf str;
       default = { };
-      description =
-        "Options for the fzf widget, set through {env}`FZF_GOTO_OPTS`";
-      example = { height = "60%"; };
+      description = "Options for the fzf widget, set through {env}`FZF_GOTO_OPTS`";
+      example = {
+        height = "60%";
+      };
     };
   };
 

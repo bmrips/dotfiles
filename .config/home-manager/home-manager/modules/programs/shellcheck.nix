@@ -1,12 +1,28 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    concatLines flatten flip isList mapAttrsToList mkEnableOption mkIf mkMerge
-    mkOption mkPackageOption types;
+    concatLines
+    flatten
+    flip
+    isList
+    mapAttrsToList
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    mkPackageOption
+    types
+    ;
   cfg = config.programs.shellcheck;
 
-in {
+in
+{
 
   options.programs.shellcheck = {
 
@@ -17,8 +33,7 @@ in {
     settings = mkOption {
       type = with types; attrsOf (either str (listOf str));
       default = { };
-      description =
-        "Settings to put into {file}`$XDG_CONFIG_HOME/shellcheckrc`";
+      description = "Settings to put into {file}`$XDG_CONFIG_HOME/shellcheckrc`";
       example = {
         shell = "bash";
         enable = [
@@ -39,12 +54,13 @@ in {
     { home.packages = [ cfg.package ]; }
 
     (mkIf (cfg.settings != { }) {
-      xdg.configFile.shellcheckrc.text = concatLines (flatten
-        (flip mapAttrsToList cfg.settings (name: value:
-          if isList value then
-            map (v: "${name}=${v}") value
-          else
-            "${name}=${value}")));
+      xdg.configFile.shellcheckrc.text = concatLines (
+        flatten (
+          flip mapAttrsToList cfg.settings (
+            name: value: if isList value then map (v: "${name}=${v}") value else "${name}=${value}"
+          )
+        )
+      );
     })
 
   ]);

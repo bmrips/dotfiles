@@ -1,7 +1,17 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) hm mkEnableOption mkForce mkIf;
+  inherit (lib)
+    hm
+    mkEnableOption
+    mkForce
+    mkIf
+    ;
 
   readNixInitScript = ''
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
@@ -12,35 +22,44 @@ let
     export BACKGROUND="$(tr '[:upper:]' '[:lower:]' <<<"$ITERM_PROFILE")"
   '';
 
-in {
+in
+{
   options.profiles.macos.enable = mkEnableOption "the macOS profile";
 
   config = mkIf config.profiles.macos.enable {
 
-    assertions = [{
-      assertion = pkgs.stdenv.isDarwin;
-      message = "This profile is only available on macOS.";
-    }];
+    assertions = [
+      {
+        assertion = pkgs.stdenv.isDarwin;
+        message = "This profile is only available on macOS.";
+      }
+    ];
 
     # Need to create aliases because Spotlight doesn't consider symlinks.
-    home.activation.link-apps = hm.dag.entryAfter [ "writeBarrier" ] (let
-      aliasesDir =
-        "${config.home.homeDirectory}/Applications/Home Manager Apps Aliases";
-      find = "${pkgs.findutils}/bin/find";
-    in ''
-      rm --recursive --force "${aliasesDir}"
-      mkdir --parents "${aliasesDir}"
-      ${find} -L "$newGenPath/home-files/Applications/Home Manager Apps/" -maxdepth 1 -name '*.app' -exec sh -c '
-        real_app=$(readlink --canonicalize "{}")
-        target_app="${aliasesDir}/$(basename "{}")"
-        echo "Alias \"$real_app\" to \"$target_app\""
-        ${pkgs.mkalias}/bin/mkalias "$real_app" "$target_app"
-      ' \;
-    '');
+    home.activation.link-apps = hm.dag.entryAfter [ "writeBarrier" ] (
+      let
+        aliasesDir = "${config.home.homeDirectory}/Applications/Home Manager Apps Aliases";
+        find = "${pkgs.findutils}/bin/find";
+      in
+      ''
+        rm --recursive --force "${aliasesDir}"
+        mkdir --parents "${aliasesDir}"
+        ${find} -L "$newGenPath/home-files/Applications/Home Manager Apps/" -maxdepth 1 -name '*.app' -exec sh -c '
+          real_app=$(readlink --canonicalize "{}")
+          target_app="${aliasesDir}/$(basename "{}")"
+          echo "Alias \"$real_app\" to \"$target_app\""
+          ${pkgs.mkalias}/bin/mkalias "$real_app" "$target_app"
+        ' \;
+      ''
+    );
 
     home.homeDirectory = "/Users/${config.home.username}";
 
-    home.packages = with pkgs; [ iterm2 rectangle unnaturalscrollwheels ];
+    home.packages = with pkgs; [
+      iterm2
+      rectangle
+      unnaturalscrollwheels
+    ];
 
     home.shellAliases = {
       xc = "pbcopy";

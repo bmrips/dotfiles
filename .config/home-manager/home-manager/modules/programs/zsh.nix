@@ -1,13 +1,27 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    attrNames concatLines concatStringsSep mapAttrsToList mkEnableOption mkIf
-    mkMerge mkOption types;
+    attrNames
+    concatLines
+    concatStringsSep
+    mapAttrsToList
+    mkEnableOption
+    mkIf
+    mkMerge
+    mkOption
+    types
+    ;
   cfg = config.programs.zsh;
   setOpt = name: flag: "${if flag then "setopt" else "unsetopt"} ${name}";
 
-in {
+in
+{
 
   options.programs.zsh = {
 
@@ -17,7 +31,9 @@ in {
       type = with types; attrsOf bool;
       default = { };
       description = "Options to set or unset";
-      example = { null_glob = true; };
+      example = {
+        null_glob = true;
+      };
     };
 
     siteFunctions = mkOption {
@@ -46,11 +62,10 @@ in {
     })
 
     (mkIf (cfg.siteFunctions != { }) {
-      home.packages = mapAttrsToList
-        (name: pkgs.writeTextDir "share/zsh/site-functions/${name}")
-        cfg.siteFunctions;
-      programs.zsh.initExtra = concatStringsSep " "
-        ([ "autoload -Uz" ] ++ attrNames cfg.siteFunctions);
+      home.packages = mapAttrsToList (
+        name: pkgs.writeTextDir "share/zsh/site-functions/${name}"
+      ) cfg.siteFunctions;
+      programs.zsh.initExtra = concatStringsSep " " ([ "autoload -Uz" ] ++ attrNames cfg.siteFunctions);
     })
 
   ];

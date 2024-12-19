@@ -1,4 +1,9 @@
-{ config, lib, user, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 
 {
   options.profiles.gui.enable = lib.mkEnableOption "the GUI profile";

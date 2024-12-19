@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkIf mkMerge optionals;
@@ -21,11 +26,15 @@ let
 
   plasma-dark-mode = pkgs.writeShellApplication {
     name = "plasma-dark-mode";
-    runtimeInputs = with pkgs; [ gnugrep kdePackages.plasma-workspace ];
+    runtimeInputs = with pkgs; [
+      gnugrep
+      kdePackages.plasma-workspace
+    ];
     text = builtins.readFile ./plasma-dark-mode.sh;
   };
 
-in mkMerge [
+in
+mkMerge [
 
   {
     programs.plasma = {
@@ -63,15 +72,17 @@ in mkMerge [
         repeatRate = 40;
       };
 
-      input.mice = [{
-        name = "SONiX Evoluent VerticalMouse D";
-        vendorId = "6780";
-        productId = "407";
-        acceleration = 1.0;
-        accelerationProfile = "default";
-        naturalScroll = false;
-        scrollSpeed = 1.0;
-      }];
+      input.mice = [
+        {
+          name = "SONiX Evoluent VerticalMouse D";
+          vendorId = "6780";
+          productId = "407";
+          acceleration = 1.0;
+          accelerationProfile = "default";
+          naturalScroll = false;
+          scrollSpeed = 1.0;
+        }
+      ];
 
       # Rebind mouse buttons for Evoluent VerticalMouse
       configFile.kcminputrc."ButtonRebinds/Mouse" = {
@@ -80,19 +91,21 @@ in mkMerge [
       };
 
       # Builtin touchpad
-      input.touchpads = [{
-        name = "DLL075B:01 06CB:76AF Touchpad";
-        vendorId = "1739";
-        productId = "30383";
-        disableWhileTyping = true;
-        naturalScroll = true;
-        pointerSpeed = 0.0;
-        rightClickMethod = "twoFingers";
-        scrollMethod = "twoFingers";
-        tapAndDrag = true;
-        tapToClick = true;
-        twoFingerTap = "rightClick";
-      }];
+      input.touchpads = [
+        {
+          name = "DLL075B:01 06CB:76AF Touchpad";
+          vendorId = "1739";
+          productId = "30383";
+          disableWhileTyping = true;
+          naturalScroll = true;
+          pointerSpeed = 0.0;
+          rightClickMethod = "twoFingers";
+          scrollMethod = "twoFingers";
+          tapAndDrag = true;
+          tapToClick = true;
+          twoFingerTap = "rightClick";
+        }
+      ];
 
       krunner = {
         historyBehavior = "enableSuggestions";
@@ -124,120 +137,139 @@ in mkMerge [
         };
         tiling.padding = 0;
         titlebarButtons = {
-          left = [ "more-window-actions" "on-all-desktops" ];
-          right = [ "minimize" "maximize" "close" ];
+          left = [
+            "more-window-actions"
+            "on-all-desktops"
+          ];
+          right = [
+            "minimize"
+            "maximize"
+            "close"
+          ];
         };
         virtualDesktops = {
-          names = map toString [ 1 2 3 4 ];
+          names = map toString [
+            1
+            2
+            3
+            4
+          ];
           rows = 2;
         };
       };
 
-      panels = [{
-        alignment = "center";
-        floating = false;
-        height = 36;
-        hiding = "normalpanel";
-        lengthMode = "fill";
-        location = "bottom";
-        screen = 0;
-        widgets = [
-          {
-            kickoff = {
-              compactDisplayStyle = true;
-              icon = "nix-snowflake-white";
-              sortAlphabetically = true;
-            };
-          }
-          {
-            name = "org.kde.plasma.taskmanager";
-            config.General = {
-              groupedTaskVisualization = 2; # show window previews
-              launchers = "";
-              middleClickAction = "Close";
-              showOnlyCurrentDesktop = false;
-              showToolTips = false;
-              sortingStrategy = 3; # by desktop
-              wheelEnabled = false;
-            };
-          }
-          "org.kde.plasma.marginsseparator"
-          {
-            systemTray = {
-              icons.scaleToFit = true;
-              items = rec {
-                extra = shown ++ hidden ++ [
-                  "org.kde.plasma.cameraindicator"
-                  "org.kde.plasma.devicenotifier"
-                  "org.kde.plasma.keyboardindicator"
-                  "org.kde.plasma.keyboardlayout"
-                  "org.kde.plasma.manage-inputmethod"
-                  "org.kde.plasma.mediacontroller"
-                  "org.kde.plasma.notifications"
-                  "org.kde.plasma.printmanager"
-                  "org.kde.plasma.volume"
-                ];
-                shown = [
-                  "chrome_status_icon_1" # Signal
-                  "KeePassXC"
-                  "org.kde.plasma.battery"
-                  "org.kde.plasma.bluetooth"
-                  "org.kde.plasma.brightness"
-                  "org.kde.plasma.networkmanagement"
-                ];
-                hidden = [
-                  "Nextcloud"
-                  "org.kde.plasma.clipboard"
-                  "org.kde.plasma.weather"
-                  "ownCloud"
-                ];
-                configs = {
-                  "org.kde.plasma.weather".config.WeatherStation.source =
-                    "bbcukmet|weather|Nijmegen, Netherlands, NL|2750053";
+      panels = [
+        {
+          alignment = "center";
+          floating = false;
+          height = 36;
+          hiding = "normalpanel";
+          lengthMode = "fill";
+          location = "bottom";
+          screen = 0;
+          widgets = [
+            {
+              kickoff = {
+                compactDisplayStyle = true;
+                icon = "nix-snowflake-white";
+                sortAlphabetically = true;
+              };
+            }
+            {
+              name = "org.kde.plasma.taskmanager";
+              config.General = {
+                groupedTaskVisualization = 2; # show window previews
+                launchers = "";
+                middleClickAction = "Close";
+                showOnlyCurrentDesktop = false;
+                showToolTips = false;
+                sortingStrategy = 3; # by desktop
+                wheelEnabled = false;
+              };
+            }
+            "org.kde.plasma.marginsseparator"
+            {
+              systemTray = {
+                icons.scaleToFit = true;
+                items = rec {
+                  extra =
+                    shown
+                    ++ hidden
+                    ++ [
+                      "org.kde.plasma.cameraindicator"
+                      "org.kde.plasma.devicenotifier"
+                      "org.kde.plasma.keyboardindicator"
+                      "org.kde.plasma.keyboardlayout"
+                      "org.kde.plasma.manage-inputmethod"
+                      "org.kde.plasma.mediacontroller"
+                      "org.kde.plasma.notifications"
+                      "org.kde.plasma.printmanager"
+                      "org.kde.plasma.volume"
+                    ];
+                  shown = [
+                    "chrome_status_icon_1" # Signal
+                    "KeePassXC"
+                    "org.kde.plasma.battery"
+                    "org.kde.plasma.bluetooth"
+                    "org.kde.plasma.brightness"
+                    "org.kde.plasma.networkmanagement"
+                  ];
+                  hidden = [
+                    "Nextcloud"
+                    "org.kde.plasma.clipboard"
+                    "org.kde.plasma.weather"
+                    "ownCloud"
+                  ];
+                  configs = {
+                    "org.kde.plasma.weather".config.WeatherStation.source =
+                      "bbcukmet|weather|Nijmegen, Netherlands, NL|2750053";
+                  };
                 };
               };
-            };
-          }
-          {
-            digitalClock = {
-              date.enable = false;
-              time.showSeconds = "onlyInTooltip";
-            };
-          }
-        ];
-      }];
+            }
+            {
+              digitalClock = {
+                date.enable = false;
+                time.showSeconds = "onlyInTooltip";
+              };
+            }
+          ];
+        }
+      ];
 
-      powerdevil = let
-        baseProfile = {
-          autoSuspend.action = "sleep";
-          dimDisplay.enable = false;
-          inhibitLidActionWhenExternalMonitorConnected = true;
-          powerButtonAction = "showLogoutScreen";
-          whenLaptopLidClosed = "sleep";
-          whenSleepingEnter = "standby";
+      powerdevil =
+        let
+          baseProfile = {
+            autoSuspend.action = "sleep";
+            dimDisplay.enable = false;
+            inhibitLidActionWhenExternalMonitorConnected = true;
+            powerButtonAction = "showLogoutScreen";
+            whenLaptopLidClosed = "sleep";
+            whenSleepingEnter = "standby";
+          };
+        in
+        {
+          general.pausePlayersOnSuspend = true;
+          batteryLevels = {
+            criticalAction = "hibernate";
+            criticalLevel = 10;
+            lowLevel = 20;
+          };
+          AC = baseProfile // {
+            autoSuspend.action = "nothing";
+            turnOffDisplay.idleTimeout = "never";
+          };
+          battery = baseProfile // {
+            autoSuspend.idleTimeout = 300; # 5 minutes
+            turnOffDisplay.idleTimeout = 300; # 5 minutes
+            turnOffDisplay.idleTimeoutWhenLocked = 60; # 1 minute
+          };
+          lowBattery = baseProfile // {
+            autoSuspend.idleTimeout = 120; # 2 minutes
+            inhibitLidActionWhenExternalMonitorConnected = false;
+            turnOffDisplay.idleTimeoutWhenLocked = "immediately"; # 1 minute
+          };
         };
-      in {
-        general.pausePlayersOnSuspend = true;
-        batteryLevels = {
-          criticalAction = "hibernate";
-          criticalLevel = 10;
-          lowLevel = 20;
-        };
-        AC = baseProfile // {
-          autoSuspend.action = "nothing";
-          turnOffDisplay.idleTimeout = "never";
-        };
-        battery = baseProfile // {
-          autoSuspend.idleTimeout = 300; # 5 minutes
-          turnOffDisplay.idleTimeout = 300; # 5 minutes
-          turnOffDisplay.idleTimeoutWhenLocked = 60; # 1 minute
-        };
-        lowBattery = baseProfile // {
-          autoSuspend.idleTimeout = 120; # 2 minutes
-          inhibitLidActionWhenExternalMonitorConnected = false;
-          turnOffDisplay.idleTimeoutWhenLocked = "immediately"; # 1 minute
-        };
-      };
       configFile."powerdevil.notifyrc"."Event/fullbattery".Action = "Popup";
 
       session.sessionRestore.restoreOpenApplicationsOnLogin = "onLastLogout";
@@ -245,21 +277,48 @@ in mkMerge [
       shortcuts = {
         kcm_touchpad."Toggle Touchpad" = "Meta+Shift+T";
         kmix = {
-          "decrease_volume_small" = [ "Shift+Volume Down" "Meta+Ctrl+Down" ];
-          "increase_volume_small" = [ "Shift+Volume Up" "Meta+Ctrl+Up" ];
-          "decrease_volume" = [ "Volume Down" "Meta+Down" ];
-          "increase_volume" = [ "Volume Up" "Meta+Up" ];
-          "mute" = [ "Volume Mute" "Meta+Pause" ];
-          "decrease_microphone_volume" =
-            [ "Microphone Volume Down" "Meta+Volume Down" "Meta+Shift+Down" ];
-          "increase_microphone_volume" =
-            [ "Microphone Volume Up" "Meta+Volume Up" "Meta+Shift+Up" ];
-          "mic_mute" =
-            [ "Microphone Mute" "Meta+Volume Mute" "Meta+Shift+Pause" ];
+          "decrease_volume_small" = [
+            "Shift+Volume Down"
+            "Meta+Ctrl+Down"
+          ];
+          "increase_volume_small" = [
+            "Shift+Volume Up"
+            "Meta+Ctrl+Up"
+          ];
+          "decrease_volume" = [
+            "Volume Down"
+            "Meta+Down"
+          ];
+          "increase_volume" = [
+            "Volume Up"
+            "Meta+Up"
+          ];
+          "mute" = [
+            "Volume Mute"
+            "Meta+Pause"
+          ];
+          "decrease_microphone_volume" = [
+            "Microphone Volume Down"
+            "Meta+Volume Down"
+            "Meta+Shift+Down"
+          ];
+          "increase_microphone_volume" = [
+            "Microphone Volume Up"
+            "Meta+Volume Up"
+            "Meta+Shift+Up"
+          ];
+          "mic_mute" = [
+            "Microphone Mute"
+            "Meta+Volume Mute"
+            "Meta+Shift+Pause"
+          ];
         };
         ksmserver = {
           "Halt Without Confirmation" = "Meta+Ctrl+End";
-          "Lock Session" = [ "Alt+L" "Meta+Del" ];
+          "Lock Session" = [
+            "Alt+L"
+            "Meta+Del"
+          ];
           "Reboot Without Confirmation" = "Meta+Ctrl+Home";
         };
         kwin = {
@@ -277,8 +336,7 @@ in mkMerge [
           "Walk Through Windows" = "Meta+Tab";
           "Walk Through Windows (Reverse)" = "Meta+Shift+Tab";
           "Walk Through Windows of Current Application" = "Meta+`";
-          "Walk Through Windows of Current Application (Reverse)" =
-            "Meta+Ctrl+`";
+          "Walk Through Windows of Current Application (Reverse)" = "Meta+Ctrl+`";
           "Window Above Other Windows" = "Meta+A";
           "Window Close" = "Meta+Ctrl+Q";
           "Window Fullscreen" = "Meta+Ctrl+F";
@@ -297,21 +355,37 @@ in mkMerge [
           "Window to Next Screen" = "Meta+O";
           "Window to Previous Screen" = "Meta+I";
           "view_actual_size" = "Meta+0";
-          "view_zoom_in" = [ "Meta+=" "Meta++" ];
+          "view_zoom_in" = [
+            "Meta+="
+            "Meta++"
+          ];
           "view_zoom_out" = "Meta+-";
         };
         mediacontrol = {
-          "nextmedia" = [ "Media Next" "Meta+Right" ];
+          "nextmedia" = [
+            "Media Next"
+            "Meta+Right"
+          ];
           "pausemedia" = "Media Pause";
-          "playpausemedia" = [ "Media Play" "Pause" ];
-          "previousmedia" = [ "Media Previous" "Meta+Left" ];
+          "playpausemedia" = [
+            "Media Play"
+            "Pause"
+          ];
+          "previousmedia" = [
+            "Media Previous"
+            "Meta+Left"
+          ];
           "stopmedia" = "Media Stop";
         };
         org_kde_powerdevil = {
-          "Decrease Screen Brightness" =
-            [ "Monitor Brightness Down" "Meta+PgDown" ];
-          "Increase Screen Brightness" =
-            [ "Monitor Brightness Up" "Meta+PgUp" ];
+          "Decrease Screen Brightness" = [
+            "Monitor Brightness Down"
+            "Meta+PgDown"
+          ];
+          "Increase Screen Brightness" = [
+            "Monitor Brightness Up"
+            "Meta+PgUp"
+          ];
           "PowerDown" = "Meta+End";
         };
         plasmashell = {
@@ -340,7 +414,10 @@ in mkMerge [
           Composer = "Shift+Launch Mail";
         };
         "services/org.kde.krunner.desktop" = {
-          _launch = [ "Search" "Meta+Space" ];
+          _launch = [
+            "Search"
+            "Meta+Space"
+          ];
           RunClipboard = "Meta+Ctrl+Space";
         };
         "services/org.kde.plasma.emojier.desktop"."_launch" = "Meta+.";
@@ -361,8 +438,10 @@ in mkMerge [
         launch = "Meta+Print";
       };
       configFile.spectaclerc =
-        let filenameTemplate = "<yyyy><MM><dd>_<HH><mm><ss>";
-        in {
+        let
+          filenameTemplate = "<yyyy><MM><dd>_<HH><mm><ss>";
+        in
+        {
           General = {
             autoSaveImage = true;
             clipboardGroup = "PostScreenshotCopyImage";
@@ -429,17 +508,19 @@ in mkMerge [
         VolumeStep = 5;
       };
 
-      configFile.plasma-localerc.Formats = let
-        english = "en_GB.UTF-8";
-        german = "de_DE.UTF-8";
-      in {
-        LANG = english;
-        LC_COLLATE = german;
-        LC_MEASUREMENT = german;
-        LC_MONETARY = german;
-        LC_TELEPHONE = german;
-        useDetailed = true;
-      };
+      configFile.plasma-localerc.Formats =
+        let
+          english = "en_GB.UTF-8";
+          german = "de_DE.UTF-8";
+        in
+        {
+          LANG = english;
+          LC_COLLATE = german;
+          LC_MEASUREMENT = german;
+          LC_MONETARY = german;
+          LC_TELEPHONE = german;
+          useDetailed = true;
+        };
 
       configFile.kdeglobals."KFileDialog Settings" = {
         "Allow Expansion" = false;
@@ -488,14 +569,23 @@ in mkMerge [
 
   (mkIf config.programs.plasma.enable {
 
-    assertions = [{
-      assertion = pkgs.stdenv.isLinux;
-      message = "This profile is only available on Linux.";
-    }];
+    assertions = [
+      {
+        assertion = pkgs.stdenv.isLinux;
+        message = "This profile is only available on Linux.";
+      }
+    ];
 
-    home.packages = with pkgs;
+    home.packages =
+      with pkgs;
       with pkgs.kdePackages;
-      [ copy-forms kcalc kcolorchooser qt6.qtimageformats plasma-dark-mode ]
+      [
+        copy-forms
+        kcalc
+        kcolorchooser
+        qt6.qtimageformats
+        plasma-dark-mode
+      ]
       ++ optionals config.profiles.gui.extra.enable [
         akregator
         kgpg

@@ -1,10 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib) mkEnableOption mkIf mkPackageOption;
   cfg = config.programs.kubectl;
 
-in {
+in
+{
   options.programs.kubectl = {
     enable = mkEnableOption "{command}`kubectl`";
     package = mkPackageOption pkgs "kubectl" { };

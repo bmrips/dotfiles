@@ -1,8 +1,7 @@
 { config, lib, ... }:
 
 {
-  options.hardware.devices.lacie_drive.enable =
-    lib.mkEnableOption "the external Lacie drive";
+  options.hardware.devices.lacie_drive.enable = lib.mkEnableOption "the external Lacie drive";
 
   config = lib.mkIf config.hardware.devices.lacie_drive.enable {
     environment.etc.crypttab.text = ''

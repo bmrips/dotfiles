@@ -1,10 +1,22 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
-  inherit (lib) mkIf mkEnableOption mkOption mkPackageOption types;
+  inherit (lib)
+    mkIf
+    mkEnableOption
+    mkOption
+    mkPackageOption
+    types
+    ;
   cfg = config.programs.slack;
 
-in {
+in
+{
 
   options.programs.slack = {
     enable = mkEnableOption "Slack.";
@@ -18,8 +30,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.autostart.slack =
-      mkIf cfg.autostart "${cfg.package}/share/applications/slack.desktop";
+    xdg.autostart.slack = mkIf cfg.autostart "${cfg.package}/share/applications/slack.desktop";
   };
 
 }

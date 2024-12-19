@@ -15,7 +15,8 @@ let
     "character"
   ];
 
-in {
+in
+{
   programs.starship.settings = {
     #:schema 'https://starship.rs/config-schema.json'
     inherit format;
@@ -42,8 +43,7 @@ in {
     git_commit.format = "at [$hash$tag]($style) ";
     git_commit.style = "bold cyan";
     git_state.style = "bold red";
-    git_status.format =
-      "[($all_status )($behind$behind_count )($ahead$ahead_count )]($style)";
+    git_status.format = "[($all_status )($behind$behind_count )($ahead$ahead_count )]($style)";
     git_status.style = "bold yellow";
     golang.symbol = " ";
     gradle.symbol = " ";

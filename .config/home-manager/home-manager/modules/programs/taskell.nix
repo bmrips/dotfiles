@@ -1,37 +1,64 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   inherit (lib)
-    concatLines concatMapAttrs generators hasInfix isAttrs isBool isString
-    mapAttrs mapAttrs' mapAttrsToList mkEnableOption mkIf mkOption
-    mkPackageOption nameValuePair types;
+    concatLines
+    concatMapAttrs
+    generators
+    hasInfix
+    isAttrs
+    isBool
+    isString
+    mapAttrs
+    mapAttrs'
+    mapAttrsToList
+    mkEnableOption
+    mkIf
+    mkOption
+    mkPackageOption
+    nameValuePair
+    types
+    ;
   cfg = config.programs.taskell;
 
   # Taskell assumes that string values are quoted only if the contain spaces
   # (exception: `bindings.ini`). Furthermore, boolean values must not be given
   # as integers but verbatim.
-  mkKeyValue = k: v:
+  mkKeyValue =
+    k: v:
     let
-      v' = if isString v then
-        (if hasInfix " " v then ''"${v}"'' else v)
-      else if isBool v then
-        (if v then "true" else "false")
-      else
-        toString v;
-    in "${k} = ${v'}";
+      v' =
+        if isString v then
+          (if hasInfix " " v then ''"${v}"'' else v)
+        else if isBool v then
+          (if v then "true" else "false")
+        else
+          toString v;
+    in
+    "${k} = ${v'}";
 
   toIni = generators.toINI { inherit mkKeyValue; };
 
   # Flattens an attrset, i.e. `flattenAttrs { a.b = 0; } = { "a.b" = 0 }`.
-  flattenAttrs = concatMapAttrs (n: v:
-    if !(isAttrs v) then {
-      ${n} = v;
-    } else
-      mapAttrs' (n': v': nameValuePair "${n}.${n'}" v') (flattenAttrs v));
+  flattenAttrs = concatMapAttrs (
+    n: v:
+    if !(isAttrs v) then
+      {
+        ${n} = v;
+      }
+    else
+      mapAttrs' (n': v': nameValuePair "${n}.${n'}" v') (flattenAttrs v)
+  );
 
   flatten3rdLevel = mapAttrs (n: v: if !(isAttrs v) then v else flattenAttrs v);
 
-in {
+in
+{
 
   options.programs.taskell = {
 
@@ -43,16 +70,27 @@ in {
       type = with types; attrsOf str;
       default = { };
       description = "Key bindings for {command}`taskell`.";
-      example = { new = "n"; };
+      example = {
+        new = "n";
+      };
     };
 
     config = mkOption {
-      type = with types;
-        let scalar = oneOf [ bool int str ];
-        in attrsOf (either scalar (attrsOf scalar));
+      type =
+        with types;
+        let
+          scalar = oneOf [
+            bool
+            int
+            str
+          ];
+        in
+        attrsOf (either scalar (attrsOf scalar));
       default = { };
       description = "Config for {command}`taskell`.";
-      example = { layout.statusbar = true; };
+      example = {
+        layout.statusbar = true;
+      };
     };
 
     template = mkOption {
@@ -66,10 +104,17 @@ in {
     };
 
     theme = mkOption {
-      type = with types; let t = attrsOf (either str t); in t;
+      type =
+        with types;
+        let
+          t = attrsOf (either str t);
+        in
+        t;
       default = { };
       description = "Theme for {command}`taskell`.";
-      example = { other.statusBar.fg = "default"; };
+      example = {
+        other.statusBar.fg = "default";
+      };
     };
 
   };
@@ -86,17 +131,14 @@ in {
         text = concatLines (mapAttrsToList (k: v: "${k} = ${v}") cfg.bindings);
       };
 
-      "taskell/config.ini" =
-        mkIf (cfg.config != { }) { text = toIni cfg.config; };
+      "taskell/config.ini" = mkIf (cfg.config != { }) { text = toIni cfg.config; };
 
-      "taskell/template.md" =
-        mkIf (cfg.template != null) { text = cfg.template; };
+      "taskell/template.md" = mkIf (cfg.template != null) { text = cfg.template; };
 
       # `theme.ini` is nested three levels deep which `generators.toINI` can not
       # handle. Hence, the third level needs to be flattened (see
       # `flattenAttrs`).
-      "taskell/theme.ini" =
-        mkIf (cfg.theme != { }) { text = toIni (flatten3rdLevel cfg.theme); };
+      "taskell/theme.ini" = mkIf (cfg.theme != { }) { text = toIni (flatten3rdLevel cfg.theme); };
     };
 
   };

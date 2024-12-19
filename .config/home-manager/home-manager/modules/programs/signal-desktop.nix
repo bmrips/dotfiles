@@ -4,6 +4,15 @@ let
   inherit (lib) mkIf mkEnableOption mkOption mkPackageOption types;
   cfg = config.programs.signal-desktop;
 
+  signal-desktop-in-system-tray =
+    pkgs.runCommandLocal "signal-desktop.desktop" { } ''
+      substitute \
+        ${cfg.package}/share/applications/signal-desktop.desktop $out \
+        --replace-fail \
+        'Exec=signal-desktop --no-sandbox %U' \
+        'Exec=signal-desktop --no-sandbox %U --use-tray-icon --start-in-tray'
+    '';
+
 in {
 
   options.programs.signal-desktop = {
@@ -18,16 +27,8 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.autostart.signal = mkIf cfg.autostart {
-      categories = [ "Network" "InstantMessaging" "Chat" ];
-      comment = "Private messaging from your desktop";
-      desktopName = "Signal";
-      exec = "signal-desktop --no-sandbox %U --use-tray-icon --start-in-tray";
-      icon = "signal-desktop";
-      mimeTypes = [ "x-scheme-handler/sgnl" "x-scheme-handler/signalcaptcha" ];
-      startupWMClass = "signal";
-      terminal = false;
-    };
+    xdg.autostart.signal =
+      mkIf cfg.autostart "${signal-desktop-in-system-tray}";
   };
 
 }

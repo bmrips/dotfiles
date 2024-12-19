@@ -7,6 +7,7 @@
   ./programs/grep.nix
   ./programs/keepassxc.nix
   ./programs/keepassxc.nix
+  ./programs/kmail.nix
   ./programs/konsole.nix
   ./programs/kubectl.nix
   ./programs/less.nix

@@ -86,6 +86,7 @@ in
     ./programs/goto.nix
     ./programs/grep.nix
     ./programs/keepassxc.nix
+    ./programs/kmail.nix
     ./programs/konsole.nix
     ./programs/lazygit.nix
     ./programs/less.nix

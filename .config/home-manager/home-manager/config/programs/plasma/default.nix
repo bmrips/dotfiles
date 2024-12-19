@@ -455,14 +455,6 @@ mkMerge [
 
       window-rules = [
         {
-          description = "KMail Composer";
-          match = {
-            title.value = "Composer — KMail";
-            window-class.value = "kmail org.kde.kmail2";
-          };
-          apply.size.value = "660,770";
-        }
-        {
           description = "Pinentry";
           match.window-class = {
             type = "regex";
@@ -589,8 +581,6 @@ mkMerge [
       ++ optionals config.profiles.gui.extra.enable [
         akregator
         kgpg
-        kleopatra # for KMail
-        kmail
         skanpage
       ];
 
@@ -611,6 +601,7 @@ mkMerge [
     };
 
     programs.dolphin.enable = true;
+    programs.kmail.enable = true;
     programs.konsole.enable = true;
     programs.okular.enable = true;
 

@@ -553,7 +553,7 @@ mkMerge [
       };
 
       configFile.kwinrc = {
-        ElectricBorders.TopLeft = "None";
+        Effect-overview.BorderActivate = 9; # no action for the top left corner
         MouseBindings.CommandActiveTitlebar2 = "Close";
         MouseBindings.CommandAllKey = "Meta";
         MouseBindings.CommandInactiveTitlebar2 = "Close";

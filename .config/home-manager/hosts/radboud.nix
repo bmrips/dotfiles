@@ -61,6 +61,11 @@ in
       device = uuid "12CE-A600";
       fsType = "vfat";
     };
+    "/mnt/windows" = {
+      device = uuid "CAE4531BE45308D9";
+      fsType = "ntfs-3g";
+      options = [ "noauto" ];
+    };
   };
 
   hardware.bluetooth = {
@@ -75,6 +80,11 @@ in
     "intel"
     "nvidia"
   ];
+
+  services.bt-dualboot = {
+    enable = true;
+    mountPoint = "/mnt/windows";
+  };
 
   services.btrfs.autoScrub = {
     enable = true;

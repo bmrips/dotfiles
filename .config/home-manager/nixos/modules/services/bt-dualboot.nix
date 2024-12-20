@@ -47,7 +47,8 @@ in
       wantedBy = [ "multi-user.target" ];
       serviceConfig = {
         Type = "oneshot";
-        ExecStart = "${pkgs.bt-dualboot}/bin/bt-dualboot --win ${cfg.mountPoint} --no-backup --sync-all";
+        RemainAfterExit = true;
+        ExecStop = "${pkgs.bt-dualboot}/bin/bt-dualboot --win ${cfg.mountPoint} --no-backup --sync-all";
       };
     };
 

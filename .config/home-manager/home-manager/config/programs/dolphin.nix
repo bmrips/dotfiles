@@ -141,7 +141,7 @@ mkMerge [
         SidePadding = 0;
       };
       General = {
-        GlobalViewProps = false;
+        GlobalViewProps = true;
         OpenExternallyCalledFolderInNewTab = false;
         RememberOpenedTabs = false;
         ShowSelectionToggle = false;

@@ -98,7 +98,10 @@ in
   programs.nitrile.enable = true;
 
   home-manager.users.${user} = {
-    home.packages = with pkgs; [ zoom-us ];
+    home.packages = with pkgs; [
+      eduvpn-client
+      zoom-us
+    ];
 
     profiles.gui.extra.enable = true;
 

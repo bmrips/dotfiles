@@ -122,6 +122,7 @@
 
   programs.plasma.configFile = lib.mkIf config.programs.okular.enable {
     okularrc = {
+      MainWindow.MenuBar = "Disabled";
       "Notification Messages".presentationInfo = false;
       "Shortcut Schemes"."Current Scheme" = "Custom";
     };

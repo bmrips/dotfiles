@@ -55,7 +55,6 @@ lib.mkIf config.programs.git.enable {
       advice.statusHints = false;
       core.whitespace = "tabwidth=4";
       commit.template = "${./commit_message_template}";
-      credential.helper = "osxkeychain";
       diff.algorithm = "histogram";
       diff.colorMoved = "default";
       diff.renames = "copy";

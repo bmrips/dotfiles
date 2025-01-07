@@ -71,6 +71,7 @@
    - For "Simple Translate":
      - Enable the DeepL API,
      - set German as primary and English as secondary language.
+   - Enable auto-sorting of bookmarks.
 
 ## macOS specific customization
 

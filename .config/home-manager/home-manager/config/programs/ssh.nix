@@ -9,6 +9,8 @@
       aur.user = "aur";
       github.host = "github.com";
       github.user = "git";
+      gitlab.host = "gitlab.com";
+      gitlab.user = "git";
     };
   };
 }

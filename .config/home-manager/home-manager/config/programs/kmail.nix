@@ -57,7 +57,7 @@ mkMerge [
       go_next_message = "J";
       go_next_unread_message = "Shift+J";
       go_prev_message = "K";
-      go_prev_unread_message = "Shfit+K";
+      go_prev_unread_message = "Shift+K";
       go_next_unread_text = "Space";
       select_first_message = [
         "G"

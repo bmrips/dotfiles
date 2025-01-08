@@ -103,6 +103,8 @@ mkMerge [
       file_print_preview = "Ctrl+Shift+P";
       file_save_as = "Ctrl+S";
 
+      send_default = "Ctrl+Return";
+
       jump_to_folder = "T";
       move_message_to_folder = "M";
       previous_folder = "Ctrl+Tab";

@@ -134,6 +134,7 @@ mkMerge [
             "attached"
             "attachment"
           ];
+          confirm-before-send-when-use-shortcut = true;
           crypto-auto-encrypt = true;
           crypto-warning-unsigned = true;
         };

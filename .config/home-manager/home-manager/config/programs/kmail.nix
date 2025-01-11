@@ -149,6 +149,7 @@ mkMerge [
         Reader.AlwaysDecrypt = true;
         Security.CheckPhishingUrl = true;
         "Shortcut Schemes"."Current Scheme" = "Custom";
+        UndoSend.EnabledUndoSend = true;
       };
 
       akonadi_newmailnotifier_agentrc.General = {

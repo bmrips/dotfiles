@@ -165,11 +165,6 @@ in
     profiles.gui.extra.enable = true;
     profiles.uni-muenster.enable = true;
 
-    # The device's name.
-    programs.firefox.profiles.default.settings = {
-      "identity.fxaccounts.account.device.name" = host;
-    };
-
     programs.plasma.input.touchpads = [
       {
         name = "DLL075B:01 06CB:76AF Touchpad";

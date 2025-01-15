@@ -1,6 +1,5 @@
 {
   config,
-  host,
   lib,
   modulesPath,
   user,
@@ -96,11 +95,6 @@ in
 
   home-manager.users.${user} = {
     profiles.radboud.enable = true;
-
-    # The device's name.
-    programs.firefox.profiles.default.settings = {
-      "identity.fxaccounts.account.device.name" = host;
-    };
 
     programs.plasma.input.touchpads = [
       {

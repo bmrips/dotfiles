@@ -29,7 +29,7 @@ in
       programs.keepassxc.enable = true;
     }
 
-    (mkIf config.profiles.gui.enable {
+    (mkIf cfg.extra.enable {
       home.packages =
         with pkgs;
         [

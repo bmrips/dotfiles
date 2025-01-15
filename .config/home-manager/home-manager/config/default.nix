@@ -70,6 +70,7 @@ in
     ./profiles/gui.nix
     ./profiles/linux.nix
     ./profiles/macos.nix
+    ./profiles/radboud.nix
     ./profiles/standalone.nix
     ./profiles/uni-muenster.nix
     ./programs/bash.nix

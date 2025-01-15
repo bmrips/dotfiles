@@ -3,16 +3,13 @@
   host,
   lib,
   modulesPath,
-  pkgs,
   user,
   ...
 }:
 
 let
-  inherit (lib) mkForce uuid;
-
   btrfsSubvolume = subvolume: {
-    device = uuid "4c9faf53-86ad-411e-a6a9-adc39994aac4";
+    device = lib.uuid "4c9faf53-86ad-411e-a6a9-adc39994aac4";
     fsType = "btrfs";
     options = [
       "autodefrag"
@@ -58,11 +55,11 @@ in
     "/" = btrfsSubvolume "nixos";
     "/home" = btrfsSubvolume "home";
     "${config.boot.loader.efi.efiSysMountPoint}" = {
-      device = uuid "12CE-A600";
+      device = lib.uuid "12CE-A600";
       fsType = "vfat";
     };
     "/mnt/windows" = {
-      device = uuid "CAE4531BE45308D9";
+      device = lib.uuid "CAE4531BE45308D9";
       fsType = "ntfs-3g";
       options = [ "noauto" ];
     };
@@ -98,19 +95,11 @@ in
   programs.nitrile.enable = true;
 
   home-manager.users.${user} = {
-    home.packages = with pkgs; [
-      eduvpn-client
-      zoom-us
-    ];
-
-    development.c.enable = true;
-
-    profiles.gui.extra.enable = true;
+    profiles.radboud.enable = true;
 
     # The device's name.
     programs.firefox.profiles.default.settings = {
       "identity.fxaccounts.account.device.name" = host;
-      "browser.toolbars.bookmarks.visibility" = mkForce "always";
     };
 
     programs.plasma.input.touchpads = [
@@ -128,8 +117,6 @@ in
         twoFingerTap = "rightClick";
       }
     ];
-
-    programs.slack.enable = true;
 
     # This value determines the Home Manager release that your configuration is
     # compatible with. This helps avoid breakage when a new Home Manager release

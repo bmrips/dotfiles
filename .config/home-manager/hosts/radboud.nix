@@ -100,10 +100,10 @@ in
   home-manager.users.${user} = {
     home.packages = with pkgs; [
       eduvpn-client
-      man-pages
-      man-pages-posix
       zoom-us
     ];
+
+    development.c.enable = true;
 
     profiles.gui.extra.enable = true;
 

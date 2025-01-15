@@ -60,6 +60,7 @@ in
   imports = [
     ./ci/pre-commit.nix
     ./development/bash.nix
+    ./development/c.nix
     ./development/container.nix
     ./development/kubernetes.nix
     ./development/lua.nix

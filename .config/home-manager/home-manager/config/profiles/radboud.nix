@@ -27,5 +27,7 @@ in
     };
 
     programs.slack.enable = true;
+
+    services.davmail.enable = pkgs.stdenv.isLinux;
   };
 }

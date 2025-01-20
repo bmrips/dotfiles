@@ -109,6 +109,7 @@ in
     ./programs/yazi.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
+    ./services/davmail.nix
     ./remove-leaked-path-entries.nix
   ];
 

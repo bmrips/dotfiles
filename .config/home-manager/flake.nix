@@ -11,6 +11,10 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs_23_05.url = "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nur = {
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -33,6 +37,7 @@
       nixos-hardware,
       nixpkgs,
       nixpkgs_23_05,
+      nix-index-database,
       nur,
       plasma-manager,
       programs-db,
@@ -63,6 +68,7 @@
           };
           modules = [
             ./nixos
+            nix-index-database.nixosModules.nix-index
             nur.modules.nixos.default
             home-manager.nixosModules.home-manager
             {

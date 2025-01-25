@@ -189,6 +189,7 @@ in
 
   nix.settings = {
     experimental-features = "flakes nix-command";
+    max-jobs = "auto";
     use-xdg-base-directories = true;
   };
 

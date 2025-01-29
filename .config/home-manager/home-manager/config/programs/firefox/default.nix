@@ -27,10 +27,7 @@ mkIf config.programs.firefox.enable {
 
   programs.firefox = {
 
-    policies = {
-      PrimaryPassword = true;
-      SearchBar = "unified";
-    };
+    policies.SearchBar = "unified";
 
     profiles.default = {
 
@@ -40,6 +37,9 @@ mkIf config.programs.firefox.enable {
 
         # Restore the last session.
         "browser.startup.page" = 3;
+
+        # Disable the builtin password manager.
+        "signon.rememberSignons" = false;
 
         # Disable accessibility.
         "accessibility.force_disabled" = true;

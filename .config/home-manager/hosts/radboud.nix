@@ -106,6 +106,7 @@ in
         pointerSpeed = 0.0;
         rightClickMethod = "twoFingers";
         scrollMethod = "twoFingers";
+        scrollSpeed = 1.0;
         tapAndDrag = true;
         tapToClick = true;
         twoFingerTap = "rightClick";

@@ -31,7 +31,9 @@ in
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
     programs.firefox.nativeMessagingHosts = [ cfg.package ];
-    xdg.autostart.keepassxc = mkIf cfg.autostart "${cfg.package}/share/applications/org.keepassxc.KeePassXC.desktop";
+    xdg.autostart.entries = mkIf cfg.autostart [
+      "${cfg.package}/share/applications/org.keepassxc.KeePassXC.desktop"
+    ];
   };
 
 }

@@ -30,7 +30,9 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.autostart.slack = mkIf cfg.autostart "${cfg.package}/share/applications/slack.desktop";
+    xdg.autostart.entries = mkIf cfg.autostart [
+      "${cfg.package}/share/applications/slack.desktop"
+    ];
   };
 
 }

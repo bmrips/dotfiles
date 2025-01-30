@@ -110,6 +110,13 @@ mkMerge [
       krunner = {
         historyBehavior = "enableSuggestions";
         position = "center";
+        shortcuts = {
+          launch = [
+            "Search"
+            "Meta+Space"
+          ];
+          runCommandOnClipboard = "Meta+Ctrl+Space";
+        };
       };
 
       kscreenlocker = {
@@ -412,13 +419,6 @@ mkMerge [
         "services/org.kde.kmail2.desktop" = {
           _launch = "Launch Mail";
           Composer = "Shift+Launch Mail";
-        };
-        "services/org.kde.krunner.desktop" = {
-          _launch = [
-            "Search"
-            "Meta+Space"
-          ];
-          RunClipboard = "Meta+Ctrl+Space";
         };
         "services/org.kde.plasma.emojier.desktop"."_launch" = "Meta+.";
         "services/org.keepassxc.KeePassXC.desktop"."_launch" = "Meta+;";

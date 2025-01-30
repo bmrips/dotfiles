@@ -19,8 +19,8 @@ let
     substitute \
       ${cfg.package}/share/applications/signal-desktop.desktop $out \
       --replace-fail \
-      'Exec=signal-desktop --no-sandbox %U' \
-      'Exec=signal-desktop --no-sandbox %U --use-tray-icon --start-in-tray'
+      'Exec=signal-desktop %U' \
+      'Exec=signal-desktop %U --use-tray-icon --start-in-tray'
   '';
 
 in
@@ -38,7 +38,9 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.autostart.signal = mkIf cfg.autostart "${signal-desktop-in-system-tray}";
+    xdg.autostart.entries = mkIf cfg.autostart [
+      "${signal-desktop-in-system-tray}"
+    ];
   };
 
 }

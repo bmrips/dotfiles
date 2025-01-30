@@ -27,6 +27,7 @@ in
     {
       programs.firefox.enable = true;
       programs.keepassxc.enable = true;
+      xdg.autostart.enable = true;
     }
 
     (mkIf cfg.extra.enable {

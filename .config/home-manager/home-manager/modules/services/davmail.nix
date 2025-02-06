@@ -23,16 +23,16 @@ let
 
   cfg = config.services.davmail;
 
-  configType =
+  settingsType =
     with types;
     oneOf [
-      (attrsOf configType)
+      (attrsOf settingsType)
       str
       int
       bool
     ]
     // {
-      description = "davmail config type (str, int, bool or attribute set thereof)";
+      description = "DavMail settings type (str, int, bool or attribute set thereof)";
     };
 
   toStr = val: if isBool val then boolToString val else toString val;
@@ -50,7 +50,9 @@ let
         [ "${name}=${toStr value}" ]
     ) (attrNames attrs);
 
-  configFile = pkgs.writeText "davmail.properties" (concatStringsSep "\n" (linesForAttrs cfg.config));
+  settingsFile = pkgs.writeText "davmail.properties" (
+    concatStringsSep "\n" (linesForAttrs cfg.settings)
+  );
 
 in
 
@@ -58,8 +60,8 @@ in
   options.services.davmail = {
     enable = mkEnableOption "DavMail, an MS Exchange gateway";
 
-    config = mkOption {
-      type = configType;
+    settings = mkOption {
+      type = settingsType;
       default = { };
       description = ''
         Davmail configuration. Refer to
@@ -82,7 +84,7 @@ in
 
   config = mkIf cfg.enable {
 
-    services.davmail.config = mapAttrsRecursive (_: mkDefault) {
+    services.davmail.settings = mapAttrsRecursive (_: mkDefault) {
       davmail = {
         server = true;
         disableUpdateCheck = true;
@@ -115,7 +117,7 @@ in
       Install.WantedBy = [ "graphical-session.target" ];
       Service = {
         Type = "simple";
-        ExecStart = "${pkgs.davmail}/bin/davmail ${configFile}";
+        ExecStart = "${pkgs.davmail}/bin/davmail ${settingsFile}";
         Restart = "on-failure";
 
         CapabilityBoundingSet = [ "" ];

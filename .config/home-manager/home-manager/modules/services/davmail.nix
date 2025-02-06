@@ -18,6 +18,7 @@ let
     mkEnableOption
     mkIf
     mkOption
+    optionalAttrs
     types
     ;
 
@@ -57,8 +58,17 @@ let
 in
 
 {
+
   options.services.davmail = {
+
     enable = mkEnableOption "DavMail, an MS Exchange gateway";
+
+    imitateOutlook = mkOption {
+      type = types.bool;
+      default = false;
+      description = "Whether DavMail pretends to be Outlook.";
+      example = true;
+    };
 
     settings = mkOption {
       type = settingsType;
@@ -80,24 +90,30 @@ in
         log4j.logger.rootLogger = "DEBUG";
       };
     };
+
   };
 
   config = mkIf cfg.enable {
 
     services.davmail.settings = mapAttrsRecursive (_: mkDefault) {
-      davmail = {
-        server = true;
-        disableUpdateCheck = true;
-        logFilePath = "${config.xdg.stateHome}/log/davmail.log";
-        logFileSize = "1MB";
-        mode = "auto";
-        url = "https://outlook.office365.com/EWS/Exchange.asmx";
-        caldavPort = 1080;
-        imapPort = 1143;
-        ldapPort = 1389;
-        popPort = 1110;
-        smtpPort = 1025;
-      };
+      davmail =
+        {
+          server = true;
+          disableUpdateCheck = true;
+          logFilePath = "${config.xdg.stateHome}/log/davmail.log";
+          logFileSize = "1MB";
+          mode = "auto";
+          url = "https://outlook.office365.com/EWS/Exchange.asmx";
+          caldavPort = 1080;
+          imapPort = 1143;
+          ldapPort = 1389;
+          popPort = 1110;
+          smtpPort = 1025;
+        }
+        // optionalAttrs cfg.imitateOutlook {
+          oauth.clientId = "d3590ed6-52b3-4102-aeff-aad2292ab01c";
+          oauth.redirectUri = "urn:ietf:wg:oauth:2.0:oob";
+        };
       log4j = {
         logger.davmail = "WARN";
         logger.httpclient.wire = "WARN";
@@ -151,5 +167,7 @@ in
     };
 
     home.packages = [ pkgs.davmail ];
+
   };
+
 }

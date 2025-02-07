@@ -26,18 +26,14 @@
 
 1. Enable `auto-optimise-store` and `use-xdg-base-directories` (potentially in `/etc/nix/nix.conf`).
 
-1. Enter a nix-shell with git and openssh: `nix-shell -p git openssh`.
-
-1. Generate an SSH key.
-
-1. Register it in GitHub.
-
 1. Clone the repository:
 
    ```bash
-   git clone git@github.com:f1rstlady/user-config.git --bare
+   git clone https://github.com/f1rstlady/user-config --bare
    mv user-config.git .git
    ```
+
+1. Set the repo's url to `git@github.com:f1rstlady/user-config.git` to communicate through SSH in the future.
 
 1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
 
@@ -45,13 +41,9 @@
 
 1. Check for any tracked files that would be overwritten by the repo: `git status`. If no file were overwritten, reset the working directory: `git reset --hard`.
 
-1. Install home-manager:
+1. Reuse an existing host configuration or create a new one.
 
-   ```bash
-   nix-channel --add https://github.com/nix-community/home-manager/archive/master.tar.gz home-manager
-   nix-channel --update
-   nix-shell '<home-manager>' -A install
-   ```
+1. Install home-manager: `nix run home-manager/master -- switch`.
 
 1. Install pre-commit hooks into this repo: `pre-commit install -f`.
 
@@ -74,7 +66,8 @@
      - enable tree-style tab integration,
      - disable auto-save,
      - do not track newly opened windows,
-     - sync my sessions.
+     - sync my sessions,
+     - set the save button behaviour to only save the current window.
 
 ## macOS specific customization
 

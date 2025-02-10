@@ -5,6 +5,7 @@ local servers = {
     },
     filetypes = { 'bash', 'sh' },
   },
+  dartls = {},
   hls = {
     settings = {
       haskell = {

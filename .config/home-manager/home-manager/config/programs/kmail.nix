@@ -137,16 +137,21 @@ mkMerge [
           confirm-before-send-when-use-shortcut = true;
           crypto-auto-encrypt = true;
           crypto-warning-unsigned = true;
+          dash-dash-signature = false;
         };
         FavoriteCollectionView.FavoriteCollectionViewMode = "HiddenMode";
         General = {
-          AskEnableUnifiedMailboxes = false;
           ComposerShowMenuBar = false;
           ShowMenuBar = false;
           startSpecificFolderAtStatup = false;
         };
         Geometry.readerWindowMode = "right";
-        Reader.AlwaysDecrypt = true;
+        "Notification Messages".maildispatcher_put_online = true;
+        Reader = {
+          AlwaysDecrypt = true;
+          htmlLoadExternal = true;
+          htmlMail = true;
+        };
         Security.CheckPhishingUrl = true;
         "Shortcut Schemes"."Current Scheme" = "Custom";
         UndoSend.EnabledUndoSend = true;

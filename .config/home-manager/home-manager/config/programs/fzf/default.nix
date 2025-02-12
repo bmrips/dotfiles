@@ -55,10 +55,10 @@ let
   useFdForPathListings = ''
     # Path and directory completion, e.g. for `cd .config/**`
     _fzf_compgen_path() {
-        ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" . "$1"
+        ${config.programs.fd.package}/bin/fd --hidden --exclude=".git" . "$1"
     }
     _fzf_compgen_dir() {
-        ${config.programs.fd.package}/bin/fd --follow --hidden --exclude=".git" --type=directory . "$1"
+        ${config.programs.fd.package}/bin/fd --hidden --exclude=".git" --type=directory . "$1"
     }
   '';
 
@@ -94,7 +94,6 @@ mkIf cfg.enable {
     defaultCommand =
       let
         args = gnuCommandLine {
-          follow = true;
           hidden = true;
           type = "file";
         };

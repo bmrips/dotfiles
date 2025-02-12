@@ -25,10 +25,10 @@ get-source)
 
     case $2 in
     files)
-        eval fd $hidden $ignored --follow --type=file 2>/dev/null
+        eval fd $hidden $ignored --type=file 2>/dev/null
         ;;
     directories)
-        eval fd $hidden $ignored --follow --type=directory 2>/dev/null
+        eval fd $hidden $ignored --type=directory 2>/dev/null
         ;;
     grep)
         eval rg --line-number --no-heading --color=always $hidden $ignored "\"$3\"" 2>/dev/null

@@ -508,6 +508,7 @@ return {
     { ';',
       ':',
       desc = 'Command mode',
+      mode = { "n", "o", "x" },
     },
     { ',', {
       { ',',

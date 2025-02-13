@@ -15,13 +15,17 @@ let
     ;
   cfg = config.programs.signal-desktop;
 
-  signal-desktop-in-system-tray = pkgs.runCommandLocal "signal-desktop.desktop" { } ''
-    substitute \
-      ${cfg.package}/share/applications/signal-desktop.desktop $out \
-      --replace-fail \
-      'Exec=signal-desktop %U' \
-      'Exec=signal-desktop %U --use-tray-icon --start-in-tray'
-  '';
+  signal-desktop-in-system-tray =
+    let
+      desktopFile = "signal-desktop.desktop";
+    in
+    pkgs.runCommandLocal desktopFile { } ''
+      substitute \
+        ${cfg.package}/share/applications/${desktopFile} $out \
+        --replace-fail \
+        'Exec=signal-desktop %U' \
+        'Exec=signal-desktop %U --use-tray-icon --start-in-tray'
+    '';
 
 in
 {

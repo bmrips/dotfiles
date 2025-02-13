@@ -47,7 +47,9 @@
 
 1. Install pre-commit hooks into this repo: `pre-commit install -f`.
 
-1. Start KeepassXC and import my GPG key from the private database.
+1. Store the KeePassXC database password in the secret manager: `nix run nixpkgs#libsecret -- store --label="Password for the KeePassXC database" keepassxc password`
+
+1. Start KeePassXC and import my GPG key from the private database.
 
 1. Configure Firefox:
 
@@ -57,7 +59,7 @@
    - Dark Reader:
      - follow the system's theme, and
      - enable per-website dark theme detection.
-   - KeepassXC: connect to the database.
+   - KeePassXC: connect to the database.
    - Simple Translate:
      - Enable the DeepL API, and
      - set German as primary and English as secondary language.

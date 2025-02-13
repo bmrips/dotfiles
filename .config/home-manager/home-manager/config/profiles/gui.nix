@@ -34,9 +34,7 @@ in
       home.packages =
         with pkgs;
         [
-          discord
           logseq
-          prismlauncher
           spotify
           ungoogled-chromium
         ]

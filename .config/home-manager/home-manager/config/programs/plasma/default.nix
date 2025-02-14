@@ -446,6 +446,86 @@ mkMerge [
           VideoSave.videoFilenameTemplate = filenameTemplate;
         };
 
+      webSearchKeywords = {
+        default = "google";
+        preferred = [
+          "deepl"
+          "google"
+          "google_maps"
+          "homemanager"
+          "linguee"
+          "nixpkgs"
+          "nixosopts"
+          "reddit"
+        ];
+        extra = {
+          cloogle = {
+            name = "Cloogle";
+            keys = [ "cloogle" ];
+            query = ''https://cloogle.org/#\{@}'';
+          };
+          ctan = {
+            name = "CTAN";
+            keys = [ "ctan" ];
+            query = ''https://ctan.org/search?phrase=\{@}'';
+          };
+          deepl = {
+            name = "DeepL";
+            keys = [ "deepl" ];
+            query = ''https://www.deepl.com/translator#\{from,"any"}/\{to,"de"}/\{@}'';
+          };
+          homemanager = {
+            name = "Home Manager";
+            keys = [
+              "hm"
+              "home-manager"
+            ];
+            query = ''https://home-manager-options.extranix.com/?release=\{release,"master"}&query=\{@}'';
+          };
+          hoogle = {
+            name = "Hoogle";
+            keys = [
+              "h"
+              "hoogle"
+            ];
+            query = ''https://hoogle.haskell.org/?hoogle=\{@}'';
+          };
+          nixpkgs = {
+            name = "Nix Packages";
+            keys = [
+              "np"
+              "nixpkgs"
+            ];
+            query = ''https://search.nixos.org/packages?channel=\{channel,"unstable"}&query=\{@}'';
+          };
+          nixosopts = {
+            name = "NixOS Options";
+            keys = [
+              "no"
+              "nixosopts"
+            ];
+            query = ''https://search.nixos.org/options?channel=\{channel,"unstable"}&query=\{@}'';
+          };
+          nixoswiki = {
+            name = "NixOS Wiki";
+            keys = [
+              "nw"
+              "nixoswiki"
+            ];
+            query = ''https://nixos.wiki/index.php?search=\{@}'';
+          };
+          noogle = {
+            name = "Noogle";
+            keys = [ "noogle" ];
+            query = ''https://noogle.dev/q?term=\{@}'';
+          };
+          texdoc = {
+            keys = [ "texdoc" ];
+            query = ''https://texdoc.org/serve/\{@}/0'';
+          };
+        };
+      };
+
       window-rules = [
         {
           description = "Pinentry";

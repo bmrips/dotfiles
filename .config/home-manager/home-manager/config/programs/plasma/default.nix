@@ -39,13 +39,6 @@ mkMerge [
   {
     programs.plasma = {
 
-      desktop.icons.lockInPlace = true;
-      # In: "plasma-org.kde.plasma.desktop-appletsrc"
-      # [ActionPlugins][0][RightButton;NoModifier]
-      # _display_settings=false
-      # configure=false
-      # _sep1=false
-
       fonts.fixedWidth = {
         family = "JetBrainsMono Nerd Font";
         pointSize = 10;

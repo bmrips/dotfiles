@@ -64,11 +64,8 @@ in
     };
   };
 
-  hardware.bluetooth = {
-    enable = true;
-    settings.General.Experimental = true; # show battery charge of devices
-  };
 
+  hardware.bluetooth.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
 
   hardware.nvidia.open = true;

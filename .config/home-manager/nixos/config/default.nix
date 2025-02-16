@@ -25,6 +25,7 @@ in
 {
   imports = [
     ./boot/plymouth.nix
+    ./dualboot.nix
     ./hardware/bluetooth.nix
     ./hardware/devices/microsoft_ergonomic_keyboard.nix
     ./hardware/devices/lacie_drive.nix

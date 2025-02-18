@@ -20,7 +20,6 @@ in
     home.packages = with pkgs; [
       eduvpn-client
       kdePackages.merkuro
-      zoom-us
     ];
 
     programs.firefox.profiles.default.settings = {

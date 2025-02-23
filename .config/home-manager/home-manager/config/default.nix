@@ -92,6 +92,7 @@ in
     ./programs/konsole.nix
     ./programs/lazygit.nix
     ./programs/less.nix
+    ./programs/merkuro.nix
     ./programs/mkcd.nix
     ./programs/neovim.nix
     ./programs/okular.nix

@@ -11,6 +11,7 @@
   ./programs/konsole.nix
   ./programs/kubectl.nix
   ./programs/less.nix
+  ./programs/merkuro.nix
   ./programs/okular.nix
   ./programs/plasma.nix
   ./programs/shellcheck.nix

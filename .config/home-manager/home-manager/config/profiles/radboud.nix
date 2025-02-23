@@ -17,15 +17,13 @@ in
 
     profiles.gui.extra.enable = true;
 
-    home.packages = with pkgs; [
-      eduvpn-client
-      kdePackages.merkuro
-    ];
+    home.packages = with pkgs; [ eduvpn-client ];
 
     programs.firefox.profiles.default.settings = {
       "browser.toolbars.bookmarks.visibility" = mkForce "always";
     };
 
+    programs.merkuro.enable = true;
     programs.slack.enable = true;
 
     services.davmail.enable = pkgs.stdenv.isLinux;

@@ -177,14 +177,21 @@ in
         PreferredWebShortcuts = concatStringsSep "," preferred;
         UsePreferredWebShortcutsOnly = usePreferredOnly;
       };
-      assertions = [
-        {
-          assertion = all (kw: builtins.length kw.keys >= 1) (attrValues extra);
-          message = ''
-            For extra web search keywords, at least one trigger key has to be defined.
-          '';
-        }
-      ];
+      assertions = mapAttrsToList (attr: keyword: {
+        assertion = builtins.length keyword.keys >= 1;
+        message = ''
+          No trigger keys are defined for the '${keyword.name}' Plasma web search keyword.
+          Set it through '${
+            showAttrPath [
+              "programs"
+              "plasma"
+              "webSearchKeyword"
+              attr
+              "keys"
+            ]
+          }'.
+        '';
+      }) extra;
       xdg.dataFile = mapAttrs' (id: keyword: {
         name = "kf6/searchproviders/${id}.desktop";
         value.text = mkWebSearchKeywordConfigFile keyword;

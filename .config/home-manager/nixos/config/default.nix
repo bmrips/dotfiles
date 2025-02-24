@@ -1,7 +1,5 @@
 {
   host,
-  inputs,
-  lib,
   pkgs,
   user,
   ...
@@ -162,22 +160,6 @@ in
   services.xserver.xkb = {
     layout = "us,de";
     options = "grp:shifts_toggle,eurosign:e,ctrl:swapcaps,altwin:swap_alt_win";
-  };
-
-  system.autoUpgrade = {
-    enable = true;
-    flake = inputs.self.outPath;
-    flags =
-      [
-        "--print-build-logs"
-        "--commit-lock-file"
-      ]
-      ++ builtins.concatMap (i: [
-        "--update-input"
-        i
-      ]) (lib.attrNames (removeAttrs inputs [ "self" ]));
-    dates = "weekly";
-    randomizedDelaySec = "1h";
   };
 
   time.timeZone = "Europe/Berlin";

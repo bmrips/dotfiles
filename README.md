@@ -54,7 +54,7 @@
 1. Configure Firefox:
 
    - Sign in to my account.
-   - Enable pre-installed plugins and give them the optional permissions.
+   - Give each plugin the requested optional permissions.
    - Auto-Sorting Bookmarks: enable.
    - Dark Reader:
      - follow the system's theme, and

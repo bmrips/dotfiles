@@ -381,6 +381,7 @@ mkIf config.programs.firefox.enable {
           };
       };
 
+      settings."extensions.autoDisableScopes" = 0; # automatically enable extensions
       settings."extensions.update.autoUpdateDefault" = false;
       extensions = with pkgs.nur.repos.rycee.firefox-addons; [
         auto-sort-bookmarks

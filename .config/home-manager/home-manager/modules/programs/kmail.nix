@@ -25,9 +25,10 @@ in
   };
 
   config = mkIf cfg.enable {
-    home.packages = [
+    home.packages = with pkgs.kdePackages; [
       cfg.package
-      pkgs.kdePackages.kleopatra
+      kleopatra
+      kmail-account-wizard
     ];
     programs.plasma.shortcutSchemes.kmail2 = cfg.shortcutSchemes;
   };

@@ -60,6 +60,10 @@
      - follow the system's theme, and
      - enable per-website dark theme detection.
    - KeePassXC: connect to the database.
+   - LanguageTool:
+     - sign in with my account,
+     - set German as my mother tongue,
+     - set English and German as my preferred languages.
    - Simple Translate:
      - Enable the DeepL API, and
      - set German as primary and English as secondary language.

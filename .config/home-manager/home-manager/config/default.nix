@@ -1,47 +1,10 @@
 {
   config,
-  pkgs_23_05,
   pkgs,
   ...
 }:
 
 let
-  packageSets = {
-    core = with pkgs; [
-      coreutils-full
-      diffutils
-      dos2unix
-      fd
-      file
-      findutils
-      gnused
-      man-db
-      ncdu
-      nerd-fonts.jetbrains-mono
-      nvd
-      print-colors
-      tokei
-      tree
-    ];
-    extra = with pkgs; [
-      cbfmt
-      difftastic
-      eza
-      gfold
-      git-cliff
-      glow
-      gum
-      ocrmypdf
-      pkgs_23_05.haskellPackages.friendly
-      ripgrep-all
-      rmlint
-      sad
-      sd
-      translate-shell
-      treefmt2
-    ];
-  };
-
   print-colors = pkgs.writeShellApplication {
     name = "print-colors";
     text = ''
@@ -165,7 +128,25 @@ in
       time = german;
     };
 
-  home.packages = with packageSets; core ++ extra;
+  home.packages = with pkgs; [
+    coreutils-full
+    diffutils
+    dos2unix
+    fd
+    file
+    findutils
+    gnused
+    man-db
+    ncdu
+    nerd-fonts.jetbrains-mono
+    nvd
+    print-colors
+    ripgrep-all
+    rmlint
+    sd
+    tokei
+    tree
+  ];
 
   home.sessionVariables.TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
 
@@ -219,6 +200,7 @@ in
   programs.starship.enable = true;
   programs.taskell.enable = true;
   programs.thefuck.enable = true;
+  programs.translate-shell.enable = true;
   programs.yazi.enable = true;
   programs.zoxide.enable = true;
   programs.zsh.enable = true;

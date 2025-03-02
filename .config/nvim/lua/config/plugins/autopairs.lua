@@ -7,6 +7,7 @@ return {
   },
   config = function(_, opts)
     local autopairs = require 'nvim-autopairs'
+    local ts_conds = require 'nvim-autopairs.ts-conds'
     autopairs.setup(opts)
 
     local Rule = require 'nvim-autopairs.rule'
@@ -31,8 +32,9 @@ return {
         :with_pair(function(info)
           local prev_char = info.line:sub(info.col - 2, info.col - 2)
           local rest_of_line = info.line:sub(info.col)
-          return prev_char:match('[%w%s]') ~= nil
+          return prev_char:match('[^=<>!]') ~= nil
             and rest_of_line:match('^%s*$') ~= nil
+            and ts_conds.is_not_ts_node('source')(info) -- comments are labeled 'source'
         end)
         :with_move(function(info)
           return info.char == ';'
@@ -40,7 +42,8 @@ return {
       Rule('with ', ';', 'nix')
         :with_pair(function(info)
           local prev_char = info.line:sub(info.col - 5, info.col - 5)
-          return prev_char:match('[%w_-]') == nil
+          return prev_char:match('[^%w_-]') ~= nil
+            and ts_conds.is_not_ts_node('source')(info) -- comments are labeled 'source'
         end)
         :with_move(function(info)
           return info.char == ';'

@@ -15,7 +15,6 @@ let
       kmod
       ripgrep
     ];
-    excludeShellChecks = [ "SC2059" ];
     text = builtins.readFile ./kmod-params.sh;
   };
 

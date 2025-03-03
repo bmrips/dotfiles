@@ -1,7 +1,7 @@
 final: prev:
 
 {
-  pre-commit = prev.pre-commit.overrideAttrs (
+  pre-commit = prev.pre-commit.overridePythonAttrs (
     prevAttrs:
     with final.python3Packages;
     let

@@ -90,7 +90,7 @@ return {
   },
   dependencies = {
     {
-      'barreiroleo/ltex-extra.nvim',
+      'barreiroleo/ltex_extra.nvim',
       event = 'LspAttach',
     },
     {

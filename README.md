@@ -29,23 +29,18 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/f1rstlady/user-config --bare
-   mv user-config.git .git
+   git clone https://github.com/f1rstlady/user-config ~/.config/home-manager
    ```
 
 1. Set the repo's url to `git@github.com:f1rstlady/user-config.git` to communicate through SSH in the future.
 
 1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
 
-1. Deactivate listing untracked files in `git status` by setting `git config status.showUntrackedFiles no`.
-
-1. Check for any tracked files that would be overwritten by the repo: `git status`. If no file were overwritten, reset the working directory: `git reset --hard`.
-
 1. Reuse an existing host configuration or create a new one.
 
 1. Install home-manager: `nix run home-manager/master -- switch`.
 
-1. Install pre-commit hooks into this repo: `pre-commit install -f`.
+1. Enable automatic development shell activation through direnv: `direnv allow`.
 
 1. Store the KeePassXC database password in the secret manager: `nix run nixpkgs#libsecret -- store --label="Password for the KeePassXC database" keepassxc password`
 

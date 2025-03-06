@@ -80,10 +80,9 @@ repos:
       - id: stylua
         name: format with stylua
         entry: stylua
-        args: [--search-parent-directories]
         language: system
         types: [lua]
-        exclude: '^.config/nvim/lua/config/mappings\.lua$'
+        exclude: '^home-manager/config/programs/neovim/lua/config/mappings\.lua$'
       - id: yamlfmt
         name: format with yamlfmt
         entry: yamlfmt

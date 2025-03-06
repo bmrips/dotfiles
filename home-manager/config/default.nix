@@ -30,6 +30,7 @@ in
     ./development/markdown.nix
     ./development/nix.nix
     ./development/yaml.nix
+    ./files
     ./profiles/gui.nix
     ./profiles/linux.nix
     ./profiles/macos.nix
@@ -57,7 +58,7 @@ in
     ./programs/less.nix
     ./programs/merkuro.nix
     ./programs/mkcd.nix
-    ./programs/neovim.nix
+    ./programs/neovim
     ./programs/okular.nix
     ./programs/plasma
     ./programs/readline.nix

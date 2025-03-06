@@ -1,0 +1,3 @@
+{
+  programs.fd.ignores = [ ".git/" ];
+}

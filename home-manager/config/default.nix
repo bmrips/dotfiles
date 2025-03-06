@@ -43,6 +43,7 @@ in
     ./programs/dircolors.nix
     ./programs/direnv.nix
     ./programs/dolphin.nix
+    ./programs/fd.nix
     ./programs/firefox
     ./programs/fzf
     ./programs/fzf-tab-completion.nix
@@ -133,7 +134,6 @@ in
     coreutils-full
     diffutils
     dos2unix
-    fd
     file
     findutils
     gnused
@@ -181,6 +181,7 @@ in
   programs.command-not-found.enable = true;
   programs.dircolors.enable = true;
   programs.direnv.enable = true;
+  programs.fd.enable = true;
   programs.fzf.enable = true;
   programs.fzf-tab-completion.enable = true;
   programs.lazygit.enable = true;

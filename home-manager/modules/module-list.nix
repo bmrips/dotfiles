@@ -1,4 +1,5 @@
 [
+  ./files.nix
   ./home.nix
   ./programs/dolphin.nix
   ./programs/fzf-tab-completion.nix

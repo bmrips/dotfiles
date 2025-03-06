@@ -6,8 +6,6 @@
 }:
 
 let
-  inherit (config.lib.file) mkOutOfStoreSymlink;
-
   nvim-prune-undodir = pkgs.writeShellApplication {
     name = "nvim-prune-undodir";
     runtimeInputs = with pkgs; [ coreutils ];
@@ -40,7 +38,7 @@ lib.mkMerge [
       tree-sitter
       wl-clipboard
     ];
-    xdg.configFile.nvim.source = mkOutOfStoreSymlink "${config.xdg.configHome}/home-manager/home-manager/config/programs/neovim";
+    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink' ./.;
     home.shellAliases = {
       v = "nvim";
       vi = "nvim";

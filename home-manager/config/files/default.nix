@@ -1,18 +1,16 @@
 { config, ... }:
 
 let
-  link =
-    file:
-    config.lib.file.mkOutOfStoreSymlink "${config.xdg.configHome}/home-manager/home-manager/config/files/${file}";
+  inherit (config.lib.file) mkOutOfStoreSymlink';
 
 in
 {
-  home.file.".haskeline".source = link "haskeline";
+  home.file.".haskeline".source = mkOutOfStoreSymlink' ./haskeline;
   xdg.configFile = {
-    "fontconfig/fonts.conf".source = link "fonts.conf";
-    "ghc/ghci.conf".source = link "ghci.conf";
-    "ideavim/ideavimrc".source = link "ideavimrc";
-    "latexmk/latexmkrc".source = link "latexmkrc";
-    "procps/toprc".source = link "toprc";
+    "fontconfig/fonts.conf".source = mkOutOfStoreSymlink' ./fonts.conf;
+    "ghc/ghci.conf".source = mkOutOfStoreSymlink' ./ghci.conf;
+    "ideavim/ideavimrc".source = mkOutOfStoreSymlink' ./ideavimrc;
+    "latexmk/latexmkrc".source = mkOutOfStoreSymlink' ./latexmkrc;
+    "procps/toprc".source = mkOutOfStoreSymlink' ./toprc;
   };
 }

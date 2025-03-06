@@ -23,6 +23,10 @@
       inputs.home-manager.follows = "home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    pre-commit-hooks = {
+      url = "github:cachix/git-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     programs-db = {
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -38,6 +42,7 @@
       nixpkgs_23_05,
       nix-index-database,
       nur,
+      pre-commit-hooks,
       plasma-manager,
       programs-db,
       ...
@@ -45,16 +50,15 @@
     let
       lib = nixpkgs.lib.extend (import ./lib);
       user = "bmr";
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+      pkgs_23_05 = import nixpkgs_23_05 { inherit system; };
 
       mkNixosConfig =
         {
-          system ? "x86_64-linux",
           host,
           extraModules ? [ ],
         }:
-        let
-          pkgs_23_05 = import nixpkgs_23_05 { inherit system; };
-        in
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = {
@@ -86,6 +90,44 @@
           ] ++ extraModules;
         };
 
+      mdformat = pkgs.mdformat.withPlugins (
+        ps: with ps; [
+          mdformat-footnote
+          mdformat-gfm
+          mdformat-gfm-alerts
+          mdformat-tables
+        ]
+      );
+
+      pre-commit-check = pre-commit-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          check-added-large-files.enable = true;
+          check-executables-have-shebangs.enable = true;
+          check-merge-conflicts.enable = true;
+          check-shebang-scripts-are-executable.enable = true;
+          check-symlinks.enable = true;
+          check-toml.enable = true;
+          check-vcs-permalinks.enable = true;
+          check-yaml.enable = true;
+          convco.enable = true;
+          detect-private-keys.enable = true;
+          markdownlint.enable = true;
+          mdformat.enable = true;
+          mdformat.package = mdformat;
+          mixed-line-endings.enable = true;
+          nixfmt-rfc-style.enable = true;
+          shellcheck.enable = true;
+          shellcheck.exclude_types = [ "zsh" ];
+          shfmt.args = [ "--indent=4" ];
+          shfmt.enable = true;
+          shfmt.exclude_types = [ "zsh" ];
+          stylua.enable = true;
+          stylua.excludes = [ "'^home-manager/config/programs/neovim/lua/config/mappings\\.lua$'" ];
+          trim-trailing-whitespace.enable = true;
+        };
+      };
+
     in
     {
       nixosConfigurations = {
@@ -97,6 +139,13 @@
           host = "radboud";
           extraModules = [ ./hosts/radboud.nix ];
         };
+      };
+
+      checks.${system}.pre-commit = pre-commit-check;
+
+      devShells.${system}.default = pkgs.mkShell {
+        packages = pre-commit-check.enabledPackages;
+        inherit (pre-commit-check) shellHook;
       };
     };
 

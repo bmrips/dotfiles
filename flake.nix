@@ -123,7 +123,6 @@
           shfmt.enable = true;
           shfmt.exclude_types = [ "zsh" ];
           stylua.enable = true;
-          stylua.excludes = [ "'^home-manager/config/programs/neovim/lua/config/mappings\\.lua$'" ];
           trim-trailing-whitespace.enable = true;
         };
       };

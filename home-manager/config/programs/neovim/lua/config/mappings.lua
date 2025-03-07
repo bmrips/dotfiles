@@ -1,7 +1,6 @@
-local ctrl_slash = (vim.g.neovide or vim.env.ITERM_PROFILE)
-  and '/'
-  or  '_'
+local ctrl_slash = (vim.g.neovide or vim.env.ITERM_PROFILE) and '/' or '_'
 
+-- stylua: ignore
 return {
   init = {
     { '<BS>',

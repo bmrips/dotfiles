@@ -1,3 +1,4 @@
 std = "neovim"
 
-exclude = ["pack/*"]
+[lints]
+mixed_table = "allow"

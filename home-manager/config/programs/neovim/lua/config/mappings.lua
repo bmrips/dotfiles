@@ -89,7 +89,7 @@ return {
       },
       { 'o',
         function()
-          _G._operatorfunc = function()
+          vim.g.operatorfunc = function()
             local start_row, _ = unpack(vim.api.nvim_buf_get_mark(0, '['))
             local stop_row, _ = unpack(vim.api.nvim_buf_get_mark(0, ']'))
             vim.cmd.sort {
@@ -98,7 +98,7 @@ return {
             }
           end
 
-          vim.opt.operatorfunc = 'v:lua._operatorfunc'
+          vim.opt.operatorfunc = 'v:lua.vim.g.operatorfunc'
           return 'g@'
         end,
         desc = 'Sort',

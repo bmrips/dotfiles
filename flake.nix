@@ -118,10 +118,8 @@
           mixed-line-endings.enable = true;
           nixfmt-rfc-style.enable = true;
           shellcheck.enable = true;
-          shellcheck.exclude_types = [ "zsh" ];
           shfmt.args = [ "--indent=4" ];
           shfmt.enable = true;
-          shfmt.exclude_types = [ "zsh" ];
           stylua.enable = true;
           trim-trailing-whitespace.enable = true;
           typos.enable = true;

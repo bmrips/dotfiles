@@ -406,7 +406,7 @@ mkIf config.programs.firefox.enable {
 
   programs.plasma.window-rules = [
     {
-      description = "Firefox master pasword dialog";
+      description = "Firefox master password dialog";
       match = {
         window-class = "firefox firefox";
         title = "Password Required - Mozilla Firefox";

@@ -124,6 +124,7 @@
           shfmt.exclude_types = [ "zsh" ];
           stylua.enable = true;
           trim-trailing-whitespace.enable = true;
+          typos.enable = true;
         };
       };
 

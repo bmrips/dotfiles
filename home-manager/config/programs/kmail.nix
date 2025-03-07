@@ -143,7 +143,7 @@ mkMerge [
         General = {
           ComposerShowMenuBar = false;
           ShowMenuBar = false;
-          startSpecificFolderAtStatup = false;
+          startSpecificFolderAtStartup = false;
         };
         Geometry.readerWindowMode = "right";
         "Notification Messages".maildispatcher_put_online = true;

@@ -68,7 +68,6 @@ in
     ./programs/signal-desktop.nix
     ./programs/sioyek.nix
     ./programs/slack.nix
-    ./programs/ssh.nix
     ./programs/starship.nix
     ./programs/taskell.nix
     ./programs/yamllint.nix

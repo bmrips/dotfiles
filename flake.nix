@@ -32,6 +32,10 @@
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    treefmt = {
+      url = "github:numtide/treefmt-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -40,7 +44,10 @@
       { withSystem, ... }:
       {
 
-        imports = [ inputs.pre-commit.flakeModule ];
+        imports = with inputs; [
+          pre-commit.flakeModule
+          treefmt.flakeModule
+        ];
 
         systems = [ "x86_64-linux" ];
 
@@ -108,42 +115,81 @@
           }:
           {
             devShells.default = config.pre-commit.devShell;
-            pre-commit.settings.hooks =
-              let
-                mdformat = pkgs.mdformat.withPlugins (
-                  ps: with ps; [
-                    mdformat-footnote
-                    mdformat-gfm
-                    mdformat-gfm-alerts
-                    mdformat-tables
-                  ]
-                );
-              in
-              {
-                check-added-large-files.enable = true;
-                check-executables-have-shebangs.enable = true;
-                check-merge-conflicts.enable = true;
-                check-shebang-scripts-are-executable.enable = true;
-                check-symlinks.enable = true;
-                check-toml.enable = true;
-                check-vcs-permalinks.enable = true;
-                check-yaml.enable = true;
-                convco.enable = true;
-                detect-private-keys.enable = true;
-                markdownlint.enable = true;
-                mdformat.enable = true;
-                mdformat.package = mdformat;
-                mixed-line-endings.enable = true;
-                nixfmt-rfc-style.enable = true;
-                selene.args = [ "--no-summary" ];
-                selene.enable = true;
-                shellcheck.enable = true;
-                shfmt.args = [ "--indent=4" ];
-                shfmt.enable = true;
-                stylua.enable = true;
-                trim-trailing-whitespace.enable = true;
-                typos.enable = true;
+
+            pre-commit.settings.hooks = {
+              check-added-large-files.enable = true;
+              check-executables-have-shebangs.enable = true;
+              check-merge-conflicts.enable = true;
+              check-shebang-scripts-are-executable.enable = true;
+              check-symlinks.enable = true;
+              check-toml.enable = true;
+              check-vcs-permalinks.enable = true;
+              check-yaml.enable = true;
+              convco.enable = true;
+              detect-private-keys.enable = true;
+              markdownlint.enable = true;
+              mixed-line-endings.enable = true;
+              selene.args = [ "--no-summary" ];
+              selene.enable = true;
+              shellcheck.enable = true;
+              treefmt.enable = true;
+              trim-trailing-whitespace.enable = true;
+              typos.enable = true;
+            };
+
+            treefmt = {
+              settings.global.excludes = [
+                ".convco"
+                ".markdownlint.yaml"
+                "home-manager/config/files/fonts.conf"
+                "home-manager/config/files/ghci.conf"
+                "home-manager/config/files/haskeline"
+                "home-manager/config/files/ideavimrc"
+                "home-manager/config/files/latexmkrc"
+                "home-manager/config/files/toprc"
+                "home-manager/config/programs/firefox/TeX.svg"
+                "home-manager/config/programs/git/commit_message_template"
+                "home-manager/config/programs/git/templates/hooks/pre-commit"
+                "home-manager/config/programs/git/templates/info/exclude"
+                "home-manager/config/programs/neovim/.luarc.json"
+                "home-manager/config/programs/neovim/.styluaignore"
+                "home-manager/config/programs/neovim/lazy-lock.json"
+                "home-manager/config/programs/neovim/neovim.yaml"
+                "home-manager/config/programs/neovim/selene.toml"
+                "neovim.yaml"
+                "selene.toml"
+                "typos.toml"
+              ];
+              programs = {
+                mdformat = {
+                  enable = true;
+                  settings.wrap = "no";
+                  package = pkgs.mdformat.withPlugins (
+                    ps: with ps; [
+                      mdformat-footnote
+                      mdformat-gfm
+                      mdformat-gfm-alerts
+                      mdformat-tables
+                    ]
+                  );
+                };
+                nixfmt.enable = true;
+                shfmt = {
+                  enable = true;
+                  indent_size = 4;
+                };
+                stylua = {
+                  enable = true;
+                  settings = {
+                    call_parentheses = "None";
+                    column_width = 100;
+                    indent_type = "Spaces";
+                    indent_width = 2;
+                    quote_style = "AutoPreferSingle";
+                  };
+                };
               };
+            };
           };
 
       }

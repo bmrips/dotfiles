@@ -16,7 +16,7 @@ let
 
 in
 {
-  options.profiles.standalone.enable = mkEnableOption "the standalone profile";
+  options.profiles.standalone.enable = mkEnableOption "the standalone profile.";
 
   config = mkIf config.profiles.standalone.enable (mkMerge [
     (import ../../../nixpkgs)

@@ -6,7 +6,7 @@
 }:
 
 {
-  options.development.markdown.enable = lib.mkEnableOption "Markdown development tools";
+  options.development.markdown.enable = lib.mkEnableOption "Markdown development tools.";
 
   config = lib.mkIf config.development.markdown.enable {
     home.packages = with pkgs; [

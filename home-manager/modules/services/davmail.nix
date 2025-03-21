@@ -61,7 +61,7 @@ in
 
   options.services.davmail = {
 
-    enable = mkEnableOption "DavMail, an MS Exchange gateway";
+    enable = mkEnableOption "DavMail, an MS Exchange gateway.";
 
     imitateOutlook = mkOption {
       type = types.bool;

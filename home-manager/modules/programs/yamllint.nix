@@ -20,7 +20,7 @@ in
 
   options.programs.yamllint = {
 
-    enable = mkEnableOption "{command}`yamllint`";
+    enable = mkEnableOption "{command}`yamllint`.";
 
     package = mkPackageOption pkgs "yamllint" { };
 

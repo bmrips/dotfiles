@@ -21,7 +21,7 @@ in
 {
 
   options.programs.grep = {
-    enable = mkEnableOption "{command}`grep`";
+    enable = mkEnableOption "{command}`grep`.";
     package = mkPackageOption pkgs "gnugrep" { };
     colors = mkOption {
       type = with types; attrsOf str;

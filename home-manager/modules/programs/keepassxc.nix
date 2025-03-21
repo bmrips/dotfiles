@@ -19,7 +19,7 @@ in
 {
 
   options.programs.keepassxc = {
-    enable = mkEnableOption "KeePassXC";
+    enable = mkEnableOption "KeePassXC.";
     package = mkPackageOption pkgs "keepassxc" { };
     autostart = mkOption {
       type = types.bool;

@@ -95,7 +95,7 @@ in
 
     webSearchKeywords = {
 
-      enable = mkEnableOption "the web search keywords plugin" // {
+      enable = mkEnableOption "the web search keywords plugin." // {
         default = true;
       };
 

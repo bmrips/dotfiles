@@ -6,7 +6,7 @@
 }:
 
 {
-  options.development.yaml.enable = lib.mkEnableOption "YAML development tools";
+  options.development.yaml.enable = lib.mkEnableOption "YAML development tools.";
 
   config = lib.mkIf config.development.yaml.enable {
     home.packages = with pkgs; [

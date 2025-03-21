@@ -25,7 +25,7 @@ in
 
   options.programs.zsh = {
 
-    enableViMode = mkEnableOption "Vim mode in Zsh";
+    enableViMode = mkEnableOption "Vim mode in Zsh.";
 
     options = mkOption {
       type = with types; attrsOf bool;

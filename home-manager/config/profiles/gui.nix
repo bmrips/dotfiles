@@ -18,8 +18,8 @@ let
 in
 {
   options.profiles.gui = {
-    enable = mkEnableOption "the GUI profile";
-    extra.enable = mkEnableOption "extra GUI applications";
+    enable = mkEnableOption "the GUI profile.";
+    extra.enable = mkEnableOption "extra GUI applications.";
   };
 
   config = mkIf cfg.enable (mkMerge [

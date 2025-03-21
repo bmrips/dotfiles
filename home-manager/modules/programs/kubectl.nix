@@ -12,7 +12,7 @@ let
 in
 {
   options.programs.kubectl = {
-    enable = mkEnableOption "{command}`kubectl`";
+    enable = mkEnableOption "{command}`kubectl`.";
     package = mkPackageOption pkgs "kubectl" { };
   };
 

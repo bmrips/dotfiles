@@ -30,7 +30,7 @@ let
 in
 {
 
-  options.development.kubernetes.enable = lib.mkEnableOption "Kubernetes development tools";
+  options.development.kubernetes.enable = lib.mkEnableOption "Kubernetes development tools.";
 
   config = lib.mkIf config.development.kubernetes.enable {
 

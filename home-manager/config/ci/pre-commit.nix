@@ -6,7 +6,7 @@
 }:
 
 {
-  options.ci.pre-commit.enable = lib.mkEnableOption "pre-commit integration";
+  options.ci.pre-commit.enable = lib.mkEnableOption "pre-commit integration.";
 
   config = lib.mkIf config.ci.pre-commit.enable {
     home.packages = (

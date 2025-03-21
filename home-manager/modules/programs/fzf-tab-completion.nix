@@ -22,7 +22,7 @@ in
 
   options.programs.fzf-tab-completion = {
 
-    enable = mkEnableOption "fzf-tab-completion";
+    enable = mkEnableOption "fzf-tab-completion.";
 
     package = mkPackageOption pkgs "fzf-tab-completion" { };
 

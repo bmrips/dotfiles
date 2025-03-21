@@ -6,7 +6,7 @@
 }:
 
 {
-  options.development.c.enable = lib.mkEnableOption "C development tools";
+  options.development.c.enable = lib.mkEnableOption "C development tools.";
 
   config = lib.mkIf config.development.c.enable {
     home.packages = with pkgs; [

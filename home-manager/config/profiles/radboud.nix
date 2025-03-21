@@ -10,12 +10,13 @@ let
 
 in
 {
-  options.profiles.radboud.enable = mkEnableOption "the Radboud profile";
+  options.profiles.radboud.enable = mkEnableOption "the Radboud profile.";
 
   config = mkIf config.profiles.radboud.enable {
     development.c.enable = true;
 
     profiles.gui.extra.enable = true;
+    profiles.research.enable = true;
 
     home.packages = with pkgs; [ eduvpn-client ];
 

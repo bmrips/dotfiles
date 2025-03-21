@@ -21,7 +21,7 @@ in
 {
 
   options.programs.gcc = {
-    enable = mkEnableOption "{command}`gcc`";
+    enable = mkEnableOption "{command}`gcc`.";
     package = mkPackageOption pkgs "gcc" { };
     colors = mkOption {
       type = with types; attrsOf str;

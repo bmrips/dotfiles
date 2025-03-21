@@ -24,7 +24,7 @@ let
 
 in
 {
-  options.profiles.macos.enable = mkEnableOption "the macOS profile";
+  options.profiles.macos.enable = mkEnableOption "the macOS profile.";
 
   config = mkIf config.profiles.macos.enable {
 

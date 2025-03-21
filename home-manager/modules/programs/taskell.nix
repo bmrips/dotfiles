@@ -62,7 +62,7 @@ in
 
   options.programs.taskell = {
 
-    enable = mkEnableOption "{command}`taskell`";
+    enable = mkEnableOption "{command}`taskell`.";
 
     package = mkPackageOption pkgs "taskell" { };
 

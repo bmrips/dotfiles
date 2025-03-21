@@ -25,7 +25,7 @@ in
 
   options.programs.shellcheck = {
 
-    enable = mkEnableOption "{command}`shellcheck`";
+    enable = mkEnableOption "{command}`shellcheck`.";
 
     package = mkPackageOption pkgs "shellcheck" { };
 

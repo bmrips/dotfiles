@@ -239,6 +239,7 @@ mkIf config.programs.firefox.enable {
             ];
             unified-extensions-area = with addonActions; [
               auto-sort-bookmarks
+              auto-tab-discard
               canvasblocker
               darkreader
               decentraleyes
@@ -263,6 +264,7 @@ mkIf config.programs.firefox.enable {
           };
           seen = with addonActions; [
             auto-sort-bookmarks
+            auto-tab-discard
             canvasblocker
             darkreader
             decentraleyes
@@ -389,6 +391,7 @@ mkIf config.programs.firefox.enable {
       settings."extensions.update.autoUpdateDefault" = false;
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         auto-sort-bookmarks
+        auto-tab-discard
         canvasblocker
         darkreader
         decentraleyes

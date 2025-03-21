@@ -34,7 +34,9 @@ return {
           local rest_of_line = info.line:sub(info.col)
           return prev_char:match('[^=<>!]') ~= nil
             and rest_of_line:match('^%s*$') ~= nil
-            and ts_conds.is_not_ts_node('source')(info) -- comments are labeled 'source'
+            -- 'source': comments
+            -- 'program': multi-line strings representing Bash scripts
+            and ts_conds.is_not_ts_node{ 'source', 'string_fragment', 'program' }(info)
         end)
         :with_move(function(info)
           return info.char == ';'
@@ -43,7 +45,9 @@ return {
         :with_pair(function(info)
           local prev_char = info.line:sub(info.col - 5, info.col - 5)
           return prev_char:match('[^%w_-]') ~= nil
-            and ts_conds.is_not_ts_node('source')(info) -- comments are labeled 'source'
+            -- 'source': comments
+            -- 'program': multi-line strings representing Bash scripts
+            and ts_conds.is_not_ts_node{ 'source', 'string_fragment', 'program' }(info)
         end)
         :with_move(function(info)
           return info.char == ';'

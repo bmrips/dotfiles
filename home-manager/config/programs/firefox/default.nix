@@ -233,6 +233,7 @@ mkIf config.programs.firefox.enable {
               "urlbar-container"
               "fxa-toolbar-menu-button"
               tab-session-manager
+              zotero-connector
               javascript-restrictor
               "unified-extensions-button"
             ];
@@ -276,6 +277,7 @@ mkIf config.programs.firefox.enable {
             tab-session-manager
             ublock-origin
             web-search-navigator
+            zotero-connector
             "developer-button"
           ];
           dirtyAreaCache = [

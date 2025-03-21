@@ -72,6 +72,7 @@ in
     ./programs/taskell.nix
     ./programs/yamllint.nix
     ./programs/yazi.nix
+    ./programs/zotero.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
     ./services/davmail.nix

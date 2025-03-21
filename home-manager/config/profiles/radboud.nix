@@ -16,7 +16,6 @@ in
     development.c.enable = true;
 
     profiles.gui.extra.enable = true;
-    profiles.research.enable = true;
 
     home.packages = with pkgs; [ eduvpn-client ];
 
@@ -26,6 +25,7 @@ in
 
     programs.merkuro.enable = true;
     programs.slack.enable = true;
+    programs.zotero.enable = true;
 
     services.davmail.enable = pkgs.stdenv.isLinux;
   };

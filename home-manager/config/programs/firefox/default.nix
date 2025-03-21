@@ -246,6 +246,7 @@ mkIf config.programs.firefox.enable {
               keepassxc-browser
               languagetool
               plasma-integration
+              refined-github
               sidebery
               simple-translate
               skip-redirect
@@ -270,6 +271,7 @@ mkIf config.programs.firefox.enable {
             keepassxc-browser
             languagetool
             plasma-integration
+            refined-github
             sidebery
             simple-translate
             skip-redirect
@@ -393,6 +395,7 @@ mkIf config.programs.firefox.enable {
         i-dont-care-about-cookies
         javascript-restrictor # aka jshelter
         languagetool
+        refined-github
         sidebery
         simple-translate
         skip-redirect

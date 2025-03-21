@@ -390,7 +390,6 @@ mkIf config.programs.firefox.enable {
         decentraleyes
         i-dont-care-about-cookies
         javascript-restrictor # aka jshelter
-        keepassxc-browser
         languagetool
         sidebery
         simple-translate

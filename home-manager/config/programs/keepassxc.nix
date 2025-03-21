@@ -6,7 +6,7 @@
 }:
 
 let
-  inherit (lib) mkIf;
+  inherit (lib) mkIf mkMerge;
   cfg = config.programs.keepassxc;
 
   unlock =
@@ -54,41 +54,51 @@ let
     '';
 
 in
-{
-  # automatically unlock the database after login and screen locker deactivation
-  programs.keepassxc.autostart = false;
-  xdg.autostart.entries = [ "${unlockedKeepassxc}" ];
-  systemd.user.services.keepassxc-unlock = {
-    Unit.Description = "Unlocks the KeePassXC database after unlocking the screen";
-    Install.WantedBy = [ "graphical-session.target" ];
-    Service.ExecStart = "${unlockAfterScreensaverDeactivation}";
-  };
+mkMerge [
+  {
+    # automatically unlock the database after login and screen locker deactivation
+    programs.keepassxc.autostart = false;
+  }
 
-  programs.plasma.window-rules = mkIf config.programs.keepassxc.enable [
-    {
-      description = "KeePassXC - Browser Access Request";
-      match = {
-        title.value = "KeePassXC - Browser Access Request";
-        window-class.value = "keepassxc org.keepassxc.KeePassXC";
-      };
-      apply = {
-        maximizehoriz = false;
-        maximizevert = false;
-        placement.apply = "force";
-        placement.value = 5; # centered
-        size.value = "464,291";
-      };
-    }
-    {
-      description = "KeePassXC";
-      match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
-      apply = {
-        maximizehoriz = false;
-        maximizevert = false;
-        placement.apply = "force";
-        placement.value = 5; # centered
-        size.value = "600,528";
-      };
-    }
-  ];
-}
+  (mkIf cfg.enable {
+    xdg.autostart.entries = [ "${unlockedKeepassxc}" ];
+
+    systemd.user.services.keepassxc-unlock = {
+      Unit.Description = "Unlocks the KeePassXC database after unlocking the screen";
+      Install.WantedBy = [ "graphical-session.target" ];
+      Service.ExecStart = "${unlockAfterScreensaverDeactivation}";
+    };
+
+    programs.firefox.profiles.default.extensions.packages = [
+      pkgs.nur.repos.rycee.firefox-addons.keepassxc-browser
+    ];
+
+    programs.plasma.window-rules = [
+      {
+        description = "KeePassXC - Browser Access Request";
+        match = {
+          title.value = "KeePassXC - Browser Access Request";
+          window-class.value = "keepassxc org.keepassxc.KeePassXC";
+        };
+        apply = {
+          maximizehoriz = false;
+          maximizevert = false;
+          placement.apply = "force";
+          placement.value = 5; # centered
+          size.value = "464,291";
+        };
+      }
+      {
+        description = "KeePassXC";
+        match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
+        apply = {
+          maximizehoriz = false;
+          maximizevert = false;
+          placement.apply = "force";
+          placement.value = 5; # centered
+          size.value = "600,528";
+        };
+      }
+    ];
+  })
+]

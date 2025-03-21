@@ -27,8 +27,6 @@
       ps-systemd = "ps xawf -eo pid,user,cgroup,args";
     };
 
-    programs.git.ignores = [ ".directory" ]; # KDE directory preferences
-
     services.gpg-agent = {
       enable = true;
       pinentryPackage = pkgs.pinentry-qt;

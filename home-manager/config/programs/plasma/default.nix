@@ -669,7 +669,7 @@ mkMerge [
           # browser integration plugin.
           "media.hardwaremediakeys.enabled" = false;
         };
-        extensions = [ pkgs.nur.repos.rycee.firefox-addons.plasma-integration ];
+        extensions.packages = [ pkgs.nur.repos.rycee.firefox-addons.plasma-integration ];
       };
     };
 

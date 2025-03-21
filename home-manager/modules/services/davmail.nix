@@ -100,7 +100,7 @@ in
         {
           server = true;
           disableUpdateCheck = true;
-          logFilePath = "${config.xdg.stateHome}/log/davmail.log";
+          logFilePath = "${config.xdg.stateHome}/davmail.log";
           logFileSize = "1MB";
           mode = "auto";
           url = "https://outlook.office365.com/EWS/Exchange.asmx";

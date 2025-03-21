@@ -1,3 +1,3 @@
 return {
-  'f1rstlady/nest.nvim',
+  'bmrips/nest.nvim',
 }

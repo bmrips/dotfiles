@@ -29,10 +29,10 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/f1rstlady/user-config ~/.config/home-manager
+   git clone https://github.com/bmrips/user-config ~/.config/home-manager
    ```
 
-1. Set the repo's url to `git@github.com:f1rstlady/user-config.git` to communicate through SSH in the future.
+1. Set the repo's url to `git@github.com:bmrips/user-config.git` to communicate through SSH in the future.
 
 1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
 

@@ -51,7 +51,7 @@ releaseCommitMessageFormat: 'chore(release): {{currentTag}}'
 issuePrefixes:
 - '#'
 host: https://github.com
-owner: f1rstlady
+owner: bmrips
 repository: user-config
 template: null
 commitTemplate: null

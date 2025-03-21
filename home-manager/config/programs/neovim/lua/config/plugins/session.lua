@@ -1,5 +1,5 @@
 return {
-  'f1rstlady/session.nvim',
+  'bmrips/session.nvim',
   lazy = false,
   opts = {
     notifyWhen = {

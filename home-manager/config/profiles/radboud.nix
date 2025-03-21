@@ -27,6 +27,10 @@ in
     programs.slack.enable = true;
     programs.zotero.enable = true;
 
-    services.davmail.enable = pkgs.stdenv.isLinux;
+    services.davmail = {
+      enable = pkgs.stdenv.isLinux;
+      imitateOutlook = true;
+      settings.davmail.mode = "O365Interactive";
+    };
   };
 }

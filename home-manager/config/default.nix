@@ -75,7 +75,6 @@ in
     ./programs/zotero.nix
     ./programs/zoxide.nix
     ./programs/zsh.nix
-    ./services/davmail.nix
     ./remove-leaked-path-entries.nix
   ];
 

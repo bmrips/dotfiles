@@ -109,6 +109,11 @@ in
           ldapPort = 1389;
           popPort = 1110;
           smtpPort = 1025;
+
+          # The token file path is set because, otherwise, if oauth.persistToken
+          # is enabled, DavMail would attempt to write the generated
+          # configuration that lays in the Nix store.
+          oauth.tokenFilePath = "${config.xdg.stateHome}/davmail-tokens";
         }
         // optionalAttrs cfg.imitateOutlook {
           oauth.clientId = "d3590ed6-52b3-4102-aeff-aad2292ab01c";

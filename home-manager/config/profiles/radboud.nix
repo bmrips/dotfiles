@@ -32,7 +32,7 @@ in
       imitateOutlook = true;
       settings.davmail = {
         mode = "O365Interactive";
-        persistToken = true;
+        oauth.persistToken = true;
       };
     };
   };

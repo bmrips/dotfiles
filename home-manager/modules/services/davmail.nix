@@ -7,12 +7,6 @@
 let
 
   inherit (lib)
-    attrNames
-    boolToString
-    concatMap
-    concatStringsSep
-    isAttrs
-    isBool
     mapAttrsRecursive
     mkDefault
     mkEnableOption
@@ -24,39 +18,11 @@ let
 
   cfg = config.services.davmail;
 
-  settingsType =
-    with types;
-    oneOf [
-      (attrsOf settingsType)
-      str
-      int
-      bool
-    ]
-    // {
-      description = "DavMail settings type (str, int, bool or attribute set thereof)";
-    };
+  javaProperties = pkgs.formats.javaProperties { };
 
-  toStr = val: if isBool val then boolToString val else toString val;
-
-  linesForAttrs =
-    attrs:
-    concatMap (
-      name:
-      let
-        value = attrs.${name};
-      in
-      if isAttrs value then
-        map (line: name + "." + line) (linesForAttrs value)
-      else
-        [ "${name}=${toStr value}" ]
-    ) (attrNames attrs);
-
-  settingsFile = pkgs.writeText "davmail.properties" (
-    concatStringsSep "\n" (linesForAttrs cfg.settings)
-  );
+  settingsFile = javaProperties.generate "davmail.properties" cfg.settings;
 
 in
-
 {
 
   options.services.davmail = {
@@ -71,7 +37,7 @@ in
     };
 
     settings = mkOption {
-      type = settingsType;
+      type = javaProperties.type;
       default = { };
       description = ''
         Davmail configuration. Refer to
@@ -95,37 +61,41 @@ in
 
   config = mkIf cfg.enable {
 
-    services.davmail.settings = mapAttrsRecursive (_: mkDefault) {
-      davmail =
-        {
-          server = true;
-          disableUpdateCheck = true;
-          logFilePath = "${config.xdg.stateHome}/davmail.log";
-          logFileSize = "1MB";
-          mode = "auto";
-          url = "https://outlook.office365.com/EWS/Exchange.asmx";
-          caldavPort = 1080;
-          imapPort = 1143;
-          ldapPort = 1389;
-          popPort = 1110;
-          smtpPort = 1025;
+    assertions = [
+      {
+        assertion = pkgs.stdenv.hostPlatform.isLinux;
+        message = "The DavMail service is only available on Linux.";
+      }
+    ];
 
-          # The token file path is set because, otherwise, if oauth.persistToken
-          # is enabled, DavMail would attempt to write the generated
-          # configuration that lays in the Nix store.
-          oauth.tokenFilePath = "${config.xdg.stateHome}/davmail-tokens";
-        }
-        // optionalAttrs cfg.imitateOutlook {
-          oauth.clientId = "d3590ed6-52b3-4102-aeff-aad2292ab01c";
-          oauth.redirectUri = "urn:ietf:wg:oauth:2.0:oob";
-        };
-      log4j = {
-        logger.davmail = "WARN";
-        logger.httpclient.wire = "WARN";
-        logger.org.apache.commons.httpclient = "WARN";
-        rootLogger = "WARN";
+    services.davmail.settings =
+      mapAttrsRecursive (_: mkDefault) {
+        "davmail.server" = true;
+        "davmail.disableUpdateCheck" = true;
+        "davmail.logFilePath" = "${config.xdg.stateHome}/davmail.log";
+        "davmail.logFileSize" = "1MB";
+        "davmail.mode" = "auto";
+        "davmail.url" = "https://outlook.office365.com/EWS/Exchange.asmx";
+        "davmail.caldavPort" = 1080;
+        "davmail.imapPort" = 1143;
+        "davmail.ldapPort" = 1389;
+        "davmail.popPort" = 1110;
+        "davmail.smtpPort" = 1025;
+
+        # The token file path is set because, otherwise, if oauth.persistToken
+        # is enabled, DavMail would attempt to write the token into generated
+        # configuration which lays in the Nix store.
+        "davmail.oauth.tokenFilePath" = "${config.xdg.stateHome}/davmail-tokens";
+
+        "log4j.logger.davmail" = "WARN";
+        "log4j.logger.httpclient.wire" = "WARN";
+        "log4j.logger.org.apache.commons.httpclient" = "WARN";
+        "log4j.rootLogger" = "WARN";
+      }
+      // optionalAttrs cfg.imitateOutlook {
+        "davmail.oauth.clientId" = "d3590ed6-52b3-4102-aeff-aad2292ab01c";
+        "davmail.oauth.redirectUri" = "urn:ietf:wg:oauth:2.0:oob";
       };
-    };
 
     systemd.user.services.davmail = {
       Unit = {

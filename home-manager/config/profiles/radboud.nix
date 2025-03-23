@@ -30,9 +30,9 @@ in
     services.davmail = {
       enable = pkgs.stdenv.isLinux;
       imitateOutlook = true;
-      settings.davmail = {
-        mode = "O365Interactive";
-        oauth.persistToken = true;
+      settings = {
+        "davmail.mode" = "O365Interactive";
+        "davmail.oauth.persistToken" = true;
       };
     };
   };

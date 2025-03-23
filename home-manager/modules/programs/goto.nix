@@ -45,7 +45,7 @@ in
 
     programs.bash.initExtra = init;
 
-    programs.zsh.initExtra = init;
+    programs.zsh.initContent = init;
 
     programs.zsh.siteFunctions.fzf-goto-widget = ''
       _goto_resolve_db

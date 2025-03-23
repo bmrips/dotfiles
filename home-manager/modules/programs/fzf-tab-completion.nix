@@ -84,7 +84,7 @@ in
       + optionalString (cfg.bashExtraConfig != null) cfg.bashExtraConfig
     );
 
-    programs.zsh.initExtra = mkIf config.programs.zsh.enableCompletion (
+    programs.zsh.initContent = mkIf config.programs.zsh.enableCompletion (
       ''
         source ${cfg.package}/share/fzf-tab-completion/zsh/fzf-zsh-completion.sh
       ''

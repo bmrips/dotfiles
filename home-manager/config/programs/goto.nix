@@ -14,7 +14,7 @@ lib.mkMerge [
 
   (lib.mkIf config.programs.goto.enable {
     home.shellAliases.b = "goto";
-    programs.zsh.initExtra = ''
+    programs.zsh.initContent = ''
       # Go to `goto` bookmark
       zle -N fzf-goto-widget
       bindkey '^B' fzf-goto-widget

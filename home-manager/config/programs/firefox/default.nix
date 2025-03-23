@@ -296,24 +296,26 @@ mkIf config.programs.firefox.enable {
 
       search = {
         force = true;
-        default = "Google";
+        default = "google";
         engines =
           let
             nixIcon = "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
           in
           {
-            Bing.metaData.hidden = true;
-            Cloogle = {
+            bing.metaData.hidden = true;
+            cloogle = {
+              name = "Cloogle";
               definedAliases = [ "@cloogle" ];
               urls = [ { template = "https://cloogle.org/#{searchTerms}"; } ];
             };
-            CTAN = {
+            ctan = {
+              name = "CTAN";
               definedAliases = [ "@ctan" ];
-              iconUpdateURL = "https://ctan.org/assets/favicon/favicon-16x16-ecad89e8a3475c9b10c36f82efef3bcd.png";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              icon = "https://ctan.org/assets/favicon/favicon-16x16-ecad89e8a3475c9b10c36f82efef3bcd.png";
               urls = [ { template = "https://ctan.org/search?phrase={searchTerms}"; } ];
             };
-            "Home Manager" = {
+            home-manager = {
+              name = "Home Manager";
               definedAliases = [
                 "@hm"
                 "@home-manager"
@@ -325,20 +327,21 @@ mkIf config.programs.firefox.enable {
                 }
               ];
             };
-            Hoogle = {
+            hoogle = {
+              name = "Hoogle";
               definedAliases = [
                 "@h"
                 "@hoogle"
               ];
-              iconUpdateURL = "https://hoogle.haskell.org/favicon.png";
-              updateInterval = 24 * 60 * 60 * 1000; # every day
+              icon = "https://hoogle.haskell.org/favicon.png";
               urls = [
                 {
                   template = "https://hoogle.haskell.org/?hoogle={searchTerms}";
                 }
               ];
             };
-            "Nix Packages" = {
+            nixpkgs = {
+              name = "Nix Packages";
               definedAliases = [
                 "@np"
                 "@nixpkgs"
@@ -350,7 +353,8 @@ mkIf config.programs.firefox.enable {
                 }
               ];
             };
-            "NixOS Options" = {
+            nixos-options = {
+              name = "NixOS Options";
               definedAliases = [
                 "@no"
                 "@nixosopts"
@@ -362,7 +366,8 @@ mkIf config.programs.firefox.enable {
                 }
               ];
             };
-            "NixOS Wiki" = {
+            nixos-wiki = {
+              name = "NixOS Wiki";
               definedAliases = [
                 "@nw"
                 "@nixoswiki"
@@ -374,12 +379,14 @@ mkIf config.programs.firefox.enable {
                 }
               ];
             };
-            Noogle = {
+            noogle = {
+              name = "Noogle";
               definedAliases = [ "@noogle" ];
               icon = nixIcon;
               urls = [ { template = "https://noogle.dev/q?term={searchTerms}"; } ];
             };
             texdoc = {
+              name = "texdoc";
               definedAliases = [ "@texdoc" ];
               icon = ./TeX.svg;
               urls = [ { template = "https://texdoc.org/serve/{searchTerms}/0"; } ];

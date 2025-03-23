@@ -73,7 +73,7 @@ in
     programs.zsh.profileExtra = readNixInitScript;
 
     programs.bash.initExtra = setBackgroundEnvVar;
-    programs.zsh.initExtra = setBackgroundEnvVar;
+    programs.zsh.initContent = setBackgroundEnvVar;
 
     programs.fzf-tab-completion.enable = mkForce false;
 

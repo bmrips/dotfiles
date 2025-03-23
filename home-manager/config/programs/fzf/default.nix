@@ -155,7 +155,7 @@ mkIf cfg.enable {
       return $ret
     '';
 
-  programs.zsh.initExtra =
+  programs.zsh.initContent =
     useFdForPathListings
     + ''
       # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T

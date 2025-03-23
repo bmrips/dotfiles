@@ -21,5 +21,4 @@
   ./programs/taskell.nix
   ./programs/yamllint.nix
   ./programs/zsh.nix
-  ./services/davmail.nix
 ]

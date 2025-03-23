@@ -58,14 +58,14 @@ in
     (mkIf cfg.enableViMode { programs.zsh.defaultKeymap = "viins"; })
 
     (mkIf (cfg.options != { }) {
-      programs.zsh.initExtra = concatLines (mapAttrsToList setOpt cfg.options);
+      programs.zsh.initContent = concatLines (mapAttrsToList setOpt cfg.options);
     })
 
     (mkIf (cfg.siteFunctions != { }) {
       home.packages = mapAttrsToList (
         name: pkgs.writeTextDir "share/zsh/site-functions/${name}"
       ) cfg.siteFunctions;
-      programs.zsh.initExtra = concatStringsSep " " ([ "autoload -Uz" ] ++ attrNames cfg.siteFunctions);
+      programs.zsh.initContent = concatStringsSep " " ([ "autoload -Uz" ] ++ attrNames cfg.siteFunctions);
     })
 
   ];

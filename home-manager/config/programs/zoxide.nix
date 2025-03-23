@@ -30,7 +30,7 @@ lib.mkIf cfg.enable {
     return $ret
   '';
 
-  programs.zsh.initExtra = ''
+  programs.zsh.initContent = ''
     # Go to directory with zoxide
     zle -N fzf-zoxide-widget
     bindkey '^Y' fzf-zoxide-widget

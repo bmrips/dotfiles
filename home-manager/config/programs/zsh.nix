@@ -138,7 +138,7 @@ in
       [[ $- != *i* ]] && return
     '';
 
-    initExtra =
+    initContent =
       ''
         # Display the cursor as a bar
         autoload -Uz add-zsh-hook add-zsh-hook-widget

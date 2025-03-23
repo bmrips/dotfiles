@@ -474,7 +474,7 @@ mkMerge [
             keys = [ "deepl" ];
             query = ''https://www.deepl.com/translator#\{from,"any"}/\{to,"de"}/\{@}'';
           };
-          homemanager = {
+          home-manager = {
             name = "Home Manager";
             keys = [
               "hm"

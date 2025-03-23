@@ -56,7 +56,7 @@ in
     programs.kubectl.enable = true;
 
     programs.zsh = {
-      initExtra = ''
+      initContent = ''
         # Switch Kubernetes context
         zle -N fzf-kubectx-widget
         bindkey '^Bc' fzf-kubectx-widget

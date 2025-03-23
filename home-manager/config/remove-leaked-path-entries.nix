@@ -15,5 +15,5 @@ let
 in
 {
   programs.bash.initExtra = removeStoreEntriesFromPaths;
-  programs.zsh.initExtra = removeStoreEntriesFromPaths;
+  programs.zsh.initContent = removeStoreEntriesFromPaths;
 }

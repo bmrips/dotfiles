@@ -4,6 +4,7 @@
   ./programs/dolphin.nix
   ./programs/fzf-tab-completion.nix
   ./programs/gcc.nix
+  ./programs/glab.nix
   ./programs/goto.nix
   ./programs/grep.nix
   ./programs/keepassxc.nix

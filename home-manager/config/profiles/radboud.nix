@@ -23,6 +23,7 @@ in
       "browser.toolbars.bookmarks.visibility" = mkForce "always";
     };
 
+    programs.glab.enable = true;
     programs.merkuro.enable = true;
     programs.slack.enable = true;
     programs.zotero.enable = true;

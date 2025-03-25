@@ -202,7 +202,9 @@ in
         bindkey '^[3;5~' delete-char
       ''
       + (optionalString cfg.enableViMode ''
-        bindkey -M viins 'jk' vi-cmd-mode
+        bindkey -M viins jk vi-cmd-mode
+        bindkey -M vicmd H vi-beginning-of-line
+        bindkey -M vicmd L vi-end-of-line
 
         # Adapt the cursor shape to the mode
         function zle-keymap-select {

@@ -10,15 +10,20 @@ return {
       },
     },
   },
-  { 'Bilal2453/luvit-meta' }, -- optional `vim.uv` typings
-  { -- optional completion source for require statements and module annotations
-    'yioneko/nvim-cmp',
-    opts = function(_, opts)
-      opts.sources = opts.sources or {}
-      table.insert(opts.sources, {
-        name = 'lazydev',
-        group_index = 0, -- set group index to 0 to skip loading LuaLS completions
-      })
-    end,
+  {
+    'saghen/blink.cmp',
+    optional = true,
+    opts = {
+      sources = {
+        default = { 'lazydev' },
+        providers = {
+          lazydev = {
+            name = 'LazyDev',
+            module = 'lazydev.integrations.blink',
+            score_offset = 100, -- show at a higher priority than lsp
+          },
+        },
+      },
+    },
   },
 }

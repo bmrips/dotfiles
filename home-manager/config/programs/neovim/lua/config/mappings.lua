@@ -691,28 +691,6 @@ return {
     }},
 
     { mode = 'i', {
-      { '<Tab>',
-        function()
-          local luasnip = require 'luasnip'
-          if luasnip.expand_or_jumpable() then
-            luasnip.jump(1)
-            return ''
-          else
-            return '<Tab>'
-          end
-        end,
-        desc = 'Jump to next snippet node',
-        expr = true,
-      },
-      { '<S-Tab>',
-        function()
-          local luasnip = require 'luasnip'
-          if luasnip.jumpable(-1) then
-            luasnip.jump(-1)
-          end
-        end,
-        desc = 'Jump to previous snippet node',
-      },
       { '<Down>',
         '<C-o>gj',
       },
@@ -730,21 +708,6 @@ return {
         desc = 'Complete file names',
       },
     }},
-
-    { mode = 's',
-      { '<Tab>',
-        function()
-          require('luasnip').jump(1)
-        end,
-        desc = 'Jump to next snippet node',
-      },
-      { '<S-Tab>',
-        function()
-          require('luasnip').jump(-1)
-        end,
-        desc = 'Jump to previous snippet node',
-      },
-    },
 
     { mode = 'c', '<C-', {
       { 'j>',

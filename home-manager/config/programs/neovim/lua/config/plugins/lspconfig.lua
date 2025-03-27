@@ -92,16 +92,15 @@ return {
       event = 'LspAttach',
     },
     {
-      'hrsh7th/cmp-nvim-lsp',
+      'saghen/blink.cmp',
       event = 'LspAttach',
     },
   },
-  opts = servers,
-  config = function(_, opts)
-    local capabilities = require('cmp_nvim_lsp').default_capabilities()
+  config = function()
+    local blink = require 'blink.cmp'
     local lspconfig = require 'lspconfig'
-    for server, config in pairs(opts) do
-      config.capabilities = capabilities
+    for server, config in pairs(servers) do
+      config.capabilities = blink.get_lsp_capabilities(config.capabilities)
       lspconfig[server].setup(config)
     end
   end,

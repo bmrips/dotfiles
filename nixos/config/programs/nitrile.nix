@@ -24,6 +24,11 @@ in
     };
 
     home-manager.users.${user}.home.sessionPath = [ "/home/${user}/.nitrile/bin" ];
+
+    systemd.tmpfiles.settings.clm = {
+      "/usr/bin/as"."L+".argument = "${pkgs.binutils}/bin/as";
+      "/usr/bin/gcc"."L+".argument = "${pkgs.gcc}/bin/gcc";
+    };
   };
 
 }

@@ -122,22 +122,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Set Latex as my preferred TeX flavour.
 vim.g.tex_flavor = 'latex'
 
--- Create a fold with `:<range>Fold <level>`.
-vim.api.nvim_create_user_command('Fold', require('util.fold').create, {
-  bar = true,
-  range = true,
-  nargs = '?',
-  desc = 'Create a fold start..end with the given level',
-})
-
--- Reindent the buffer with `:<range>Reindent <new_shift_width>`.
-vim.api.nvim_create_user_command('Reindent', require 'util.reindent', {
-  bar = true,
-  range = '%',
-  nargs = 1,
-  desc = 'Reindent the buffer to the given shift width',
-})
-
 -- Mappings
 local mappings = require 'config.mappings'
 local appliedMappings = {

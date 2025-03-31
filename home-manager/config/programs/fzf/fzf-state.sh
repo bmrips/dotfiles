@@ -12,10 +12,10 @@ context)
     exit
     ;;
 get-source)
-    if [[ -f $state_dir/hide-hidden-files ]]; then
-        unset hidden
-    else
+    if [[ -f $state_dir/show-hidden-files ]]; then
         hidden="--hidden"
+    else
+        unset hidden
     fi
     if [[ -f $state_dir/show-ignored-files ]]; then
         ignored="--no-ignore"
@@ -31,7 +31,7 @@ get-source)
         eval fd $hidden $ignored --type=directory 2>/dev/null
         ;;
     grep)
-        eval rg --line-number --no-heading --color=always $hidden $ignored "\"$3\"" 2>/dev/null
+        eval rg $hidden $ignored --line-number --no-heading --color=always "\"$3\"" 2>/dev/null
         ;;
     *)
         echo "Error: unknown argument: $2" >&2

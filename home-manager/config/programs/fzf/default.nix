@@ -41,7 +41,7 @@ let
     reloadCmd:
     escapeShellArg (
       concatStringsSep "," [
-        "alt-h:execute(${fzf-state} toggle hide-hidden-files)+reload(${reloadCmd})"
+        "alt-h:execute(${fzf-state} toggle show-hidden-files)+reload(${reloadCmd})"
         "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})"
       ]
     );

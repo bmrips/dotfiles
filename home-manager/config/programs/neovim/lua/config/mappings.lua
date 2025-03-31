@@ -448,12 +448,6 @@ return {
       },
     }},
     { '<Leader>', {
-      { '<Leader>',
-        function()
-          require('fzf-lua').files()
-        end,
-        desc = 'Open file',
-      },
       { 'd',
         '<Cmd>bdelete<CR>',
         desc = 'Delete the buffer'
@@ -503,6 +497,11 @@ return {
       mode = { "n", "o", "x" },
     },
     { ',', {
+      { '<Space>',
+        function()
+          require('fzf-lua').builtin()
+        end,
+      },
       { ',',
         function()
           require('fzf-lua').resume()

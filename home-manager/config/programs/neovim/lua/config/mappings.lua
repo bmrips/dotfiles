@@ -25,11 +25,6 @@ return {
       desc = 'Switch to alternate buffer',
       expr = true,
     },
-    { '<Space>',
-      ':',
-      desc = 'Enter command line',
-      mode = 'x',
-    },
     { '<Tab>',
       function()
         require('fold-cycle').open()

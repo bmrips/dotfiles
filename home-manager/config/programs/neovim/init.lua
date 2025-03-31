@@ -175,7 +175,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   nested = true,
   callback = function(args)
     require('util.windows').for_windows_of_buf(args.buf, function(win)
-      vim.wo[win].signcolumn = 'yes:1'
+      vim.wo[win][0].signcolumn = 'yes:1'
     end)
 
     local client = vim.lsp.get_client_by_id(args.data.client_id)
@@ -186,6 +186,11 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     if client_supports 'inlayHintProvider' then
       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+    end
+
+    if client_supports 'textDocument/foldingRange' then
+      local win = vim.api.nvim_get_current_win()
+      vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
     end
 
     appliedMappings.lsp[args.buf] = nest.applyKeymaps {

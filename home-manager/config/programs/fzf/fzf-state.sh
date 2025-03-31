@@ -30,13 +30,13 @@ get-source)
 
     case $2 in
     files)
-        eval fd $follow $hidden $ignored --type=file 2>/dev/null
+        eval fd $follow $hidden $ignored --exclude='.git' --type=file 2>/dev/null
         ;;
     directories)
-        eval fd $follow $hidden $ignored --type=directory 2>/dev/null
+        eval fd $follow $hidden $ignored --exclude='.git' --type=directory 2>/dev/null
         ;;
     grep)
-        eval rg $follow $hidden $ignored --line-number --no-heading --color=always "\"$3\"" 2>/dev/null
+        eval rg $follow $hidden $ignored --glob='!.git' --line-number --no-heading --color=always "\"$3\"" 2>/dev/null
         ;;
     *)
         echo "Error: unknown argument: $2" >&2

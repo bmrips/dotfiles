@@ -2,7 +2,7 @@ return {
   {
     'saghen/blink.cmp',
     event = 'VeryLazy',
-    dependencies = { 'rafamadriz/friendly-snippets' },
+    dependencies = 'rafamadriz/friendly-snippets',
     build = 'nix run .#build-plugin',
 
     ---@module 'blink.cmp'
@@ -35,7 +35,8 @@ return {
   },
   {
     'saghen/blink.cmp',
-    dependencies = { 'moyiz/blink-emoji.nvim' },
+    optional = true,
+    dependencies = 'moyiz/blink-emoji.nvim',
     opts = {
       sources = {
         default = { 'emoji' },

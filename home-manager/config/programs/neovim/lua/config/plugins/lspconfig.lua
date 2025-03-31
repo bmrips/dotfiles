@@ -87,7 +87,7 @@ return {
       'LspStart',
       'LspStop',
     },
-    dependencies = { 'saghen/blink.cmp' },
+    dependencies = 'saghen/blink.cmp',
     config = function()
       local blink = require 'blink.cmp'
       local lspconfig = require 'lspconfig'

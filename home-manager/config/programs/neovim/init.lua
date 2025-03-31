@@ -45,7 +45,6 @@ opt.wildmode = { 'longest', 'full' } -- Complete till longest common string
 vim.g.mapleader = vim.keycode '<Space>'
 vim.g.maplocalleader = '\\'
 
--- synchronize the background color with the terminal to remove the padding
 vim.api.nvim_create_autocmd({ 'UIEnter', 'ColorScheme' }, {
   desc = 'Synchronize the background color with the terminal',
   callback = function()
@@ -97,7 +96,6 @@ vim.diagnostic.config {
   },
 }
 
--- Open the quickfix and location list windows automatically.
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   pattern = '[^l]*',
   desc = 'Open the quickfix window automatically',
@@ -111,7 +109,6 @@ vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   command = 'lwindow',
 })
 
--- Highlight yanked text.
 vim.api.nvim_create_autocmd('TextYankPost', {
   desc = 'Highlight yanked text',
   callback = function()
@@ -122,7 +119,6 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 -- Set Latex as my preferred TeX flavour.
 vim.g.tex_flavor = 'latex'
 
--- Mappings
 local mappings = require 'config.mappings'
 local appliedMappings = {
   lsp = {},

@@ -41,6 +41,7 @@ let
     reloadCmd:
     escapeShellArg (
       concatStringsSep "," [
+        "alt-f:execute(${fzf-state} toggle follow-symlinks)+reload(${reloadCmd})"
         "alt-h:execute(${fzf-state} toggle show-hidden-files)+reload(${reloadCmd})"
         "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})"
       ]

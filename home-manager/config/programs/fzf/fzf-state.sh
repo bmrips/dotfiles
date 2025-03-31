@@ -12,6 +12,11 @@ context)
     exit
     ;;
 get-source)
+    if [[ -f $state_dir/follow-symlinks ]]; then
+        follow="--follow"
+    else
+        unset follow
+    fi
     if [[ -f $state_dir/show-hidden-files ]]; then
         hidden="--hidden"
     else
@@ -25,13 +30,13 @@ get-source)
 
     case $2 in
     files)
-        eval fd $hidden $ignored --type=file 2>/dev/null
+        eval fd $follow $hidden $ignored --type=file 2>/dev/null
         ;;
     directories)
-        eval fd $hidden $ignored --type=directory 2>/dev/null
+        eval fd $follow $hidden $ignored --type=directory 2>/dev/null
         ;;
     grep)
-        eval rg $hidden $ignored --line-number --no-heading --color=always "\"$3\"" 2>/dev/null
+        eval rg $follow $hidden $ignored --line-number --no-heading --color=always "\"$3\"" 2>/dev/null
         ;;
     *)
         echo "Error: unknown argument: $2" >&2

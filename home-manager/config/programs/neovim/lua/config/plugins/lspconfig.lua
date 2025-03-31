@@ -77,31 +77,25 @@ local servers = {
 }
 
 return {
-  'neovim/nvim-lspconfig',
-  event = 'FileType',
-  cmd = {
-    'LspInfo',
-    'LspLog',
-    'LspRestart',
-    'LspStart',
-    'LspStop',
-  },
-  dependencies = {
-    {
-      'barreiroleo/ltex_extra.nvim',
-      event = 'LspAttach',
+  {
+    'neovim/nvim-lspconfig',
+    event = 'FileType',
+    cmd = {
+      'LspInfo',
+      'LspLog',
+      'LspRestart',
+      'LspStart',
+      'LspStop',
     },
-    {
-      'saghen/blink.cmp',
-      event = 'LspAttach',
-    },
+    dependencies = { 'saghen/blink.cmp' },
+    config = function()
+      local blink = require 'blink.cmp'
+      local lspconfig = require 'lspconfig'
+      for server, config in pairs(servers) do
+        config.capabilities = blink.get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
+    end,
   },
-  config = function()
-    local blink = require 'blink.cmp'
-    local lspconfig = require 'lspconfig'
-    for server, config in pairs(servers) do
-      config.capabilities = blink.get_lsp_capabilities(config.capabilities)
-      lspconfig[server].setup(config)
-    end
-  end,
+  { 'barreiroleo/ltex_extra.nvim' },
 }

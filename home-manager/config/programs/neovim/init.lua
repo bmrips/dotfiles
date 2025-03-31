@@ -97,16 +97,13 @@ vim.diagnostic.config {
 }
 
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-  pattern = '[^l]*',
-  desc = 'Open the quickfix window automatically',
+  group = vim.api.nvim_create_augroup('qflist_auto-open', { clear = true }),
+  desc = 'Open the quickfix and location list windows automatically',
   nested = true,
-  command = 'cwindow',
-})
-vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-  pattern = 'l*',
-  desc = 'Open the location list window automatically',
-  nested = true,
-  command = 'lwindow',
+  callback = function(info)
+    local openLoclist = info.match:sub(1, 1) == 'l'
+    vim.cmd[openLoclist and 'lopen' or 'copen']()
+  end,
 })
 
 vim.api.nvim_create_autocmd('TextYankPost', {

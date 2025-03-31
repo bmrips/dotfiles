@@ -106,12 +106,17 @@ mkIf cfg.enable {
         arrowHead = "❯";
         keybindings = escapeShellArg (
           concatStringsSep "," [
-            "ctrl-f:half-page-down"
+            "alt-[:change-preview-window(nohidden,down|nohidden,right|nohidden,up|nohidden,left)"
+            "alt-]:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)"
+            "alt-j:preview-half-page-down"
+            "alt-k:preview-half-page-up"
+            "alt-p:toggle-preview"
+            "alt-w:toggle-preview-wrap"
+            "ctrl-a:toggle-all"
+            "ctrl-alt-j:preview-down"
+            "ctrl-alt-k:preview-up"
             "ctrl-b:half-page-up"
-            "alt-a:toggle-all"
-            "f3:toggle-preview-wrap"
-            "f4:toggle-preview"
-            "f5:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)"
+            "ctrl-f:half-page-down"
           ]
         );
       in

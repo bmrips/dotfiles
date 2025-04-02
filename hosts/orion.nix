@@ -99,13 +99,12 @@ in
 
   fileSystems = {
     "/" = btrfsSubvolume "nixos";
+    "/home" = btrfsSubvolume "home";
+    "/etc/keys" = btrfsSubvolume "keys";
     "${config.boot.loader.efi.efiSysMountPoint}" = {
       device = uuid "B2BD-72B9";
       fsType = "vfat";
     };
-    "/etc/keys" = btrfsSubvolume "keys";
-    "/home" = btrfsSubvolume "home";
-    "/mnt/btr_pool" = btrfsSubvolume "/";
   };
 
   dualboot.windows.uuid = "16E2EEDDE2EEBFDB";
@@ -114,13 +113,14 @@ in
   hardware.cpu.intel.updateMicrocode = true;
   hardware.devices.lacie_drive.enable = true;
 
+  fileSystems."/mnt/btr_pool" = btrfsSubvolume "/";
   services.btrbk.instances.${host}.settings.volume."/mnt/btr_pool" = {
     snapshot_dir = "btrbk_snapshots";
     target = "/mnt/lacie/backup/${host}";
-    target_preserve_min = "no";
     subvolume.home = {
       snapshot_preserve_min = "2d";
       snapshot_preserve = "14d";
+      target_preserve_min = "no";
       target_preserve = "12w *m";
     };
   };

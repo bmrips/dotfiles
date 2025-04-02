@@ -1,5 +1,6 @@
 {
   config,
+  host,
   lib,
   modulesPath,
   user,
@@ -63,12 +64,25 @@ in
 
   hardware.bluetooth.enable = true;
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.devices.lacie_drive.enable = true;
 
   hardware.nvidia.open = true;
   services.xserver.videoDrivers = [
     "intel"
     "nvidia"
   ];
+
+  fileSystems."/mnt/btr_pool" = btrfsSubvolume "/";
+  services.btrbk.instances.${host}.settings.volume."/mnt/btr_pool" = {
+    snapshot_dir = "btrbk_snapshots";
+    target = "/mnt/lacie/backup/${host}";
+    subvolume.home = {
+      snapshot_preserve_min = "2d";
+      snapshot_preserve = "14d";
+      target_preserve_min = "no";
+      target_preserve = "12w *m";
+    };
+  };
 
   services.btrfs.autoScrub = {
     enable = true;

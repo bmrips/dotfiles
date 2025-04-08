@@ -14,6 +14,7 @@ local servers = {
       },
     },
   },
+  jdtls = {},
   ltex_plus = {
     on_attach = function()
       require('ltex_extra').setup {

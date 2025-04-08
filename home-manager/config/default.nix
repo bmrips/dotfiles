@@ -24,6 +24,7 @@ in
     ./development/bash.nix
     ./development/c.nix
     ./development/container.nix
+    ./development/java.nix
     ./development/kubernetes.nix
     ./development/lua.nix
     ./development/markdown.nix

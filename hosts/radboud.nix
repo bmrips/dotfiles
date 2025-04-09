@@ -9,7 +9,9 @@
 
 let
   btrfsSubvolume = subvolume: {
-    device = lib.uuid "4c9faf53-86ad-411e-a6a9-adc39994aac4";
+    # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
+    # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
+    device = "/dev/mapper/linux";
     fsType = "btrfs";
     options = [
       "autodefrag"

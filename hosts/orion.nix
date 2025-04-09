@@ -12,7 +12,9 @@ let
   inherit (lib) uuid partuuid;
 
   btrfsSubvolume = subvolume: {
-    device = uuid "5c603a46-9506-4eb4-b68a-31ee0408b775";
+    # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
+    # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
+    device = "/dev/mapper/linux";
     fsType = "btrfs";
     options = [
       "autodefrag"
@@ -25,7 +27,9 @@ let
     ];
   };
 
-  swapDevice = uuid "a09ffe4f-168e-4b89-be3f-a0f9fbc83364";
+  # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
+  # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
+  swapDevice = "/dev/mapper/swap";
 
 in
 {

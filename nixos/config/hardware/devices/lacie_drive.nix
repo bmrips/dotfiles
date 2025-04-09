@@ -25,5 +25,14 @@ in
         "noauto"
       ];
     };
+    systemd.mounts = [
+      {
+        overrideStrategy = "asDropin";
+        what = "/dev/mapper/${name}";
+        where = "/mnt/${name}";
+        bindsTo = [ "systemd-cryptsetup@${name}.service" ];
+        after = [ "systemd-cryptsetup@${name}.service" ];
+      }
+    ];
   };
 }

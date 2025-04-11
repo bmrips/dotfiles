@@ -12,6 +12,7 @@
     home.packages = with pkgs; [
       yaml-language-server
       yamlfmt
+      yq
     ];
     programs.yamllint.enable = true;
   };

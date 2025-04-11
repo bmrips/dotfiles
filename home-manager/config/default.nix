@@ -21,7 +21,6 @@ let
 in
 {
   imports = [
-    ./ci/pre-commit.nix
     ./development/bash.nix
     ./development/c.nix
     ./development/container.nix
@@ -77,8 +76,6 @@ in
     ./programs/zsh.nix
     ./remove-leaked-path-entries.nix
   ];
-
-  ci.pre-commit.enable = true;
 
   development.bash.enable = true;
   development.lua.enable = true;

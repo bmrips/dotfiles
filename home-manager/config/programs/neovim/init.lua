@@ -200,8 +200,6 @@ vim.api.nvim_create_autocmd('LspDetach', {
       vim.wo[win].signcolumn = 'no'
     end)
 
-    vim.bo[args.buf].formatexpr = ''
-
     nest.revertKeymaps(appliedMappings.lsp[args.buf])
     appliedMappings.lsp[args.buf] = nil
   end,

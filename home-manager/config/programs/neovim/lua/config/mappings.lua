@@ -484,6 +484,13 @@ return {
         vim.diagnostic.open_float,
         desc = 'Show diagnostics under cursor',
       },
+      { 'f',
+        function()
+          require('conform').format()
+        end,
+        desc = 'Format buffer',
+        mode = { 'n', 'o', 'x' },
+      },
       { '<C-d>',
         function()
           require('fzf-lua').diagnostics_workspace()
@@ -836,12 +843,6 @@ return {
             desc = 'List outgoing calls',
           },
         }},
-        { 'f',
-          vim.lsp.buf.format,
-          cond = client_supports 'documentFormatProvider',
-          desc = 'Format the buffer',
-          mode = { 'n', 'o', 'x' },
-        },
         { 'k',
           vim.lsp.buf.signature_help,
           cond = client_supports 'signatureHelpProvider',

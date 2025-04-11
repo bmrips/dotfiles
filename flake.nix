@@ -109,7 +109,6 @@
         perSystem =
           {
             config,
-            inputs',
             pkgs,
             ...
           }:
@@ -126,6 +125,7 @@
               check-vcs-permalinks.enable = true;
               check-yaml.enable = true;
               convco.enable = true;
+              deadnix.enable = true;
               detect-private-keys.enable = true;
               markdownlint.enable = true;
               mixed-line-endings.enable = true;

@@ -1,4 +1,4 @@
-final: prev:
+final: _prev:
 
 {
   bt-dualboot = final.callPackage ./bt-dualboot.nix { };

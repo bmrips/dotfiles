@@ -55,7 +55,7 @@ let
       mapAttrs' (n': v': nameValuePair "${n}.${n'}" v') (flattenAttrs v)
   );
 
-  flatten3rdLevel = mapAttrs (n: v: if !(isAttrs v) then v else flattenAttrs v);
+  flatten3rdLevel = mapAttrs (_: v: if !(isAttrs v) then v else flattenAttrs v);
 
 in
 {

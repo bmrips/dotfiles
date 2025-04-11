@@ -2,8 +2,6 @@
 
 let
   inherit (lib)
-    all
-    attrValues
     concatMapAttrs
     concatStringsSep
     escape

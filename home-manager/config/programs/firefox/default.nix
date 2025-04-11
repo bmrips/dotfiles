@@ -14,13 +14,13 @@ let
     ;
 
   toAction =
-    name: addon:
+    addon:
     let
       normalizedAddonId = toLower (replaceStrings [ "." "@" "{" "}" ] [ "_" "_" "_" "_" ] addon.addonId);
     in
     "${normalizedAddonId}-browser-action";
 
-  addonActions = mapAttrs toAction pkgs.nur.repos.rycee.firefox-addons;
+  addonActions = mapAttrs (_: toAction) pkgs.nur.repos.rycee.firefox-addons;
 
 in
 mkIf config.programs.firefox.enable {

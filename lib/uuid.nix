@@ -1,4 +1,4 @@
-lib:
+_lib:
 
 {
   uuid = id: "/dev/disk/by-uuid/" + id;

@@ -73,7 +73,7 @@ let
         description = "Name of the colorscheme. Defaults to the attribute name.";
       };
       extraConfig = mkOption {
-        type = ini.type;
+        inherit (ini) type;
         default = { };
         description = ''
           Extra configuration for the colorscheme. Configuration listed here has

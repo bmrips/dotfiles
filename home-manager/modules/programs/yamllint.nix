@@ -25,7 +25,7 @@ in
     package = mkPackageOption pkgs "yamllint" { };
 
     settings = mkOption {
-      type = yaml.type;
+      inherit (yaml) type;
       default = { };
       description = "Settings for {command}`yamllint`.";
       example = {

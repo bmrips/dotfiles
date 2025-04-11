@@ -132,6 +132,8 @@
               selene.args = [ "--no-summary" ];
               selene.enable = true;
               shellcheck.enable = true;
+              statix.enable = true;
+              statix.settings.format = "stderr";
               treefmt.enable = true;
               trim-trailing-whitespace.enable = true;
               typos.enable = true;
@@ -158,6 +160,7 @@
                 "home-manager/config/programs/neovim/selene.toml"
                 "neovim.yaml"
                 "selene.toml"
+                "statix.toml"
                 "typos.toml"
               ];
               programs = {

@@ -23,7 +23,7 @@ in
     enable = mkEnableOption "{command}`glab`.";
     package = mkPackageOption pkgs "glab" { };
     settings = mkOption {
-      type = yaml.type;
+      inherit (yaml) type;
       default = { };
       description = "Configuration written to {file}`$XDG_CONFIG_HOME/glab-cli/config.yml`.";
       example.check_update = false;

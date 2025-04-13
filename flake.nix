@@ -25,7 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     pre-commit = {
-      url = "github:cachix/git-hooks.nix";
+      url = "github:bmrips/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     programs-db = {
@@ -129,7 +129,6 @@
               detect-private-keys.enable = true;
               markdownlint.enable = true;
               mixed-line-endings.enable = true;
-              selene.args = [ "--no-summary" ];
               selene.enable = true;
               shellcheck.enable = true;
               statix.enable = true;

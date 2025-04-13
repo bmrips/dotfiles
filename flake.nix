@@ -113,7 +113,14 @@
             ...
           }:
           {
-            devShells.default = config.pre-commit.devShell;
+            devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
+              nativeBuildInputs =
+                let
+                  inherit (inputs.nixpkgs.lib) attrValues;
+                  formatters = attrValues config.treefmt.build.programs;
+                in
+                (prevAttrs.nativeBuildInputs or [ ]) ++ formatters;
+            });
 
             pre-commit.settings.hooks = {
               check-added-large-files.enable = true;

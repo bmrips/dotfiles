@@ -102,28 +102,6 @@ return {
     backward = '[',
     forward = ']',
     operations = function(h)
-      h:command_pair {
-        key = 'a',
-        backward = 'previous',
-        forward = 'next',
-        better_n = true,
-      }
-      h:command_pair {
-        key = 'A',
-        backward = 'first',
-        forward = 'last',
-      }
-      h:command_pair {
-        key = 'b',
-        backward = 'bprevious',
-        forward = 'bnext',
-        better_n = true,
-      }
-      h:command_pair {
-        key = 'B',
-        backward = 'bfirst',
-        forward = 'blast',
-      }
       h:text_manipulation {
         key = 'C',
         line_key = true,
@@ -135,18 +113,32 @@ return {
         key = 'd',
         desc = '{Previous|Next} diagnostic',
         better_n = true,
-        backward = vim.diagnostic.goto_prev,
-        forward = vim.diagnostic.goto_next,
+        backward = function()
+          vim.diagnostic.jump { count = -vim.v.count1 }
+        end,
+        forward = function()
+          vim.diagnostic.jump { count = vim.v.count1 }
+        end,
       }
       h:function_pair {
         key = 'D',
+        desc = '{First|Last} diagnostic',
+        backward = function()
+          vim.diagnostic.jump { count = -math.huge, wrap = false }
+        end,
+        forward = function()
+          vim.diagnostic.jump { count = math.huge, wrap = false }
+        end,
+      }
+      h:function_pair {
+        key = '<C-d>',
         desc = '{Previous|Next} error',
         better_n = true,
         backward = function()
-          vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+          vim.diagnostic.jump { count = -vim.v.count1, severity = vim.diagnostic.severity.ERROR }
         end,
         forward = function()
-          vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+          vim.diagnostic.jump { count = vim.v.count1, severity = vim.diagnostic.severity.ERROR }
         end,
       }
       h:function_pair {
@@ -200,23 +192,6 @@ return {
           end
         end,
       }
-      h:command_pair {
-        key = 'l',
-        better_n = true,
-        backward = 'lprevious',
-        forward = 'lnext',
-      }
-      h:command_pair {
-        key = 'L',
-        backward = 'lfirst',
-        forward = 'llast',
-      }
-      h:command_pair {
-        key = '<C-l>',
-        better_n = true,
-        backward = 'lpfile',
-        forward = 'lnfile',
-      }
       h:jump_in_buf {
         key = 'n',
         desc = 'Jump to {previous|next} SCM conflict marker or diff/path hunk',
@@ -226,40 +201,6 @@ return {
           desc = 'Jump to {first|last} SCM conflict marker or diff/path hunk',
         },
         fun = require('impairative.helpers').conflict_marker_locations,
-      }
-      h:command_pair {
-        key = 'q',
-        better_n = true,
-        backward = 'cprevious',
-        forward = 'cnext',
-      }
-      h:command_pair {
-        key = 'Q',
-        backward = 'cfirst',
-        forward = 'clast',
-      }
-      h:command_pair {
-        key = '<C-q>',
-        better_n = true,
-        backward = 'cpfile',
-        forward = 'cnfile',
-      }
-      h:command_pair {
-        key = 't',
-        better_n = true,
-        backward = 'tprevious',
-        forward = 'tnext',
-      }
-      h:command_pair {
-        key = 'T',
-        backward = 'tfirst',
-        forward = 'tlast',
-      }
-      h:command_pair {
-        key = '<C-t>',
-        better_n = true,
-        backward = 'ptprevious',
-        forward = 'ptnext',
       }
       h:text_manipulation {
         key = 'u',
@@ -281,18 +222,6 @@ return {
         backward = require('impairative.helpers').encode_string,
         desc = '{Escape|Unescape} strings (C escape rules)',
         forward = require('impairative.helpers').decode_string,
-      }
-      h:unified_function {
-        key = '<Space>',
-        desc = 'Add blank line(s) {above|below} the current line',
-        fun = function(direction)
-          local line_number = vim.api.nvim_win_get_cursor(0)[1]
-          if direction == 'backward' then
-            line_number = line_number - 1
-          end
-          local lines = vim.fn['repeat']({ '' }, vim.v.count1)
-          vim.api.nvim_buf_set_lines(0, line_number, line_number, true, lines)
-        end,
       }
     end,
   },

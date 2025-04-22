@@ -726,28 +726,36 @@ return {
       { 'g', {
         { 'd',
           function()
-            require('util.lsp.goto').location('definition')
+            vim.lsp.buf.definition {
+              on_list = require('util.lsp.goto')(),
+            }
           end,
           cond = client_supports 'definitionProvider',
           desc = 'Go to definition',
         },
         { 'D',
           function()
-            require('util.lsp.goto').location('declaration')
+            vim.lsp.buf.declaration {
+              on_list = require('util.lsp.goto')(),
+            }
           end,
           cond = client_supports 'declarationProvider',
           desc = 'Go to declaration',
         },
         { 'i',
           function()
-            require('util.lsp.goto').location('implementation')
+            vim.lsp.buf.implementation {
+              on_list = require('util.lsp.goto')(),
+            }
           end,
           cond = client_supports 'implementationProvider',
           desc = 'Go to implementation',
         },
         { 't',
           function()
-            require('util.lsp.goto').location('type_definition')
+            vim.lsp.buf.type_definition {
+              on_list = require('util.lsp.goto')(),
+            }
           end,
           cond = client_supports 'typeDefinitionProvider',
           desc = 'Go to type definition',
@@ -762,63 +770,81 @@ return {
       { '<C-w>', {
         { 'd',
           function()
-            require('util.lsp.goto').location('definition', 'split')
+            vim.lsp.buf.definition {
+              on_list = require('util.lsp.goto')('split'),
+            }
           end,
           cond = client_supports 'definitionProvider',
           desc = 'Open definition in split',
         },
         { 'D',
           function()
-            require('util.lsp.goto').location('definition', 'tab split')
+            vim.lsp.buf.definition {
+              on_list = require('util.lsp.goto')('tab split'),
+            }
           end,
           cond = client_supports 'definitionProvider',
           desc = 'Open definition in tab split',
         },
         { '<C-d>',
           function()
-            require('util.lsp.goto').location('definition', 'vert split')
+            vim.lsp.buf.definition {
+              on_list = require('util.lsp.goto')('vert split'),
+            }
           end,
           cond = client_supports 'definitionProvider',
           desc = 'Open definition in vert split',
         },
         { 'i',
           function()
-            require('util.lsp.goto').location('implementation', 'split')
+            vim.lsp.buf.implementation {
+              on_list = require('util.lsp.goto')('split'),
+            }
           end,
           cond = client_supports 'implementationProvider',
           desc = 'Open implementation in split',
         },
         { 'I',
           function()
-            require('util.lsp.goto').location('implementation', 'tab split')
+            vim.lsp.buf.implementation {
+              on_list = require('util.lsp.goto')('tab split'),
+            }
           end,
           cond = client_supports 'implementationProvider',
           desc = 'Open implementation in tab split',
         },
         { '<C-i>',
           function()
-            require('util.lsp.goto').location('implementation', 'vert split')
+            vim.lsp.buf.implementation {
+              on_list = require('util.lsp.goto')('vert split'),
+            }
           end,
           cond = client_supports 'implementationProvider',
           desc = 'Open implementation in vert split',
         },
         { 't',
           function()
-            require('util.lsp.goto').location('type_definition', 'split')
+            vim.lsp.buf.type_definition {
+              on_list = require('util.lsp.goto')('split'),
+            }
           end,
           cond = client_supports 'typeDefinitionProvider',
           desc = 'Open type definition in split',
         },
         { 'T',
           function()
-            require('util.lsp.goto').location('type_definition', 'tab split')
+            vim.lsp.buf.type_definition {
+              on_list = require('util.lsp.goto')('tab split'),
+            }
           end,
           cond = client_supports 'typeDefinitionProvider',
           desc = 'Open type definition in tab split',
         },
         { '<C-t>',
           function()
-            require('util.lsp.goto').location('type_definition', 'vert split')
+            vim.lsp.buf.type_definition {
+              on_list = require('util.lsp.goto')('vert split'),
+            }
           end,
           cond = client_supports 'typeDefinitionProvider',
           desc = 'Open type definition in vert split',

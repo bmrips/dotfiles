@@ -40,8 +40,8 @@ if tex.bufIsDocument(0) then
       vim.api.nvim_exec_autocmds('QuickFixCmdPre', {
         pattern = vim.api.nvim_buf_get_name(0),
       })
-      if vim.cmd.TexlabBuild then
-        vim.cmd.TexlabBuild()
+      if vim.cmd.LspTexlabBuild then
+        vim.cmd.LspTexlabBuild()
       else
         vim.cmd.make { bang = true }
       end
@@ -65,11 +65,11 @@ require('nest').applyKeymaps {
   { buffer = true, {
     { '<LocalLeader>', {
       { '<C-e>',
-        '<Cmd>TexlabChangeEnvironment<CR>',
+        '<Cmd>LspTexlabChangeEnvironment<CR>',
         desc = 'Change environment',
       },
       { 'v',
-        '<Cmd>TexlabForward<CR>',
+        '<Cmd>LspTexlabForward<CR>',
         desc = 'View generated PDF document',
       },
     }},

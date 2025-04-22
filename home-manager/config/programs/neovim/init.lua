@@ -81,6 +81,9 @@ require('lazy').setup('config.plugins', {
   dev = {
     path = '~/projects/neovim/plugins/',
   },
+  rocks = {
+    enabled = false,
+  },
 })
 
 vim.cmd.colorscheme 'gruvbox-material'

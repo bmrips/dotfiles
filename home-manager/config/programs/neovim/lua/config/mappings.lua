@@ -753,6 +753,12 @@ return {
           desc = 'Go to type definition',
         },
       }},
+      { '<C-k>',
+        vim.lsp.buf.signature_help,
+        cond = client_supports 'signatureHelpProvider',
+        desc = "Show the symbol's signature",
+        mode = { 'i', 's' },
+      },
       { '<C-w>', {
         { 'd',
           function()
@@ -843,11 +849,6 @@ return {
             desc = 'List outgoing calls',
           },
         }},
-        { 'k',
-          vim.lsp.buf.signature_help,
-          cond = client_supports 'signatureHelpProvider',
-          desc = "Show the symbol's signature",
-        },
         { 'o',
           function()
             require('aerial').toggle()

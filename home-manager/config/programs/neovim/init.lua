@@ -5,7 +5,6 @@ opt.background = vim.env.BACKGROUND or 'dark' -- Adapt background to terminal ba
 opt.breakindent = true
 opt.breakindentopt = { 'shift:4', 'sbr' }
 opt.clipboard = 'unnamedplus'
-opt.diffopt:append 'linematch:60'
 opt.expandtab = true
 opt.exrc = true
 opt.fillchars = 'fold: ,foldopen:,foldsep: ,foldclose:'
@@ -157,12 +156,6 @@ for _, abb in ipairs(abbreviations) do
   vim.cmd.cnoreabbrev { abb[1], abb[2] }
 end
 
-local lsp_goto = require 'util.lsp.goto'
-vim.lsp.handlers['textDocument/declaration*'] = lsp_goto.handler
-vim.lsp.handlers['textDocument/definition'] = lsp_goto.handler
-vim.lsp.handlers['textDocument/implementation'] = lsp_goto.handler
-vim.lsp.handlers['textDocument/typeDefinition'] = lsp_goto.handler
-
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'Set settings specific to buffers with attached language server',
   nested = true,
@@ -173,8 +166,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
-    local function client_supports(cap)
-      client.supports_method(cap, { bufnr = args.buf })
+    local client_supports = function(cap)
+      client:supports_method(cap, args.buf)
     end
 
     if client_supports 'inlayHintProvider' then
@@ -185,5 +178,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
     end
+
+    nest.applyKeymaps {
+      buffer = args.buf,
+      mappings.lsp(client_supports),
+    }
   end,
 })

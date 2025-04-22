@@ -42,10 +42,8 @@ return {
     },
     extensions = {
       'aerial',
-      'fzf',
       'lazy',
       'man',
-      'mundo',
       'quickfix',
       'trouble',
     },

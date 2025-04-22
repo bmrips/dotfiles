@@ -17,7 +17,9 @@
     };
     nur = {
       url = "github:nix-community/NUR";
+      inputs.flake-parts.follows = "flake-parts";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.treefmt-nix.follows = "treefmt";
     };
     plasma-manager = {
       url = "github:nix-community/plasma-manager";

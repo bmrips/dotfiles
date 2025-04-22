@@ -146,7 +146,7 @@ mkMerge [
         RememberOpenedTabs = false;
         ShowSelectionToggle = false;
         ShowSpaceInfo = false;
-        ShowStatusBar = false;
+        ShowStatusBar = "Disabled";
         ShowZoomSlider = false;
         SortingChoice = "CaseInsensitiveSorting";
         UseTabForSwitchingSplitView = true;

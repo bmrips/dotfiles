@@ -1,16 +1,13 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
 let
   inherit (lib)
     mkIf
-    mkEnableOption
     mkOption
-    mkPackageOption
     types
     ;
   cfg = config.programs.keepassxc;
@@ -18,22 +15,14 @@ let
 in
 {
 
-  options.programs.keepassxc = {
-    enable = mkEnableOption "KeePassXC.";
-    package = mkPackageOption pkgs "keepassxc" { };
-    autostart = mkOption {
-      type = types.bool;
-      default = false;
-      description = "Whether Keepassxc starts automatically on login.";
-    };
+  options.programs.keepassxc.autostart = mkOption {
+    type = types.bool;
+    default = false;
+    description = "Whether Keepassxc starts automatically on login.";
   };
 
-  config = mkIf cfg.enable {
-    home.packages = [ cfg.package ];
-    programs.firefox.nativeMessagingHosts = [ cfg.package ];
-    xdg.autostart.entries = mkIf cfg.autostart [
-      "${cfg.package}/share/applications/org.keepassxc.KeePassXC.desktop"
-    ];
-  };
+  config.xdg.autostart.entries = mkIf (cfg.enable && cfg.autostart) [
+    "${cfg.package}/share/applications/org.keepassxc.KeePassXC.desktop"
+  ];
 
 }

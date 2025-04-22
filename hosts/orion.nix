@@ -161,6 +161,7 @@ in
         name = "DLL075B:01 06CB:76AF Touchpad";
         vendorId = "1739";
         productId = "30383";
+        accelerationProfile = "default";
         disableWhileTyping = true;
         naturalScroll = true;
         pointerSpeed = 0.0;

@@ -101,15 +101,8 @@ mkIf config.programs.firefox.enable {
         # Unload tabs after 5 minutes.
         "browser.tabs.min_inactive_duration_before_unload" = "300000";
 
-        # Improve the rendering performance by enabling Webrender.
-        "gfx.webrender.all" = true;
-        "gfx.webrender.compositor.force-enabled" = true;
-
         # Increase the speed of processing images.
         "image.mem.decode_bytes_at_a_time" = 131072;
-
-        # Enable hardware video acceleration via VAAPI.
-        "media.ffmpeg.vaapi.enabled" = true;
 
         # http://forums.mozillazine.org/viewtopic.php?f=7&t=2416193
         # https://www.mail-archive.com/support-seamonkey@lists.mozilla.org/msg74561.html
@@ -227,6 +220,7 @@ mkIf config.programs.firefox.enable {
           placements = {
             widget-overflow-fixed-list = [ ];
             nav-bar = with addonActions; [
+              "sidebar-button"
               "back-button"
               "forward-button"
               "stop-reload-button"
@@ -260,6 +254,7 @@ mkIf config.programs.firefox.enable {
               "tabbrowser-tabs"
               "alltabs-button"
             ];
+            vertical-tabs = [ ];
             PersonalToolbar = [ "personal-bookmarks" ];
           };
           seen = with addonActions; [
@@ -288,8 +283,12 @@ mkIf config.programs.firefox.enable {
             "unified-extensions-area"
             "nav-bar"
             "widget-overflow-fixed-list"
+            "toolbar-menubar"
+            "TabsToolbar"
+            "vertical-tabs"
+            "PersonalToolbar"
           ];
-          currentVersion = 20;
+          currentVersion = 21;
           newElementCount = 7;
         };
       };

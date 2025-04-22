@@ -1,14 +1,5 @@
 { lib, pkgs, ... }:
 
-let
-  yazi-plugins = pkgs.fetchFromGitHub {
-    owner = "yazi-rs";
-    repo = "plugins";
-    rev = "5e65389d1308188e5a990059c06729e2edb18f8a";
-    hash = "sha256-XHaQjudV9YSMm4vF7PQrKGJ078oVF1U1Du10zXEJ9I0=";
-  };
-
-in
 {
   programs.yazi = lib.mkMerge [
 
@@ -65,18 +56,18 @@ in
     }
 
     {
-      plugins.hide-preview = "${yazi-plugins}/hide-preview.yazi";
+      plugins.toggle-pane = pkgs.yaziPlugins.toggle-pane;
       keymap.manager.prepend_keymap = [
         {
           on = "|";
-          run = "plugin --sync hide-preview";
+          run = "plugin toggle-pane min-preview";
           desc = "Toggle preview";
         }
       ];
     }
 
     {
-      plugins.no-status = "${yazi-plugins}/no-status.yazi";
+      plugins.no-status = pkgs.yaziPlugins.no-status;
       initLua = "require('no-status'):setup()";
     }
 

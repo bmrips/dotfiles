@@ -120,13 +120,10 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.g.tex_flavor = 'latex'
 
 local mappings = require 'config.mappings'
-local appliedMappings = {
-  lsp = {},
-}
 
 local nest = require 'nest'
 nest.defaults.silent = false
-appliedMappings.init = nest.applyKeymaps(mappings.init)
+nest.applyKeymaps(mappings.init)
 
 local abbreviations = {
   -- Window splits.
@@ -188,22 +185,5 @@ vim.api.nvim_create_autocmd('LspAttach', {
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
     end
-
-    appliedMappings.lsp[args.buf] = nest.applyKeymaps {
-      buffer = args.buf,
-      mappings.lsp(client_supports),
-    }
-  end,
-})
-vim.api.nvim_create_autocmd('LspDetach', {
-  desc = 'Revert settings specific to buffers with attached language server',
-  nested = true,
-  callback = function(args)
-    require('util.windows').for_windows_of_buf(args.buf, function(win)
-      vim.wo[win].signcolumn = 'no'
-    end)
-
-    nest.revertKeymaps(appliedMappings.lsp[args.buf])
-    appliedMappings.lsp[args.buf] = nil
   end,
 })

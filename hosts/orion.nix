@@ -159,8 +159,8 @@ in
     programs.plasma.input.touchpads = [
       {
         name = "DLL075B:01 06CB:76AF Touchpad";
-        vendorId = "1739";
-        productId = "30383";
+        vendorId = "06CB";
+        productId = "76AF";
         accelerationProfile = "default";
         disableWhileTyping = true;
         naturalScroll = true;

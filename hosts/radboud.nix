@@ -110,8 +110,8 @@ in
     programs.plasma.input.touchpads = [
       {
         name = "VEN_06CB:00 06CB:CEEC Touchpad";
-        vendorId = "1739";
-        productId = "52972";
+        vendorId = "06CB";
+        productId = "CEEC";
         accelerationProfile = "default";
         disableWhileTyping = true;
         naturalScroll = true;

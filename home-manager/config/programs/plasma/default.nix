@@ -68,9 +68,9 @@ mkMerge [
       input.mice = [
         {
           name = "SONiX Evoluent VerticalMouse D";
-          vendorId = "6780";
-          productId = "407";
-          acceleration = 1.0;
+          vendorId = "1a7c";
+          productId = "0197";
+          acceleration = -1.0;
           accelerationProfile = "default";
           naturalScroll = false;
           scrollSpeed = 1.0;

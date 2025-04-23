@@ -83,23 +83,6 @@ mkMerge [
         ExtraButton3 = "Key,Meta+Left";
       };
 
-      # Builtin touchpad
-      input.touchpads = [
-        {
-          name = "DLL075B:01 06CB:76AF Touchpad";
-          vendorId = "1739";
-          productId = "30383";
-          disableWhileTyping = true;
-          naturalScroll = true;
-          pointerSpeed = 0.0;
-          rightClickMethod = "twoFingers";
-          scrollMethod = "twoFingers";
-          tapAndDrag = true;
-          tapToClick = true;
-          twoFingerTap = "rightClick";
-        }
-      ];
-
       krunner = {
         historyBehavior = "enableSuggestions";
         position = "center";

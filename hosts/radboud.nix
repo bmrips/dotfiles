@@ -34,8 +34,6 @@ in
     systemd-boot.enable = true;
   };
 
-  boot.kernelModules = [ "kvm-intel" ];
-
   boot.kernelParams = [
     "video=efifb:nobgrt" # hide UEFI vendor logo
   ];

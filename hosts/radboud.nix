@@ -1,6 +1,7 @@
 {
   config,
   host,
+  inputs,
   lib,
   modulesPath,
   user,
@@ -27,7 +28,10 @@ let
 in
 {
 
-  imports = [ (modulesPath + "/installer/scan/not-detected.nix") ];
+  imports = [
+    (modulesPath + "/installer/scan/not-detected.nix")
+    inputs.nixos-hardware.nixosModules.common-cpu-intel
+  ];
 
   boot.loader = {
     efi.canTouchEfiVariables = true;
@@ -68,8 +72,11 @@ in
   dualboot.windows.uuid = "CAE4531BE45308D9";
 
   hardware.bluetooth.enable = true;
-  hardware.cpu.intel.updateMicrocode = true;
   hardware.devices.lacie_drive.enable = true;
+  hardware.intelgpu = {
+    driver = "xe";
+    vaapiDriver = "intel-media-driver";
+  };
 
   hardware.nvidia.open = true;
   services.xserver.videoDrivers = [

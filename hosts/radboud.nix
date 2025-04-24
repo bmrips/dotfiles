@@ -51,7 +51,7 @@ in
       "xhci_pci"
     ];
     luks.devices.linux = {
-      device = "/dev/disk/by-uuid/256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
+      device = lib.uuid "256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
       allowDiscards = true;
     };
   };

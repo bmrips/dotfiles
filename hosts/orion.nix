@@ -14,7 +14,7 @@ let
   btrfsSubvolume = subvolume: {
     # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
     # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
-    device = "/dev/mapper/linux";
+    device = "/dev/mapper/root";
     fsType = "btrfs";
     options = [
       "autodefrag"
@@ -49,13 +49,13 @@ in
       "xhci_pci"
     ];
     secrets = {
-      "/linux.key" = /etc/keys/linux.key;
+      "/root.key" = /etc/keys/root.key;
       "/swap.key" = /etc/keys/swap.key;
     };
     luks.devices = {
-      linux = {
+      root = {
         device = partuuid "decba6c6-fc4d-bd4c-bc14-d0dfbf1fdac8";
-        keyFile = "/linux.key";
+        keyFile = "/root.key";
         keyFileTimeout = 5;
         allowDiscards = true;
       };

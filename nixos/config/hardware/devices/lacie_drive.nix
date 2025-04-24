@@ -17,12 +17,13 @@ in
       device = "/dev/mapper/${name}";
       fsType = "btrfs";
       options = [
-        "rw"
-        "noatime"
-        "compress=zstd"
         "autodefrag"
-        "space_cache=v2"
+        "compress=zstd"
+        "lazytime"
         "noauto"
+        "rw"
+        "space_cache=v2"
+        "strictatime"
       ];
     };
     systemd.mounts = [

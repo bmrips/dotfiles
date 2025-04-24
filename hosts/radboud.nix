@@ -16,9 +16,10 @@ let
     options = [
       "autodefrag"
       "compress=zstd:3"
-      "noatime"
+      "lazytime"
       "rw"
       "ssd"
+      "strictatime"
       "subvol=${subvolume}"
     ];
   };

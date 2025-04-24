@@ -41,6 +41,7 @@ in
   boot.initrd = {
     systemd.enable = true;
     availableKernelModules = [
+      "aesni_intel"
       "nvme"
       "sd_mod"
       "thunderbolt"

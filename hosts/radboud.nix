@@ -81,7 +81,17 @@ in
     vaapiDriver = "intel-media-driver";
   };
 
-  hardware.nvidia.open = true;
+  hardware.nvidia = {
+    open = true;
+    prime = {
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:1:0:0";
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+    };
+  };
   services.xserver.videoDrivers = [
     "intel"
     "nvidia"

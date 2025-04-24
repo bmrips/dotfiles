@@ -69,26 +69,11 @@ in
     };
   };
 
-  boot.kernelModules = [ "kvm-intel" ];
-
   boot.kernelParams = [
     "resume=${swapDevice}"
     "retbleed=stuff"
     "video=efifb:nobgrt" # hide UEFI vendor logo
     "zswap.enabled=1"
-
-    # For the Gen 9+ iHD graphics card, enable HuC load but disable GuC
-    # submission since the latter is not available on this chip. Passing this
-    # option at boot time appears to fix the overheating issue when watching
-    # videos. Disable this option if you experience freezing, e.g. after
-    # resuming from hibernation.
-    #
-    # Additionally, enable only the RC6p sleep state (other RC6 states are not
-    # available on this graphics card.
-    #
-    # https://gist.github.com/Brainiarc7/aa43570f512906e882ad6cdd835efe57
-    "i915.enable_guc=2"
-    "i915.enable_dc=1"
   ];
 
   boot.loader = {
@@ -114,7 +99,6 @@ in
   dualboot.windows.uuid = "16E2EEDDE2EEBFDB";
 
   hardware.bluetooth.enable = true;
-  hardware.cpu.intel.updateMicrocode = true;
   hardware.devices.lacie_drive.enable = true;
 
   fileSystems."/mnt/btr_pool" = btrfsSubvolume "/";

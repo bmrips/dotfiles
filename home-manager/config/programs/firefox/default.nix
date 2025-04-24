@@ -111,9 +111,9 @@ mkIf config.programs.firefox.enable {
 
         # Increase SSL and DNS caches
         "network.ssl_tokens_cache_capacity" = 32768;
+        "network.dnsCacheEntries" = 2000;
         "network.dnsCacheExpiration" = 7200; # 2 hours
         "network.dnsCacheExpirationGracePeriod" = 3600; # 1 hour
-        "dnsCacheEntries" = 2000;
 
         # Use the XDG desktop portal.
         "widget.use-xdg-desktop-portal.file-picker" = 1;

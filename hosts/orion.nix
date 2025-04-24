@@ -56,11 +56,13 @@ in
       linux = {
         device = partuuid "decba6c6-fc4d-bd4c-bc14-d0dfbf1fdac8";
         keyFile = "/linux.key";
+        keyFileTimeout = 5;
         allowDiscards = true;
       };
       swap = {
         device = partuuid "30598f9b-913c-3c4e-a918-74847e068c94";
         keyFile = "/swap.key";
+        keyFileTimeout = 5;
         allowDiscards = true;
         crypttabExtraOpts = [
           "plain"

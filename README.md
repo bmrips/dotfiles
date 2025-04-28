@@ -36,6 +36,12 @@
 
 1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
 
+1. Generate an Age key for sops-nix:
+
+   - Generate the key: `nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt`.
+   - Add it to `.sops.yaml`.
+   - Update the secrets: `nix run nixpkgs#sops -- updatekeys {home-manager,nixos}/config/secrets.yaml`.
+
 1. Reuse an existing host configuration or create a new one.
 
 1. Install home-manager: `nix run home-manager/master -- switch`.

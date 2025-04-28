@@ -1,2 +1,8 @@
+[files]
+extend-exclude = [
+  ".sops.yaml",
+  "secrets.yaml"
+]
+
 [default.extend-words]
 iterm = "iterm"

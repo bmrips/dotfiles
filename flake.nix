@@ -34,6 +34,10 @@
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    sops = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     treefmt = {
       url = "github:numtide/treefmt-nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -88,8 +92,9 @@
                           programs-db = inputs'.programs-db.packages.programs-sqlite;
                         };
                         sharedModules = [
-                          ./home-manager
                           inputs.plasma-manager.homeManagerModules.plasma-manager
+                          inputs.sops.homeManagerModules.sops
+                          ./home-manager
                         ];
                       };
                     }
@@ -121,7 +126,12 @@
                   inherit (inputs.nixpkgs.lib) attrValues;
                   formatters = attrValues config.treefmt.build.programs;
                 in
-                (prevAttrs.nativeBuildInputs or [ ]) ++ formatters;
+                (prevAttrs.nativeBuildInputs or [ ])
+                ++ formatters
+                ++ [
+                  pkgs.age
+                  pkgs.sops
+                ];
             });
 
             pre-commit.settings.hooks = {

@@ -11,6 +11,7 @@ let
     mkIf
     mkOption
     mkPackageOption
+    types
     ;
 
   cfg = config.programs.glab;
@@ -22,6 +23,12 @@ in
   options.programs.glab = {
     enable = mkEnableOption "{command}`glab`.";
     package = mkPackageOption pkgs "glab" { };
+    aliases = mkOption {
+      type = with types; attrsOf str;
+      default = { };
+      description = "Aliases written to {file}`$XDG_CONFIG_HOME/glab-cli/aliases.yml`.";
+      example.co = "mr checkout";
+    };
     settings = mkOption {
       inherit (yaml) type;
       default = { };
@@ -32,8 +39,13 @@ in
 
   config = mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.configFile."glab-cli/config.yml" = mkIf (cfg.settings != { }) {
-      source = yaml.generate "glab-cli_config.yml" cfg.settings;
+    xdg.configFile = {
+      "glab-cli/aliases.yml" = mkIf (cfg.aliases != { }) {
+        source = yaml.generate "glab-cli_aliases.yml" cfg.aliases;
+      };
+      "glab-cli/config.yml" = mkIf (cfg.settings != { }) {
+        source = yaml.generate "glab-cli_config.yml" cfg.settings;
+      };
     };
   };
 }

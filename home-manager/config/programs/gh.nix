@@ -7,7 +7,10 @@ in
 mkMerge [
 
   {
-    programs.gh.settings.git_protocol = "ssh";
+    programs.gh = {
+      settings.git_protocol = "ssh";
+      hosts."github.com".user = "bmrips";
+    };
   }
 
   (mkIf config.programs.gh.enable {

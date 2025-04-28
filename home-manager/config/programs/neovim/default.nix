@@ -31,6 +31,7 @@ lib.mkMerge [
   }
 
   (lib.mkIf config.programs.neovim.enable {
+
     home.packages = with pkgs; [
       gnumake # for markdown-preview.nvim
       nodejs # for markdown-preview.nvim
@@ -38,13 +39,19 @@ lib.mkMerge [
       tree-sitter
       wl-clipboard
     ];
-    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink' ./.;
+
     home.shellAliases = {
       v = "nvim";
       vi = "nvim";
       vim = "nvim";
     };
+
     programs.gcc.enable = true; # for nvim-treesitter
+
+    sops.secrets.deepl_api_token = { };
+    home.sessionVariables.DEEPL_API_TOKEN = "$(cat ${config.sops.secrets.deepl_api_token.path})";
+
+    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink' ./.;
   })
 
 ]

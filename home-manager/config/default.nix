@@ -50,6 +50,7 @@ in
     ./programs/gcc.nix
     ./programs/git
     ./programs/gh.nix
+    ./programs/glab.nix
     ./programs/goto.nix
     ./programs/grep.nix
     ./programs/keepassxc.nix
@@ -204,6 +205,11 @@ in
   programs.yazi.enable = true;
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
+
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+  };
 
   xdg.enable = true;
 }

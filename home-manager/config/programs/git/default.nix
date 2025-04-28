@@ -50,6 +50,8 @@ lib.mkIf config.programs.git.enable {
         };
     };
 
+    difftastic.enableAsDifftool = true;
+
     extraConfig = {
       advice.detachedHead = false;
       advice.statusHints = false;
@@ -66,6 +68,7 @@ lib.mkIf config.programs.git.enable {
       log.date = "human";
       merge.ff = "only";
       merge.tool = "nvim";
+      pager.difftool = true;
       pull.rebase = true;
       push.gpgSign = "if-asked";
       push.useForceIfIncludes = true;
@@ -89,11 +92,6 @@ lib.mkIf config.programs.git.enable {
           unmerged = "blue";
         };
       };
-
-      diff.tool = "difftastic";
-      difftool.difftastic.cmd = ''difft "$LOCAL" "$REMOTE"'';
-      difftool.prompt = false;
-      pager.difftool = true;
 
       mergetool.nvim = {
         cmd = ''nvim -d "$LOCAL" "$MERGED" "$REMOTE"'';

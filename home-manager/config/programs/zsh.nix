@@ -6,14 +6,21 @@
 }:
 
 let
-  inherit (lib) makeBinPath optionalString;
+  inherit (lib)
+    makeBinPath
+    mkBefore
+    mkMerge
+    optionalString
+    strings
+    ;
   cfg = config.programs.zsh;
 
 in
 {
   programs.zsh = {
 
-    enableViMode = true;
+    defaultKeymap = "viins";
+
     syntaxHighlighting.enable = true;
     historySubstringSearch.enable = true;
     autosuggestion.enable = true;
@@ -133,12 +140,13 @@ in
       '';
     };
 
-    initExtraFirst = ''
-      # If not running interactively, don't do anything
-      [[ $- != *i* ]] && return
-    '';
+    initContent = mkMerge [
 
-    initContent =
+      (mkBefore ''
+        # If not running interactively, don't do anything
+        [[ $- != *i* ]] && return
+      '')
+
       ''
         # Display the cursor as a bar
         autoload -Uz add-zsh-hook add-zsh-hook-widget
@@ -201,7 +209,8 @@ in
         bindkey '^[[3~' delete-char
         bindkey '^[3;5~' delete-char
       ''
-      + (optionalString cfg.enableViMode ''
+
+      (optionalString (strings.hasPrefix "vi" cfg.defaultKeymap) ''
         bindkey -M viins jk vi-cmd-mode
         bindkey -M vicmd H vi-beginning-of-line
         bindkey -M vicmd L vi-end-of-line
@@ -243,7 +252,9 @@ in
         bindkey -a 'dz' delete-surround
         bindkey -a 'yz' add-surround
         bindkey -M visual 'Z' add-surround
-      '');
+      '')
+
+    ];
 
   };
 

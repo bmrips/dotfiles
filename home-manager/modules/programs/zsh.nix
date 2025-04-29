@@ -11,7 +11,6 @@ let
     concatLines
     concatStringsSep
     mapAttrsToList
-    mkEnableOption
     mkIf
     mkMerge
     mkOption
@@ -24,8 +23,6 @@ in
 {
 
   options.programs.zsh = {
-
-    enableViMode = mkEnableOption "Vim mode in Zsh.";
 
     options = mkOption {
       type = with types; attrsOf bool;
@@ -54,8 +51,6 @@ in
   };
 
   config = mkMerge [
-
-    (mkIf cfg.enableViMode { programs.zsh.defaultKeymap = "viins"; })
 
     (mkIf (cfg.options != { }) {
       programs.zsh.initContent = concatLines (mapAttrsToList setOpt cfg.options);

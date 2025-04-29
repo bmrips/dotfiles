@@ -1,4 +1,5 @@
 {
+  config,
   host,
   pkgs,
   user,
@@ -161,11 +162,18 @@ in
     options = "grp:shifts_toggle,eurosign:e,ctrl:swapcaps,altwin:swap_alt_win";
   };
 
+  sops = {
+    defaultSopsFile = ./secrets.yaml;
+    age.keyFile = "${config.home-manager.users.bmr.xdg.configHome}/sops/age/keys.txt";
+    secrets.hashed_password.neededForUsers = true;
+  };
+
   time.timeZone = "Europe/Berlin";
 
   users.users.${user} = {
     isNormalUser = true;
     description = "Benedikt Rips";
+    hashedPasswordFile = config.sops.secrets.hashed_password.path;
     shell = pkgs.zsh;
   };
 

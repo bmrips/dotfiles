@@ -83,6 +83,7 @@
                     ./nixos
                     inputs.nix-index-database.nixosModules.nix-index
                     inputs.nur.modules.nixos.default
+                    inputs.sops.nixosModules.sops
                     inputs.home-manager.nixosModules.home-manager
                     {
                       home-manager = {

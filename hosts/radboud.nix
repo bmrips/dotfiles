@@ -30,7 +30,7 @@ in
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.nixos-hardware.nixosModules.common-cpu-intel
+    inputs.nixos-hardware.nixosModules.dell-precision-3490
   ];
 
   boot.loader = {
@@ -45,15 +45,7 @@ in
 
   boot.initrd = {
     systemd.enable = true;
-    availableKernelModules = [
-      "aesni_intel"
-      "nvme"
-      "sd_mod"
-      "thunderbolt"
-      "usb_storage"
-      "vmd"
-      "xhci_pci"
-    ];
+    availableKernelModules = [ "aesni_intel" ];
     luks.devices.root = {
       device = lib.uuid "256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
       keyFile = "/dev/sda";
@@ -76,26 +68,11 @@ in
 
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
-  hardware.intelgpu = {
-    driver = "xe";
-    vaapiDriver = "intel-media-driver";
+  hardware.intelgpu.driver = "xe";
+  hardware.nvidia.prime.offload = {
+    enable = true;
+    enableOffloadCmd = true;
   };
-
-  hardware.nvidia = {
-    open = true;
-    prime = {
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-    };
-  };
-  services.xserver.videoDrivers = [
-    "intel"
-    "nvidia"
-  ];
 
   fileSystems."/mnt/btr_pool" = btrfsSubvolume "/";
   services.btrbk.instances.${host}.settings.volume."/mnt/btr_pool" = {

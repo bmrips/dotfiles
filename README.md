@@ -24,15 +24,15 @@
    NIX_FIRST_BUILD_UID=302 sh <(curl -L https://nixos.org/nix/install)
    ```
 
-1. Enable `auto-optimise-store` and `use-xdg-base-directories` (potentially in `/etc/nix/nix.conf`).
+1. On systems other than NixOS, enable `auto-optimise-store` and `use-xdg-base-directories` in `/etc/nix/nix.conf`.
 
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/bmrips/user-config ~/.config/home-manager
+   git clone https://github.com/bmrips/dotfiles ~/.config/home-manager
    ```
 
-1. Set the repo's url to `git@github.com:bmrips/user-config.git` to communicate through SSH in the future.
+1. Set the repo's URL to `git@github.com:bmrips/dotfiles.git` to communicate through SSH in the future.
 
 1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
 
@@ -44,9 +44,14 @@
 
 1. Reuse an existing host configuration or create a new one.
 
-1. Install home-manager: `nix run home-manager/master -- switch`.
+1. Build and install the host configuration:
 
-1. Enable automatic development shell activation through direnv: `direnv allow`.
+   - On NixOS: `nixos-rebuild --use-remote-sudo switch`.
+   - For standalone Home Manager: `nix run home-manager/master -- switch`.
+
+## After bootstrapping
+
+1. Enable automatic development shell activation through direnv: `direnv allow ~/.config/home-manager`.
 
 1. Store the KeePassXC database password in the secret manager: `nix run nixpkgs#libsecret -- store --label="Password for the KeePassXC database" keepassxc password`
 

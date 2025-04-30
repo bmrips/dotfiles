@@ -136,6 +136,7 @@
             });
 
             pre-commit.settings.hooks = {
+              actionlint.enable = true;
               check-added-large-files.enable = true;
               check-executables-have-shebangs.enable = true;
               check-merge-conflicts.enable = true;

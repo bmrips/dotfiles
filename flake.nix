@@ -144,7 +144,6 @@
               markdownlint.enable = true;
               mixed-line-endings.enable = true;
               selene.enable = true;
-              shellcheck.enable = true;
               statix.enable = true;
               statix.settings.format = "stderr";
               treefmt.enable = true;

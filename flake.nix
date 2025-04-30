@@ -122,17 +122,10 @@
           }:
           {
             devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
-              nativeBuildInputs =
-                let
-                  inherit (inputs.nixpkgs.lib) attrValues;
-                  formatters = attrValues config.treefmt.build.programs;
-                in
-                (prevAttrs.nativeBuildInputs or [ ])
-                ++ formatters
-                ++ [
-                  pkgs.age
-                  pkgs.sops
-                ];
+              nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
+                pkgs.age
+                pkgs.sops
+              ];
             });
 
             pre-commit.settings.hooks = {

@@ -1,0 +1,12 @@
+name: Check whether the flake evaluates and run its tests
+on: push
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install Nix
+        uses: cachix/install-nix-action@v27
+      - name: Check flake and run its tests
+        run: nix flake check

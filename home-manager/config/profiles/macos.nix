@@ -17,6 +17,10 @@ let
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';
 
+  disableAccentCharacterSuggestions = ''
+    defaults write -g ApplePressAndHoldEnabled -bool false
+  '';
+
   setBackgroundEnvVar = ''
     # determine the background from the iTerm profile
     export BACKGROUND="$(tr '[:upper:]' '[:lower:]' <<<"$ITERM_PROFILE")"
@@ -69,8 +73,8 @@ in
     profiles.gui.enable = true;
 
     # Read Nix's initialisation script here to survive macOS system updates.
-    programs.bash.profileExtra = readNixInitScript;
-    programs.zsh.profileExtra = readNixInitScript;
+    programs.bash.profileExtra = readNixInitScript + disableAccentCharacterSuggestions;
+    programs.zsh.profileExtra = readNixInitScript + disableAccentCharacterSuggestions;
 
     programs.bash.initExtra = setBackgroundEnvVar;
     programs.zsh.initContent = setBackgroundEnvVar;

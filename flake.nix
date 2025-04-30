@@ -157,6 +157,8 @@
               treefmt.enable = true;
               trim-trailing-whitespace.enable = true;
               typos.enable = true;
+              yamlfmt.enable = true;
+              yamlfmt.entry = "${pkgs.yamlfmt}/bin/yamlfmt";
             };
 
             treefmt = {

@@ -8,6 +8,7 @@
 let
   inherit (lib)
     gnuCommandLine
+    hm
     mkEnableOption
     mkIf
     mkOption
@@ -26,13 +27,13 @@ in
   options.programs.goto = {
     enable = mkEnableOption "{command}`goto`.";
     package = mkPackageOption pkgs "goto" { };
+    enableBashIntegration = hm.shell.mkBashIntegrationOption { inherit config; };
+    enableZshIntegration = hm.shell.mkZshIntegrationOption { inherit config; };
     fzfWidgetOptions = mkOption {
       type = with types; attrsOf str;
       default = { };
       description = "Options for the fzf widget, set through {env}`FZF_GOTO_OPTS`";
-      example = {
-        height = "60%";
-      };
+      example.height = "60%";
     };
   };
 
@@ -43,9 +44,9 @@ in
       gnuCommandLine cfg.fzfWidgetOptions
     );
 
-    programs.bash.initExtra = init;
+    programs.bash.initExtra = mkIf cfg.enableBashIntegration init;
 
-    programs.zsh.initContent = init;
+    programs.zsh.initContent = mkIf cfg.enableZshIntegration init;
 
     programs.zsh.siteFunctions.fzf-goto-widget = ''
       _goto_resolve_db

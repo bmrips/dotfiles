@@ -16,7 +16,6 @@
         ps: with ps; [
           mdformat-footnote
           mdformat-gfm
-          mdformat-gfm-alerts
           mdformat-tables
         ]
       ))

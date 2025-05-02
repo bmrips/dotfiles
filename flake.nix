@@ -126,6 +126,11 @@
                 pkgs.age
                 pkgs.sops
               ];
+              shellHook =
+                prevAttrs.shellHook
+                + ''
+                  git config diff.sops.textconv "sops decrypt"
+                '';
             });
 
             pre-commit.settings.hooks = {

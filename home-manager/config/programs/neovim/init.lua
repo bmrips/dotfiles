@@ -3,7 +3,6 @@ vim.loader.enable()
 local opt = vim.opt
 opt.background = vim.env.BACKGROUND or 'dark' -- Adapt background to terminal background
 opt.breakindent = true
-opt.breakindentopt = { 'shift:4', 'sbr' }
 opt.clipboard = 'unnamedplus'
 opt.expandtab = true
 opt.exrc = true
@@ -26,7 +25,6 @@ opt.pumheight = 20
 opt.shiftround = true
 opt.shiftwidth = 0
 opt.shortmess:append 'c' -- Do not print completion messages
-opt.showbreak = '↳'
 opt.smartcase = true
 opt.smoothscroll = true
 opt.spelllang = { 'en', 'de' }

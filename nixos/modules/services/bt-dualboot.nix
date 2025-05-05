@@ -40,7 +40,7 @@ in
       serviceConfig = {
         Type = "oneshot";
         RemainAfterExit = true;
-        ExecStop = "${pkgs.bt-dualboot}/bin/bt-dualboot --win ${cfg.mountPoint} --no-backup --sync-all";
+        ExecStop = "${pkgs.bt-dualboot}/bin/bt-dualboot --win ${cfg.mountPoint} --backup --sync-all";
       };
     };
 

@@ -6,42 +6,33 @@
 }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    removePrefix
-    removeSuffix
-    strings
-    types
-    ;
   cfg = config.services.bt-dualboot;
 
-  escape =
-    s:
-    builtins.replaceStrings [ "/" ] [ "-" ] (
-      removePrefix "/" (removeSuffix "/" (strings.normalizePath s))
-    );
-  escapedMountPoint = escape cfg.mountPoint;
+  escapedMountPoint = lib.pipe cfg.mountPoint [
+    lib.strings.normalizePath
+    (lib.removePrefix "/")
+    (lib.removeSuffix "/")
+    (builtins.replaceStrings [ "/" ] [ "-" ])
+  ];
 
 in
 {
 
   options.services.bt-dualboot = {
-    enable = mkEnableOption "{command}`bt-dualboot`";
-    mountPoint = mkOption {
-      type = types.str;
+    enable = lib.mkEnableOption "{command}`bt-dualboot`";
+    mountPoint = lib.mkOption {
+      type = lib.types.str;
       description = "The mount point of the Windows data partition.";
       example = "/mnt";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     environment.systemPackages = [ pkgs.bt-dualboot ];
 
     systemd.services.bt-dualboot = {
-      description = "Copy bluetooth pairing keys from Windows";
+      description = "Copy bluetooth pairing keys to Windows before shutdown";
       requires = [ "${escapedMountPoint}.mount" ];
       after = [ "${escapedMountPoint}.mount" ];
       wantedBy = [ "multi-user.target" ];

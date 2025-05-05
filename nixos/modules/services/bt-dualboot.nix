@@ -20,6 +20,7 @@ in
 
   options.services.bt-dualboot = {
     enable = lib.mkEnableOption "{command}`bt-dualboot`";
+    package = lib.mkPackageOption pkgs "bt-dualboot" { };
     mountPoint = lib.mkOption {
       type = lib.types.str;
       description = "The mount point of the Windows data partition.";
@@ -29,7 +30,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    environment.systemPackages = [ pkgs.bt-dualboot ];
+    environment.systemPackages = [ cfg.package ];
 
     systemd.services.bt-dualboot = {
       description = "Copy bluetooth pairing keys to Windows before shutdown";

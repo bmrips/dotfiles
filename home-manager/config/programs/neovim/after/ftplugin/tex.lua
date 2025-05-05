@@ -26,7 +26,7 @@ opt.include:append [[
 ]]
 
 vim.b.undo_ftplugin = vim.b.undo_ftplugin
-  .. '| set breakindentopt< comments< define< include< iskeyword< path< showbreak< suffixesadd< textwidth<'
+  .. '| set breakindentopt< comments< define< include< iskeyword< makeprg< path< showbreak< suffixesadd< textwidth<'
 
 local augroup = vim.api.nvim_create_augroup('tex', { clear = false })
 

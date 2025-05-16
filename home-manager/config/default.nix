@@ -186,6 +186,7 @@ in
   programs.lazygit.enable = true;
   programs.gh.enable = true;
   programs.git.enable = true;
+  programs.git-credential-keepassxc.enable = true;
   programs.gpg.enable = true;
   programs.goto.enable = true;
   programs.grep.enable = true;

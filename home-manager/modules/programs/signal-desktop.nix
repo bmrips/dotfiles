@@ -17,7 +17,7 @@ let
 
   signal-desktop-in-system-tray =
     let
-      desktopFile = "signal-desktop.desktop";
+      desktopFile = "signal.desktop";
     in
     pkgs.runCommandLocal desktopFile { } ''
       substitute \

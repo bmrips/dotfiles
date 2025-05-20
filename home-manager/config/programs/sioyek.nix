@@ -20,7 +20,7 @@
     reload = "<C-r>";
     toggle_custom_color = "i";
     toggle_horizontal_scroll_lock = "<C-h>";
-    toggle_statusbar = "<F3>";
+    toggle_statusbar = "<f3>";
     zoom_in = "=";
   };
 

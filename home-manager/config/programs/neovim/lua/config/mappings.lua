@@ -69,17 +69,17 @@ return {
         desc = 'Translate',
         expr = true,
       },
-      { 'm',
+      { 's',
         [[:%s/\v\C<<C-r><C-w>>//g<Left><Left>]],
-        desc = 'Move word under cursor',
+        desc = 'Substitute word under cursor',
       },
-      { 'M',
+      { 'S',
         [[:%s/\v/g<Left><Left>]],
-        desc = 'Move pattern',
+        desc = 'Substitute pattern',
       },
-      { 'M',
+      { 'S',
         [[:s/\v/g<Left><Left>]],
-        desc = 'Move pattern',
+        desc = 'Substitute pattern',
         mode = 'x',
       },
       { 'o',
@@ -108,15 +108,6 @@ return {
         ':sort i',
         desc = 'Sort with options',
         mode = 'x',
-      },
-      { 's',
-        function ()
-          require('leap').leap {
-            target_windows = require('leap.util').get_enterable_windows(),
-          }
-        end,
-        desc = 'Leap outside',
-        mode = { 'n', 'x', 'o' },
       },
       { '/',
         ':sil gr! <C-R><C-w><CR>',
@@ -191,16 +182,20 @@ return {
     }},
     { 's',
       function()
-        require('leap').leap {}
+        require('leap').leap {
+          target_windows = { vim.api.nvim_get_current_win() },
+        }
       end,
-      desc = 'Leap forward',
+      desc = 'Leap',
       mode = { 'n', 'x', 'o' },
     },
     { 'S',
-      function()
-        require('leap').leap { backward = true }
+      function ()
+        require('leap').leap {
+          target_windows = require('leap.util').get_enterable_windows(),
+        }
       end,
-      desc = 'Leap backward',
+      desc = 'Leap outside',
       mode = { 'n', 'x', 'o' },
     },
     { 'U',

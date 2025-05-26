@@ -141,7 +141,6 @@ in
     nerd-fonts.jetbrains-mono
     nvd
     print-colors
-    ripgrep-all
     rmlint
     sd
     tokei
@@ -197,6 +196,7 @@ in
   programs.nix-your-shell.enable = true;
   programs.readline.enable = true;
   programs.ripgrep.enable = true;
+  programs.ripgrep-all.enable = true;
   programs.sioyek.enable = true;
   programs.ssh.enable = true;
   programs.starship.enable = true;

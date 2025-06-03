@@ -201,7 +201,6 @@ in
   programs.ssh.enable = true;
   programs.starship.enable = true;
   programs.taskell.enable = true;
-  programs.thefuck.enable = true;
   programs.translate-shell.enable = true;
   programs.yazi.enable = true;
   programs.zoxide.enable = true;

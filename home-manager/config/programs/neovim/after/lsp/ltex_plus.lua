@@ -1,7 +1,7 @@
 return {
   on_attach = function()
     require('ltex_extra').setup {
-      load_langs = { 'en-US', 'de-DE' },
+      load_langs = { 'en-GB', 'de-DE' },
       path = '.ltex',
     }
   end,

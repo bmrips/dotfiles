@@ -1,9 +1,10 @@
 return {
   settings = {
     texlab = {
-      -- Build with LuaLaTeX.
       build = {
-        args = { '-lualatex', '-interaction=nonstopmode', '-synctex=1', '%f' },
+        -- Remove the `-pdf` argument to let the build mode be determined by the
+        -- latexmk configuration.
+        args = { '-interaction=nonstopmode', '-synctex=1', '%f' },
       },
       forwardSearch = {
         executable = 'sioyek',

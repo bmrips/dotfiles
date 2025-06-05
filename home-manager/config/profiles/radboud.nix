@@ -14,7 +14,6 @@ in
 
   config = mkIf config.profiles.radboud.enable {
     development.c.enable = true;
-    development.java.enable = true;
 
     profiles.gui.extra.enable = true;
 

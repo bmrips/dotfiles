@@ -60,6 +60,7 @@ lib.mkIf config.programs.git.enable {
       diff.algorithm = "histogram";
       diff.colorMoved = "default";
       diff.renames = "copy";
+      diff.sops.textconv = "sops decrypt";
       fetch.all = true;
       fetch.prune = true;
       fetch.writeCommitGraph = true;

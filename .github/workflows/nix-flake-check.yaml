@@ -9,4 +9,4 @@ jobs:
       - name: Install Nix
         uses: cachix/install-nix-action@v27
       - name: Check flake and run its tests
-        run: nix flake check
+        run: nix flake check --print-build-logs

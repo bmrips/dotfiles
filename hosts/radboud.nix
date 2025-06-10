@@ -30,7 +30,7 @@ in
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.nixos-hardware.nixosModules.dell-precision-3490
+    inputs.nixos-hardware.nixosModules.dell-precision-3490-nvidia
   ];
 
   boot.loader = {

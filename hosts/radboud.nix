@@ -68,7 +68,6 @@ in
 
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
-  hardware.intelgpu.driver = "xe";
   hardware.nvidia.prime.offload = {
     enable = true;
     enableOffloadCmd = true;

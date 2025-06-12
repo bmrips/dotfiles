@@ -162,13 +162,6 @@
               mdformat = {
                 enable = true;
                 settings.wrap = "no";
-                package = pkgs.mdformat.withPlugins (
-                  ps: with ps; [
-                    mdformat-footnote
-                    mdformat-gfm
-                    mdformat-tables
-                  ]
-                );
               };
               nixfmt.enable = true;
               shfmt = {

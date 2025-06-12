@@ -158,56 +158,31 @@
               yamlfmt.entry = "${pkgs.yamlfmt}/bin/yamlfmt";
             };
 
-            treefmt = {
-              settings.global.excludes = [
-                ".convco"
-                ".markdownlint.yaml"
-                "home-manager/config/files/fonts.conf"
-                "home-manager/config/files/ghci.conf"
-                "home-manager/config/files/haskeline"
-                "home-manager/config/files/ideavimrc"
-                "home-manager/config/files/latexmkrc"
-                "home-manager/config/files/toprc"
-                "home-manager/config/programs/firefox/TeX.svg"
-                "home-manager/config/programs/git/commit_message_template"
-                "home-manager/config/programs/git/templates/hooks/pre-commit"
-                "home-manager/config/programs/git/templates/info/exclude"
-                "home-manager/config/programs/neovim/.luarc.json"
-                "home-manager/config/programs/neovim/.styluaignore"
-                "home-manager/config/programs/neovim/lazy-lock.json"
-                "home-manager/config/programs/neovim/neovim.yaml"
-                "home-manager/config/programs/neovim/selene.toml"
-                "neovim.yaml"
-                "selene.toml"
-                "statix.toml"
-                "typos.toml"
-              ];
-              programs = {
-                mdformat = {
-                  enable = true;
-                  settings.wrap = "no";
-                  package = pkgs.mdformat.withPlugins (
-                    ps: with ps; [
-                      mdformat-footnote
-                      mdformat-gfm
-                      mdformat-tables
-                    ]
-                  );
-                };
-                nixfmt.enable = true;
-                shfmt = {
-                  enable = true;
-                  indent_size = 4;
-                };
-                stylua = {
-                  enable = true;
-                  settings = {
-                    call_parentheses = "None";
-                    column_width = 100;
-                    indent_type = "Spaces";
-                    indent_width = 2;
-                    quote_style = "AutoPreferSingle";
-                  };
+            treefmt.programs = {
+              mdformat = {
+                enable = true;
+                settings.wrap = "no";
+                package = pkgs.mdformat.withPlugins (
+                  ps: with ps; [
+                    mdformat-footnote
+                    mdformat-gfm
+                    mdformat-tables
+                  ]
+                );
+              };
+              nixfmt.enable = true;
+              shfmt = {
+                enable = true;
+                indent_size = 4;
+              };
+              stylua = {
+                enable = true;
+                settings = {
+                  call_parentheses = "None";
+                  column_width = 100;
+                  indent_type = "Spaces";
+                  indent_width = 2;
+                  quote_style = "AutoPreferSingle";
                 };
               };
             };

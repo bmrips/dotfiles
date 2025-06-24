@@ -45,6 +45,7 @@ in
 
   boot.initrd = {
     systemd.enable = true;
+    kernelModules = [ "usb_storage" ];
     availableKernelModules = [ "aesni_intel" ];
     luks.devices.root = {
       device = lib.uuid "256d1efd-5e12-4caf-8e1c-9b51c41f46c4";

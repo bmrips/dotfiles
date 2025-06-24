@@ -574,6 +574,8 @@ mkMerge [
           useDetailed = true;
         };
 
+      configFile.kdeglobals.KDE.DndBehavior = "MoveIfSameDevice";
+
       configFile.kdeglobals."KFileDialog Settings" = {
         "Allow Expansion" = false;
         "Automatically select filename extension" = true;

@@ -48,7 +48,7 @@ in
     availableKernelModules = [ "aesni_intel" ];
     luks.devices.root = {
       device = lib.uuid "256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
-      keyFile = "/dev/sda";
+      keyFile = "/dev/disk/by-id/usb-SMI_USB_DISK_AADX2W6T3XA5DR7Q-0:0";
       keyFileSize = 256;
       keyFileTimeout = 5;
       allowDiscards = true;

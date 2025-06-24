@@ -8,6 +8,8 @@
 let
   inherit (lib) mkIf mkMerge optionals;
 
+  wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Nexus/";
+
   # Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
   # editor.
   copy-forms = pkgs.writeShellApplication {
@@ -97,6 +99,7 @@ mkMerge [
 
       kscreenlocker = {
         appearance = {
+          inherit wallpaper;
           alwaysShowClock = true;
           showMediaControls = true;
         };
@@ -527,6 +530,7 @@ mkMerge [
       windows.allowWindowsToRememberPositions = false;
 
       workspace = {
+        inherit wallpaper;
         clickItemTo = "select";
         lookAndFeel = "org.kde.breezetwilight.desktop";
       };

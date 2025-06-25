@@ -202,6 +202,7 @@ mkMerge [
                   ];
                   hidden = [
                     "Nextcloud"
+                    "org.kde.merkuro.contact.applet"
                     "org.kde.plasma.clipboard"
                     "org.kde.plasma.weather"
                     "ownCloud"

@@ -13,6 +13,13 @@ return {
       language = 'en-GB',
       ['additionalRules.enablePickyRules'] = true,
       completionEnabled = true,
+      ['latex.commands'] = {
+        ['\\citep{}'] = 'dummy',
+        ['\\Citep{}'] = 'dummy',
+        ['\\citet{}'] = 'dummy',
+        ['\\Citet{}'] = 'dummy',
+        ['\\slash{}'] = 'dummy',
+      },
     },
   },
 }

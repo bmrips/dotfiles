@@ -129,6 +129,7 @@ mkIf cfg.enable {
         border = "top";
         height = "60%";
         layout = "reverse";
+        info = "inline-right";
         marker = arrowHead;
         pointer = arrowHead;
         prompt = escapeShellArg "${arrowHead} ";

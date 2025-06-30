@@ -68,7 +68,7 @@ in
       siteFunctions = {
         fzf-kubectx-widget = ''
           zle push-line
-          BUFFER="kubectx"
+          BUFFER="${pkgs.kubectx}/bin/kubectx"
           zle accept-line
           local ret=$?
           zle reset-prompt
@@ -76,7 +76,7 @@ in
         '';
         fzf-kubens-widget = ''
           zle push-line
-          BUFFER="kubens"
+          BUFFER="${pkgs.kubectx}/bin/kubens"
           zle accept-line
           local ret=$?
           zle reset-prompt

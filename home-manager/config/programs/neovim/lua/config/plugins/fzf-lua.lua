@@ -17,11 +17,6 @@ return {
         },
       },
       fzf_colors = {
-        ['fg+'] = '3',
-        ['bg+'] = '0',
-        ['hl+'] = '2',
-        ['pointer'] = '1',
-        ['marker'] = '5',
         ['gutter'] = '0',
       },
       keymap = {

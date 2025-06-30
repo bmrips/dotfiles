@@ -73,7 +73,8 @@ mkIf cfg.enable {
         batArgs = gnuCommandLine (
           filePreviewArgs
           // {
-            line-range = subshell "${fzf-state} context {2}: --highlight-line={2} {1}";
+            highlight-line = "{2}";
+            line-range = subshell "${fzf-state} context {2}";
           }
         );
       in

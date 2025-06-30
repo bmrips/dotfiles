@@ -7,8 +7,9 @@ context)
         echo "Error: expected a number" >&2
         exit 1
     fi
-    start=$(($2 - (FZF_PREVIEW_LINES / 2)))
-    echo $((start > 1 ? start : 0))
+    start=$(($2 - FZF_PREVIEW_LINES / 2))
+    start=$((start > 1 ? start : 0))
+    echo "$start:$((start + FZF_PREVIEW_LINES - 1))"
     exit
     ;;
 get-source)

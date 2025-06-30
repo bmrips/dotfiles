@@ -132,7 +132,7 @@ mkIf cfg.enable {
         marker = arrowHead;
         pointer = arrowHead;
         prompt = escapeShellArg "${arrowHead} ";
-        preview-window = "right,border,hidden";
+        preview-window = "right,border-line,hidden";
       };
 
     fileWidgetCommand = "${fzf-state} get-source files";

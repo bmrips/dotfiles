@@ -79,6 +79,7 @@ mkIf cfg.enable {
       in
       gnuCommandLine {
         bind = fzf-state-keybindings "${FZF_GREP_COMMAND} {q}";
+        border-label = escapeShellArg " Grep ";
         multi = true;
         preview = escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
       };
@@ -89,6 +90,7 @@ mkIf cfg.enable {
 
     changeDirWidgetOptions = gnuCommandArgs {
       bind = fzf-state-keybindings cfg.changeDirWidgetCommand;
+      border-label = escapeShellArg " Directories ";
       preview = dirPreview "{}";
     };
 
@@ -136,7 +138,12 @@ mkIf cfg.enable {
 
     fileWidgetOptions = gnuCommandArgs {
       bind = fzf-state-keybindings cfg.fileWidgetCommand;
+      border-label = escapeShellArg " Files ";
       preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
+    };
+
+    historyWidgetOptions = gnuCommandArgs {
+      border-label = escapeShellArg " History ";
     };
   };
 

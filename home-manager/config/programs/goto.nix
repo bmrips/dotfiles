@@ -1,6 +1,7 @@
 { config, lib, ... }:
 
 let
+  inherit (lib) escapeShellArg;
   inherit (lib.shell) dirPreview subshell;
 
 in
@@ -8,6 +9,7 @@ lib.mkMerge [
 
   {
     programs.goto.fzfWidgetOptions = {
+      border-label = escapeShellArg " Bookmarks ";
       preview = dirPreview (subshell "echo {} | sed 's/^[a-zA-Z]* *//'");
     };
   }

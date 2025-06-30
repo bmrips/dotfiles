@@ -136,6 +136,7 @@ in
 
   nix.settings = {
     auto-optimise-store = true;
+    download-buffer-size = 536870912; # 512 MiB
     trusted-users = [ user ];
     use-xdg-base-directories = true;
   };

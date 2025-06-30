@@ -63,6 +63,50 @@ let
     }
   '';
 
+  setColorsDynamically =
+    let
+      dark = {
+        bg1 = "#32302f";
+        blue = "#80aa9e";
+        cyan = "#8bba7f";
+        green = "#b0b846";
+        grey = "#928374";
+        orange = "#f28534";
+        yellow = "#e9b143";
+      };
+      light = {
+        bg1 = "#f4e8be";
+        blue = "#266b79";
+        cyan = "#477a5b";
+        green = "#72761e";
+        grey = "#928374";
+        orange = "#b94c07";
+        yellow = "#b4730e";
+      };
+      colors =
+        c:
+        concatStringsSep "," [
+          "border:${c.grey}"
+          "current-bg:${c.bg1}"
+          "current-fg:-1"
+          "current-hl:${c.cyan}"
+          "gutter:-1"
+          "label:${c.orange}"
+          "hl:${c.green}"
+          "info:${c.cyan}"
+          "marker:${c.yellow}"
+          "pointer:${c.blue}"
+          "prompt:${c.orange}"
+        ];
+    in
+    ''
+      if [[ $BACKGROUND = light ]]; then
+        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=${colors light}"
+      else
+        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=${colors dark}"
+      fi
+    '';
+
 in
 mkIf cfg.enable {
 
@@ -125,9 +169,9 @@ mkIf cfg.enable {
       in
       gnuCommandArgs {
         bind = keybindings;
-        color = "16,info:8,border:8";
         border = "top";
         height = "60%";
+        highlight-line = true;
         layout = "reverse";
         info = "inline-right";
         marker = arrowHead;
@@ -149,7 +193,7 @@ mkIf cfg.enable {
     };
   };
 
-  programs.bash.initExtra = useFdForPathListings;
+  programs.bash.initExtra = useFdForPathListings + setColorsDynamically;
 
   programs.zsh.siteFunctions.fzf-grep-widget =
     let
@@ -172,6 +216,7 @@ mkIf cfg.enable {
 
   programs.zsh.initContent =
     useFdForPathListings
+    + setColorsDynamically
     + ''
       # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
       bindkey '^ ' fzf-file-widget

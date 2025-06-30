@@ -10,7 +10,6 @@ in
 lib.mkIf cfg.enable {
 
   home.sessionVariables._ZO_FZF_OPTS = lib.concatStringsSep " " [
-    config.home.sessionVariables.FZF_DEFAULT_OPTS
     (gnuCommandLine {
       border-label = escapeShellArg " Recent directories ";
       preview = dirPreview (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
@@ -19,7 +18,7 @@ lib.mkIf cfg.enable {
 
   programs.zsh.siteFunctions.fzf-zoxide-widget = ''
     zle push-line
-    local dir="$(${cfg.package}/bin/zoxide query --interactive)"
+    local dir="$(${cfg.package}/bin/zoxide query --list | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $_ZO_FZF_OPTS" fzf --exit-0 --select-1 --no-multi)"
     if [[ -z "$dir" ]]; then
         zle redisplay
         return 0

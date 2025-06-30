@@ -125,8 +125,8 @@ mkIf cfg.enable {
       in
       gnuCommandArgs {
         bind = keybindings;
-        border = "horizontal";
         color = "16,info:8,border:8";
+        border = "top";
         height = "60%";
         layout = "reverse";
         marker = arrowHead;

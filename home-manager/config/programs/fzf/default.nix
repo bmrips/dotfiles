@@ -9,13 +9,16 @@ let
   cfg = config.programs.fzf;
 
   inherit (lib)
+    concatMapAttrsStringSep
     concatStringsSep
     escapeShellArg
+    flatten
     gnuCommandArgs
     gnuCommandLine
     mkIf
     readFile
     stringAsChars
+    zipAttrs
     ;
   inherit (lib.shell) dirPreview subshell;
 
@@ -37,15 +40,32 @@ let
     in
     "${drv}/bin/fzf-state";
 
+  mkBindings =
+    spec:
+    let
+      spec' = if builtins.isList spec then spec else [ spec ];
+      concatenate = concatMapAttrsStringSep "," (
+        event: actions: "${event}:${concatStringsSep "+" (flatten actions)}"
+      );
+    in
+    escapeShellArg (concatenate (zipAttrs spec'));
+
   fzf-state-bindings =
     { label, reloadCmd }:
-    concatStringsSep "," [
-      "alt-f:execute(${fzf-state} toggle follow-symlinks)+reload(${reloadCmd})+${showStateIcons label}"
-      "alt-h:execute(${fzf-state} toggle show-hidden-files)+reload(${reloadCmd})+${showStateIcons label}"
-      "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})+${showStateIcons label}"
-    ];
-
-  showStateIcons = l: "transform-border-label(${fzf-state} get-label ${l})";
+    let
+      showStateIcons = l: "transform-border-label(${fzf-state} get-label ${l})";
+      action = opt: [
+        "execute(${fzf-state} toggle ${opt})"
+        (showStateIcons label)
+        "reload(${reloadCmd})"
+      ];
+    in
+    {
+      start = showStateIcons label;
+      alt-f = action "follow-symlinks";
+      alt-h = action "show-hidden-files";
+      alt-i = action "show-ignored-files";
+    };
 
   setWorkdirAsPrompt =
     let
@@ -132,15 +152,10 @@ mkIf cfg.enable {
         );
       in
       gnuCommandLine {
-        bind = escapeShellArg (
-          concatStringsSep "," [
-            (fzf-state-bindings {
-              inherit label;
-              reloadCmd = "${FZF_GREP_COMMAND} {q}";
-            })
-            "start:${showStateIcons label}"
-          ]
-        );
+        bind = mkBindings (fzf-state-bindings {
+          inherit label;
+          reloadCmd = "${FZF_GREP_COMMAND} {q}";
+        });
         multi = true;
         preview = escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
       };
@@ -154,16 +169,16 @@ mkIf cfg.enable {
         label = escapeShellArg " Directories ";
       in
       gnuCommandArgs {
-        bind = escapeShellArg (
-          concatStringsSep "," [
-            (fzf-state-bindings {
-              inherit label;
-              reloadCmd = cfg.changeDirWidgetCommand;
-            })
-            "start:${setWorkdirAsPrompt}+${showStateIcons label}"
-            "focus:${labelPreviewWithFilename}"
-          ]
-        );
+        bind = mkBindings [
+          {
+            start = [ setWorkdirAsPrompt ];
+            focus = labelPreviewWithFilename;
+          }
+          (fzf-state-bindings {
+            inherit label;
+            reloadCmd = cfg.changeDirWidgetCommand;
+          })
+        ];
         preview = dirPreview "{}";
       };
 
@@ -179,22 +194,23 @@ mkIf cfg.enable {
     defaultOptions =
       let
         arrowHead = "❯";
-        bindings = escapeShellArg (
-          concatStringsSep "," [
-            "alt-[:change-preview-window(nohidden,down|nohidden,right|nohidden,up|nohidden,left)"
-            "alt-]:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)"
-            "alt-j:preview-half-page-down"
-            "alt-k:preview-half-page-up"
-            "alt-p:toggle-preview+${labelPreviewWithFilename}"
-            "alt-w:toggle-preview-wrap"
-            "change:first" # focus the first element when the query is changed
-            "ctrl-a:toggle-all"
-            "ctrl-alt-j:preview-down"
-            "ctrl-alt-k:preview-up"
-            "ctrl-b:half-page-up"
-            "ctrl-f:half-page-down"
-          ]
-        );
+        bindings = mkBindings {
+          "alt-[" = "change-preview-window(nohidden,down|nohidden,right|nohidden,up|nohidden,left)";
+          "alt-]" = "change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)";
+          alt-j = "preview-half-page-down";
+          alt-k = "preview-half-page-up";
+          alt-p = [
+            "toggle-preview"
+            labelPreviewWithFilename
+          ];
+          alt-w = "toggle-preview-wrap";
+          change = "first"; # focus the first element when the query is changed
+          ctrl-a = "toggle-all";
+          ctrl-alt-j = "preview-down";
+          ctrl-alt-k = "preview-up";
+          ctrl-b = "half-page-up";
+          ctrl-f = "half-page-down";
+        };
       in
       gnuCommandArgs {
         bind = bindings;
@@ -214,16 +230,16 @@ mkIf cfg.enable {
         label = escapeShellArg " Files ";
       in
       gnuCommandArgs {
-        bind = escapeShellArg (
-          concatStringsSep "," [
-            (fzf-state-bindings {
-              inherit label;
-              reloadCmd = cfg.fileWidgetCommand;
-            })
-            "start:${setWorkdirAsPrompt}+${showStateIcons label}"
-            "focus:${labelPreviewWithFilename}"
-          ]
-        );
+        bind = mkBindings [
+          {
+            start = setWorkdirAsPrompt;
+            focus = labelPreviewWithFilename;
+          }
+          (fzf-state-bindings {
+            inherit label;
+            reloadCmd = cfg.fileWidgetCommand;
+          })
+        ];
         preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
       };
 

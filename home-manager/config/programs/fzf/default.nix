@@ -151,7 +151,7 @@ mkIf cfg.enable {
     defaultOptions =
       let
         arrowHead = "❯";
-        keybindings = escapeShellArg (
+        bindings = escapeShellArg (
           concatStringsSep "," [
             "alt-[:change-preview-window(nohidden,down|nohidden,right|nohidden,up|nohidden,left)"
             "alt-]:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)"
@@ -159,6 +159,7 @@ mkIf cfg.enable {
             "alt-k:preview-half-page-up"
             "alt-p:toggle-preview"
             "alt-w:toggle-preview-wrap"
+            "change:first" # focus the first element when the query is changed
             "ctrl-a:toggle-all"
             "ctrl-alt-j:preview-down"
             "ctrl-alt-k:preview-up"
@@ -168,7 +169,7 @@ mkIf cfg.enable {
         );
       in
       gnuCommandArgs {
-        bind = keybindings;
+        bind = bindings;
         border = "top";
         height = "60%";
         highlight-line = true;

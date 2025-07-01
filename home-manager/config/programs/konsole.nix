@@ -41,7 +41,7 @@ let
 
   mkColorScheme =
     darkness:
-    colorschemes.gruvbox.mkScheme darkness {
+    colorschemes.gruvbox_material.mkScheme darkness {
       background = "medium";
       bright = true;
     }

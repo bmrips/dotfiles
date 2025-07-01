@@ -37,19 +37,21 @@ let
     in
     "${drv}/bin/fzf-state";
 
-  fzf-state-keybindings =
-    reloadCmd:
+  fzf-state-bindings =
+    { label, reloadCmd }:
     concatStringsSep "," [
-      "alt-f:execute(${fzf-state} toggle follow-symlinks)+reload(${reloadCmd})"
-      "alt-h:execute(${fzf-state} toggle show-hidden-files)+reload(${reloadCmd})"
-      "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})"
+      "alt-f:execute(${fzf-state} toggle follow-symlinks)+reload(${reloadCmd})+${showStateIcons label}"
+      "alt-h:execute(${fzf-state} toggle show-hidden-files)+reload(${reloadCmd})+${showStateIcons label}"
+      "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})+${showStateIcons label}"
     ];
+
+  showStateIcons = l: "transform-border-label(${fzf-state} get-label ${l})";
 
   setWorkdirAsPrompt =
     let
       printPwd = ''echo \$(pwd | sed 's#/home/${config.home.username}#~#')/'';
     in
-    "start:transform-prompt(${printPwd})";
+    "transform-prompt(${printPwd})";
 
   labelPreviewWithFilename = "transform-preview-label(echo ' {} ')";
 
@@ -120,6 +122,7 @@ mkIf cfg.enable {
     FZF_GREP_COMMAND = "${fzf-state} get-source grep";
     FZF_GREP_OPTS =
       let
+        label = escapeShellArg " Grep ";
         batArgs = gnuCommandLine (
           filePreviewArgs
           // {
@@ -129,8 +132,15 @@ mkIf cfg.enable {
         );
       in
       gnuCommandLine {
-        bind = escapeShellArg (fzf-state-keybindings "${FZF_GREP_COMMAND} {q}");
-        border-label = escapeShellArg " Grep ";
+        bind = escapeShellArg (
+          concatStringsSep "," [
+            (fzf-state-bindings {
+              inherit label;
+              reloadCmd = "${FZF_GREP_COMMAND} {q}";
+            })
+            "start:${showStateIcons label}"
+          ]
+        );
         multi = true;
         preview = escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
       };
@@ -139,17 +149,23 @@ mkIf cfg.enable {
   programs.fzf = {
     changeDirWidgetCommand = "${fzf-state} get-source directories";
 
-    changeDirWidgetOptions = gnuCommandArgs {
-      bind = escapeShellArg (
-        concatStringsSep "," [
-          (fzf-state-keybindings cfg.changeDirWidgetCommand)
-          "focus:${labelPreviewWithFilename}"
-          setWorkdirAsPrompt
-        ]
-      );
-      border-label = escapeShellArg " Directories ";
-      preview = dirPreview "{}";
-    };
+    changeDirWidgetOptions =
+      let
+        label = escapeShellArg " Directories ";
+      in
+      gnuCommandArgs {
+        bind = escapeShellArg (
+          concatStringsSep "," [
+            (fzf-state-bindings {
+              inherit label;
+              reloadCmd = cfg.changeDirWidgetCommand;
+            })
+            "start:${setWorkdirAsPrompt}+${showStateIcons label}"
+            "focus:${labelPreviewWithFilename}"
+          ]
+        );
+        preview = dirPreview "{}";
+      };
 
     defaultCommand =
       let
@@ -193,17 +209,23 @@ mkIf cfg.enable {
 
     fileWidgetCommand = "${fzf-state} get-source files";
 
-    fileWidgetOptions = gnuCommandArgs {
-      bind = escapeShellArg (
-        concatStringsSep "," [
-          (fzf-state-keybindings cfg.fileWidgetCommand)
-          "focus:${labelPreviewWithFilename}"
-          setWorkdirAsPrompt
-        ]
-      );
-      border-label = escapeShellArg " Files ";
-      preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
-    };
+    fileWidgetOptions =
+      let
+        label = escapeShellArg " Files ";
+      in
+      gnuCommandArgs {
+        bind = escapeShellArg (
+          concatStringsSep "," [
+            (fzf-state-bindings {
+              inherit label;
+              reloadCmd = cfg.fileWidgetCommand;
+            })
+            "start:${setWorkdirAsPrompt}+${showStateIcons label}"
+            "focus:${labelPreviewWithFilename}"
+          ]
+        );
+        preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
+      };
 
     historyWidgetOptions = gnuCommandArgs {
       border-label = escapeShellArg " History ";

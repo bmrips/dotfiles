@@ -6,6 +6,14 @@ for file in "$state_dir"/*; do
     eval "${pre_var//-/_}=1"
 done
 
+print_status() {
+    if [[ -n ${!1} ]]; then
+        echo "${1//_/ }: yes"
+    else
+        echo "${1//_/ }: no"
+    fi
+}
+
 case $1 in
 get-source)
     dynamic_args=(
@@ -37,6 +45,11 @@ get-visible-range)
     start=$(($2 - FZF_PREVIEW_LINES / 2))
     start=$((start > 1 ? start : 0))
     echo "$start:$((start + FZF_PREVIEW_LINES - 1))"
+    ;;
+status)
+    print_status follow_symlinks
+    print_status show_hidden_files
+    print_status show_ignored_files
     ;;
 toggle)
     case $2 in

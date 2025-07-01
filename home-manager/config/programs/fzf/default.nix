@@ -45,6 +45,12 @@ let
       "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})"
     ];
 
+  setWorkdirAsPrompt =
+    let
+      printPwd = ''echo \$(pwd | sed 's#/home/${config.home.username}#~#')/'';
+    in
+    "start:transform-prompt(${printPwd})";
+
   labelPreviewWithFilename = "transform-preview-label(echo ' {} ')";
 
   filePreviewArgs = {
@@ -138,6 +144,7 @@ mkIf cfg.enable {
         concatStringsSep "," [
           (fzf-state-keybindings cfg.changeDirWidgetCommand)
           "focus:${labelPreviewWithFilename}"
+          setWorkdirAsPrompt
         ]
       );
       border-label = escapeShellArg " Directories ";
@@ -191,6 +198,7 @@ mkIf cfg.enable {
         concatStringsSep "," [
           (fzf-state-keybindings cfg.fileWidgetCommand)
           "focus:${labelPreviewWithFilename}"
+          setWorkdirAsPrompt
         ]
       );
       border-label = escapeShellArg " Files ";

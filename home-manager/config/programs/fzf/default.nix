@@ -175,8 +175,6 @@ mkIf cfg.enable {
         highlight-line = true;
         layout = "reverse";
         info = "inline-right";
-        marker = arrowHead;
-        pointer = arrowHead;
         prompt = escapeShellArg "${arrowHead} ";
         preview-window = "right,border-line,hidden";
       };

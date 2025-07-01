@@ -1,10 +1,17 @@
 state_dir=/tmp/fzf
 mkdir --parents $state_dir
 
+shopt -s nullglob
 for file in "$state_dir"/*; do
     pre_var=${file#"$state_dir/"}
     eval "${pre_var//-/_}=1"
 done
+
+print_icon() {
+    if [[ -n ${!1} ]]; then
+        echo " ${2:-icon missing} "
+    fi
+}
 
 print_status() {
     if [[ -n ${!1} ]]; then
@@ -15,6 +22,17 @@ print_status() {
 }
 
 case $1 in
+get-label)
+    if [[ $BACKGROUND == 'dark' ]]; then
+        bg="$(printf '\e[48;2;50;48;47m')"
+    else
+        bg="$(printf '\e[48;2;242;229;188m')"
+    fi
+    printf "%s\e[37m%s%s%s%s\e[49m\n" "${2:-label missing}" "$bg" \
+        "${follow_symlinks+ f }" \
+        "${show_hidden_files+ h }" \
+        "${show_ignored_files+ i }"
+    ;;
 get-source)
     dynamic_args=(
         ${follow_symlinks+--follow}

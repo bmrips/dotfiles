@@ -124,7 +124,7 @@ mkIf cfg.enable {
           filePreviewArgs
           // {
             highlight-line = "{2}";
-            line-range = subshell "${fzf-state} context {2}";
+            line-range = subshell "${fzf-state} get-visible-range {2}";
           }
         );
       in

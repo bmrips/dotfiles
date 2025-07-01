@@ -1,8 +1,35 @@
 state_dir=/tmp/fzf
 mkdir --parents $state_dir
 
+for file in "$state_dir"/*; do
+    pre_var=${file#"$state_dir/"}
+    eval "${pre_var//-/_}=1"
+done
+
 case $1 in
-context)
+get-source)
+    dynamic_args=(
+        ${follow_symlinks+--follow}
+        ${show_hidden_files+--hidden}
+        ${show_ignored_files+--no-ignore}
+    )
+    case $2 in
+    files)
+        fd "${dynamic_args[@]}" --exclude='.git' --type=file
+        ;;
+    directories)
+        fd "${dynamic_args[@]}" --exclude='.git' --type=directory
+        ;;
+    grep)
+        rg "${dynamic_args[@]}" --glob='!.git' --line-number --no-heading --color=always "$3"
+        ;;
+    *)
+        echo "Error: unknown argument: $2" >&2
+        exit 1
+        ;;
+    esac
+    ;;
+get-visible-range)
     if [[ -z $2 ]]; then
         echo "Error: expected a number" >&2
         exit 1
@@ -10,47 +37,17 @@ context)
     start=$(($2 - FZF_PREVIEW_LINES / 2))
     start=$((start > 1 ? start : 0))
     echo "$start:$((start + FZF_PREVIEW_LINES - 1))"
-    exit
     ;;
-get-source)
-    if [[ -f $state_dir/follow-symlinks ]]; then
-        follow="--follow"
-    else
-        unset follow
-    fi
-    if [[ -f $state_dir/show-hidden-files ]]; then
-        hidden="--hidden"
-    else
-        unset hidden
-    fi
-    if [[ -f $state_dir/show-ignored-files ]]; then
-        ignored="--no-ignore"
-    else
-        unset ignored
-    fi
-
+toggle)
     case $2 in
-    files)
-        eval fd $follow $hidden $ignored --exclude='.git' --type=file 2>/dev/null
-        ;;
-    directories)
-        eval fd $follow $hidden $ignored --exclude='.git' --type=directory 2>/dev/null
-        ;;
-    grep)
-        eval rg $follow $hidden $ignored --glob='!.git' --line-number --no-heading --color=always "\"$3\"" 2>/dev/null
-        ;;
+    follow-symlinks) ;;
+    show-hidden-files) ;;
+    show-ignored-files) ;;
     *)
-        echo "Error: unknown argument: $2" >&2
+        echo "Error: unknown option $2" >&2
         exit 1
         ;;
     esac
-    exit
-    ;;
-toggle)
-    if [[ -z $2 ]]; then
-        echo "Error: no attribute specified" >&2
-        exit 1
-    fi
 
     file="$state_dir/$2"
 
@@ -59,8 +56,6 @@ toggle)
     else
         touch "$file"
     fi
-
-    exit
     ;;
 *)
     echo "Error: unknown argument: $1" >&2

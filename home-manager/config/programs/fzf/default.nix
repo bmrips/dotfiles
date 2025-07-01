@@ -48,8 +48,8 @@ let
     );
 
   filePreviewArgs = {
-    plain = true;
     color = "always";
+    number = true;
     paging = "never";
   };
 

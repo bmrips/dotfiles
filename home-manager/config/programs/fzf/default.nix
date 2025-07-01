@@ -39,13 +39,13 @@ let
 
   fzf-state-keybindings =
     reloadCmd:
-    escapeShellArg (
-      concatStringsSep "," [
-        "alt-f:execute(${fzf-state} toggle follow-symlinks)+reload(${reloadCmd})"
-        "alt-h:execute(${fzf-state} toggle show-hidden-files)+reload(${reloadCmd})"
-        "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})"
-      ]
-    );
+    concatStringsSep "," [
+      "alt-f:execute(${fzf-state} toggle follow-symlinks)+reload(${reloadCmd})"
+      "alt-h:execute(${fzf-state} toggle show-hidden-files)+reload(${reloadCmd})"
+      "alt-i:execute(${fzf-state} toggle show-ignored-files)+reload(${reloadCmd})"
+    ];
+
+  labelPreviewWithFilename = "transform-preview-label(echo ' {} ')";
 
   filePreviewArgs = {
     color = "always";
@@ -123,7 +123,7 @@ mkIf cfg.enable {
         );
       in
       gnuCommandLine {
-        bind = fzf-state-keybindings "${FZF_GREP_COMMAND} {q}";
+        bind = escapeShellArg (fzf-state-keybindings "${FZF_GREP_COMMAND} {q}");
         border-label = escapeShellArg " Grep ";
         multi = true;
         preview = escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
@@ -134,7 +134,12 @@ mkIf cfg.enable {
     changeDirWidgetCommand = "${fzf-state} get-source directories";
 
     changeDirWidgetOptions = gnuCommandArgs {
-      bind = fzf-state-keybindings cfg.changeDirWidgetCommand;
+      bind = escapeShellArg (
+        concatStringsSep "," [
+          (fzf-state-keybindings cfg.changeDirWidgetCommand)
+          "focus:${labelPreviewWithFilename}"
+        ]
+      );
       border-label = escapeShellArg " Directories ";
       preview = dirPreview "{}";
     };
@@ -157,7 +162,7 @@ mkIf cfg.enable {
             "alt-]:change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)"
             "alt-j:preview-half-page-down"
             "alt-k:preview-half-page-up"
-            "alt-p:toggle-preview"
+            "alt-p:toggle-preview+${labelPreviewWithFilename}"
             "alt-w:toggle-preview-wrap"
             "change:first" # focus the first element when the query is changed
             "ctrl-a:toggle-all"
@@ -176,13 +181,18 @@ mkIf cfg.enable {
         layout = "reverse";
         info = "inline-right";
         prompt = escapeShellArg "${arrowHead} ";
-        preview-window = "right,border-line,hidden";
+        preview-window = "right,border,hidden";
       };
 
     fileWidgetCommand = "${fzf-state} get-source files";
 
     fileWidgetOptions = gnuCommandArgs {
-      bind = fzf-state-keybindings cfg.fileWidgetCommand;
+      bind = escapeShellArg (
+        concatStringsSep "," [
+          (fzf-state-keybindings cfg.fileWidgetCommand)
+          "focus:${labelPreviewWithFilename}"
+        ]
+      );
       border-label = escapeShellArg " Files ";
       preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
     };

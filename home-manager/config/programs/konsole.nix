@@ -9,9 +9,12 @@ let
   inherit (lib)
     colorschemes
     concatStringsSep
+    mapAttrsRecursive
     mapAttrsToList
     mkIf
     mkMerge
+    pipe
+    rgb
     ;
 
   smartly-sized-konsole =
@@ -41,10 +44,21 @@ let
 
   mkColorScheme =
     darkness:
-    colorschemes.gruvbox_material.mkScheme darkness {
-      background = "medium";
-      bright = true;
-    }
+    mapAttrsRecursive
+      (
+        _: c:
+        pipe c [
+          rgb.parse
+          (map toString)
+          (concatStringsSep ",")
+        ]
+      )
+      (
+        colorschemes.gruvbox_material.mkScheme darkness {
+          background = "medium";
+          bright = true;
+        }
+      )
     // {
       name = "Gruvbox ${darkness}";
     };

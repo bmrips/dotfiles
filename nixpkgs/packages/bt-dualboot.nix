@@ -14,6 +14,7 @@ python3Packages.buildPythonApplication rec {
     hash = "sha256-pjzGvLkotQllzyrnxqDIjGlpBOvUPkWpv0eooCUrgv8=";
   };
 
+  format = "setuptools";
   strictDeps = true;
 
   dependencies = [ chntpw ];

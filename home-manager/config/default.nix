@@ -206,6 +206,14 @@ in
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
 
+  services.home-manager.autoExpire = {
+    enable = true;
+    frequency = "weekly";
+    timestamp = "-30 days";
+    store.cleanup = true;
+    store.options = "--delete-older-than 30d";
+  };
+
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";

@@ -8,7 +8,6 @@
 let
   inherit (lib)
     makeBinPath
-    mkBefore
     mkMerge
     optionalString
     strings
@@ -141,11 +140,6 @@ in
     };
 
     initContent = mkMerge [
-
-      (mkBefore ''
-        # If not running interactively, don't do anything
-        [[ $- != *i* ]] && return
-      '')
 
       ''
         # Display the cursor as a bar

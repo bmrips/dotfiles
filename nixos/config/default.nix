@@ -119,10 +119,7 @@ in
 
   networking = {
     hostName = host;
-    networkmanager = {
-      enable = true;
-      wifi.powersave = true;
-    };
+    networkmanager.enable = true;
   };
 
   nix.gc = {

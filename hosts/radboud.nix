@@ -4,6 +4,7 @@
   inputs,
   lib,
   modulesPath,
+  pkgs,
   user,
   ...
 }:
@@ -101,6 +102,9 @@ in
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11";
+
+  # For eduvpn
+  networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
 
   programs.nitrile.enable = true;
 

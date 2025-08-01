@@ -130,12 +130,11 @@ in
 
     (mkIf cfg.readlineIntegration.enable {
       home.sessionVariables.LD_PRELOAD = "${pkgs.rl_custom_function}/lib/librl_custom_function.so";
-      programs.readline.extraConfig =
-        ''
-          $include function rl_custom_complete ${cfg.package}/lib/librl_custom_complete.so
-          "\t": rl_custom_complete
-        ''
-        + cfg.readlineIntegration.extraConfig;
+      programs.readline.extraConfig = ''
+        $include function rl_custom_complete ${cfg.package}/lib/librl_custom_complete.so
+        "\t": rl_custom_complete
+      ''
+      + cfg.readlineIntegration.extraConfig;
     })
 
   ]);

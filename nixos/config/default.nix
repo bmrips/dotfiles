@@ -1,6 +1,7 @@
 {
   config,
   host,
+  lib,
   pkgs,
   user,
   ...
@@ -154,6 +155,7 @@ in
   services.printing.enable = true;
   services.resolved.enable = true;
   services.tlp.enable = true;
+  services.tzupdate.enable = true;
 
   services.xserver.xkb = {
     layout = "us,de";
@@ -166,7 +168,7 @@ in
     secrets.hashed_password.neededForUsers = true;
   };
 
-  time.timeZone = "Europe/Berlin";
+  time.timeZone = lib.mkDefault "Europe/Berlin";
 
   users.users.${user} = {
     isNormalUser = true;

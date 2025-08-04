@@ -1,20 +1,14 @@
 { config, lib, ... }:
 
 let
-  inherit (lib)
-    gnuCommandLine
-    mkIf
-    mkOption
-    types
-    ;
   cfg = config.programs.less;
 
 in
 {
 
-  options.programs.less.settings = mkOption {
+  options.programs.less.options = lib.mkOption {
     type =
-      with types;
+      with lib.types;
       attrsOf (oneOf [
         bool
         int
@@ -27,8 +21,9 @@ in
     };
   };
 
-  config.home.sessionVariables.LESS = mkIf (cfg.enable && cfg.settings != { }) (
-    gnuCommandLine cfg.settings
-  );
+  config.programs.less.keys = lib.mkIf (cfg.options != { }) ''
+    #env
+    LESS = ${lib.cli.toGNUCommandLineShell { } cfg.options}
+  '';
 
 }

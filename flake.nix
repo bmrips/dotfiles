@@ -45,6 +45,46 @@
 
   outputs =
     inputs:
+    let
+      inherit (inputs.nixpkgs) lib;
+
+      nixosSystem =
+        {
+          host,
+          system,
+          extraModules,
+          ...
+        }:
+        lib.nixosSystem {
+          inherit system extraModules;
+          specialArgs = {
+            user = "bmr";
+            inherit host inputs;
+          };
+          lib = lib.extend (import ./lib);
+          modules = [
+            ./nixos
+            inputs.nix-index-database.nixosModules.nix-index
+            inputs.nur.modules.nixos.default
+            inputs.sops.nixosModules.sops
+            inputs.home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                useGlobalPkgs = true;
+                extraSpecialArgs = {
+                  pkgs_23_05 = inputs.nixpkgs_23_05.legacyPackages.${system};
+                  programs-db = inputs.programs-db.packages.${system}.programs-sqlite;
+                };
+                sharedModules = [
+                  inputs.plasma-manager.homeManagerModules.plasma-manager
+                  inputs.sops.homeManagerModules.sops
+                  ./home-manager
+                ];
+              };
+            }
+          ];
+        };
+    in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
 
       imports = with inputs; [
@@ -54,58 +94,26 @@
 
       systems = [ "x86_64-linux" ];
 
-      flake.nixosConfigurations =
-        let
-          lib = inputs.nixpkgs.lib.extend (import ./lib);
-
-          mkNixosConfig =
-            {
-              system ? "x86_64-linux",
-              host,
-              extraModules ? [ ],
-            }:
-            lib.nixosSystem {
-              inherit extraModules lib system;
-              specialArgs = {
-                user = "bmr";
-                inherit host inputs;
-              };
-              modules = [
-                ./nixos
-                inputs.nix-index-database.nixosModules.nix-index
-                inputs.nur.modules.nixos.default
-                inputs.sops.nixosModules.sops
-                inputs.home-manager.nixosModules.home-manager
-                {
-                  home-manager = {
-                    useGlobalPkgs = true;
-                    extraSpecialArgs = {
-                      pkgs_23_05 = inputs.nixpkgs_23_05.legacyPackages.${system};
-                      programs-db = inputs.programs-db.packages.${system}.programs-sqlite;
-                    };
-                    sharedModules = [
-                      inputs.plasma-manager.homeManagerModules.plasma-manager
-                      inputs.sops.homeManagerModules.sops
-                      ./home-manager
-                    ];
-                  };
-                }
-              ];
-            };
-        in
-        {
-          orion = mkNixosConfig {
-            host = "orion";
-            extraModules = [ ./hosts/orion.nix ];
-          };
-          radboud = mkNixosConfig {
-            host = "radboud";
-            extraModules = [ ./hosts/radboud.nix ];
-          };
+      flake.nixosConfigurations = {
+        orion = nixosSystem {
+          host = "orion";
+          system = "x86_64-linux";
+          extraModules = [ ./hosts/orion.nix ];
         };
+        radboud = nixosSystem {
+          host = "radboud";
+          system = "x86_64-linux";
+          extraModules = [ ./hosts/radboud.nix ];
+        };
+      };
 
       perSystem =
-        { config, pkgs, ... }:
+        {
+          config,
+          pkgs,
+          system,
+          ...
+        }:
         {
           devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
             nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
@@ -116,6 +124,13 @@
               git config diff.sops.textconv "sops decrypt"
             '';
           });
+
+          packages.installer =
+            (nixosSystem {
+              inherit system;
+              host = "installer";
+              extraModules = [ ./hosts/installer.nix ];
+            }).config.system.build.isoImage;
 
           pre-commit.settings.hooks = {
             actionlint.enable = true;

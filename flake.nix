@@ -45,140 +45,125 @@
 
   outputs =
     inputs:
-    inputs.flake-parts.lib.mkFlake { inherit inputs; } (
-      { withSystem, ... }:
-      {
+    inputs.flake-parts.lib.mkFlake { inherit inputs; } {
 
-        imports = with inputs; [
-          pre-commit.flakeModule
-          treefmt.flakeModule
-        ];
+      imports = with inputs; [
+        pre-commit.flakeModule
+        treefmt.flakeModule
+      ];
 
-        systems = [ "x86_64-linux" ];
+      systems = [ "x86_64-linux" ];
 
-        flake.nixosConfigurations =
-          let
-            lib = inputs.nixpkgs.lib.extend (import ./lib);
+      flake.nixosConfigurations =
+        let
+          lib = inputs.nixpkgs.lib.extend (import ./lib);
 
-            mkNixosConfig =
-              {
-                system ? "x86_64-linux",
-                host,
-                extraModules ? [ ],
-              }:
-              withSystem system (
-                { inputs', ... }:
-                lib.nixosSystem {
-                  inherit system;
-                  specialArgs = {
-                    user = "bmr";
-                    inherit
-                      host
-                      inputs
-                      lib
-                      ;
+          mkNixosConfig =
+            {
+              system ? "x86_64-linux",
+              host,
+              extraModules ? [ ],
+            }:
+            lib.nixosSystem {
+              inherit extraModules lib system;
+              specialArgs = {
+                user = "bmr";
+                inherit host inputs;
+              };
+              modules = [
+                ./nixos
+                inputs.nix-index-database.nixosModules.nix-index
+                inputs.nur.modules.nixos.default
+                inputs.sops.nixosModules.sops
+                inputs.home-manager.nixosModules.home-manager
+                {
+                  home-manager = {
+                    useGlobalPkgs = true;
+                    extraSpecialArgs = {
+                      pkgs_23_05 = inputs.nixpkgs_23_05.legacyPackages.${system};
+                      programs-db = inputs.programs-db.packages.${system}.programs-sqlite;
+                    };
+                    sharedModules = [
+                      inputs.plasma-manager.homeManagerModules.plasma-manager
+                      inputs.sops.homeManagerModules.sops
+                      ./home-manager
+                    ];
                   };
-                  modules = [
-                    ./nixos
-                    inputs.nix-index-database.nixosModules.nix-index
-                    inputs.nur.modules.nixos.default
-                    inputs.sops.nixosModules.sops
-                    inputs.home-manager.nixosModules.home-manager
-                    {
-                      home-manager = {
-                        useGlobalPkgs = true;
-                        extraSpecialArgs = {
-                          pkgs_23_05 = inputs'.nixpkgs_23_05.legacyPackages;
-                          programs-db = inputs'.programs-db.packages.programs-sqlite;
-                        };
-                        sharedModules = [
-                          inputs.plasma-manager.homeManagerModules.plasma-manager
-                          inputs.sops.homeManagerModules.sops
-                          ./home-manager
-                        ];
-                      };
-                    }
-                  ]
-                  ++ extraModules;
                 }
-              );
-          in
-          {
-            orion = mkNixosConfig {
-              host = "orion";
-              extraModules = [ ./hosts/orion.nix ];
-            };
-            radboud = mkNixosConfig {
-              host = "radboud";
-              extraModules = [ ./hosts/radboud.nix ];
-            };
-          };
-
-        perSystem =
-          {
-            config,
-            pkgs,
-            ...
-          }:
-          {
-            devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
-              nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
-                pkgs.age
-                pkgs.sops
               ];
-              shellHook = prevAttrs.shellHook + ''
-                git config diff.sops.textconv "sops decrypt"
-              '';
-            });
-
-            pre-commit.settings.hooks = {
-              actionlint.enable = true;
-              check-added-large-files.enable = true;
-              check-executables-have-shebangs.enable = true;
-              check-merge-conflicts.enable = true;
-              check-shebang-scripts-are-executable.enable = true;
-              check-symlinks.enable = true;
-              check-toml.enable = true;
-              check-vcs-permalinks.enable = true;
-              check-yaml.enable = true;
-              convco.enable = true;
-              deadnix.enable = true;
-              detect-private-keys.enable = true;
-              markdownlint.enable = true;
-              mixed-line-endings.enable = true;
-              selene.enable = true;
-              statix.enable = true;
-              statix.settings.format = "stderr";
-              treefmt.enable = true;
-              trim-trailing-whitespace.enable = true;
-              typos.enable = true;
-              yamlfmt.enable = true;
-              yamlfmt.entry = "${pkgs.yamlfmt}/bin/yamlfmt";
             };
+        in
+        {
+          orion = mkNixosConfig {
+            host = "orion";
+            extraModules = [ ./hosts/orion.nix ];
+          };
+          radboud = mkNixosConfig {
+            host = "radboud";
+            extraModules = [ ./hosts/radboud.nix ];
+          };
+        };
 
-            treefmt.programs = {
-              mdformat = {
-                enable = true;
-                settings.wrap = "no";
-              };
-              nixfmt.enable = true;
-              shfmt = {
-                enable = true;
-                indent_size = 4;
-              };
-              stylua = {
-                enable = true;
-                settings = {
-                  call_parentheses = "None";
-                  column_width = 100;
-                  indent_type = "Spaces";
-                  indent_width = 2;
-                  quote_style = "AutoPreferSingle";
-                };
+      perSystem =
+        { config, pkgs, ... }:
+        {
+          devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
+            nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
+              pkgs.age
+              pkgs.sops
+            ];
+            shellHook = prevAttrs.shellHook + ''
+              git config diff.sops.textconv "sops decrypt"
+            '';
+          });
+
+          pre-commit.settings.hooks = {
+            actionlint.enable = true;
+            check-added-large-files.enable = true;
+            check-executables-have-shebangs.enable = true;
+            check-merge-conflicts.enable = true;
+            check-shebang-scripts-are-executable.enable = true;
+            check-symlinks.enable = true;
+            check-toml.enable = true;
+            check-vcs-permalinks.enable = true;
+            check-yaml.enable = true;
+            convco.enable = true;
+            deadnix.enable = true;
+            detect-private-keys.enable = true;
+            markdownlint.enable = true;
+            mixed-line-endings.enable = true;
+            selene.enable = true;
+            statix.enable = true;
+            statix.settings.format = "stderr";
+            treefmt.enable = true;
+            trim-trailing-whitespace.enable = true;
+            typos.enable = true;
+            yamlfmt.enable = true;
+            yamlfmt.entry = "${pkgs.yamlfmt}/bin/yamlfmt";
+          };
+
+          treefmt.programs = {
+            mdformat = {
+              enable = true;
+              settings.wrap = "no";
+            };
+            nixfmt.enable = true;
+            shfmt = {
+              enable = true;
+              indent_size = 4;
+            };
+            stylua = {
+              enable = true;
+              settings = {
+                call_parentheses = "None";
+                column_width = 100;
+                indent_type = "Spaces";
+                indent_width = 2;
+                quote_style = "AutoPreferSingle";
               };
             };
           };
+        };
 
-      }
-    );
+    };
 }

@@ -6,13 +6,6 @@
 }:
 
 let
-  inherit (lib)
-    hm
-    mkEnableOption
-    mkForce
-    mkIf
-    ;
-
   readNixInitScript = ''
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';
@@ -28,9 +21,9 @@ let
 
 in
 {
-  options.profiles.macos.enable = mkEnableOption "the macOS profile.";
+  options.profiles.macos.enable = lib.mkEnableOption "the macOS profile.";
 
-  config = mkIf config.profiles.macos.enable {
+  config = lib.mkIf config.profiles.macos.enable {
 
     assertions = [
       {
@@ -40,7 +33,7 @@ in
     ];
 
     # Need to create aliases because Spotlight doesn't consider symlinks.
-    home.activation.link-apps = hm.dag.entryAfter [ "writeBarrier" ] (
+    home.activation.link-apps = lib.hm.dag.entryAfter [ "writeBarrier" ] (
       let
         aliasesDir = "${config.home.homeDirectory}/Applications/Home Manager Apps Aliases";
         find = "${pkgs.findutils}/bin/find";
@@ -79,14 +72,14 @@ in
     programs.bash.initExtra = setBackgroundEnvVar;
     programs.zsh.initContent = setBackgroundEnvVar;
 
-    programs.fzf-tab-completion.enable = mkForce false;
+    programs.fzf-tab-completion.enable = lib.mkForce false;
 
     programs.git = {
-      extraConfig.credential.helper = mkForce "osxkeychain";
+      extraConfig.credential.helper = lib.mkForce "osxkeychain";
       ignores = [ ".DS_Store" ]; # macOS directory preferences
     };
 
-    services.home-manager.autoUpgrade.enable = mkForce false;
+    services.home-manager.autoUpgrade.enable = lib.mkForce false;
 
   };
 }

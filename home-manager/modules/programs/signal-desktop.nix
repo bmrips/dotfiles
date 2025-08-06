@@ -6,13 +6,6 @@
 }:
 
 let
-  inherit (lib)
-    mkIf
-    mkEnableOption
-    mkOption
-    mkPackageOption
-    types
-    ;
   cfg = config.programs.signal-desktop;
 
   signal-desktop-in-system-tray =
@@ -31,18 +24,18 @@ in
 {
 
   options.programs.signal-desktop = {
-    enable = mkEnableOption "Signal Desktop.";
-    package = mkPackageOption pkgs "signal-desktop" { };
-    autostart = mkOption {
-      type = types.bool;
+    enable = lib.mkEnableOption "Signal Desktop.";
+    package = lib.mkPackageOption pkgs "signal-desktop" { };
+    autostart = lib.mkOption {
+      type = lib.types.bool;
       default = false;
       description = "Whether Signal Desktop starts automatically on login.";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.autostart.entries = mkIf cfg.autostart [
+    xdg.autostart.entries = lib.mkIf cfg.autostart [
       "${signal-desktop-in-system-tray}"
     ];
   };

@@ -6,31 +6,24 @@
 }:
 
 let
-  inherit (lib)
-    mkIf
-    mkEnableOption
-    mkOption
-    mkPackageOption
-    types
-    ;
   cfg = config.programs.slack;
 
 in
 {
 
   options.programs.slack = {
-    enable = mkEnableOption "Slack.";
-    package = mkPackageOption pkgs "slack" { };
-    autostart = mkOption {
-      type = types.bool;
+    enable = lib.mkEnableOption "Slack.";
+    package = lib.mkPackageOption pkgs "slack" { };
+    autostart = lib.mkOption {
+      type = lib.types.bool;
       default = false;
       description = "Whether Slack starts automatically on login.";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.autostart.entries = mkIf cfg.autostart [
+    xdg.autostart.entries = lib.mkIf cfg.autostart [
       "${cfg.package}/share/applications/slack.desktop"
     ];
   };

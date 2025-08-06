@@ -1,9 +1,5 @@
 lib:
 
-let
-  inherit (lib) mergeAttrsList;
-
-in
 rec {
 
   colors = {
@@ -73,7 +69,7 @@ rec {
       black.normal = colors.black.${offset};
       black.bright = colors.black."0";
     }
-    // mergeAttrsList (
+    // lib.mergeAttrsList (
       map
         (c: {
           ${c} = {

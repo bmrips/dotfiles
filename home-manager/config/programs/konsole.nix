@@ -6,17 +6,6 @@
 }:
 
 let
-  inherit (lib)
-    colorschemes
-    concatStringsSep
-    mapAttrsRecursive
-    mapAttrsToList
-    mkIf
-    mkMerge
-    pipe
-    rgb
-    ;
-
   smartly-sized-konsole =
     let
       grep = "${pkgs.gnugrep}/bin/grep";
@@ -44,17 +33,17 @@ let
 
   mkColorScheme =
     darkness:
-    mapAttrsRecursive
+    lib.mapAttrsRecursive
       (
         _: c:
-        pipe c [
-          rgb.parse
+        lib.pipe c [
+          lib.rgb.parse
           (map toString)
-          (concatStringsSep ",")
+          (lib.concatStringsSep ",")
         ]
       )
       (
-        colorschemes.gruvbox_material.mkScheme darkness {
+        lib.colorschemes.gruvbox_material.mkScheme darkness {
           background = "medium";
           bright = true;
         }
@@ -79,8 +68,8 @@ let
           WordModeAttr = false;
         };
         General = {
-          Environment = concatStringsSep "," (
-            mapAttrsToList (name: value: "${name}=${value}") {
+          Environment = lib.concatStringsSep "," (
+            lib.mapAttrsToList (name: value: "${name}=${value}") {
               BACKGROUND = darkness;
               COLORTERM = "truecolor";
               FONT_SIZE = toString fontSize;
@@ -110,7 +99,7 @@ let
     };
 
 in
-mkMerge [
+lib.mkMerge [
   {
     programs.konsole = {
 
@@ -196,7 +185,7 @@ mkMerge [
     };
   }
 
-  (mkIf config.programs.konsole.enable {
+  (lib.mkIf config.programs.konsole.enable {
     home.packages = [ smartly-sized-konsole ];
 
     programs.plasma.hotkeys.commands = {

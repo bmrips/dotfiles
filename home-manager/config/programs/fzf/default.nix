@@ -8,20 +8,6 @@
 let
   cfg = config.programs.fzf;
 
-  inherit (lib)
-    concatMapAttrsStringSep
-    concatStringsSep
-    escapeShellArg
-    flatten
-    gnuCommandArgs
-    gnuCommandLine
-    mkIf
-    readFile
-    stringAsChars
-    zipAttrs
-    ;
-  inherit (lib.shell) dirPreview subshell;
-
   fzf-state =
     let
       drv = pkgs.writeShellApplication {
@@ -35,7 +21,7 @@ let
           "errexit"
           "pipefail"
         ];
-        text = readFile ./fzf-state.sh;
+        text = lib.readFile ./fzf-state.sh;
       };
     in
     "${drv}/bin/fzf-state";
@@ -44,11 +30,11 @@ let
     spec:
     let
       spec' = if builtins.isList spec then spec else [ spec ];
-      concatenate = concatMapAttrsStringSep "," (
-        event: actions: "${event}:${concatStringsSep "+" (flatten actions)}"
+      concatenate = lib.concatMapAttrsStringSep "," (
+        event: actions: "${event}:${lib.concatStringsSep "+" (lib.flatten actions)}"
       );
     in
-    escapeShellArg (concatenate (zipAttrs spec'));
+    lib.escapeShellArg (concatenate (lib.zipAttrs spec'));
 
   fzf-state-bindings =
     { label, reloadCmd }:
@@ -113,7 +99,7 @@ let
       };
       colors =
         c:
-        concatStringsSep "," [
+        lib.concatStringsSep "," [
           "border:${c.grey}"
           "current-bg:${c.bg1}"
           "current-fg:-1"
@@ -136,28 +122,28 @@ let
     '';
 
 in
-mkIf cfg.enable {
+lib.mkIf cfg.enable {
 
   home.sessionVariables = rec {
     FZF_GREP_COMMAND = "${fzf-state} get-source grep";
     FZF_GREP_OPTS =
       let
-        label = escapeShellArg " Grep ";
-        batArgs = gnuCommandLine (
+        label = lib.escapeShellArg " Grep ";
+        batArgs = lib.gnuCommandLine (
           filePreviewArgs
           // {
             highlight-line = "{2}";
-            line-range = subshell "${fzf-state} get-visible-range {2}";
+            line-range = lib.shell.subshell "${fzf-state} get-visible-range {2}";
           }
         );
       in
-      gnuCommandLine {
+      lib.gnuCommandLine {
         bind = mkBindings (fzf-state-bindings {
           inherit label;
           reloadCmd = "${FZF_GREP_COMMAND} {q}";
         });
         multi = true;
-        preview = escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
+        preview = lib.escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
       };
   };
 
@@ -166,9 +152,9 @@ mkIf cfg.enable {
 
     changeDirWidgetOptions =
       let
-        label = escapeShellArg " Directories ";
+        label = lib.escapeShellArg " Directories ";
       in
-      gnuCommandArgs {
+      lib.gnuCommandArgs {
         bind = mkBindings [
           {
             start = [ setWorkdirAsPrompt ];
@@ -179,12 +165,12 @@ mkIf cfg.enable {
             reloadCmd = cfg.changeDirWidgetCommand;
           })
         ];
-        preview = dirPreview "{}";
+        preview = lib.shell.dirPreview "{}";
       };
 
     defaultCommand =
       let
-        args = gnuCommandLine {
+        args = lib.gnuCommandLine {
           hidden = true;
           type = "file";
         };
@@ -212,14 +198,14 @@ mkIf cfg.enable {
           ctrl-f = "half-page-down";
         };
       in
-      gnuCommandArgs {
+      lib.gnuCommandArgs {
         bind = bindings;
         border = "top";
         height = "60%";
         highlight-line = true;
         layout = "reverse";
         info = "inline-right";
-        prompt = escapeShellArg "${arrowHead} ";
+        prompt = lib.escapeShellArg "${arrowHead} ";
         preview-window = "right,border,hidden";
       };
 
@@ -227,9 +213,9 @@ mkIf cfg.enable {
 
     fileWidgetOptions =
       let
-        label = escapeShellArg " Files ";
+        label = lib.escapeShellArg " Files ";
       in
-      gnuCommandArgs {
+      lib.gnuCommandArgs {
         bind = mkBindings [
           {
             start = setWorkdirAsPrompt;
@@ -240,11 +226,11 @@ mkIf cfg.enable {
             reloadCmd = cfg.fileWidgetCommand;
           })
         ];
-        preview = escapeShellArg "bat ${gnuCommandLine filePreviewArgs} {}";
+        preview = lib.escapeShellArg "bat ${lib.gnuCommandLine filePreviewArgs} {}";
       };
 
-    historyWidgetOptions = gnuCommandArgs {
-      border-label = escapeShellArg " History ";
+    historyWidgetOptions = lib.gnuCommandArgs {
+      border-label = lib.escapeShellArg " History ";
     };
   };
 
@@ -252,7 +238,7 @@ mkIf cfg.enable {
 
   programs.zsh.siteFunctions.fzf-grep-widget =
     let
-      grep = stringAsChars (c: if c == "\n" then "; " else c) ''
+      grep = lib.stringAsChars (c: if c == "\n" then "; " else c) ''
         local item
         eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${cfg.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
             echo -n "''${(q)item} "

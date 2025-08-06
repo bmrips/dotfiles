@@ -1,10 +1,6 @@
 { config, lib, ... }:
 
-let
-  inherit (lib) concatStringsSep mkIf mkMerge;
-
-in
-mkMerge [
+lib.mkMerge [
 
   {
     programs.kmail.shortcutSchemes.Custom = {
@@ -121,13 +117,13 @@ mkMerge [
     };
   }
 
-  (mkIf config.programs.kmail.enable {
+  (lib.mkIf config.programs.kmail.enable {
 
     programs.plasma.configFile = {
 
       kmail2rc = {
         Composer = {
-          attachment-keywords = concatStringsSep "," [
+          attachment-keywords = lib.concatStringsSep "," [
             "angehangen"
             "angehängt"
             "Anhang"

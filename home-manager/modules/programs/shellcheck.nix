@@ -6,18 +6,6 @@
 }:
 
 let
-  inherit (lib)
-    concatLines
-    flatten
-    flip
-    isList
-    mapAttrsToList
-    mkEnableOption
-    mkIf
-    mkOption
-    mkPackageOption
-    types
-    ;
   cfg = config.programs.shellcheck;
 
 in
@@ -25,12 +13,12 @@ in
 
   options.programs.shellcheck = {
 
-    enable = mkEnableOption "{command}`shellcheck`.";
+    enable = lib.mkEnableOption "{command}`shellcheck`.";
 
-    package = mkPackageOption pkgs "shellcheck" { };
+    package = lib.mkPackageOption pkgs "shellcheck" { };
 
-    settings = mkOption {
-      type = with types; attrsOf (either str (listOf str));
+    settings = lib.mkOption {
+      type = with lib.types; attrsOf (either str (listOf str));
       default = { };
       description = "Settings to put into {file}`$XDG_CONFIG_HOME/shellcheckrc`";
       example = {
@@ -48,15 +36,15 @@ in
 
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     home.packages = [ cfg.package ];
 
-    xdg.configFile.shellcheckrc.text = mkIf (cfg.settings != { }) (
-      concatLines (
-        flatten (
-          flip mapAttrsToList cfg.settings (
-            name: value: if isList value then map (v: "${name}=${v}") value else "${name}=${value}"
+    xdg.configFile.shellcheckrc.text = lib.mkIf (cfg.settings != { }) (
+      lib.concatLines (
+        lib.flatten (
+          lib.flip lib.mapAttrsToList cfg.settings (
+            name: value: if lib.isList value then map (v: "${name}=${v}") value else "${name}=${value}"
           )
         )
       )

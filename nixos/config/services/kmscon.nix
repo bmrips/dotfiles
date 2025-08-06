@@ -5,10 +5,6 @@
   ...
 }:
 
-let
-  inherit (lib) concatLines mapAttrsToList;
-
-in
 {
   services.kmscon = {
 
@@ -39,8 +35,8 @@ in
           background = black;
         };
 
-        colorConfigStr = concatLines (
-          [ "palette=custom" ] ++ mapAttrsToList (n: v: "palette-${n}=${v}") colors
+        colorConfigStr = lib.concatLines (
+          [ "palette=custom" ] ++ lib.mapAttrsToList (n: v: "palette-${n}=${v}") colors
         );
 
       in

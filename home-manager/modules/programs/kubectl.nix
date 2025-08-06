@@ -6,15 +6,14 @@
 }:
 
 let
-  inherit (lib) mkEnableOption mkIf mkPackageOption;
   cfg = config.programs.kubectl;
 
 in
 {
   options.programs.kubectl = {
-    enable = mkEnableOption "{command}`kubectl`.";
-    package = mkPackageOption pkgs "kubectl" { };
+    enable = lib.mkEnableOption "{command}`kubectl`.";
+    package = lib.mkPackageOption pkgs "kubectl" { };
   };
 
-  config.home.packages = mkIf cfg.enable [ cfg.package ];
+  config.home.packages = lib.mkIf cfg.enable [ cfg.package ];
 }

@@ -6,12 +6,6 @@
 }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    mkPackageOption
-    ;
   cfg = config.programs.yamllint;
   yaml = pkgs.formats.yaml { };
 
@@ -20,11 +14,11 @@ in
 
   options.programs.yamllint = {
 
-    enable = mkEnableOption "{command}`yamllint`.";
+    enable = lib.mkEnableOption "{command}`yamllint`.";
 
-    package = mkPackageOption pkgs "yamllint" { };
+    package = lib.mkPackageOption pkgs "yamllint" { };
 
-    settings = mkOption {
+    settings = lib.mkOption {
       inherit (yaml) type;
       default = { };
       description = "Settings for {command}`yamllint`.";
@@ -41,9 +35,9 @@ in
 
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    home.sessionVariables.YAMLLINT_CONFIG_FILE = mkIf (cfg.settings != { }) (
+    home.sessionVariables.YAMLLINT_CONFIG_FILE = lib.mkIf (cfg.settings != { }) (
       yaml.generate "yamllint.yaml" cfg.settings
     );
   };

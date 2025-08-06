@@ -6,8 +6,6 @@
 }:
 
 let
-  inherit (lib) mkIf mkMerge optionals;
-
   wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Nexus/";
 
   # Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
@@ -36,7 +34,7 @@ let
   };
 
 in
-mkMerge [
+lib.mkMerge [
 
   {
     programs.plasma = {
@@ -622,7 +620,7 @@ mkMerge [
     };
   }
 
-  (mkIf config.programs.plasma.enable {
+  (lib.mkIf config.programs.plasma.enable {
 
     assertions = [
       {
@@ -641,7 +639,7 @@ mkMerge [
         qt6.qtimageformats
         plasma-dark-mode
       ]
-      ++ optionals config.profiles.gui.extra.enable [
+      ++ lib.optionals config.profiles.gui.extra.enable [
         akregator
         kgpg
         skanpage

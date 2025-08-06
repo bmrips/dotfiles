@@ -1,30 +1,20 @@
 { config, lib, ... }:
 
 let
-  inherit (lib)
-    mapAttrs'
-    mkEnableOption
-    mkIf
-    mkOption
-    mkMerge
-    plasma
-    types
-    ;
-
   cfg = config.programs.dolphin;
 
   basicSettingsType =
-    with types;
+    with lib.types;
     nullOr (oneOf [
       bool
       float
       int
       str
     ]);
-  viewPropertiesType = types.attrsOf basicSettingsType;
+  viewPropertiesType = lib.types.attrsOf basicSettingsType;
   viewPropertiesOption =
     kind:
-    mkOption {
+    lib.mkOption {
       type = viewPropertiesType;
       default = { };
       description = "${kind} view properties.";
@@ -38,14 +28,14 @@ in
 {
 
   options.programs.dolphin = {
-    enable = mkEnableOption "Dolphin.";
-    shortcutSchemes = plasma.shortcutSchemesOption;
+    enable = lib.mkEnableOption "Dolphin.";
+    shortcutSchemes = lib.plasma.shortcutSchemesOption;
     viewProperties = {
       global = viewPropertiesOption "Global";
       remote = viewPropertiesOption "Remote";
       trash = viewPropertiesOption "Trash";
-      local = mkOption {
-        type = types.attrsOf viewPropertiesType;
+      local = lib.mkOption {
+        type = lib.types.attrsOf viewPropertiesType;
         default = { };
         description = "Directory-local view properties";
       };
@@ -54,19 +44,19 @@ in
 
   config.programs.plasma = {
 
-    shortcutSchemes.dolphin = mkIf cfg.enable cfg.shortcutSchemes;
+    shortcutSchemes.dolphin = lib.mkIf cfg.enable cfg.shortcutSchemes;
 
     dataFile =
       let
         mkFilename = kind: "dolphin/view_properties/${kind}/.directory";
       in
-      mkMerge [
+      lib.mkMerge [
         {
           ${mkFilename "global"}.Dolphin = cfg.viewProperties.global;
           ${mkFilename "remote"}.Dolphin = cfg.viewProperties.remote;
           ${mkFilename "trash"}.Dolphin = cfg.viewProperties.remote;
         }
-        (mapAttrs' (path: props: {
+        (lib.mapAttrs' (path: props: {
           name = mkFilename "local/${path}";
           value.Dolphin = props;
         }) cfg.viewProperties.local)

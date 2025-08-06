@@ -1,40 +1,40 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) ansiEscapeCodes mkIf;
-  inherit (lib.ansiEscapeCodes) base16 reset;
-
   normal =
     c:
-    with base16;
+    with lib.ansiEscapeCodes.base16;
     color [
       fg
       c
     ];
   bold =
     c:
-    ansiEscapeCodes.combine [
-      ansiEscapeCodes.bold
+    lib.ansiEscapeCodes.combine [
+      lib.ansiEscapeCodes.bold
       (normal c)
     ];
 
 in
 {
 
-  home.defaultCommandFlags.grep = mkIf config.programs.grep.enable {
+  home.defaultCommandFlags.grep = lib.mkIf config.programs.grep.enable {
     binary-files = "without-match";
     color = "auto";
   };
 
-  programs.grep.colors = with base16; {
-    ms = bold red;
-    mc = bold red;
-    sl = reset;
-    cx = reset;
-    fn = normal magenta;
-    ln = normal green;
-    bn = normal green;
-    se = normal cyan;
-  };
+  programs.grep.colors =
+    with lib.ansiEscapeCodes;
+    with lib.ansiEscapeCodes.base16;
+    {
+      ms = bold red;
+      mc = bold red;
+      sl = reset;
+      cx = reset;
+      fn = normal magenta;
+      ln = normal green;
+      bn = normal green;
+      se = normal cyan;
+    };
 
 }

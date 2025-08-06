@@ -1,7 +1,6 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) gnuCommandLine mapAttrs;
   defaultFlags = config.home.defaultCommandFlags;
 
 in
@@ -26,6 +25,8 @@ in
     };
   };
 
-  config.home.shellAliases = mapAttrs (prog: opts: "${prog} ${gnuCommandLine opts}") defaultFlags;
+  config.home.shellAliases = lib.mapAttrs (
+    prog: opts: "${prog} ${lib.gnuCommandLine opts}"
+  ) defaultFlags;
 
 }

@@ -6,24 +6,19 @@
 }:
 
 let
-  inherit (lib)
-    mapAttrs
-    mkIf
-    replaceStrings
-    toLower
-    ;
-
   toAction =
     addon:
     let
-      normalizedAddonId = toLower (replaceStrings [ "." "@" "{" "}" ] [ "_" "_" "_" "_" ] addon.addonId);
+      normalizedAddonId = lib.toLower (
+        lib.replaceStrings [ "." "@" "{" "}" ] [ "_" "_" "_" "_" ] addon.addonId
+      );
     in
     "${normalizedAddonId}-browser-action";
 
-  addonActions = mapAttrs (_: toAction) pkgs.nur.repos.rycee.firefox-addons;
+  addonActions = lib.mapAttrs (_: toAction) pkgs.nur.repos.rycee.firefox-addons;
 
 in
-mkIf config.programs.firefox.enable {
+lib.mkIf config.programs.firefox.enable {
 
   programs.firefox = {
 

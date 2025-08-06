@@ -1,10 +1,6 @@
 { config, lib, ... }:
 
-let
-  inherit (lib) mkIf mkMerge;
-
-in
-mkMerge [
+lib.mkMerge [
 
   {
     programs.glab.settings = {
@@ -13,7 +9,7 @@ mkMerge [
     };
   }
 
-  (mkIf config.programs.glab.enable {
+  (lib.mkIf config.programs.glab.enable {
     sops.secrets.gitlab_api_token = { };
     home.sessionVariables.GITLAB_TOKEN = "$(cat ${config.sops.secrets.gitlab_api_token.path})";
   })

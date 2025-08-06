@@ -9,8 +9,6 @@
 }:
 
 let
-  inherit (lib) uuid partuuid;
-
   btrfsSubvolume = subvolume: {
     # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
     # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
@@ -54,13 +52,13 @@ in
     };
     luks.devices = {
       root = {
-        device = partuuid "decba6c6-fc4d-bd4c-bc14-d0dfbf1fdac8";
+        device = lib.partuuid "decba6c6-fc4d-bd4c-bc14-d0dfbf1fdac8";
         keyFile = "/root.key";
         keyFileTimeout = 5;
         allowDiscards = true;
       };
       swap = {
-        device = partuuid "30598f9b-913c-3c4e-a918-74847e068c94";
+        device = lib.partuuid "30598f9b-913c-3c4e-a918-74847e068c94";
         keyFile = "/swap.key";
         keyFileTimeout = 5;
         allowDiscards = true;
@@ -96,7 +94,7 @@ in
     "/home" = btrfsSubvolume "home";
     "/etc/keys" = btrfsSubvolume "keys";
     "${config.boot.loader.efi.efiSysMountPoint}" = {
-      device = uuid "B2BD-72B9";
+      device = lib.uuid "B2BD-72B9";
       fsType = "vfat";
     };
   };

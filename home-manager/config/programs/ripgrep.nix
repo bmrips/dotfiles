@@ -1,11 +1,7 @@
 { lib, ... }:
 
-let
-  inherit (lib) gnuCommandArgs;
-
-in
 {
-  programs.ripgrep.arguments = gnuCommandArgs {
+  programs.ripgrep.arguments = lib.gnuCommandArgs {
     smart-case = true;
     colors = [
       "path:style:intense"

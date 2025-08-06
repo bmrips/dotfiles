@@ -6,7 +6,6 @@
 }:
 
 let
-  inherit (lib) mkIf mkMerge;
   cfg = config.programs.keepassxc;
 
   unlock =
@@ -54,13 +53,13 @@ let
     '';
 
 in
-mkMerge [
+lib.mkMerge [
   {
     # automatically unlock the database after login and screen locker deactivation
     programs.keepassxc.autostart = false;
   }
 
-  (mkIf cfg.enable {
+  (lib.mkIf cfg.enable {
     xdg.autostart.entries = [ "${unlockedKeepassxc}" ];
 
     systemd.user.services.keepassxc-unlock = {

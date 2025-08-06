@@ -6,24 +6,17 @@
 }:
 
 let
-  inherit (lib)
-    mkEnableOption
-    mkIf
-    mkOption
-    mkPackageOption
-    types
-    ;
   cfg = config.programs.merkuro;
 
 in
 {
 
   options.programs.merkuro = {
-    enable = mkEnableOption "Merkuro.";
-    package = mkPackageOption pkgs [ "kdePackages" "merkuro" ] { };
-    settings = mkOption {
+    enable = lib.mkEnableOption "Merkuro.";
+    package = lib.mkPackageOption pkgs [ "kdePackages" "merkuro" ] { };
+    settings = lib.mkOption {
       type =
-        with types;
+        with lib.types;
         let
           scalar = nullOr (oneOf [
             bool
@@ -36,7 +29,7 @@ in
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
     programs.plasma.configFile.kalendarrc = cfg.settings;
   };

@@ -3,16 +3,15 @@
 let
   cfg = config.programs.zoxide;
 
-  inherit (lib) escapeShellArg gnuCommandLine;
-  inherit (lib.shell) dirPreview subshell;
-
 in
 lib.mkIf cfg.enable {
 
   home.sessionVariables._ZO_FZF_OPTS = lib.concatStringsSep " " [
-    (gnuCommandLine {
-      border-label = escapeShellArg " Recent directories ";
-      preview = dirPreview (subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'");
+    (lib.gnuCommandLine {
+      border-label = lib.escapeShellArg " Recent directories ";
+      preview = lib.shell.dirPreview (
+        lib.shell.subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'"
+      );
     })
   ];
 

@@ -1,13 +1,9 @@
 lib:
 
-let
-  inherit (lib) mkOption types;
-
-in
 {
-  plasma.shortcutSchemesOption = mkOption {
+  plasma.shortcutSchemesOption = lib.mkOption {
     type =
-      with types;
+      with lib.types;
       let
         shortcut = either str (listOf str);
       in

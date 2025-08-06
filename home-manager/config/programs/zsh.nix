@@ -6,12 +6,6 @@
 }:
 
 let
-  inherit (lib)
-    makeBinPath
-    mkMerge
-    optionalString
-    strings
-    ;
   cfg = config.programs.zsh;
 
 in
@@ -110,7 +104,7 @@ in
       '';
       common-commands = ''
         PATH='${
-          makeBinPath (
+          lib.makeBinPath (
             with pkgs;
             [
               coreutils
@@ -139,7 +133,7 @@ in
       '';
     };
 
-    initContent = mkMerge [
+    initContent = lib.mkMerge [
 
       ''
         # Display the cursor as a bar
@@ -204,7 +198,7 @@ in
         bindkey '^[3;5~' delete-char
       ''
 
-      (optionalString (strings.hasPrefix "vi" cfg.defaultKeymap) ''
+      (lib.optionalString (lib.strings.hasPrefix "vi" cfg.defaultKeymap) ''
         bindkey -M viins jk vi-cmd-mode
         bindkey -M vicmd H vi-beginning-of-line
         bindkey -M vicmd L vi-end-of-line

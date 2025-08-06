@@ -1,19 +1,6 @@
 { config, lib, ... }:
 
 let
-  inherit (lib)
-    concatMapAttrs
-    concatStringsSep
-    escape
-    isString
-    mapAttrs'
-    mapAttrsToList
-    mkEnableOption
-    mkMerge
-    mkOption
-    types
-    ;
-
   cfg = config.programs.plasma;
 
   mkShortcutSchemeFor =
@@ -21,35 +8,35 @@ let
       mkAction =
         name: value:
         let
-          keys = if isString value then value else concatStringsSep "; " value;
+          keys = if lib.isString value then value else lib.concatStringsSep "; " value;
         in
         ''<Action name="${name}" shortcut="${keys}"/>'';
     in
     app: scheme: ''
       <gui name="${app}" version="1">
         <ActionProperties>
-          ${concatStringsSep "\n    " (mapAttrsToList mkAction scheme)}
+          ${lib.concatStringsSep "\n    " (lib.mapAttrsToList mkAction scheme)}
         </ActionProperties>
       </gui>
     '';
 
-  webSearchKeyword = types.submodule (
+  webSearchKeyword = lib.types.submodule (
     { name, ... }:
     {
       options = {
-        name = mkOption {
-          type = types.str;
+        name = lib.mkOption {
+          type = lib.types.str;
           default = name;
           defaultText = "The attribute name of this definition.";
           description = "The name of this web search keyword.";
         };
-        keys = mkOption {
-          type = with types; listOf str;
+        keys = lib.mkOption {
+          type = with lib.types; listOf str;
           default = null;
           description = "The keys that trigger this web search engine.";
         };
-        query = mkOption {
-          type = types.strMatching ".*\\\\\\{[@0]}.*";
+        query = lib.mkOption {
+          type = lib.types.strMatching ".*\\\\\\{[@0]}.*";
           default = null;
           description = ''
             The URI that is used to perform the search on the search engine here.
@@ -69,9 +56,9 @@ let
     [Desktop Entry]
     Charset=
     Hidden=false
-    Keys=${concatStringsSep "," keyword.keys}
+    Keys=${lib.concatStringsSep "," keyword.keys}
     Name=${keyword.name}
-    Query=${escape [ "\\" ] keyword.query}
+    Query=${lib.escape [ "\\" ] keyword.query}
     Type=Service
   '';
 
@@ -80,9 +67,9 @@ in
 
   options.programs.plasma = {
 
-    shortcutSchemes = mkOption {
+    shortcutSchemes = lib.mkOption {
       type =
-        with types;
+        with lib.types;
         let
           shortcut = either str (listOf str);
         in
@@ -93,12 +80,12 @@ in
 
     webSearchKeywords = {
 
-      enable = mkEnableOption "the web search keywords plugin." // {
+      enable = lib.mkEnableOption "the web search keywords plugin." // {
         default = true;
       };
 
-      delimiter = mkOption {
-        type = types.str;
+      delimiter = lib.mkOption {
+        type = lib.types.str;
         default = ":";
         description = ''
           The delimiter that separates the keyword from the search terms.
@@ -106,8 +93,8 @@ in
         example = "$>";
       };
 
-      default = mkOption {
-        type = with types; nullOr str;
+      default = lib.mkOption {
+        type = with lib.types; nullOr str;
         default = null;
         description = ''
           The default web search keyword that is used if no keyword was specified.
@@ -115,8 +102,8 @@ in
         example = "duckduckgo";
       };
 
-      preferred = mkOption {
-        type = with types; listOf str;
+      preferred = lib.mkOption {
+        type = with lib.types; listOf str;
         default = [ ];
         description = ''
           These web search keywords that are prioritised if there are too many results.
@@ -127,15 +114,15 @@ in
         ];
       };
 
-      usePreferredOnly = mkOption {
-        type = types.bool;
+      usePreferredOnly = lib.mkOption {
+        type = lib.types.bool;
         default = false;
         description = "Whether to use only the preferred keywords.";
         example = true;
       };
 
-      extra = mkOption {
-        type = with types; attrsOf webSearchKeyword;
+      extra = lib.mkOption {
+        type = with lib.types; attrsOf webSearchKeyword;
         default = { };
         description = "Extra keywords to be added.";
         example = {
@@ -153,12 +140,12 @@ in
 
   };
 
-  config = mkMerge [
+  config = lib.mkMerge [
 
     {
-      xdg.dataFile = concatMapAttrs (
+      xdg.dataFile = lib.concatMapAttrs (
         app:
-        mapAttrs' (
+        lib.mapAttrs' (
           name: scheme: {
             name = "${app}/shortcuts/${name}";
             value.text = mkShortcutSchemeFor app scheme;
@@ -172,10 +159,10 @@ in
         DefaultWebShortcut = default;
         EnableWebShortcuts = enable;
         KeywordDelimiter = delimiter;
-        PreferredWebShortcuts = concatStringsSep "," preferred;
+        PreferredWebShortcuts = lib.concatStringsSep "," preferred;
         UsePreferredWebShortcutsOnly = usePreferredOnly;
       };
-      assertions = mapAttrsToList (attr: keyword: {
+      assertions = lib.mapAttrsToList (attr: keyword: {
         assertion = builtins.length keyword.keys >= 1;
         message = ''
           No trigger keys are defined for the '${keyword.name}' Plasma web search keyword.
@@ -190,7 +177,7 @@ in
           }'.
         '';
       }) extra;
-      xdg.dataFile = mapAttrs' (id: keyword: {
+      xdg.dataFile = lib.mapAttrs' (id: keyword: {
         name = "kf6/searchproviders/${id}.desktop";
         value.text = mkWebSearchKeywordConfigFile keyword;
       }) extra;

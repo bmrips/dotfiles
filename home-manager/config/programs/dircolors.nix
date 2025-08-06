@@ -1,7 +1,6 @@
 { lib, ... }:
 
 let
-  inherit (lib) ansiEscapeCodes listToAttrs nameValuePair;
   inherit (lib.ansiEscapeCodes) base16 combine reset;
 
   fg =
@@ -14,14 +13,15 @@ let
   reverse =
     c:
     combine [
-      ansiEscapeCodes.reverse
+      lib.ansiEscapeCodes.reverse
       (base16.color [
         base16.fg
         c
       ])
     ];
 
-  colorise = extensions: color: listToAttrs (map (ext: nameValuePair ".${ext}" color) extensions);
+  colorise =
+    extensions: color: lib.listToAttrs (map (ext: lib.nameValuePair ".${ext}" color) extensions);
 
   archives = [
     "7z"

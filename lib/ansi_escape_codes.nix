@@ -1,12 +1,8 @@
 lib:
 
-let
-  inherit (lib) lists strings;
-
-in
 {
   ansiEscapeCodes = {
-    combine = strings.concatStringsSep ";";
+    combine = lib.concatStringsSep ";";
 
     reset = "0";
     bold = "1";
@@ -18,7 +14,7 @@ in
     reverse = "7";
 
     base16 = {
-      color = mods: toString (lists.foldl' builtins.add 0 mods);
+      color = mods: toString (lib.foldl' builtins.add 0 mods);
 
       fg = 30;
       bg = 40;

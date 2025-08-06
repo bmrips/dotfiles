@@ -6,45 +6,32 @@
 }:
 
 let
-  inherit (lib)
-    concatMapAttrs
-    intersectAttrs
-    isString
-    mapAttrs'
-    mkIf
-    mkOption
-    optionalAttrs
-    plasma
-    recursiveUpdate
-    types
-    ;
-
   cfg = config.programs.konsole;
 
   ini = pkgs.formats.ini { };
 
-  colorType = types.strMatching "^[[:digit:]]{1,3},[[:digit:]]{1,3},[[:digit:]]{1,3}$";
+  colorType = lib.types.strMatching "^[[:digit:]]{1,3},[[:digit:]]{1,3},[[:digit:]]{1,3}$";
 
   color =
     name:
-    mkOption {
+    lib.mkOption {
       type = colorType;
       description = "The ${name} color.";
     };
 
   optionalColor =
     name:
-    mkOption {
-      type = types.nullOr colorType;
+    lib.mkOption {
+      type = lib.types.nullOr colorType;
       default = null;
       description = "The ${name} color.";
     };
 
   colorWithVariants =
     col:
-    mkOption {
+    lib.mkOption {
       type =
-        with types;
+        with lib.types;
         either colorType (submodule {
           options = {
             normal = color "normal ${col}";
@@ -55,7 +42,7 @@ let
       description = "The ${col} color value";
       apply =
         x:
-        if isString x then
+        if lib.isString x then
           {
             normal = x;
             dimmed = null;
@@ -67,12 +54,12 @@ let
 
   colorScheme = name: {
     options = {
-      name = mkOption {
-        type = types.str;
+      name = lib.mkOption {
+        type = lib.types.str;
         default = name;
         description = "Name of the colorscheme. Defaults to the attribute name.";
       };
-      extraConfig = mkOption {
+      extraConfig = lib.mkOption {
         inherit (ini) type;
         default = { };
         description = ''
@@ -112,19 +99,19 @@ let
         {
           "${nameMap.${col}}".Color = vals.normal;
         }
-        // optionalAttrs (vals.dimmed != null) {
+        // lib.optionalAttrs (vals.dimmed != null) {
           "${nameMap.${col}}Faint".Color = vals.dimmed;
         }
-        // optionalAttrs (vals.bright != null) {
+        // lib.optionalAttrs (vals.bright != null) {
           "${nameMap.${col}}Intense".Color = vals.bright;
         };
     in
     scheme:
-    recursiveUpdate (
+    lib.recursiveUpdate (
       {
         General.Description = scheme.name;
       }
-      // concatMapAttrs mkColorWithVariants (intersectAttrs nameMap scheme)
+      // lib.concatMapAttrs mkColorWithVariants (lib.intersectAttrs nameMap scheme)
     ) scheme.extraConfig;
 
 in
@@ -132,19 +119,19 @@ in
 
   options.programs.konsole = {
 
-    colorSchemes = mkOption {
-      type = with types; attrsOf (submodule colorScheme);
+    colorSchemes = lib.mkOption {
+      type = with lib.types; attrsOf (submodule colorScheme);
       default = { };
       description = "Color schemes.";
     };
 
-    shortcutSchemes = plasma.shortcutSchemesOption;
+    shortcutSchemes = lib.plasma.shortcutSchemesOption;
 
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
-    xdg.dataFile = mapAttrs' (name: value: {
+    xdg.dataFile = lib.mapAttrs' (name: value: {
       name = "konsole/${name}.colorscheme";
       value.source = ini.generate "${name}.colorscheme" (mkColorScheme value);
     }) cfg.colorSchemes;

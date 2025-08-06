@@ -6,24 +6,6 @@
 }:
 
 let
-  inherit (lib)
-    concatLines
-    concatMapAttrs
-    generators
-    hasInfix
-    isAttrs
-    isBool
-    isString
-    mapAttrs
-    mapAttrs'
-    mapAttrsToList
-    mkEnableOption
-    mkIf
-    mkOption
-    mkPackageOption
-    nameValuePair
-    types
-    ;
   cfg = config.programs.taskell;
 
   # Taskell assumes that string values are quoted only if the contain spaces
@@ -33,41 +15,41 @@ let
     k: v:
     let
       v' =
-        if isString v then
-          (if hasInfix " " v then ''"${v}"'' else v)
-        else if isBool v then
+        if lib.isString v then
+          (if lib.hasInfix " " v then ''"${v}"'' else v)
+        else if lib.isBool v then
           (if v then "true" else "false")
         else
           toString v;
     in
     "${k} = ${v'}";
 
-  toIni = generators.toINI { inherit mkKeyValue; };
+  toIni = lib.generators.toINI { inherit mkKeyValue; };
 
   # Flattens an attrset, i.e. `flattenAttrs { a.b = 0; } = { "a.b" = 0 }`.
-  flattenAttrs = concatMapAttrs (
+  flattenAttrs = lib.concatMapAttrs (
     n: v:
-    if !(isAttrs v) then
+    if !(lib.isAttrs v) then
       {
         ${n} = v;
       }
     else
-      mapAttrs' (n': v': nameValuePair "${n}.${n'}" v') (flattenAttrs v)
+      lib.mapAttrs' (n': v': lib.nameValuePair "${n}.${n'}" v') (flattenAttrs v)
   );
 
-  flatten3rdLevel = mapAttrs (_: v: if !(isAttrs v) then v else flattenAttrs v);
+  flatten3rdLevel = lib.mapAttrs (_: v: if !(lib.isAttrs v) then v else flattenAttrs v);
 
 in
 {
 
   options.programs.taskell = {
 
-    enable = mkEnableOption "{command}`taskell`.";
+    enable = lib.mkEnableOption "{command}`taskell`.";
 
-    package = mkPackageOption pkgs "taskell" { };
+    package = lib.mkPackageOption pkgs "taskell" { };
 
-    bindings = mkOption {
-      type = with types; attrsOf str;
+    bindings = lib.mkOption {
+      type = with lib.types; attrsOf str;
       default = { };
       description = "Key bindings for {command}`taskell`.";
       example = {
@@ -75,9 +57,9 @@ in
       };
     };
 
-    config = mkOption {
+    config = lib.mkOption {
       type =
-        with types;
+        with lib.types;
         let
           scalar = oneOf [
             bool
@@ -93,8 +75,8 @@ in
       };
     };
 
-    template = mkOption {
-      type = with types; nullOr lines;
+    template = lib.mkOption {
+      type = with lib.types; nullOr lines;
       default = null;
       description = "Template for the `taskell.md` file.";
       example = ''
@@ -103,9 +85,9 @@ in
       '';
     };
 
-    theme = mkOption {
+    theme = lib.mkOption {
       type =
-        with types;
+        with lib.types;
         let
           t = attrsOf (either str t);
         in
@@ -119,7 +101,7 @@ in
 
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
 
     home.packages = [ cfg.package ];
 
@@ -127,18 +109,18 @@ in
       # `bindings.ini` does not have any nesting, hence we can not use
       # `generators.toINI` here. Additionally, taskell assumes that even string
       # values containing spaces to not be quoted.
-      "taskell/bindings.ini" = mkIf (cfg.bindings != { }) {
-        text = concatLines (mapAttrsToList (k: v: "${k} = ${v}") cfg.bindings);
+      "taskell/bindings.ini" = lib.mkIf (cfg.bindings != { }) {
+        text = lib.concatLines (lib.mapAttrsToList (k: v: "${k} = ${v}") cfg.bindings);
       };
 
-      "taskell/config.ini" = mkIf (cfg.config != { }) { text = toIni cfg.config; };
+      "taskell/config.ini" = lib.mkIf (cfg.config != { }) { text = toIni cfg.config; };
 
-      "taskell/template.md" = mkIf (cfg.template != null) { text = cfg.template; };
+      "taskell/template.md" = lib.mkIf (cfg.template != null) { text = cfg.template; };
 
       # `theme.ini` is nested three levels deep which `generators.toINI` can not
       # handle. Hence, the third level needs to be flattened (see
       # `flattenAttrs`).
-      "taskell/theme.ini" = mkIf (cfg.theme != { }) { text = toIni (flatten3rdLevel cfg.theme); };
+      "taskell/theme.ini" = lib.mkIf (cfg.theme != { }) { text = toIni (flatten3rdLevel cfg.theme); };
     };
 
   };

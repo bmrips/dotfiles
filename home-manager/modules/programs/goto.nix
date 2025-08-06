@@ -6,47 +6,35 @@
 }:
 
 let
-  inherit (lib)
-    gnuCommandLine
-    hm
-    mkEnableOption
-    mkIf
-    mkOption
-    mkPackageOption
-    types
-    ;
   cfg = config.programs.goto;
-
-  init = ''
-    source ${pkgs.goto}/share/goto.sh
-  '';
+  init = "source ${pkgs.goto}/share/goto.sh";
 
 in
 {
 
   options.programs.goto = {
-    enable = mkEnableOption "{command}`goto`.";
-    package = mkPackageOption pkgs "goto" { };
-    enableBashIntegration = hm.shell.mkBashIntegrationOption { inherit config; };
-    enableZshIntegration = hm.shell.mkZshIntegrationOption { inherit config; };
-    fzfWidgetOptions = mkOption {
-      type = with types; attrsOf str;
+    enable = lib.mkEnableOption "{command}`goto`.";
+    package = lib.mkPackageOption pkgs "goto" { };
+    enableBashIntegration = lib.hm.shell.mkBashIntegrationOption { inherit config; };
+    enableZshIntegration = lib.hm.shell.mkZshIntegrationOption { inherit config; };
+    fzfWidgetOptions = lib.mkOption {
+      type = with lib.types; attrsOf str;
       default = { };
       description = "Options for the fzf widget, set through {env}`FZF_GOTO_OPTS`";
       example.height = "60%";
     };
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
-    home.sessionVariables.FZF_GOTO_OPTS = mkIf (cfg.fzfWidgetOptions != { }) (
-      gnuCommandLine cfg.fzfWidgetOptions
+    home.sessionVariables.FZF_GOTO_OPTS = lib.mkIf (cfg.fzfWidgetOptions != { }) (
+      lib.gnuCommandLine cfg.fzfWidgetOptions
     );
 
-    programs.bash.initExtra = mkIf cfg.enableBashIntegration init;
+    programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration init;
 
-    programs.zsh.initContent = mkIf cfg.enableZshIntegration init;
+    programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration init;
 
     programs.zsh.siteFunctions.fzf-goto-widget = ''
       _goto_resolve_db

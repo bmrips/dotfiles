@@ -1,13 +1,9 @@
 { config, lib, ... }:
 
-let
-  inherit (lib) mkIf;
-
-in
 {
   programs.slack.autostart = true;
 
-  programs.plasma.window-rules = mkIf config.programs.slack.enable [
+  programs.plasma.window-rules = lib.mkIf config.programs.slack.enable [
     {
       description = "Slack";
       match = {

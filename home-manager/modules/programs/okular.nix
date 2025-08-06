@@ -1,11 +1,10 @@
 { config, lib, ... }:
 
 let
-  inherit (lib) mkIf plasma;
   cfg = config.programs.okular;
 
 in
 {
-  options.programs.okular.shortcutSchemes = plasma.shortcutSchemesOption;
-  config.programs.plasma.shortcutSchemes.okular = mkIf cfg.enable cfg.shortcutSchemes;
+  options.programs.okular.shortcutSchemes = lib.plasma.shortcutSchemesOption;
+  config.programs.plasma.shortcutSchemes.okular = lib.mkIf cfg.enable cfg.shortcutSchemes;
 }

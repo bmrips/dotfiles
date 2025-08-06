@@ -1,11 +1,6 @@
 { config, lib, ... }:
 
-let
-  inherit (lib) mkIf mkMerge;
-  user = config.home.username;
-
-in
-mkMerge [
+lib.mkMerge [
 
   {
     programs.dolphin = {
@@ -115,7 +110,7 @@ mkMerge [
     };
   }
 
-  (mkIf config.programs.dolphin.enable {
+  (lib.mkIf config.programs.dolphin.enable {
 
     # Git ignores Dolphin's directory preferences.
     programs.git.ignores = [ ".directory" ];
@@ -165,7 +160,7 @@ mkMerge [
       };
     };
 
-    programs.plasma.configFile.ktrashrc."/home/${user}/.local/share/Trash" = {
+    programs.plasma.configFile.ktrashrc."${config.home.homeDirectory}/.local/share/Trash" = {
       Days = 14; # delete files in the trash after 14 days
       LimitReachedAction = 0; # no-op when reaching the size limit
       UseTimeLimit = true;

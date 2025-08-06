@@ -22,6 +22,7 @@
   "nest.nvim": { "branch": "master", "commit": "a08ef95cf788a1213df6a5f0c5f1b688d038417b" },
   "nvim-autopairs": { "branch": "master", "commit": "23320e75953ac82e559c610bec5a90d9c6dfa743" },
   "nvim-better-n": { "branch": "master", "commit": "bddb1c912ced563634d30d25ef4b6344a389b18b" },
+  "nvim-colorizer.lua": { "branch": "master", "commit": "16597180b4dd81fa3d23d88c4d2f1b49154f9479" },
   "nvim-fundo": { "branch": "main", "commit": "ac9c9372c4bf677721e24f144ef29d3a05c2b589" },
   "nvim-fzf": { "branch": "master", "commit": "305aa90aeb8409b4bd2af1812a4b6e157ee93953" },
   "nvim-impairative": { "branch": "develop", "commit": "f591e206e377c90e419ae24edb4fd81a22b6f1d5" },

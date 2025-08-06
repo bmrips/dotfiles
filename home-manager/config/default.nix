@@ -197,7 +197,6 @@ in
   programs.readline.enable = true;
   programs.ripgrep.enable = true;
   programs.ripgrep-all.enable = true;
-  programs.sioyek.enable = true;
   programs.ssh.enable = true;
   programs.starship.enable = true;
   programs.taskell.enable = true;

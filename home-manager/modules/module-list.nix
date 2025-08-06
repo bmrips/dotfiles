@@ -3,10 +3,8 @@
   ./home.nix
   ./programs/dolphin.nix
   ./programs/fzf-tab-completion.nix
-  ./programs/git-credential-keepassxc.nix
   ./programs/glab.nix
   ./programs/goto.nix
-  ./programs/keepassxc.nix
   ./programs/kmail.nix
   ./programs/konsole.nix
   ./programs/less.nix

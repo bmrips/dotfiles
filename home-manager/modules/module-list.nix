@@ -3,11 +3,9 @@
   ./home.nix
   ./programs/dolphin.nix
   ./programs/fzf-tab-completion.nix
-  ./programs/gcc.nix
   ./programs/git-credential-keepassxc.nix
   ./programs/glab.nix
   ./programs/goto.nix
-  ./programs/grep.nix
   ./programs/keepassxc.nix
   ./programs/kmail.nix
   ./programs/konsole.nix
@@ -21,5 +19,4 @@
   ./programs/slack.nix
   ./programs/taskell.nix
   ./programs/yamllint.nix
-  ./programs/zsh.nix
 ]

@@ -35,6 +35,7 @@ in
   config = lib.mkIf config.development.kubernetes.enable {
 
     home.packages = with pkgs; [
+      kubectl
       kubectx
       yq-go
     ];
@@ -52,8 +53,6 @@ in
         ${kubectl-show-secrets}
       }
     '';
-
-    programs.kubectl.enable = true;
 
     programs.zsh = {
       initContent = ''

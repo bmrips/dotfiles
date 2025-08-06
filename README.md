@@ -1,6 +1,12 @@
 # Dotfiles
 
-## Bootstrapping
+## Creating an installation device
+
+```text
+sudo dd if=$(nix build .#installer --no-link --print-out-paths)/iso/*.iso of=/dev/sda bs=10M status=progress && sync
+```
+
+## Bootstrapping Nix on MacOS
 
 1. If necessary, bootstrap Nix.
 
@@ -24,7 +30,9 @@
    NIX_FIRST_BUILD_UID=302 sh <(curl -L https://nixos.org/nix/install)
    ```
 
-1. On systems other than NixOS, enable `auto-optimise-store` and `use-xdg-base-directories` in `/etc/nix/nix.conf`.
+1. Enable `auto-optimise-store` and `use-xdg-base-directories` in `/etc/nix/nix.conf`.
+
+## Installation
 
 1. Clone the repository:
 
@@ -49,7 +57,7 @@
    - On NixOS: `nixos-rebuild --use-remote-sudo switch`.
    - For standalone Home Manager: `nix run home-manager/master -- switch`.
 
-## After bootstrapping
+## Remaining configuration
 
 1. Enable automatic development shell activation through direnv: `direnv allow ~/.config/home-manager`.
 

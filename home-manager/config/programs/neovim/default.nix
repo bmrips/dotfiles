@@ -6,6 +6,8 @@
 }:
 
 let
+  cfg = config.programs.neovim;
+
   nvim-prune-undodir = pkgs.writeShellApplication {
     name = "nvim-prune-undodir";
     runtimeInputs = with pkgs; [ coreutils ];
@@ -21,37 +23,42 @@ let
   };
 
 in
-lib.mkMerge [
+{
+  options.programs.neovim.immutableConfig = lib.mkEnableOption "immutable configuration.";
 
-  {
-    programs.neovim = {
-      defaultEditor = true;
-      withRuby = false;
-    };
-  }
+  config = lib.mkMerge [
 
-  (lib.mkIf config.programs.neovim.enable {
+    {
+      programs.neovim = {
+        defaultEditor = true;
+        withRuby = false;
+      };
+    }
 
-    home.packages = with pkgs; [
-      gnumake # for markdown-preview.nvim
-      nodejs # for markdown-preview.nvim
-      nvim-prune-undodir
-      tree-sitter
-      wl-clipboard
-    ];
+    (lib.mkIf config.programs.neovim.enable {
 
-    home.shellAliases = {
-      v = "nvim";
-      vi = "nvim";
-      vim = "nvim";
-    };
+      home.packages = with pkgs; [
+        gnumake # for markdown-preview.nvim
+        nodejs # for markdown-preview.nvim
+        nvim-prune-undodir
+        tree-sitter
+        wl-clipboard
+      ];
 
-    programs.gcc.enable = true; # for nvim-treesitter
+      home.shellAliases = {
+        v = "nvim";
+        vi = "nvim";
+        vim = "nvim";
+      };
 
-    sops.secrets.deepl_api_token = { };
-    home.sessionVariables.DEEPL_API_TOKEN = "$(cat ${config.sops.secrets.deepl_api_token.path})";
+      programs.gcc.enable = true; # for nvim-treesitter
 
-    xdg.configFile.nvim.source = config.lib.file.mkOutOfStoreSymlink' ./.;
-  })
+      sops.secrets.deepl_api_token = { };
+      home.sessionVariables.DEEPL_API_TOKEN = "$(cat ${config.sops.secrets.deepl_api_token.path})";
 
-]
+      xdg.configFile.nvim.source =
+        if cfg.immutableConfig then ./. else config.lib.file.mkOutOfStoreSymlink' ./.;
+    })
+
+  ];
+}

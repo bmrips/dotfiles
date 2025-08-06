@@ -9,7 +9,6 @@
   ./programs/keepassxc.nix
   ./programs/kmail.nix
   ./programs/konsole.nix
-  ./programs/kubectl.nix
   ./programs/less.nix
   ./programs/merkuro.nix
   ./programs/okular.nix

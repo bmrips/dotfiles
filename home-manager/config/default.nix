@@ -36,7 +36,6 @@ in
     ./profiles/macos.nix
     ./profiles/radboud.nix
     ./profiles/standalone.nix
-    ./profiles/uni-muenster.nix
     ./programs/bash.nix
     ./programs/bat.nix
     ./programs/command-not-found.nix

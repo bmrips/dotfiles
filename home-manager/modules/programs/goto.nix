@@ -7,7 +7,7 @@
 
 let
   cfg = config.programs.goto;
-  init = "source ${pkgs.goto}/share/goto.sh";
+  init = "source ${cfg.package}/share/goto.sh";
 
 in
 {

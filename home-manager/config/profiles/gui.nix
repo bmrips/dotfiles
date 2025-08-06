@@ -39,6 +39,7 @@ in
           ];
 
         programs.signal-desktop.enable = true;
+        programs.sioyek.enable = true;
       })
 
     ]

@@ -31,7 +31,6 @@ in
           [
             logseq
             spotify
-            ungoogled-chromium
           ]
           ++ lib.optionals isLinux [
             libreoffice-qt

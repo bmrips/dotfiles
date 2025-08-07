@@ -542,8 +542,6 @@ lib.mkMerge [
       # Disable window outlines
       configFile.breezerc.Common.OutlineIntensity = "OutlineOff";
 
-      configFile.kwalletrc.Wallet."First Use" = false;
-
       configFile.plasmanotifyrc = {
         Notifications.LowPriorityHistory = true;
         Notifications.LowPriorityPopups = false;

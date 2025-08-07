@@ -1,17 +1,25 @@
-return {
-  {
+local function treesitterWith(config)
+  local localDir = vim.env.NVIM_TREESITTER
+
+  local source = localDir and {
+    dir = localDir,
+    name = 'nvim-treesitter',
+  } or {
     'nvim-treesitter/nvim-treesitter',
+    opts = { ensure_installed = 'all' },
+  }
+
+  return vim.tbl_deep_extend('keep', source, config)
+end
+
+return {
+  treesitterWith {
     event = 'FileType',
     build = ':TSUpdate',
     opts = {
       highlight = { enable = true },
       indent = { enable = true },
       matchup = { enable = true },
-
-      ensure_installed = 'all',
-
-      -- Automatically install missing parsers when entering buffer.
-      auto_install = false,
     },
     config = function(_, opts)
       require('nvim-treesitter.configs').setup(opts)
@@ -19,16 +27,14 @@ return {
       vim.opt.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
     end,
   },
-  {
-    'nvim-treesitter/nvim-treesitter',
+  treesitterWith {
     optional = true,
     dependencies = 'RRethy/nvim-treesitter-endwise',
     opts = {
       endwise = { enable = true },
     },
   },
-  {
-    'nvim-treesitter/nvim-treesitter',
+  treesitterWith {
     optional = true,
     dependencies = {
       { 'windwp/nvim-ts-autotag', config = true },

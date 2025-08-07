@@ -31,27 +31,26 @@ in
     {
       programs.neovim = {
         defaultEditor = true;
+        withNodeJs = true; # for markdown-preview.nvim
         withRuby = false;
+        extraPackages = with pkgs; [
+          gnumake # for markdown-preview.nvim
+          gcc # to compile tree-sitter grammars
+          tree-sitter
+        ];
+        plugins = [ treesitter ];
       };
     }
 
     (lib.mkIf config.programs.neovim.enable {
 
-      home.packages = with pkgs; [
-        gnumake # for markdown-preview.nvim
-        nodejs # for markdown-preview.nvim
-        nvim-prune-undodir
-        tree-sitter
-        wl-clipboard
-      ];
+      home.packages = [ nvim-prune-undodir ];
 
       home.shellAliases = {
         v = "nvim";
         vi = "nvim";
         vim = "nvim";
       };
-
-      programs.gcc.enable = true; # for nvim-treesitter
 
       sops.secrets.deepl_api_token = { };
       home.sessionVariables.DEEPL_API_TOKEN = "$(cat ${config.sops.secrets.deepl_api_token.path})";

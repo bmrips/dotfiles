@@ -20,6 +20,7 @@ in
     lib.mkMerge [
 
       {
+        home.packages = [ pkgs.wl-clipboard ];
         programs.firefox.enable = true;
         programs.keepassxc.enable = true;
         xdg.autostart.enable = true;

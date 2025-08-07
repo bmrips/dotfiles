@@ -8,6 +8,8 @@
 let
   cfg = config.programs.neovim;
 
+  treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
+
   nvim-prune-undodir = pkgs.writeShellApplication {
     name = "nvim-prune-undodir";
     runtimeInputs = with pkgs; [ coreutils ];
@@ -35,8 +37,6 @@ in
         withRuby = false;
         extraPackages = with pkgs; [
           gnumake # for markdown-preview.nvim
-          gcc # to compile tree-sitter grammars
-          tree-sitter
           wl-clipboard
         ];
         plugins = [ treesitter ];
@@ -54,7 +54,11 @@ in
       };
 
       sops.secrets.deepl_api_token = { };
-      home.sessionVariables.DEEPL_API_TOKEN = "$(cat ${config.sops.secrets.deepl_api_token.path})";
+
+      home.sessionVariables = {
+        DEEPL_API_TOKEN = "$(cat ${config.sops.secrets.deepl_api_token.path})";
+        NVIM_TREESITTER = "${treesitter}";
+      };
 
       xdg.configFile.nvim.source =
         if cfg.immutableConfig then ./. else config.lib.file.mkOutOfStoreSymlink' ./.;

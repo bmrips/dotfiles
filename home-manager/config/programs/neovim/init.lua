@@ -78,6 +78,11 @@ require('lazy').setup('config.plugins', {
   dev = {
     path = '~/projects/neovim/plugins/',
   },
+  -- reset neither packpath nor runtime path since Nix injects dependencies
+  performance = {
+    reset_packpath = false,
+    rtp = { reset = true },
+  },
   rocks = {
     enabled = false,
   },

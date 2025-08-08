@@ -223,15 +223,12 @@ lib.mkIf config.programs.firefox.enable {
               "fxa-toolbar-menu-button"
               tab-session-manager
               zotero-connector
-              javascript-restrictor
               "unified-extensions-button"
             ];
             unified-extensions-area = with addonActions; [
               auto-sort-bookmarks
               auto-tab-discard
-              canvasblocker
               darkreader
-              decentraleyes
               i-dont-care-about-cookies
               keepassxc-browser
               languagetool
@@ -239,8 +236,6 @@ lib.mkIf config.programs.firefox.enable {
               refined-github
               sidebery
               simple-translate
-              skip-redirect
-              smart-referer
               ublock-origin
               web-search-navigator
             ];
@@ -255,19 +250,14 @@ lib.mkIf config.programs.firefox.enable {
           seen = with addonActions; [
             auto-sort-bookmarks
             auto-tab-discard
-            canvasblocker
             darkreader
-            decentraleyes
             i-dont-care-about-cookies
-            javascript-restrictor
             keepassxc-browser
             languagetool
             plasma-integration
             refined-github
             sidebery
             simple-translate
-            skip-redirect
-            smart-referer
             tab-session-manager
             ublock-origin
             web-search-navigator
@@ -393,17 +383,12 @@ lib.mkIf config.programs.firefox.enable {
       extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
         auto-sort-bookmarks
         auto-tab-discard
-        canvasblocker
         darkreader
-        decentraleyes
         i-dont-care-about-cookies
-        javascript-restrictor # aka jshelter
         languagetool
         refined-github
         sidebery
         simple-translate
-        skip-redirect
-        smart-referer
         tab-session-manager
         ublock-origin
         web-search-navigator

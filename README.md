@@ -82,7 +82,6 @@ sudo dd if=$(nix build .#installer --no-link --print-out-paths)/iso/*.iso of=/de
    - Simple Translate:
      - Enable the DeepL API, and
      - set German as primary and English as secondary language.
-   - Skip Redirect: synchronize the settings.
    - Tab Session Manager:
      - enable tree-style tab integration,
      - disable auto-save,

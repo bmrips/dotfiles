@@ -665,6 +665,11 @@ lib.mkMerge [
     programs.konsole.enable = true;
     programs.okular.enable = true;
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+      configPackages = [ pkgs.kdePackages.xdg-desktop-portal-kde ];
+    };
   })
 
 ]

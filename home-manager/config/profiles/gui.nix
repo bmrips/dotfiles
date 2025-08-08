@@ -34,7 +34,6 @@ in
           ]
           ++ lib.optionals isLinux [
             libreoffice-qt
-            vlc
           ];
 
         programs.signal-desktop.enable = true;

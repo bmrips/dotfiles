@@ -61,6 +61,14 @@ sudo dd if=$(nix build .#installer --no-link --print-out-paths)/iso/*.iso of=/de
 
 1. Enable secure boot through [lanzaboote](https://github.com/nix-community/lanzaboote).
 
+1. Enable TPM disk decryption by enrolling it into the LUKS2 encrypted volume:
+
+```text
+sudo systemd-cryptenroll <luks-volume> --tpm2-device=auto --tpm2-pcrs=7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000
+```
+
+The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-pcr=yes` decryption option in my NixOS config to prevent attacks from rogue operating systems as explained [in this blog post](https://oddlama.org/blog/bypassing-disk-encryption-with-tpm2-unlock). The effect of the countermeasure is explained in the [Arch wiki](https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module).
+
 ## Remaining configuration
 
 1. Enable automatic development shell activation through direnv: `direnv allow ~/.config/home-manager`.

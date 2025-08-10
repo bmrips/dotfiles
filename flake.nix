@@ -8,6 +8,12 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    lanzaboote = {
+      url = "github:nix-community/lanzaboote";
+      inputs.flake-parts.follows = "flake-parts";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks-nix.follows = "pre-commit";
+    };
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs_23_05.url = "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
@@ -64,6 +70,7 @@
           lib = lib.extend (import ./lib);
           modules = [
             ./nixos
+            inputs.lanzaboote.nixosModules.lanzaboote
             inputs.nix-index-database.nixosModules.nix-index
             inputs.nur.modules.nixos.default
             inputs.sops.nixosModules.sops

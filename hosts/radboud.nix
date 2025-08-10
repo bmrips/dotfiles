@@ -34,10 +34,14 @@ in
     inputs.nixos-hardware.nixosModules.dell-precision-3490-nvidia
   ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/efi";
-    systemd-boot.enable = true;
+  boot.loader.efi = {
+    canTouchEfiVariables = true;
+    efiSysMountPoint = "/efi";
+  };
+
+  boot.lanzaboote = {
+    enable = true;
+    pkiBundle = "/var/lib/sbctl";
   };
 
   boot.kernelParams = [

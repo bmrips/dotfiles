@@ -57,6 +57,10 @@ sudo dd if=$(nix build .#installer --no-link --print-out-paths)/iso/*.iso of=/de
    - On NixOS: `nixos-rebuild --use-remote-sudo switch`.
    - For standalone Home Manager: `nix run home-manager/master -- switch`.
 
+## NixOS-specific steps
+
+1. Enable secure boot through [lanzaboote](https://github.com/nix-community/lanzaboote).
+
 ## Remaining configuration
 
 1. Enable automatic development shell activation through direnv: `direnv allow ~/.config/home-manager`.

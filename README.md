@@ -6,7 +6,7 @@
 sudo dd if=$(nix build .#installer --no-link --print-out-paths)/iso/*.iso of=/dev/sda bs=10M status=progress && sync
 ```
 
-## Bootstrapping Nix on MacOS
+## Bootstrapping Nix on macOS
 
 1. If necessary, bootstrap Nix.
 

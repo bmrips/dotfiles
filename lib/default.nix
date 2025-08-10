@@ -9,4 +9,3 @@ final: _prev:
 // import ./hex.nix final
 // import ./plasma.nix final
 // import ./rgb.nix final
-// import ./uuid.nix final

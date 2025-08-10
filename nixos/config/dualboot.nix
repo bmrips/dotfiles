@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf (cfg.uuid != null) {
     fileSystems.${mountPoint} = {
-      device = lib.uuid cfg.uuid;
+      device = "/dev/disk/by-uuid/${cfg.uuid}";
       fsType = "ntfs-3g";
       options = [ "noauto" ];
     };

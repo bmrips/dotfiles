@@ -2,7 +2,6 @@
   config,
   host,
   inputs,
-  lib,
   modulesPath,
   pkgs,
   user,
@@ -52,7 +51,7 @@ in
     systemd.enable = true;
     availableKernelModules = [ "aesni_intel" ];
     luks.devices.root = {
-      device = lib.uuid "256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
+      device = "/dev/disk/by-uuid/256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
       allowDiscards = true;
       crypttabExtraOpts = [
         "tpm2-device=auto"
@@ -65,7 +64,7 @@ in
     "/" = btrfsSubvolume "nixos";
     "/home" = btrfsSubvolume "home";
     "${config.boot.loader.efi.efiSysMountPoint}" = {
-      device = lib.uuid "12CE-A600";
+      device = "/dev/disk/by-uuid/12CE-A600";
       fsType = "vfat";
     };
   };

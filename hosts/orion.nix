@@ -2,7 +2,6 @@
   config,
   host,
   inputs,
-  lib,
   modulesPath,
   user,
   ...
@@ -52,13 +51,13 @@ in
     };
     luks.devices = {
       root = {
-        device = lib.partuuid "decba6c6-fc4d-bd4c-bc14-d0dfbf1fdac8";
+        device = "/dev/disk/by-partuuid/decba6c6-fc4d-bd4c-bc14-d0dfbf1fdac8";
         keyFile = "/root.key";
         keyFileTimeout = 5;
         allowDiscards = true;
       };
       swap = {
-        device = lib.partuuid "30598f9b-913c-3c4e-a918-74847e068c94";
+        device = "/dev/disk/by-partuuid/30598f9b-913c-3c4e-a918-74847e068c94";
         keyFile = "/swap.key";
         keyFileTimeout = 5;
         allowDiscards = true;
@@ -94,7 +93,7 @@ in
     "/home" = btrfsSubvolume "home";
     "/etc/keys" = btrfsSubvolume "keys";
     "${config.boot.loader.efi.efiSysMountPoint}" = {
-      device = lib.uuid "B2BD-72B9";
+      device = "/dev/disk/by-uuid/B2BD-72B9";
       fsType = "vfat";
     };
   };

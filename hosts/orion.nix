@@ -98,7 +98,7 @@ in
     };
   };
 
-  dualboot.windows.uuid = "16E2EEDDE2EEBFDB";
+  dualboot.windows.device = "/dev/disk/by-uuid/16E2EEDDE2EEBFDB";
 
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;

@@ -8,16 +8,16 @@ let
 in
 {
 
-  options.dualboot.windows.uuid = lib.mkOption {
+  options.dualboot.windows.device = lib.mkOption {
     type = with lib.types; nullOr str;
     default = null;
-    description = "The UUID of the Windows partition.";
-    example = "16E2EEDDE2EEBFDB";
+    description = "The Windows device.";
+    example = "/dev/disk/by-uuid/16E2EEDDE2EEBFDB";
   };
 
-  config = lib.mkIf (cfg.uuid != null) {
+  config = lib.mkIf (cfg.device != null) {
     fileSystems.${mountPoint} = {
-      device = "/dev/disk/by-uuid/${cfg.uuid}";
+      inherit (cfg) device;
       fsType = "ntfs-3g";
       options = [ "noauto" ];
     };

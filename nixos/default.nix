@@ -1,6 +1,8 @@
+args@{ lib, ... }:
+
 {
-  imports = import ./modules/module-list.nix ++ [
-    ./config
-    ../nixpkgs
-  ];
+  imports =
+    lib.haumea.collectModules ./modules args
+    ++ lib.haumea.collectModules ./config args
+    ++ [ ../nixpkgs ];
 }

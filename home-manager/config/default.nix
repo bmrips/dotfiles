@@ -20,65 +20,6 @@ let
 
 in
 {
-  imports = [
-    ./development/bash.nix
-    ./development/c.nix
-    ./development/container.nix
-    ./development/java.nix
-    ./development/kubernetes.nix
-    ./development/lua.nix
-    ./development/markdown.nix
-    ./development/nix.nix
-    ./development/yaml.nix
-    ./files
-    ./profiles/gui.nix
-    ./profiles/linux.nix
-    ./profiles/macos.nix
-    ./profiles/radboud.nix
-    ./profiles/standalone.nix
-    ./programs/bash.nix
-    ./programs/bat.nix
-    ./programs/command-not-found.nix
-    ./programs/dircolors.nix
-    ./programs/direnv.nix
-    ./programs/dolphin.nix
-    ./programs/fd.nix
-    ./programs/firefox
-    ./programs/fzf
-    ./programs/fzf-tab-completion.nix
-    ./programs/gcc.nix
-    ./programs/git
-    ./programs/gh.nix
-    ./programs/glab.nix
-    ./programs/goto.nix
-    ./programs/grep.nix
-    ./programs/keepassxc.nix
-    ./programs/kmail.nix
-    ./programs/konsole.nix
-    ./programs/lazygit.nix
-    ./programs/less.nix
-    ./programs/merkuro.nix
-    ./programs/mkcd.nix
-    ./programs/neovim
-    ./programs/okular.nix
-    ./programs/plasma
-    ./programs/readline.nix
-    ./programs/ripgrep.nix
-    ./programs/shellcheck.nix
-    ./programs/signal-desktop.nix
-    ./programs/sioyek.nix
-    ./programs/slack.nix
-    ./programs/ssh-tpm-agent.nix
-    ./programs/starship.nix
-    ./programs/taskell.nix
-    ./programs/yamllint.nix
-    ./programs/yazi.nix
-    ./programs/zotero.nix
-    ./programs/zoxide.nix
-    ./programs/zsh.nix
-    ./remove-leaked-path-entries.nix
-  ];
-
   development.bash.enable = true;
   development.lua.enable = true;
   development.markdown.enable = true;

@@ -22,29 +22,6 @@ let
 
 in
 {
-  imports = [
-    ./boot/plymouth.nix
-    ./dualboot.nix
-    ./hardware/bluetooth.nix
-    ./hardware/devices/microsoft_ergonomic_keyboard.nix
-    ./hardware/devices/lacie_drive.nix
-    ./hardware/ddcutil.nix
-    ./hardware/sane.nix
-    ./networking/networkmanager.nix
-    ./profiles/gui.nix
-    ./programs/ausweisapp.nix
-    ./programs/nitrile.nix
-    ./security/tpm2.nix
-    ./security/sudo.nix
-    ./services/desktopManager/plasma6.nix
-    ./services/displayManager/sddm.nix
-    ./services/kmscon.nix
-    ./services/pipewire.nix
-    ./services/printing.nix
-    ./services/resolved.nix
-    ./services/tlp.nix
-  ];
-
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.plymouth.enable = true;

@@ -56,7 +56,14 @@
   outputs =
     inputs:
     let
-      inherit (inputs.nixpkgs) lib;
+      lib = inputs.nixpkgs.lib.extend (
+        final: _prev:
+        inputs.haumea.lib.load {
+          src = ./lib;
+          inputs.lib = final;
+          inputs.inputs = inputs;
+        }
+      );
 
       nixosSystem =
         {
@@ -66,18 +73,11 @@
           ...
         }:
         lib.nixosSystem {
-          inherit system extraModules;
+          inherit lib system extraModules;
           specialArgs = {
             user = "bmr";
             inherit host inputs;
           };
-          lib = lib.extend (
-            final: _prev:
-            inputs.haumea.lib.load {
-              src = ./lib;
-              inputs.lib = final;
-            }
-          );
           modules = [
             ./nixos
             inputs.lanzaboote.nixosModules.lanzaboote

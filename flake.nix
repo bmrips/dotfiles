@@ -79,6 +79,7 @@
               home-manager = {
                 useGlobalPkgs = true;
                 extraSpecialArgs = {
+                  inherit host;
                   pkgs_23_05 = inputs.nixpkgs_23_05.legacyPackages.${system};
                   programs-db = inputs.programs-db.packages.${system}.programs-sqlite;
                 };

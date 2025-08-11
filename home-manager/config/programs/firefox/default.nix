@@ -1,5 +1,6 @@
 {
   config,
+  host,
   lib,
   pkgs,
   ...
@@ -47,6 +48,7 @@ lib.mkIf config.programs.firefox.enable {
 
         # Configure synchronisation.
         "services.sync.username" = "benedikt.rips@gmail.com";
+        "identity.fxaccounts.account.device.name" = host;
 
         # Website appearance matches the system theme.
         "browser.display.use_system_colors" = true;

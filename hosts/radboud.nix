@@ -90,6 +90,8 @@ in
     };
   };
 
+  security.tpm2.enable = true;
+
   services.btrfs.autoScrub = {
     enable = true;
     fileSystems = [ "/" ];

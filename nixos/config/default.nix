@@ -34,6 +34,7 @@ in
     ./profiles/gui.nix
     ./programs/ausweisapp.nix
     ./programs/nitrile.nix
+    ./security/tpm2.nix
     ./security/sudo.nix
     ./services/desktopManager/plasma6.nix
     ./services/displayManager/sddm.nix

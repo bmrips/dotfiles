@@ -4,6 +4,10 @@
 
   inputs = {
     flake-parts.url = "github:hercules-ci/flake-parts";
+    haumea = {
+      url = "github:nix-community/haumea/v0.2.2";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -67,7 +71,13 @@
             user = "bmr";
             inherit host inputs;
           };
-          lib = lib.extend (import ./lib);
+          lib = lib.extend (
+            final: _prev:
+            inputs.haumea.lib.load {
+              src = ./lib;
+              inputs.lib = final;
+            }
+          );
           modules = [
             ./nixos
             inputs.lanzaboote.nixosModules.lanzaboote

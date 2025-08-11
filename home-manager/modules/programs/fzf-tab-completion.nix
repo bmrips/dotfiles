@@ -90,7 +90,7 @@ in
         home.packages = [ cfg.package ];
 
         home.sessionVariables = {
-          FZF_COMPLETION_OPTS = lib.mkIf (cfg.fzfOptions != { }) (lib.gnuCommandLine cfg.fzfOptions);
+          FZF_COMPLETION_OPTS = lib.mkIf (cfg.fzfOptions != { }) (lib.gnuCommand.line cfg.fzfOptions);
           FZF_TAB_COMPLETION_PROMPT = lib.mkIf (cfg.prompt != null) cfg.prompt;
         };
 

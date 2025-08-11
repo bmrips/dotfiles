@@ -26,7 +26,7 @@ in
   };
 
   config.home.shellAliases = lib.mapAttrs (
-    prog: opts: "${prog} ${lib.gnuCommandLine opts}"
+    prog: opts: "${prog} ${lib.gnuCommand.line opts}"
   ) defaultFlags;
 
 }

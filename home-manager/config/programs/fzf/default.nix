@@ -129,7 +129,7 @@ lib.mkIf cfg.enable {
     FZF_GREP_OPTS =
       let
         label = lib.escapeShellArg " Grep ";
-        batArgs = lib.gnuCommandLine (
+        batArgs = lib.gnuCommand.line (
           filePreviewArgs
           // {
             highlight-line = "{2}";
@@ -137,7 +137,7 @@ lib.mkIf cfg.enable {
           }
         );
       in
-      lib.gnuCommandLine {
+      lib.gnuCommand.line {
         bind = mkBindings (fzf-state-bindings {
           inherit label;
           reloadCmd = "${FZF_GREP_COMMAND} {q}";
@@ -154,7 +154,7 @@ lib.mkIf cfg.enable {
       let
         label = lib.escapeShellArg " Directories ";
       in
-      lib.gnuCommandArgs {
+      lib.gnuCommand.args {
         bind = mkBindings [
           {
             start = [ setWorkdirAsPrompt ];
@@ -170,7 +170,7 @@ lib.mkIf cfg.enable {
 
     defaultCommand =
       let
-        args = lib.gnuCommandLine {
+        args = lib.gnuCommand.line {
           hidden = true;
           type = "file";
         };
@@ -198,7 +198,7 @@ lib.mkIf cfg.enable {
           ctrl-f = "half-page-down";
         };
       in
-      lib.gnuCommandArgs {
+      lib.gnuCommand.args {
         bind = bindings;
         border = "top";
         height = "60%";
@@ -215,7 +215,7 @@ lib.mkIf cfg.enable {
       let
         label = lib.escapeShellArg " Files ";
       in
-      lib.gnuCommandArgs {
+      lib.gnuCommand.args {
         bind = mkBindings [
           {
             start = setWorkdirAsPrompt;
@@ -226,10 +226,10 @@ lib.mkIf cfg.enable {
             reloadCmd = cfg.fileWidgetCommand;
           })
         ];
-        preview = lib.escapeShellArg "bat ${lib.gnuCommandLine filePreviewArgs} {}";
+        preview = lib.escapeShellArg "bat ${lib.gnuCommand.line filePreviewArgs} {}";
       };
 
-    historyWidgetOptions = lib.gnuCommandArgs {
+    historyWidgetOptions = lib.gnuCommand.args {
       border-label = lib.escapeShellArg " History ";
     };
   };

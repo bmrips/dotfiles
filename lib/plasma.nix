@@ -1,7 +1,7 @@
-lib:
+{ lib, ... }:
 
 {
-  plasma.shortcutSchemesOption = lib.mkOption {
+  shortcutSchemesOption = lib.mkOption {
     type =
       with lib.types;
       let

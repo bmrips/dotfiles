@@ -7,7 +7,7 @@ in
 lib.mkIf cfg.enable {
 
   home.sessionVariables._ZO_FZF_OPTS = lib.concatStringsSep " " [
-    (lib.gnuCommandLine {
+    (lib.gnuCommand.line {
       border-label = lib.escapeShellArg " Recent directories ";
       preview = lib.shell.dirPreview (
         lib.shell.subshell "echo {} | sed 's#^~#${config.home.homeDirectory}#'"

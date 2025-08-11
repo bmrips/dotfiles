@@ -1,7 +1,7 @@
 { lib, ... }:
 
 {
-  programs.ripgrep.arguments = lib.gnuCommandArgs {
+  programs.ripgrep.arguments = lib.gnuCommand.args {
     smart-case = true;
     colors = [
       "path:style:intense"

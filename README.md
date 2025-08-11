@@ -75,7 +75,7 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 
 1. Store the KeePassXC database password in the secret manager: `nix run nixpkgs#libsecret -- store --label="Password for the KeePassXC database" keepassxc password`
 
-1. Start KeePassXC and import my GPG key from the private database.
+1. Import my GPG keys from the KeePassXC database.
 
 1. Configure Firefox:
 
@@ -100,3 +100,12 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
      - do not track newly opened windows,
      - sync my sessions,
      - set the save button behaviour to only save the current window.
+
+1. Configure Signal:
+
+   - Hide the menu bar.
+   - Minimize to the system tray.
+
+1. Configure Spotify:
+
+   - Minimize to the system tray

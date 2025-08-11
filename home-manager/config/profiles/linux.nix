@@ -24,15 +24,9 @@ in
       }
     ];
 
-    home.shellAliases = {
-      open = "xdg-open";
-      trash = "mv -t ${config.xdg.dataHome}/Trash/files";
-      xc = "wl-copy";
-      xp = "wl-paste";
+    # List all processes and the systemd units they belong to.
+    home.shellAliases.ps-systemd = "ps xawf -eo pid,user,cgroup,args";
 
-      # List all processes and the systemd units they belong to.
-      ps-systemd = "ps xawf -eo pid,user,cgroup,args";
-    };
     # Compact Firefox UI.
     programs.firefox.profiles.default.settings."browser.uidensity" = 1;
 

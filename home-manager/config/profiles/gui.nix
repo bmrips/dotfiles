@@ -7,6 +7,7 @@
 
 let
   cfg = config.profiles.gui;
+  inherit (pkgs.stdenv) hostPlatform;
 
 in
 {
@@ -19,10 +20,8 @@ in
     lib.mkMerge [
 
       {
-        home.packages = [ pkgs.wl-clipboard ];
         programs.firefox.enable = true;
         programs.keepassxc.enable = true;
-        xdg.autostart.enable = true;
       }
 
       (lib.mkIf cfg.extra.enable {
@@ -30,12 +29,25 @@ in
           pkgs.logseq
           pkgs.spotify
         ]
-        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+        ++ lib.optionals hostPlatform.isLinux [
           pkgs.libreoffice-qt
         ];
 
         programs.signal-desktop.enable = true;
         programs.sioyek.enable = true;
+      })
+
+      (lib.mkIf hostPlatform.isLinux {
+        home.packages = [ pkgs.wl-clipboard ];
+
+        home.shellAliases = {
+          open = "xdg-open";
+          trash = "mv -t ${config.xdg.dataHome}/Trash/files";
+          xc = "wl-copy";
+          xp = "wl-paste";
+        };
+
+        xdg.autostart.enable = true;
       })
 
     ]

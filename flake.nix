@@ -103,15 +103,15 @@
       systems = [ "x86_64-linux" ];
 
       flake.nixosConfigurations = {
-        orion = nixosSystem {
-          host = "orion";
+        "private-xps13-9360" = nixosSystem {
+          host = "private-xps13-9360";
           system = "x86_64-linux";
-          extraModules = [ ./hosts/orion.nix ];
+          extraModules = [ ./hosts/private-xps13-9360.nix ];
         };
-        radboud = nixosSystem {
-          host = "radboud";
+        "radboud-precision4390" = nixosSystem {
+          host = "radboud-precision4390";
           system = "x86_64-linux";
-          extraModules = [ ./hosts/radboud.nix ];
+          extraModules = [ ./hosts/radboud-precision4390.nix ];
         };
       };
 

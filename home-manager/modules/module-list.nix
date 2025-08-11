@@ -7,7 +7,6 @@
   ./programs/goto.nix
   ./programs/kmail.nix
   ./programs/konsole.nix
-  ./programs/less.nix
   ./programs/merkuro.nix
   ./programs/okular.nix
   ./programs/plasma.nix

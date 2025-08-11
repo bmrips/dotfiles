@@ -5,14 +5,21 @@
   ...
 }:
 
+let
+  inherit (pkgs.stdenv) hostPlatform;
+
+in
 {
-  options.profiles.linux.enable = lib.mkEnableOption "the Linux profile";
+  options.profiles.linux.enable = lib.mkEnableOption "the Linux profile" // {
+    default = hostPlatform.isLinux;
+    defaultText = "pkgs.stdenv.hostPlatform.isLinux";
+  };
 
   config = lib.mkIf config.profiles.linux.enable {
 
     assertions = [
       {
-        assertion = pkgs.stdenv.hostPlatform.isLinux;
+        assertion = hostPlatform.isLinux;
         message = "This profile is only available on Linux.";
       }
     ];
@@ -26,6 +33,8 @@
       # List all processes and the systemd units they belong to.
       ps-systemd = "ps xawf -eo pid,user,cgroup,args";
     };
+    # Compact Firefox UI.
+    programs.firefox.profiles.default.settings."browser.uidensity" = 1;
 
     services.gpg-agent = {
       enable = true;

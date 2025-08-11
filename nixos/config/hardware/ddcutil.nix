@@ -42,7 +42,7 @@ in
       };
       increase-screen-brightness = {
         name = "Increase screen brightness";
-        command = "";
+        command = "brightness + 10";
         key = "Meta+Shift+PgUp";
       };
     };

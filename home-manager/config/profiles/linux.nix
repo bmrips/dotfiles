@@ -1,12 +1,15 @@
 {
   config,
   lib,
+  osConfig,
   pkgs,
   ...
 }:
 
 let
   inherit (pkgs.stdenv) hostPlatform;
+
+  hasTPM2 = config.submoduleSupport.enable && osConfig.security.tpm2.enable;
 
 in
 {
@@ -36,6 +39,7 @@ in
 
     services.owncloud-client.enable = true;
     services.ssh-agent.enable = true;
+    services.ssh-tpm-agent.enable = hasTPM2;
 
     xdg.userDirs.enable = true;
 

@@ -26,10 +26,7 @@ in
   config = lib.mkIf config.profiles.macos.enable {
 
     assertions = [
-      {
-        assertion = pkgs.stdenv.isDarwin;
-        message = "This profile is only available on macOS.";
-      }
+      (lib.hm.assertions.assertPlatform "profiles.macos" pkgs lib.platforms.darwin)
     ];
 
     # Need to create aliases because Spotlight doesn't consider symlinks.

@@ -621,10 +621,7 @@ lib.mkMerge [
   (lib.mkIf config.programs.plasma.enable {
 
     assertions = [
-      {
-        assertion = pkgs.stdenv.hostPlatform.isLinux;
-        message = "This profile is only available on Linux.";
-      }
+      (lib.hm.assertions.assertPlatform "programs.plasma" pkgs lib.platforms.linux)
     ];
 
     home.packages =

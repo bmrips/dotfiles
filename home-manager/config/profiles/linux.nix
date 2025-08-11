@@ -18,10 +18,7 @@ in
   config = lib.mkIf config.profiles.linux.enable {
 
     assertions = [
-      {
-        assertion = hostPlatform.isLinux;
-        message = "This profile is only available on Linux.";
-      }
+      (lib.hm.assertions.assertPlatform "profiles.linux" pkgs lib.platforms.linux)
     ];
 
     # List all processes and the systemd units they belong to.

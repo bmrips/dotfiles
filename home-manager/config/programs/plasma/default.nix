@@ -622,7 +622,7 @@ lib.mkMerge [
 
     assertions = [
       {
-        assertion = pkgs.stdenv.isLinux;
+        assertion = pkgs.stdenv.hostPlatform.isLinux;
         message = "This profile is only available on Linux.";
       }
     ];

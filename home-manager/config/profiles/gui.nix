@@ -6,7 +6,6 @@
 }:
 
 let
-  inherit (pkgs.stdenv.hostPlatform) isLinux;
   cfg = config.profiles.gui;
 
 in
@@ -27,15 +26,13 @@ in
       }
 
       (lib.mkIf cfg.extra.enable {
-        home.packages =
-          with pkgs;
-          [
-            logseq
-            spotify
-          ]
-          ++ lib.optionals isLinux [
-            libreoffice-qt
-          ];
+        home.packages = [
+          pkgs.logseq
+          pkgs.spotify
+        ]
+        ++ lib.optionals pkgs.stdenv.hostPlatform.isLinux [
+          pkgs.libreoffice-qt
+        ];
 
         programs.signal-desktop.enable = true;
         programs.sioyek.enable = true;

@@ -25,7 +25,7 @@
     programs.zotero.enable = true;
 
     services.davmail = {
-      enable = pkgs.stdenv.isLinux;
+      enable = pkgs.stdenv.hostPlatform.isLinux;
       imitateOutlook = true;
       settings = {
         "davmail.mode" = "O365Interactive";

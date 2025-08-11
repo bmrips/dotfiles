@@ -11,7 +11,10 @@
         "Rips, Benedikt" = "cyan";
       };
     };
-    git.paging.pager = "delta --paging=never --width=-1";
+    git = {
+      overrideGpg = true;
+      paging.pager = "delta --paging=never --width=-1";
+    };
     promptToReturnFromSubprocess = false;
   };
 }

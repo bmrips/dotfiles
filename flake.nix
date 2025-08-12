@@ -136,6 +136,7 @@
           devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
             nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
               pkgs.age
+              pkgs.age-plugin-tpm
               pkgs.sops
             ];
             shellHook = prevAttrs.shellHook + ''

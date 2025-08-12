@@ -46,7 +46,7 @@ sudo dd if=$(nix build .#installer --no-link --print-out-paths)/iso/*.iso of=/de
 
 1. Generate an Age key for sops-nix:
 
-   - Generate the key: `nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt`.
+   - Generate the key: `nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt`. To seal the key by the TPM, use `nix run nixpkgs#age-plugin-tpm -- --generate -o ~/.config/sops/age/keys.txt`.
    - Add it to `.sops.yaml`.
    - Update the secrets: `nix run nixpkgs#sops -- updatekeys {home-manager,nixos}/config/secrets.yaml`.
 

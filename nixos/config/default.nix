@@ -106,6 +106,7 @@ in
   nix.settings = {
     auto-optimise-store = true;
     download-buffer-size = 536870912; # 512 MiB
+    experimental-features = "flakes nix-command";
     trusted-users = [ user ];
     use-xdg-base-directories = true;
   };

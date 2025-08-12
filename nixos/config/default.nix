@@ -146,6 +146,8 @@ in
 
   time.timeZone = lib.mkDefault "Europe/Berlin";
 
+  users.mutableUsers = false;
+
   users.users.root.hashedPasswordFile = config.sops.secrets."hashed_passwords/root".path;
 
   users.users.${user} = {

@@ -97,9 +97,12 @@
     development.bash.enable = lib.mkForce false;
     development.markdown.enable = lib.mkForce false;
     development.yaml.enable = lib.mkForce false;
-    programs.keepassxc.autostart = lib.mkForce false;
+
+    home.file."Desktop/passwords.kdbx".source = /home + "/${user}" + /Documents/passwords.kdbx;
+
     programs.kmail.enable = lib.mkForce false;
     programs.neovim.immutableConfig = lib.mkForce true;
+
     services.home-manager.autoExpire.enable = lib.mkForce false;
     services.owncloud-client.enable = lib.mkForce false;
   };

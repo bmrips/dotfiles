@@ -22,7 +22,7 @@ in
       options = [ "noauto" ];
     };
     services.bt-dualboot = {
-      enable = true;
+      inherit (config.hardware.bluetooth) enable;
       inherit mountPoint;
       registryBackups.retentionPeriod = "4 weeks";
     };

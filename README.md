@@ -3,7 +3,7 @@
 ## Creating an installation device
 
 ```text
-sudo dd if=$(nix build .#installer --no-link --print-out-paths)/iso/*.iso of=/dev/sda bs=10M status=progress && sync
+sudo dd if=$(nix build .#installer --impure --no-link --print-out-paths)/iso/*.iso of=/dev/sda bs=10M status=progress && sync
 ```
 
 ## Bootstrapping Nix on macOS

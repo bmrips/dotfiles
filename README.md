@@ -42,8 +42,6 @@ sudo dd if=$(nix build .#installer --impure --no-link --print-out-paths)/iso/*.i
 
 1. Set the repo's URL to `git@github.com:bmrips/dotfiles.git` to communicate through SSH in the future.
 
-1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
-
 1. Generate an Age key for sops-nix:
 
    - Generate the key: `nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/keys.txt`.
@@ -54,8 +52,8 @@ sudo dd if=$(nix build .#installer --impure --no-link --print-out-paths)/iso/*.i
 
 1. Build and install the host configuration:
 
-   - On NixOS: `nixos-rebuild --use-remote-sudo switch`.
-   - For standalone Home Manager: `nix run home-manager/master -- switch`.
+   - On NixOS: `nixos-install --flake /mnt/etc/nixos#<hostname>`.
+   - For standalone Home Manager: `nix run home-manager -- switch`.
 
 ## NixOS-specific steps
 
@@ -71,11 +69,15 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 
 ## Remaining configuration
 
+1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
+
 1. Enable automatic development shell activation through direnv: `direnv allow ~/.config/home-manager`.
 
 1. Store the KeePassXC database password in the secret manager: `nix run nixpkgs#libsecret -- store --label="Password for the KeePassXC database" keepassxc password`
 
 1. Import my GPG keys from the KeePassXC database.
+
+1. Commit the configuration for the new host.
 
 1. Configure Firefox:
 

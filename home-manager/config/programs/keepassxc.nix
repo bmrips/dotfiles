@@ -53,51 +53,66 @@ let
     '';
 
 in
-lib.mkMerge [
-  {
-    # automatically unlock the database after login and screen locker deactivation
-    programs.keepassxc.autostart = false;
-  }
+{
+  options.programs.keepassxc.autounlock = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    example = true;
+    description = ''
+      Whether to unlock Keepassxc automatically on login and screen unlocking.
+    '';
+  };
 
-  (lib.mkIf cfg.enable {
-    xdg.autostart.entries = [ "${unlockedKeepassxc}" ];
+  config = lib.mkMerge [
+    {
+      programs.keepassxc.autostart = true;
+    }
 
-    systemd.user.services.keepassxc-unlock = {
-      Unit.Description = "Unlocks the KeePassXC database after unlocking the screen";
-      Install.WantedBy = [ "graphical-session.target" ];
-      Service.ExecStart = "${unlockAfterScreensaverDeactivation}";
-    };
+    (lib.mkIf cfg.enable {
+      programs.firefox.profiles.default.extensions.packages = [
+        pkgs.nur.repos.rycee.firefox-addons.keepassxc-browser
+      ];
 
-    programs.firefox.profiles.default.extensions.packages = [
-      pkgs.nur.repos.rycee.firefox-addons.keepassxc-browser
-    ];
+      programs.plasma.window-rules = [
+        {
+          description = "KeePassXC - Browser Access Request";
+          match = {
+            title.value = "KeePassXC - Browser Access Request";
+            window-class.value = "keepassxc org.keepassxc.KeePassXC";
+          };
+          apply = {
+            maximizehoriz = false;
+            maximizevert = false;
+            placement.apply = "force";
+            placement.value = 5; # centered
+            size.value = "464,291";
+          };
+        }
+        {
+          description = "KeePassXC";
+          match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
+          apply = {
+            maximizehoriz = false;
+            maximizevert = false;
+            placement.apply = "force";
+            placement.value = 5; # centered
+            size.value = "600,528";
+          };
+        }
+      ];
+    })
 
-    programs.plasma.window-rules = [
-      {
-        description = "KeePassXC - Browser Access Request";
-        match = {
-          title.value = "KeePassXC - Browser Access Request";
-          window-class.value = "keepassxc org.keepassxc.KeePassXC";
-        };
-        apply = {
-          maximizehoriz = false;
-          maximizevert = false;
-          placement.apply = "force";
-          placement.value = 5; # centered
-          size.value = "464,291";
-        };
-      }
-      {
-        description = "KeePassXC";
-        match.window-class.value = "keepassxc org.keepassxc.KeePassXC";
-        apply = {
-          maximizehoriz = false;
-          maximizevert = false;
-          placement.apply = "force";
-          placement.value = 5; # centered
-          size.value = "600,528";
-        };
-      }
-    ];
-  })
-]
+    (lib.mkIf (cfg.enable && cfg.autounlock) {
+      # For auto-unlocking, we want to use a custom autostart unit.
+      programs.keepassxc.autostart = lib.mkOverride 90 false;
+
+      systemd.user.services.keepassxc-unlock = {
+        Unit.Description = "Unlocks the KeePassXC database after unlocking the screen";
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service.ExecStart = "${unlockAfterScreensaverDeactivation}";
+      };
+
+      xdg.autostart.entries = [ "${unlockedKeepassxc}" ];
+    })
+  ];
+}

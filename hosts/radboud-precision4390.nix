@@ -116,6 +116,8 @@ in
   home-manager.users.${user} = {
     profiles.radboud.enable = true;
 
+    programs.keepassxc.autounlock = true;
+
     programs.plasma.input.touchpads = [
       {
         name = "VEN_06CB:00 06CB:CEEC Touchpad";

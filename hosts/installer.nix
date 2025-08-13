@@ -19,8 +19,11 @@
   isoImage.makeEfiBootable = true;
   isoImage.makeUsbBootable = true;
 
-  boot.supportedFilesystems.zfs = false;
-  boot.loader.grub.memtest86.enable = true;
+  boot = {
+    initrd.systemd.enable = true;
+    loader.grub.memtest86.enable = true;
+    supportedFilesystems.zfs = false;
+  };
 
   # Adds terminus_font for people with HiDPI displays.
   console.packages = [ pkgs.terminus_font ];

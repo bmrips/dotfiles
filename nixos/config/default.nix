@@ -137,17 +137,20 @@ in
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "${config.home-manager.users.bmr.xdg.configHome}/sops/age/keys.txt";
-    secrets.hashed_password.neededForUsers = true;
+    secrets."hashed_passwords/${user}".neededForUsers = true;
+    secrets."hashed_passwords/root".neededForUsers = true;
   };
 
   systemd.tmpfiles.settings.nixos."/mnt".d = { };
 
   time.timeZone = lib.mkDefault "Europe/Berlin";
 
+  users.users.root.hashedPasswordFile = config.sops.secrets."hashed_passwords/root".path;
+
   users.users.${user} = {
     isNormalUser = true;
     description = "Benedikt Rips";
-    hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    hashedPasswordFile = config.sops.secrets."hashed_passwords/${user}".path;
     shell = pkgs.zsh;
   };
 

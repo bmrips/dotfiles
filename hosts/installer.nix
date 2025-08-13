@@ -40,7 +40,10 @@
   '';
 
   # Allow log in without a password and automatically login the user.
-  users.users.root.initialHashedPassword = "";
+  users.users.root = {
+    hashedPasswordFile = lib.mkForce null;
+    initialHashedPassword = "";
+  };
   users.users.${user} = {
     hashedPasswordFile = lib.mkForce null;
     initialHashedPassword = "";

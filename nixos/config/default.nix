@@ -136,10 +136,11 @@ in
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "${config.home-manager.users.bmr.xdg.configHome}/sops/age/keys.txt";
+    age.keyFile = "/var/lib/sops/age/keys.txt";
     secrets."hashed_passwords/${user}".neededForUsers = true;
     secrets."hashed_passwords/root".neededForUsers = true;
   };
+  environment.variables.SOPS_AGE_KEY_FILE = config.sops.age.keyFile;
 
   systemd.tmpfiles.settings.nixos."/mnt".d = { };
 

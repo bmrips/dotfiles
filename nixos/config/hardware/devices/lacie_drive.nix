@@ -9,7 +9,7 @@ in
 
   config = lib.mkIf config.hardware.devices.lacie_drive.enable {
     environment.etc.crypttab.text = ''
-      ${name} UUID=17a21a62-269e-4d40-a28d-1d49ae100d36 /etc/keys/${name}.key noauto
+      ${name} UUID=17a21a62-269e-4d40-a28d-1d49ae100d36 - noauto,tpm2-device=auto
     '';
     fileSystems."/mnt/${name}" = {
       # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.

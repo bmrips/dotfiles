@@ -24,6 +24,7 @@ in
     services.bt-dualboot = {
       enable = true;
       inherit mountPoint;
+      registryBackups.retentionPeriod = "4 weeks";
     };
   };
 

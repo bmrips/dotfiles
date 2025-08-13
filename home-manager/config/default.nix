@@ -1,5 +1,6 @@
 {
   config,
+  osConfig,
   pkgs,
   ...
 }:
@@ -162,7 +163,11 @@ in
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+    age.keyFile =
+      if config.submoduleSupport.enable then
+        osConfig.sops.age.keyFile
+      else
+        "${config.xdg.configHome}/sops/age/keys.txt";
   };
 
   xdg.enable = true;

@@ -36,34 +36,6 @@
     Unlink=no
   '';
 
-  environment.plasma6.excludePackages = with pkgs.kdePackages; [
-    (lib.getBin qttools) # Expose qdbus in PATH
-    aurorae
-    baloo-widgets # baloo information in Dolphin
-    elisa
-    gwenview
-    kate
-    khelpcenter
-    krdp
-    xwaylandvideobridge # exposes Wayland windows to X11 screen capture
-  ];
-
-  networking.networkmanager.enable = true;
-
-  nix = {
-    gc.automatic = lib.mkForce false;
-    settings.auto-optimise-store = lib.mkForce false;
-  };
-
-  programs.ausweisapp.enable = lib.mkForce false;
-  programs.kde-pim.enable = false;
-
-  services.fwupd.enable = lib.mkForce false;
-  services.logrotate.enable = lib.mkForce false;
-  services.printing.enable = lib.mkForce false;
-  services.tzupdate.enable = lib.mkForce false;
-  services.udisks2.enable = lib.mkForce false;
-
   # Allow log in without a password and automatically login the user.
   users.users.root.initialHashedPassword = "";
   users.users.${user} = {
@@ -79,11 +51,43 @@
     User = user;
   };
 
-  security.sudo.wheelNeedsPassword = false;
+  environment.plasma6.excludePackages = with pkgs.kdePackages; [
+    (lib.getBin qttools) # Expose qdbus in PATH
+    aurorae
+    baloo-widgets # baloo information in Dolphin
+    elisa
+    gwenview
+    kate
+    khelpcenter
+    krdp
+    xwaylandvideobridge # exposes Wayland windows to X11 screen capture
+  ];
 
-  virtualisation.podman.enable = lib.mkForce false;
+  hardware.bluetooth.enable = true;
+
+  networking.networkmanager.enable = true;
+
+  nix = {
+    gc.automatic = lib.mkForce false;
+    settings.auto-optimise-store = lib.mkForce false;
+  };
+
+  programs.ausweisapp.enable = lib.mkForce false;
+  programs.kde-pim.enable = false;
+
+  services.hardware.bolt.enable = true;
+  services.fwupd.enable = lib.mkForce false;
+  services.logrotate.enable = lib.mkForce false;
+  services.printing.enable = lib.mkForce false;
+  services.tzupdate.enable = lib.mkForce false;
+  services.udisks2.enable = lib.mkForce false;
+
+  security.sudo.wheelNeedsPassword = false;
+  security.tpm2.enable = true;
 
   system.stateVersion = lib.trivial.release;
+
+  virtualisation.podman.enable = lib.mkForce false;
 
   home-manager.users.${user} = {
     home.stateVersion = lib.trivial.release;

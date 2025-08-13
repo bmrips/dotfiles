@@ -140,6 +140,8 @@ in
     secrets.hashed_password.neededForUsers = true;
   };
 
+  systemd.tmpfiles.settings.nixos."/mnt".d = { };
+
   time.timeZone = lib.mkDefault "Europe/Berlin";
 
   users.users.${user} = {

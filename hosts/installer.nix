@@ -22,7 +22,7 @@
   boot.supportedFilesystems.zfs = false;
   boot.loader.grub.memtest86.enable = true;
 
-  # Adds terminus_font for people with HiDPI displays
+  # Adds terminus_font for people with HiDPI displays.
   console.packages = [ pkgs.terminus_font ];
 
   documentation.man.enable = true;

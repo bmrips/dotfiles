@@ -66,6 +66,26 @@ in
   config = lib.mkMerge [
     {
       programs.keepassxc.autostart = true;
+
+      programs.keepassxc.settings = {
+        Browser.Enabled = true;
+        Browser.UpdateBinaryPath = false;
+        General.ConfigVersion = 2;
+        General.HideWindowOnCopy = true;
+        Security.IconDownloadFallback = true;
+        SSHAgent.Enabled = true;
+        GUI = {
+          ApplicationTheme = "classic";
+          CheckForUpdates = false;
+          HidePreviewPanel = true;
+          HideToolbar = true;
+          MinimizeOnClose = true;
+          MinimizeOnStartup = true;
+          MinimizeToTray = true;
+          ShowTrayIcon = true;
+          TrayIconAppearance = "monochrome-light";
+        };
+      };
     }
 
     (lib.mkIf cfg.enable {

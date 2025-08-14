@@ -2,6 +2,7 @@
   config,
   host,
   inputs,
+  lib,
   modulesPath,
   pkgs,
   user,
@@ -116,7 +117,10 @@ in
   home-manager.users.${user} = {
     profiles.radboud.enable = true;
 
-    programs.keepassxc.autounlock = true;
+    programs.keepassxc = {
+      autounlock = true;
+      settings.SSHAgent.Enabled = lib.mkForce false; # use TPM-sealed keys instead
+    };
 
     programs.plasma.input.touchpads = [
       {

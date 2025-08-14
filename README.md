@@ -120,3 +120,7 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 1. Configure Spotify:
 
    - Minimize to the system tray
+
+### KDE Plasma
+
+1. Set the GTK theme to 'Breeze'.

@@ -144,6 +144,7 @@ in
 
   systemd.tmpfiles.settings.nixos = {
     "%C".v.age = "4 weeks"; # put the cache into a subvolume and clean it
+    "%L".v = { }; # put the log into a subvolume
     "/etc/nixos"."L+".argument = "/home/${user}/.config/home-manager";
     "/mnt".d = { };
   };

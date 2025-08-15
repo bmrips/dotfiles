@@ -22,7 +22,7 @@
 
   boot.initrd = {
     availableKernelModules = [ "aesni_intel" ];
-    luks.devices.root = {
+    luks.devices.nixos = {
       device = "/dev/disk/by-uuid/256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
       allowDiscards = true;
       crypttabExtraOpts = [
@@ -32,16 +32,11 @@
     };
   };
 
-  btrfs = {
-    # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
-    # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
-    device = "/dev/mapper/nixos";
-    mountOptions.ssd = true;
-    subvolumeMounts = {
-      nixos = "/";
-      home = "/home";
-    };
-  };
+  # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
+  # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
+  impermanence.enable = true;
+  btrfs.device = "/dev/mapper/nixos";
+  btrfs.mountOptions.ssd = true;
 
   fileSystems."${config.boot.loader.efi.efiSysMountPoint}" = {
     device = "/dev/disk/by-uuid/12CE-A600";

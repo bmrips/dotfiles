@@ -39,6 +39,7 @@
       url = "github:bmrips/git-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    preservation.url = "github:nix-community/preservation";
     programs-db = {
       url = "github:wamserma/flake-programs-sqlite";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -83,6 +84,7 @@
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.nix-index-database.nixosModules.nix-index
             inputs.nur.modules.nixos.default
+            inputs.preservation.nixosModules.preservation
             inputs.sops.nixosModules.sops
             inputs.home-manager.nixosModules.home-manager
             {

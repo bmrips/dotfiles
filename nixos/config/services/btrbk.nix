@@ -15,7 +15,7 @@ in
     };
     mountPoint = lib.mkOption {
       type = lib.types.str;
-      default = "/mnt/btrfs_root";
+      default = "/media/btrfs_root";
       description = "Path where the Btrfs root volume is mounted.";
     };
   };

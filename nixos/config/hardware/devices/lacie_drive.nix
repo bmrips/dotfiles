@@ -10,7 +10,7 @@ in
     enable = lib.mkEnableOption "the external Lacie drive";
     mountPoint = lib.mkOption {
       type = lib.types.str;
-      default = "/mnt/${name}";
+      default = "/media/${name}";
       description = "Path where the drive is mounted.";
     };
   };

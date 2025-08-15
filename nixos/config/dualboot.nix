@@ -14,7 +14,7 @@ in
     };
     mountPoint = lib.mkOption {
       type = lib.types.str;
-      default = "/mnt/windows";
+      default = "/media/windows";
       description = "Path where the Windows system is mounted.";
     };
   };

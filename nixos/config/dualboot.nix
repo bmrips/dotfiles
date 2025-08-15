@@ -2,28 +2,32 @@
 
 let
   cfg = config.dualboot.windows;
-
-  mountPoint = "/mnt/windows";
-
 in
 {
 
-  options.dualboot.windows.device = lib.mkOption {
-    type = with lib.types; nullOr str;
-    default = null;
-    description = "The Windows device.";
-    example = "/dev/disk/by-uuid/16E2EEDDE2EEBFDB";
+  options.dualboot.windows = {
+    device = lib.mkOption {
+      type = with lib.types; nullOr str;
+      default = null;
+      description = "The Windows device.";
+      example = "/dev/disk/by-uuid/16E2EEDDE2EEBFDB";
+    };
+    mountPoint = lib.mkOption {
+      type = lib.types.str;
+      default = "/mnt/windows";
+      description = "Path where the Windows system is mounted.";
+    };
   };
 
   config = lib.mkIf (cfg.device != null) {
-    fileSystems.${mountPoint} = {
+    fileSystems.${cfg.mountPoint} = {
       inherit (cfg) device;
       fsType = "ntfs-3g";
       options = [ "noauto" ];
     };
     services.bt-dualboot = {
       inherit (config.hardware.bluetooth) enable;
-      inherit mountPoint;
+      inherit (cfg) mountPoint;
       registryBackups.retentionPeriod = "4 weeks";
     };
   };

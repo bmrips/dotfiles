@@ -1,13 +1,16 @@
 local function treesitterWith(config)
   local localDir = vim.env.NVIM_TREESITTER
 
-  local source = localDir and {
-    dir = localDir,
-    name = 'nvim-treesitter',
-  } or {
-    'nvim-treesitter/nvim-treesitter',
-    opts = { ensure_installed = 'all' },
-  }
+  local source = localDir
+      and {
+        dir = localDir,
+        name = 'nvim-treesitter',
+        pin = true,
+      }
+    or {
+      'nvim-treesitter/nvim-treesitter',
+      opts = { ensure_installed = 'all' },
+    }
 
   return vim.tbl_deep_extend('keep', source, config)
 end

@@ -590,7 +590,7 @@ return {
       },
       { '<C-g>',
         function()
-          require('fzf-lua').live_grep_resume()
+          require('fzf-lua').live_grep { resume = true }
         end,
         desc = 'Resume last grep',
       },

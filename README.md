@@ -56,8 +56,6 @@ sudo dd if=$(nix build .#installer --impure --no-link --print-out-paths)/iso/*.i
 
 1. Install the age key: `sudo install -Dm 0600 -o bmr -g root keys.txt /var/lib/sops/age/keys.txt`.
 
-1. Link the repo into `/etc/nixos`.
-
 1. Enable secure boot through [lanzaboote](https://github.com/nix-community/lanzaboote).
 
 1. Enable TPM disk decryption by enrolling it into the LUKS2 encrypted volume:
@@ -68,7 +66,7 @@ sudo systemd-cryptenroll <luks-volume> --tpm2-device=auto --tpm2-pcrs=7+15:sha25
 
 The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-pcr=yes` decryption option in my NixOS config to prevent attacks from rogue operating systems as explained [in this blog post](https://oddlama.org/blog/bypassing-disk-encryption-with-tpm2-unlock). The effect of the countermeasure is explained in the [Arch wiki](https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module).
 
-1. Build and activate the configuration: `nixos-install --flake /mnt/etc/nixos#<hostname>`.
+1. Build and activate the configuration: `nixos-install --flake /mnt/home/bmr/.config/home-manager#<hostname>`.
 
 ### Standalone Home Manager
 

@@ -1,6 +1,5 @@
 {
   config,
-  host,
   inputs,
   lib,
   modulesPath,
@@ -64,6 +63,7 @@ in
   fileSystems = {
     "/" = btrfsSubvolume "nixos";
     "/home" = btrfsSubvolume "home";
+    ${config.services.btrbk.mountPoint} = btrfsSubvolume "/";
     "${config.boot.loader.efi.efiSysMountPoint}" = {
       device = "/dev/disk/by-uuid/12CE-A600";
       fsType = "vfat";
@@ -77,18 +77,6 @@ in
   hardware.nvidia.prime.offload = {
     enable = true;
     enableOffloadCmd = true;
-  };
-
-  fileSystems."/mnt/btr_pool" = btrfsSubvolume "/";
-  services.btrbk.instances.${host}.settings.volume."/mnt/btr_pool" = {
-    snapshot_dir = "btrbk_snapshots";
-    target = "/mnt/lacie/backup/${host}";
-    subvolume.home = {
-      snapshot_preserve_min = "2d";
-      snapshot_preserve = "14d";
-      target_preserve_min = "no";
-      target_preserve = "12w *m";
-    };
   };
 
   security.tpm2.enable = true;

@@ -55,7 +55,7 @@ let
 
   setWorkdirAsPrompt =
     let
-      printPwd = ''echo \$(pwd | sed 's#/home/${config.home.username}#~#')/'';
+      printPwd = ''echo \$(pwd | sed 's#${config.home.homeDirectory}#~#')/'';
     in
     "transform-prompt(${printPwd})";
 

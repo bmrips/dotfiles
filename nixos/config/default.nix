@@ -136,13 +136,13 @@ in
     options = "grp:shifts_toggle,eurosign:e,ctrl:swapcaps,altwin:swap_alt_win";
   };
 
+  fileSystems."/home".neededForBoot = true; # to decrypt passwords at boot
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/var/lib/sops/age/keys.txt";
+    age.keyFile = "${xdgConfigHome}/sops/age/keys.txt";
     secrets."hashed_passwords/${user}".neededForUsers = true;
     secrets."hashed_passwords/root".neededForUsers = true;
   };
-  environment.variables.SOPS_AGE_KEY_FILE = config.sops.age.keyFile;
 
   systemd.tmpfiles.settings.nixos = {
     "%C".v.age = "4 weeks"; # put the cache into a subvolume and clean it

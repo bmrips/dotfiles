@@ -44,17 +44,13 @@ sudo dd if=$(nix build .#installer --impure --no-link --print-out-paths)/iso/*.i
 
    - Add the public key to `.sops.yaml`.
 
-   - Encrypt the secrets with the added key:
+   - Install the key `install -Dm 0700 keys.txt ~/.config/sops/age/keys.txt`.
 
-     ```sh
-     SOPS_AGE_KEY_FILE=keys.txt sops updatekeys {home-manager,nixos}/config/secrets.yaml
-     ```
+   - Encrypt the secrets with the added key: `sops updatekeys {home-manager,nixos}/config/secrets.yaml`
 
 1. Reuse an existing host configuration or create a new one.
 
 ### NixOS
-
-1. Install the age key: `sudo install -Dm 0700 -o bmr -g root keys.txt /var/lib/sops/age/keys.txt`.
 
 1. Enable secure boot through [lanzaboote](https://github.com/nix-community/lanzaboote).
 
@@ -69,8 +65,6 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 1. Build and activate the configuration: `nixos-install --flake /mnt/home/bmr/.config/home-manager#<hostname>`.
 
 ### Standalone Home Manager
-
-1. Install the age key `install -Dm 0700 keys.txt ~/.config/sops/age/keys.txt`.
 
 1. Build and activate the configuration: `nix run home-manager -- switch`.
 

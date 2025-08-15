@@ -52,10 +52,7 @@
     autologinUser = user;
     helpLine = "The 'bmr' and 'root' accounts have empty passwords.";
   };
-  services.displayManager.sddm.settings.Autologin = {
-    Session = "plasma";
-    User = user;
-  };
+  services.displayManager.autoLogin.user = user;
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
     (lib.getBin qttools) # Expose qdbus in PATH

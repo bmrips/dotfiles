@@ -118,10 +118,10 @@
           system = "x86_64-linux";
           extraModules = [ ./hosts/private-xps13-9360.nix ];
         };
-        "radboud-precision4390" = nixosSystem {
-          host = "radboud-precision4390";
+        "radboud-precision3490" = nixosSystem {
+          host = "radboud-precision3490";
           system = "x86_64-linux";
-          extraModules = [ ./hosts/radboud-precision4390.nix ];
+          extraModules = [ ./hosts/radboud-precision3490.nix ];
         };
       };
 

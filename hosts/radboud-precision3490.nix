@@ -15,22 +15,12 @@
     inputs.nixos-hardware.nixosModules.dell-precision-3490-nvidia
   ];
 
-  boot.loader.efi = {
-    canTouchEfiVariables = true;
-    efiSysMountPoint = "/efi";
-  };
-
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";
   };
 
-  boot.kernelParams = [
-    "video=efifb:nobgrt" # hide UEFI vendor logo
-  ];
-
   boot.initrd = {
-    systemd.enable = true;
     availableKernelModules = [ "aesni_intel" ];
     luks.devices.root = {
       device = "/dev/disk/by-uuid/256d1efd-5e12-4caf-8e1c-9b51c41f46c4";

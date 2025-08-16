@@ -14,16 +14,12 @@
 
   hardware.enableAllFirmware = true;
   hardware.enableAllHardware = true;
-  hardware.sane.enable = lib.mkForce false;
 
   isoImage.makeEfiBootable = true;
   isoImage.makeUsbBootable = true;
 
-  boot = {
-    initrd.systemd.enable = true;
-    loader.grub.memtest86.enable = true;
-    supportedFilesystems.zfs = false;
-  };
+  boot.loader.grub.memtest86.enable = true;
+  boot.supportedFilesystems.zfs = false;
 
   # Adds terminus_font for people with HiDPI displays.
   console.packages = [ pkgs.terminus_font ];
@@ -67,13 +63,12 @@
   ];
 
   hardware.bluetooth.enable = true;
+  hardware.sane.enable = lib.mkForce false;
 
   networking.networkmanager.enable = true;
 
-  nix = {
-    gc.automatic = lib.mkForce false;
-    settings.auto-optimise-store = lib.mkForce false;
-  };
+  nix.gc.automatic = lib.mkForce false;
+  nix.settings.auto-optimise-store = lib.mkForce false;
 
   programs.ausweisapp.enable = lib.mkForce false;
   programs.kde-pim.enable = false;

@@ -19,7 +19,6 @@ in
   ];
 
   boot.initrd = {
-    systemd.enable = true;
     availableKernelModules = [
       "aesni_intel"
       "nvme"
@@ -56,18 +55,13 @@ in
   boot.kernelParams = [
     "resume=${swapDevice}"
     "retbleed=stuff"
-    "video=efifb:nobgrt" # hide UEFI vendor logo
     "zswap.enabled=1"
   ];
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    efi.efiSysMountPoint = "/efi";
-    grub = {
-      device = "nodev";
-      efiSupport = true;
-      enableCryptodisk = true;
-    };
+  boot.loader.grub = {
+    device = "nodev";
+    efiSupport = true;
+    enableCryptodisk = true;
   };
 
   btrfs = {

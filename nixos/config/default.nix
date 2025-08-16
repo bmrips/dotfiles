@@ -24,9 +24,14 @@ let
 
 in
 {
-  boot.kernelPackages = pkgs.linuxPackages_latest;
-
-  boot.plymouth.enable = true;
+  boot = {
+    initrd.systemd.enable = true;
+    kernelPackages = pkgs.linuxPackages_latest;
+    kernelParams = [ "video=efifb:nobgrt" ]; # hide the UEFI vendor logo
+    loader.efi.canTouchEfiVariables = true;
+    loader.efi.efiSysMountPoint = "/efi";
+    plymouth.enable = true;
+  };
 
   btrfs.mountOptions = {
     compress = "zstd";

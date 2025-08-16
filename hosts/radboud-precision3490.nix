@@ -81,12 +81,8 @@ in
 
   security.tpm2.enable = true;
 
-  services.btrfs.autoScrub = {
-    enable = true;
-    fileSystems = [ "/" ];
-  };
-
   services.btrbk.enable = true;
+  services.btrfs.autoScrub.enable = true;
   services.hardware.bolt.enable = true;
 
   # This option defines the first version of NixOS you have installed on this particular machine,

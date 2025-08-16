@@ -103,12 +103,8 @@ in
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
 
-  services.btrfs.autoScrub = {
-    enable = true;
-    fileSystems = [ "/" ];
-  };
-
   services.btrbk.enable = true;
+  services.btrfs.autoScrub.enable = true;
   services.hardware.bolt.enable = true;
 
   services.udev.extraRules = ''

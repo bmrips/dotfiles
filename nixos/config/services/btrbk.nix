@@ -22,15 +22,7 @@ in
 
   config = lib.mkIf cfg.enable {
 
-    assertions = [
-      {
-        assertion = config.fileSystems.${cfg.mountPoint} != null;
-        message = ''
-          services.btrbk: the Btrfs volume needs to be mounted to
-          `${cfg.mountPoint}`.
-        '';
-      }
-    ];
+    btrfs.subvolumeMounts."/" = cfg.mountPoint;
 
     services.btrbk = {
       instances.${host}.settings.volume.${cfg.mountPoint} = {

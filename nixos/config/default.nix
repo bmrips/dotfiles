@@ -28,6 +28,13 @@ in
 
   boot.plymouth.enable = true;
 
+  btrfs.mountOptions = {
+    compress = "zstd";
+    lazytime = true;
+    rw = true;
+    strictatime = true;
+  };
+
   console = {
     earlySetup = true;
     colors = [

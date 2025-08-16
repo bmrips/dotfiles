@@ -7,22 +7,6 @@
 }:
 
 let
-  btrfsSubvolume = subvolume: {
-    # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
-    # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
-    device = "/dev/mapper/root";
-    fsType = "btrfs";
-    options = [
-      "compress=zstd:3"
-      "lazytime"
-      "rw"
-      "space_cache"
-      "ssd"
-      "strictatime"
-      "subvol=${subvolume}"
-    ];
-  };
-
   # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
   # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
   swapDevice = "/dev/mapper/swap";
@@ -86,15 +70,24 @@ in
     };
   };
 
-  fileSystems = {
-    "/" = btrfsSubvolume "nixos";
-    "/home" = btrfsSubvolume "home";
-    "/etc/keys" = btrfsSubvolume "keys";
-    ${config.services.btrbk.mountPoint} = btrfsSubvolume "/";
-    ${config.boot.loader.efi.efiSysMountPoint} = {
-      device = "/dev/disk/by-uuid/B2BD-72B9";
-      fsType = "vfat";
+  btrfs = {
+    # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
+    # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
+    device = "/dev/mapper/root";
+    mountOptions = {
+      space_cache = true;
+      ssd = true;
     };
+    subvolumeMounts = {
+      nixos = "/";
+      home = "/home";
+      keys = "/etc/keys";
+    };
+  };
+
+  fileSystems.${config.boot.loader.efi.efiSysMountPoint} = {
+    device = "/dev/disk/by-uuid/B2BD-72B9";
+    fsType = "vfat";
   };
 
   dualboot.windows.device = "/dev/disk/by-uuid/16E2EEDDE2EEBFDB";

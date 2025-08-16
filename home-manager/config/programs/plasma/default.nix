@@ -103,7 +103,6 @@ lib.mkMerge [
         };
         autoLock = true;
         lockOnResume = true;
-        # lockOnStartup = true; # TODO: enable together with autologin?
         passwordRequired = true;
         passwordRequiredDelay = 5;
         timeout = 5;

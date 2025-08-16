@@ -15,7 +15,6 @@ let
     device = "/dev/mapper/root";
     fsType = "btrfs";
     options = [
-      "autodefrag"
       "compress=zstd:3"
       "lazytime"
       "rw"

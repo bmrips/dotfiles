@@ -151,8 +151,7 @@ in
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/var/lib/sops/age/keys.txt";
-    secrets."hashed_passwords/${user}".neededForUsers = true;
-    secrets."hashed_passwords/root".neededForUsers = true;
+    secrets.hashed_password.neededForUsers = true;
   };
   environment.variables.SOPS_AGE_KEY_FILE = config.sops.age.keyFile;
 
@@ -166,12 +165,10 @@ in
 
   users.mutableUsers = false;
 
-  users.users.root.hashedPasswordFile = config.sops.secrets."hashed_passwords/root".path;
-
   users.users.${user} = {
     isNormalUser = true;
     description = "Benedikt Rips";
-    hashedPasswordFile = config.sops.secrets."hashed_passwords/${user}".path;
+    hashedPasswordFile = config.sops.secrets.hashed_password.path;
     shell = pkgs.zsh;
   };
 

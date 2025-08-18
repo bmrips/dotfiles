@@ -30,7 +30,6 @@ in
         "lazytime"
         "noauto"
         "rw"
-        "space_cache=v2"
         "strictatime"
       ];
     };

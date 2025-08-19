@@ -162,6 +162,18 @@ in
     in
     info.shortRev or "${info.dirtyShortRev}.${info.lastModifiedDate}";
 
+  # Ensure that `network-online.target` is only reached when the internet is
+  # reachable.
+  systemd.services.internet-reachable = {
+    description = "Check whether the internet is reachable";
+    requiredBy = [ "network-online.target" ];
+    before = [ "network-online.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.iputils}/bin/ping 8.8.8.8 -c 1";
+    };
+  };
+
   systemd.tmpfiles.settings.nixos = {
     "%C".v.age = "4 weeks"; # put the cache into a subvolume and clean it
     "/etc/nixos"."L+".argument = "${xdgConfigHome}/home-manager";
@@ -177,6 +189,7 @@ in
     description = "Benedikt Rips";
     hashedPasswordFile = config.sops.secrets.hashed_password.path;
     shell = pkgs.zsh;
+    uid = 1000;
   };
 
   virtualisation.podman.enable = true;

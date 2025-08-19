@@ -1,6 +1,7 @@
 {
   config,
   host,
+  inputs,
   lib,
   pkgs,
   user,
@@ -154,6 +155,12 @@ in
     secrets.hashed_password.neededForUsers = true;
   };
   environment.variables.SOPS_AGE_KEY_FILE = config.sops.age.keyFile;
+
+  system.configurationRevision =
+    let
+      info = inputs.self.sourceInfo;
+    in
+    info.shortRev or "${info.dirtyShortRev}.${info.lastModifiedDate}";
 
   systemd.tmpfiles.settings.nixos = {
     "%C".v.age = "4 weeks"; # put the cache into a subvolume and clean it

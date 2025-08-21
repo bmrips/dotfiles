@@ -3,7 +3,6 @@
   inputs,
   lib,
   modulesPath,
-  pkgs,
   user,
   ...
 }:
@@ -52,6 +51,8 @@
     enableOffloadCmd = true;
   };
 
+  profiles.radboud.enable = true;
+
   security.tpm2.enable = true;
 
   services.btrbk.enable = true;
@@ -67,14 +68,7 @@
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
   system.stateVersion = "24.11";
 
-  # For eduvpn
-  networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
-
-  programs.nitrile.enable = true;
-
   home-manager.users.${user} = {
-    profiles.radboud.enable = true;
-
     programs.keepassxc = {
       autounlock = true;
       settings.SSHAgent.Enabled = lib.mkForce false; # use TPM-sealed keys instead

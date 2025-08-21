@@ -1,0 +1,36 @@
+{
+  config,
+  lib,
+  pkgs,
+  user,
+  ...
+}:
+
+{
+  options.profiles.radboud.enable = lib.mkEnableOption "the Radboud profile.";
+
+  config = lib.mkIf config.profiles.radboud.enable {
+    networking.networkmanager.ensureProfiles.profiles.eduroam = {
+      connection.id = "eduroam";
+      connection.type = "wifi";
+      wifi.ssid = "eduroam";
+      wifi-security.key-mgmt = "wpa-eap";
+      "802-1x" = {
+        anonymous-identity = "anonymous@ru.nl";
+        ca-cert = "${./ca-cert.pem}";
+        domain-suffix-match = "ru.nl";
+        eap = "peap;";
+        identity = "benedikt.rips@ru.nl";
+        password = "$EDUROAM_PASSWORD";
+        phase2-auth = "mschapv2";
+      };
+    };
+
+    # Since eduVPN creates openVPN profiles.
+    networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
+
+    programs.nitrile.enable = true;
+
+    home-manager.users.${user}.profiles.radboud.enable = true;
+  };
+}

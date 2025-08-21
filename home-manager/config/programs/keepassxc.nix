@@ -8,18 +8,13 @@
 let
   cfg = config.programs.keepassxc;
 
-  unlock =
-    let
-      dbus-send = "${pkgs.dbus}/bin/dbus-send";
-      secret-tool = "${pkgs.libsecret}/bin/secret-tool";
-    in
-    ''
-      ${dbus-send} --type=method_call --print-reply \
-          --dest=org.keepassxc.KeePassXC.MainWindow \
-          /keepassxc org.keepassxc.KeePassXC.MainWindow.openDatabase \
-          string:${config.home.homeDirectory}/Cloud/Documents/passwords.kdbx \
-          string:"$(${secret-tool} lookup keepassxc password)"
-    '';
+  unlock = ''
+    ${pkgs.dbus}/bin/dbus-send --type=method_call --print-reply \
+        --dest=org.keepassxc.KeePassXC.MainWindow \
+        /keepassxc org.keepassxc.KeePassXC.MainWindow.openDatabase \
+        string:${config.home.homeDirectory}/Cloud/Documents/passwords.kdbx \
+        string:"$(cat ${config.sops.secrets.keepassxc_password.path})"
+  '';
 
   unlockedKeepassxc =
     let
@@ -125,6 +120,8 @@ in
     (lib.mkIf (cfg.enable && cfg.autounlock) {
       # For auto-unlocking, we want to use a custom autostart unit.
       programs.keepassxc.autostart = lib.mkOverride 90 false;
+
+      sops.secrets.keepassxc_password = { };
 
       systemd.user.services.keepassxc-unlock = {
         Unit.Description = "Unlocks the KeePassXC database after unlocking the screen";

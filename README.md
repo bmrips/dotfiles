@@ -80,8 +80,6 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 
 1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
 
-1. Store the KeePassXC database password in the secret manager: `nix run nixpkgs#libsecret -- store --label="Password for the KeePassXC database" keepassxc password`
-
 1. Import my GPG keys from the KeePassXC database.
 
 1. Commit the configuration for the new host.

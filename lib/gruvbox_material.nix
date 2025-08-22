@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 rec {
 
   colors = {
@@ -66,7 +68,7 @@ rec {
     let
       colors' = colors.${darkness};
     in
-    {
+    lib.base16.mkSchemeAttrs {
       system = "base24";
       name = "Gruvbox Material";
       variant = "${darkness} medium";

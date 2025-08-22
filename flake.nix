@@ -3,6 +3,7 @@
   description = "My dotfiles";
 
   inputs = {
+    base16.url = "github:SenchoPens/base16.nix";
     flake-parts.url = "github:hercules-ci/flake-parts";
     haumea = {
       url = "github:nix-community/haumea/v0.2.2";
@@ -57,15 +58,6 @@
   outputs =
     inputs:
     let
-      lib = inputs.nixpkgs.lib.extend (
-        final: _prev:
-        inputs.haumea.lib.load {
-          src = ./lib;
-          inputs.lib = final;
-          inputs.inputs = inputs;
-        }
-      );
-
       nixosSystem =
         {
           host,
@@ -73,12 +65,23 @@
           extraModules,
           ...
         }:
-        lib.nixosSystem {
-          inherit lib system extraModules;
+        inputs.nixpkgs.lib.nixosSystem {
+          inherit system extraModules;
           specialArgs = {
             user = "bmr";
             inherit host inputs;
           };
+          lib = inputs.nixpkgs.lib.extend (
+            final: _prev:
+            inputs.haumea.lib.load {
+              src = ./lib;
+              inputs = {
+                inherit inputs;
+                lib = final;
+                pkgs = import inputs.nixpkgs { inherit system; };
+              };
+            }
+          );
           modules = [
             ./nixos
             inputs.lanzaboote.nixosModules.lanzaboote

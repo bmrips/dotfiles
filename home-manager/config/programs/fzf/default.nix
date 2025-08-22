@@ -79,45 +79,28 @@ let
 
   setColorsDynamically =
     let
-      dark = {
-        bg1 = "#32302f";
-        blue = "#80aa9e";
-        cyan = "#8bba7f";
-        green = "#b0b846";
-        grey = "#928374";
-        orange = "#f28534";
-        yellow = "#e9b143";
-      };
-      light = {
-        bg1 = "#f4e8be";
-        blue = "#266b79";
-        cyan = "#477a5b";
-        green = "#72761e";
-        grey = "#928374";
-        orange = "#b94c07";
-        yellow = "#b4730e";
-      };
       colors =
-        c:
+        darkness:
+        with (lib.gruvbox_material.scheme darkness).withHashtag;
         lib.concatStringsSep "," [
-          "border:${c.grey}"
-          "current-bg:${c.bg1}"
+          "border:${base03}"
+          "current-bg:${base01}"
           "current-fg:-1"
-          "current-hl:${c.cyan}"
+          "current-hl:${cyan}"
           "gutter:-1"
-          "label:${c.orange}"
-          "hl:${c.green}"
-          "info:${c.cyan}"
-          "marker:${c.yellow}"
-          "pointer:${c.blue}"
-          "prompt:${c.orange}"
+          "label:${orange}"
+          "hl:${green}"
+          "info:${cyan}"
+          "marker:${yellow}"
+          "pointer:${blue}"
+          "prompt:${orange}"
         ];
     in
     ''
       if [[ $BACKGROUND = light ]]; then
-        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=${colors light}"
+        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=${colors "light"}"
       else
-        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=${colors dark}"
+        export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=${colors "dark"}"
       fi
     '';
 

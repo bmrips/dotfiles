@@ -33,31 +33,19 @@ let
 
   mkColorScheme =
     darkness:
-    let
-      inherit (lib.colorschemes.gruvbox_material.scheme darkness) palette;
-    in
-    lib.mapAttrsRecursive
-      (
-        _: c:
-        lib.pipe c [
-          lib.rgb.parse
-          (map toString)
-          (lib.concatStringsSep ",")
-        ]
-      )
-      rec {
-        background = palette.base00;
-        foreground = palette.base05;
-        black.normal = background;
-        black.bright = palette.base03;
-        white = foreground;
-        red = palette.base12;
-        yellow = palette.base13;
-        green = palette.base14;
-        cyan = palette.base15;
-        blue = palette.base16;
-        magenta = palette.base17;
-      }
+    lib.base16.asRgbCodes (lib.gruvbox_material.scheme darkness) rec {
+      background = "base00";
+      foreground = "base05";
+      black.normal = background;
+      black.bright = "base03";
+      white = foreground;
+      red = "base08";
+      yellow = "base0A";
+      green = "base0B";
+      cyan = "base0C";
+      blue = "base0D";
+      magenta = "base0E";
+    }
     // {
       name = "Gruvbox ${darkness}";
     };

@@ -43,23 +43,23 @@ in
 
   console = {
     earlySetup = true;
-    colors = [
-      "282828" # bg
-      "cc241d" # red
-      "98971a" # green
-      "d79921" # yellow
-      "458588" # blue
-      "b16286" # purple
-      "689d6a" # aqua
-      "a89984" # fg4
-      "928374" # gray
-      "fb4934" # bright red
-      "b8bb26" # bright green
-      "fabd2f" # bright yellow
-      "83a598" # bright blue
-      "d3869b" # bright purple
-      "8ec07c" # bright aqua
-      "ebdbb2" # fg1
+    colors = with lib.gruvbox_material.scheme "dark"; [
+      base00 # background
+      red
+      yellow
+      green
+      cyan
+      blue
+      magenta
+      base05 # foreground (white)
+      base03 # gray (bright black)
+      bright-red
+      bright-yellow
+      bright-green
+      bright-cyan
+      bright-blue
+      bright-magenta
+      base05 # foreground (bright white)
     ];
     font = "Lat2-Terminus16";
     useXkbConfig = true;

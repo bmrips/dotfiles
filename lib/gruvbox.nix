@@ -1,3 +1,5 @@
+{ lib, ... }:
+
 rec {
 
   colors = {
@@ -67,7 +69,7 @@ rec {
       offset = if darkness == "dark" then "1" else "-1";
       revOffset = if darkness == "dark" then "-1" else "1";
     in
-    {
+    lib.base16.mkSchemeAttrs {
       system = "base24";
       name = "Gruvbox";
       variant = "${darkness} medium";

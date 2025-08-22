@@ -14,25 +14,25 @@
       let
         inherit (config.services.xserver) xkb;
 
-        colors = rec {
-          black = "40,40,40";
-          dark-grey = "146,131,116";
-          red = "251,73,52";
-          light-red = red;
-          green = "184,187,38";
-          light-green = green;
-          yellow = "250,189,47";
-          light-yellow = yellow;
-          blue = "131,165,152";
-          light-blue = blue;
-          magenta = "211,134,155";
-          light-magenta = magenta;
-          cyan = "142,192,124";
-          light-cyan = cyan;
-          light-grey = white;
-          white = "235,219,178";
-          foreground = white;
-          background = black;
+        colors = lib.base16.asRgbCodes (lib.gruvbox_material.scheme "dark") rec {
+          foreground = "base05";
+          background = "base00";
+          black = background;
+          white = foreground;
+          dark-grey = "base04";
+          light-grey = "base03";
+          red = "base08";
+          light-red = "base12";
+          yellow = "base0A";
+          light-yellow = "base13";
+          green = "base0B";
+          light-green = "base14";
+          cyan = "base0C";
+          light-cyan = "base15";
+          blue = "base0D";
+          light-blue = "base16";
+          magenta = "base0E";
+          light-magenta = "17";
         };
 
         colorConfigStr = lib.concatLines (

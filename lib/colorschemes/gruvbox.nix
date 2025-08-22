@@ -1,5 +1,3 @@
-{ lib, ... }:
-
 rec {
 
   colors = {
@@ -63,50 +61,23 @@ rec {
 
   templates.konsole =
     darkness:
-    { background, bright }:
     let
-      offset =
-        if background == "soft" then
-          "1"
-        else if background == "hard" then
-          "-1"
-        else
-          "0";
-      darkOrLight =
-        color:
-        if color == "black" && darkness == "light" then
-          "white"
-        else if color == "black" && darkness == "light" then
-          "white"
-        else
-          color;
-      first = if bright then "dimmed" else "normal";
-      second = if bright then "normal" else "bright";
+      foreground = if darkness == "dark" then "black" else "white";
+      background = if darkness == "dark" then "white" else "black";
+      offset = if darkness == "dark" then "1" else "-1";
     in
     {
-      background = colors.${darkOrLight "black"}.${offset};
-      foreground = colors.${if darkness == "dark" then "white" else "black"}."2";
-      black.normal = colors.${darkOrLight "black"}."0";
+      background = colors.${background}."0";
+      foreground = colors.${foreground}."2";
+      black.normal = colors.${background}."0";
       black.bright = colors.gray."0";
-      white.${first} = colors.gray."0";
-      white.${second} = colors.${darkOrLight "white"}."2";
-    }
-    // lib.mergeAttrsList (
-      map
-        (c: {
-          ${c} = {
-            ${first} = colors.${c}."0";
-            ${second} = colors.${c}.${if darkness == "dark" then "1" else "-1"};
-          };
-        })
-        [
-          "red"
-          "green"
-          "yellow"
-          "blue"
-          "magenta"
-          "cyan"
-        ]
-    );
+      white = colors.${foreground}."2";
+      red = colors.red.${offset};
+      green = colors.green.${offset};
+      yellow = colors.yellow.${offset};
+      blue = colors.blue.${offset};
+      magenta = colors.magenta.${offset};
+      cyan = colors.cyan.${offset};
+    };
 
 }

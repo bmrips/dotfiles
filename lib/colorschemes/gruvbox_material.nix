@@ -10,10 +10,20 @@ rec {
         "3" = "#45403d";
         "4" = "#5a524c";
       };
-      foreground = "#e2cca9";
+      gray = {
+        "-1" = "#7c6f64";
+        "0" = "#928374";
+        "1" = "#a89984";
+      };
+      foreground = {
+        "-1" = "#fbf1c7";
+        "0" = "#f4e8be";
+        "1" = "#eee0b7";
+        "2" = "#e2cca9";
+      };
       blue = "#80aa9e";
+      brown = "#a96b2c";
       cyan = "#8bba7f";
-      gray = "#928374";
       green = "#b0b846";
       magenta = "#d3869b";
       orange = "#f28534";
@@ -29,10 +39,20 @@ rec {
         "3" = "#eee0b7";
         "4" = "#e5d5ad";
       };
-      foreground = "#514036";
+      gray = {
+        "-1" = "#a89984";
+        "0" = "#928374";
+        "1" = "#7c6f64";
+      };
+      foreground = {
+        "-1" = "#282828";
+        "0" = "#32302f";
+        "1" = "#45403d";
+        "2" = "#514036";
+      };
       blue = "#266b79";
+      brown = "#d8a657";
       cyan = "#477a5b";
-      gray = "#928374";
       green = "#72761e";
       magenta = "#924f79";
       orange = "#b94c07";
@@ -41,25 +61,41 @@ rec {
     };
   };
 
-  templates.konsole =
+  scheme =
     darkness:
     let
       colors' = colors.${darkness};
     in
-    rec {
-      inherit (colors')
-        foreground
-        blue
-        cyan
-        green
-        magenta
-        red
-        yellow
-        ;
-      background = colors'.background."0";
-      black.normal = background;
-      black.bright = colors'.gray;
-      white = foreground;
+    {
+      system = "base24";
+      name = "Gruvbox Material";
+      variant = "${darkness} medium";
+      palette = rec {
+        base00 = colors'.background."0"; # Background
+        base01 = colors'.background."1"; # Darkest gray
+        base02 = colors'.background."2"; # Bright black
+        base03 = colors'.gray."0"; # Gray
+        base04 = colors'.gray."-1"; # Light gray
+        base05 = colors'.foreground."2"; # Foreground
+        base06 = colors'.foreground."0"; # White
+        base07 = colors'.foreground."-1"; # Bright white
+        base08 = colors'.red; # Red
+        base09 = colors'.orange; # Orange
+        base0A = colors'.yellow; # Yellow
+        base0B = colors'.green; # Green
+        base0C = colors'.cyan; # Cyan
+        base0D = colors'.blue; # Blue
+        base0E = colors'.magenta; # Magenta
+        base0F = colors'.brown; # Dark red or brown
+        base10 = base00; # Darker black
+        base11 = colors'.background."-1"; # Darkest black
+        base12 = colors'.red; # Bright red
+        base13 = colors'.yellow; # Bright yellow
+        base14 = colors'.green; # Bright green
+        base15 = colors'.cyan; # Bright cyan
+        base16 = colors'.blue; # Bright blue
+        base17 = colors'.magenta; # Bright magenta
+      };
     };
 
 }

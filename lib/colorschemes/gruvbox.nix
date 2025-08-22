@@ -59,25 +59,44 @@ rec {
     };
   };
 
-  templates.konsole =
+  scheme =
     darkness:
     let
       foreground = if darkness == "dark" then "black" else "white";
       background = if darkness == "dark" then "white" else "black";
       offset = if darkness == "dark" then "1" else "-1";
+      revOffset = if darkness == "dark" then "-1" else "1";
     in
     {
-      background = colors.${background}."0";
-      foreground = colors.${foreground}."2";
-      black.normal = colors.${background}."0";
-      black.bright = colors.gray."0";
-      white = colors.${foreground}."2";
-      red = colors.red.${offset};
-      green = colors.green.${offset};
-      yellow = colors.yellow.${offset};
-      blue = colors.blue.${offset};
-      magenta = colors.magenta.${offset};
-      cyan = colors.cyan.${offset};
+      system = "base24";
+      name = "Gruvbox";
+      variant = "${darkness} medium";
+      palette = rec {
+        base00 = colors.${background}."0"; # Background
+        base01 = colors.${background}."1"; # Darkest gray
+        base02 = colors.${background}."2"; # Bright black
+        base03 = colors.gray."0"; # Gray
+        base04 = colors.gray.${revOffset}; # Light gray
+        base05 = colors.${foreground}."2"; # Foreground
+        base06 = colors.${foreground}."0"; # White
+        base07 = colors.${foreground}."-1"; # Bright white
+        base08 = colors.red."0"; # Red
+        base09 = colors.orange."0"; # Orange
+        base0A = colors.yellow."0"; # Yellow
+        base0B = colors.green."0"; # Green
+        base0C = colors.cyan."0"; # Cyan
+        base0D = colors.blue."0"; # Blue
+        base0E = colors.magenta."0"; # Magenta
+        base0F = colors.red.${revOffset}; # Dark red or brown
+        base10 = base00; # Darker black
+        base11 = colors.${background}."-1"; # Darkest black
+        base12 = colors.red.${offset}; # Bright red
+        base13 = colors.yellow.${offset}; # Bright yellow
+        base14 = colors.green.${offset}; # Bright green
+        base15 = colors.cyan.${offset}; # Bright cyan
+        base16 = colors.blue.${offset}; # Bright blue
+        base17 = colors.magenta.${offset}; # Bright magenta
+      };
     };
 
 }

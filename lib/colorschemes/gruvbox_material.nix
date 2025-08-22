@@ -1,142 +1,65 @@
-{ lib, ... }:
-
 rec {
 
   colors = {
-    dark = rec {
+    dark = {
       background = {
-        hard = "#1d2021";
-        medium = "#282828";
-        soft = "#32302f";
+        "-1" = "#1b1b1b";
+        "0" = "#282828";
+        "1" = "#32302f";
+        "2" = "#3c3836";
+        "3" = "#45403d";
+        "4" = "#5a524c";
       };
-      foreground = {
-        "0" = white."1";
-        "1" = white."2";
-      };
-      black = {
-        # "0" = background.${background};
-        "1" = "#7c6f64";
-        "2" = "#928374";
-      };
-      red = {
-        "0" = "#ea6962";
-        "1" = "#f2594b";
-        "2" = "#fb4934";
-      };
-      green = {
-        "0" = "#a9b665";
-        "1" = "#b0b846";
-        "2" = "#b8bb26";
-      };
-      yellow = {
-        "0" = "#d8a657";
-        "1" = "#e9b143";
-        "2" = "#fabd2f";
-      };
-      blue = {
-        "0" = "#7daea3";
-        "1" = "#80aa9e";
-        "2" = "#83a598";
-      };
-      magenta = {
-        "0" = "#d3869b"; # TODO
-        "1" = "#d3869b";
-        "2" = "#d3869b";
-      };
-      cyan = {
-        "0" = "#89b482";
-        "1" = "#8bba7f";
-        "2" = "#8ec07c";
-      };
-      white = {
-        "0" = "#928374";
-        "1" = "#d4be98";
-        "2" = "#e2cca9";
-      };
+      foreground = "#e2cca9";
+      blue = "#80aa9e";
+      cyan = "#8bba7f";
+      gray = "#928374";
+      green = "#b0b846";
+      magenta = "#d3869b";
+      orange = "#f28534";
+      red = "#f2594b";
+      yellow = "#e9b143";
     };
-    light = rec {
+    light = {
       background = {
-        hard = "#f9f5d7";
-        medium = "#fbf1c7";
-        soft = "#f2e5bc";
+        "-1" = "#f2e5bc";
+        "0" = "#fbf1c7";
+        "1" = "#f4e8be";
+        "2" = "#f2e5bc";
+        "3" = "#eee0b7";
+        "4" = "#e5d5ad";
       };
-      foreground = {
-        "0" = white."1";
-        "1" = white."2";
-      };
-      black = {
-        # "0" = background.${background};
-        "1" = "#a89984";
-        "2" = "#928374";
-      };
-      red = {
-        "0" = "#c14a4a";
-        "1" = "#af2528";
-        "2" = "#9d0006";
-      };
-      green = {
-        "0" = "#6c782e";
-        "1" = "#72761e";
-        "2" = "#79740e";
-      };
-      yellow = {
-        "0" = "#b47109";
-        "1" = "#b4730e";
-        "2" = "#b57614";
-      };
-      blue = {
-        "0" = "#45707a";
-        "1" = "#266b79";
-        "2" = "#076678";
-      };
-      magenta = {
-        "0" = "#945e80";
-        "1" = "#924f79";
-        "2" = "#8f3f71";
-      };
-      cyan = {
-        "0" = "#4c7a5d";
-        "1" = "#477a5b";
-        "2" = "#427b58";
-      };
-      white = {
-        "0" = "#928374";
-        "1" = "#654735";
-        "2" = "#514036";
-      };
+      foreground = "#514036";
+      blue = "#266b79";
+      cyan = "#477a5b";
+      gray = "#928374";
+      green = "#72761e";
+      magenta = "#924f79";
+      orange = "#b94c07";
+      red = "#af2528";
+      yellow = "#b4730e";
     };
   };
 
-  mkScheme =
+  templates.konsole =
     darkness:
-    { background, bright }:
     let
       colors' = colors.${darkness};
-      offset = if bright then 1 else 0;
     in
-    {
-      background = colors'.background.${background};
-      foreground = colors'.foreground.${toString offset};
-      black.normal = colors'.background.${background};
-      black.bright = colors'.black.${toString (1 + offset)};
-    }
-    // lib.mergeAttrsList (
-      map
-        (c: {
-          ${c} = {
-            normal = colors'.${c}.${toString (0 + offset)};
-            bright = colors'.${c}.${toString (1 + offset)};
-          };
-        })
-        [
-          "red"
-          "green"
-          "yellow"
-          "blue"
-          "magenta"
-          "cyan"
-          "white"
-        ]
-    );
+    rec {
+      inherit (colors')
+        foreground
+        blue
+        cyan
+        green
+        magenta
+        red
+        yellow
+        ;
+      background = colors'.background."0";
+      black.normal = background;
+      black.bright = colors'.gray;
+      white = foreground;
+    };
 
 }

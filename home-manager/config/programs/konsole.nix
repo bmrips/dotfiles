@@ -33,21 +33,14 @@ let
 
   mkColorScheme =
     darkness:
-    lib.mapAttrsRecursive
-      (
-        _: c:
-        lib.pipe c [
-          lib.rgb.parse
-          (map toString)
-          (lib.concatStringsSep ",")
-        ]
-      )
-      (
-        lib.colorschemes.gruvbox_material.mkScheme darkness {
-          background = "medium";
-          bright = true;
-        }
-      )
+    lib.mapAttrsRecursive (
+      _: c:
+      lib.pipe c [
+        lib.rgb.parse
+        (map toString)
+        (lib.concatStringsSep ",")
+      ]
+    ) (lib.colorschemes.gruvbox_material.templates.konsole darkness)
     // {
       name = "Gruvbox ${darkness}";
     };

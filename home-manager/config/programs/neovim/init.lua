@@ -42,16 +42,6 @@ opt.wildmode = { 'longest', 'full' } -- Complete till longest common string
 vim.g.mapleader = vim.keycode '<Space>'
 vim.g.maplocalleader = '\\'
 
-vim.api.nvim_create_autocmd({ 'UIEnter', 'ColorScheme' }, {
-  desc = 'Synchronize the background color with the terminal',
-  callback = function()
-    local normal = vim.api.nvim_get_hl(0, { name = 'Normal' })
-    if not normal.bg then
-      return
-    end
-    io.write(string.format('\027]11;#%06x\027\\', normal.bg))
-  end,
-})
 vim.api.nvim_create_autocmd('UILeave', {
   desc = 'Stop synchronizing the background color with the terminal',
   callback = function()

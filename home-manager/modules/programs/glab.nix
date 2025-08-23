@@ -32,21 +32,15 @@ in
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
 
+    # The mode of the configuration file has to be 0600.
+    home.file'.".config/glab-cli/config.yml" = lib.mkIf (cfg.settings != { }) {
+      mode = "0600";
+      sources = yaml.generate "glab-cli_config.yml" cfg.settings;
+      type = "yaml";
+    };
+
     xdg.configFile."glab-cli/aliases.yml" = lib.mkIf (cfg.aliases != { }) {
       source = yaml.generate "glab-cli_aliases.yml" cfg.aliases;
     };
-
-    home.activation.applyGlabConfig =
-      let
-        configFile = "${config.xdg.configHome}/glab-cli/config.yml";
-      in
-      # The `home.file` mechanism fails in this case since glab requires its
-      # configuration file to have 0600 permissions and to be owned by the user.
-      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run mkdir $VERBOSE_ARG -p '${config.xdg.configHome}/glab-cli'
-        run touch '${configFile}'
-        run ${pkgs.yq-go}/bin/yq --inplace $VERBOSE_ARG '. *= load("${yaml.generate "glab-cli_config.yml" cfg.settings}")' '${configFile}'
-        run chmod $VERBOSE_ARG 0600 ${configFile}
-      '';
   };
 }

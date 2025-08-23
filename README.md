@@ -88,24 +88,9 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 
    - Sign in to my account.
    - Give each plugin the requested optional permissions.
-   - Auto-Sorting Bookmarks: enable.
    - Dark Reader:
      - follow the system's theme, and
      - enable per-website dark theme detection.
-   - KeePassXC: connect to the database.
-   - LanguageTool:
-     - sign in with my account,
-     - set German as my mother tongue,
-     - set English and German as my preferred languages.
-   - Simple Translate:
-     - Enable the DeepL API, and
-     - set German as primary and English as secondary language.
-   - Tab Session Manager:
-     - enable tree-style tab integration,
-     - disable auto-save,
-     - do not track newly opened windows,
-     - sync my sessions,
-     - set the save button behaviour to only save the current window.
 
 1. Configure Signal:
 

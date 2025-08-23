@@ -395,8 +395,55 @@ lib.mkIf config.programs.firefox.enable {
         ublock-origin
         web-search-navigator
       ];
+      extensions'.settings = with pkgs.nur.repos.rycee.firefox-addons; {
+        ${auto-sort-bookmarks.addonId}.settings.weh-prefs.auto_sort = true;
+        ${auto-tab-discard.addonId}.settings = {
+          notification.permission = true;
+          online = true;
+          paused = true;
+          prepends = "";
+        };
+        ${languagetool.addonId} = {
+          files = [ config.sops.secrets."firefox_extensions/languagetool".path ];
+          settings = {
+            hasPickyModeEnabledGlobally = true;
+            hasSynonymsEnabled = true;
+            motherTongue = "de";
+            preferredLanguages = [
+              "en"
+              "nl"
+            ];
+          };
+        };
+        ${simple-translate.addonId} = {
+          files = [ config.sops.secrets."firefox_extensions/simple-translate".path ];
+          settings.Settings = {
+            deeplPlan = "deeplFree";
+            secondTargetLang = "en-US";
+            targetLang = "de";
+            translationApi = "deepl";
+          };
+        };
+        ${tab-session-manager.addonId} = {
+          files = [ config.sops.secrets."firefox_extensions/tab-session-manager".path ];
+          settings.Settings = {
+            enabledAutoSync = true;
+            ifAutoSave = false;
+            ifSupportTst = true;
+            saveButtonBehavior = "saveOnlyCurrentWindow";
+            shouldTrackNewWindow = false;
+          };
+        };
+      };
     };
 
+  };
+
+  sops.secrets = {
+    "firefox_extensions/keepassxc-browser" = { };
+    "firefox_extensions/languagetool" = { };
+    "firefox_extensions/simple-translate" = { };
+    "firefox_extensions/tab-session-manager" = { };
   };
 
   programs.plasma.window-rules = [

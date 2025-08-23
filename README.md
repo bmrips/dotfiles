@@ -92,7 +92,6 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
    - Dark Reader:
      - follow the system's theme, and
      - enable per-website dark theme detection.
-   - GitHub Refined: set an API token.
    - KeePassXC: connect to the database.
    - LanguageTool:
      - sign in with my account,

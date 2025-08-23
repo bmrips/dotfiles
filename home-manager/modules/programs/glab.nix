@@ -36,17 +36,17 @@ in
       source = yaml.generate "glab-cli_aliases.yml" cfg.aliases;
     };
 
-    home.activation.glab-config =
+    home.activation.applyGlabConfig =
       let
         configFile = "${config.xdg.configHome}/glab-cli/config.yml";
       in
       # The `home.file` mechanism fails in this case since glab requires its
       # configuration file to have 0600 permissions and to be owned by the user.
       lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        run mkdir -p '${config.xdg.configHome}/glab-cli'
+        run mkdir $VERBOSE_ARG -p '${config.xdg.configHome}/glab-cli'
         run touch '${configFile}'
         run ${pkgs.yq-go}/bin/yq --inplace $VERBOSE_ARG '. *= load("${yaml.generate "glab-cli_config.yml" cfg.settings}")' '${configFile}'
-        run chmod 0600 ${configFile}
+        run chmod $VERBOSE_ARG 0600 ${configFile}
       '';
   };
 }

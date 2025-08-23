@@ -54,31 +54,25 @@ in
         profile: addonId: addonSettings:
         let
           targetFile = lib.concatStringsSep "/" [
-            config.home.homeDirectory
             config.programs.firefox.profilesPath
             profile.path
             "browser-extension-data"
             addonId
             "storage.js"
           ];
-          sourceFiles =
-            addonSettings.files
-            ++ lib.optional (addonSettings.settings != { }) (
-              json.generate "${addonId}-settings.json" addonSettings.settings
-            );
         in
-        ''
-          run mkdir $VERBOSE_ARG -p "$(dirname '${targetFile}')"
-          run touch '${targetFile}'
-        ''
-        + lib.concatMapStrings (file: ''
-          [[ -r '${file}' ]] &&
-            run ${pkgs.yq-go}/bin/yq --inplace $VERBOSE_ARG '. *= load("${file}")' '${targetFile}'
-        '') sourceFiles;
+        {
+          ${targetFile} = {
+            type = "yaml";
+            sources =
+              addonSettings.files
+              ++ lib.optional (addonSettings.settings != { }) (
+                json.generate "${addonId}-settings.json" addonSettings.settings
+              );
+          };
+        };
     in
-    lib.hm.dag.entryAfter [ "writeBoundary" ] (
-      lib.concatMapAttrsStringSep "\n" (
-        _: profile: lib.concatMapAttrsStringSep "\n" (applySettings profile) profile.extensions'.settings
-      ) config.programs.firefox.profiles
-    );
+    lib.concatMapAttrs (
+      _: profile: lib.concatMapAttrs (applySettings profile) profile.extensions'.settings
+    ) config.programs.firefox.profiles;
 }

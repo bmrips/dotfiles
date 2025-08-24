@@ -10,6 +10,7 @@ let
 
 in
 {
+  meta.maintainers = [ lib.maintainers.bmrips ];
 
   options.programs.fzf-tab-completion = {
 
@@ -55,7 +56,8 @@ in
 
     readlineIntegration = {
       enable = lib.mkEnableOption "readline integration." // {
-        default = true;
+        default = !pkgs.stdenv.hostPlatform.isAarch;
+        defaultText = "!pkgs.stdenv.hostPlatform.isAarch";
       };
       extraConfig = lib.mkOption {
         type = lib.types.lines;
@@ -87,6 +89,13 @@ in
     lib.mkMerge [
 
       {
+        assertions = [
+          {
+            assertion = cfg.readlineIntegration.enable -> !pkgs.stdenv.hostPlatform.isAarch;
+            message = "fzf-tab-completion: readline integration is only available on non-ARM platforms";
+          }
+        ];
+
         home.packages = [
           cfg.package
           pkgs.fzf
@@ -101,10 +110,12 @@ in
 
         home.shellAliases.node = lib.mkIf cfg.nodeIntegration.enable "node -r ${cfg.package}/share/fzf-tab-completion/fzf-node-completion.js";
 
-        home.file.".pythonstartup".text = ''
-          with open('${cfg.package}/share/fzf-tab-completion/fzf_python_completion.py') as file:
-              exec(file.read())
-        '';
+        home.file.".pythonstartup" = lib.mkIf cfg.python3Integration.enable {
+          text = ''
+            with open('${cfg.package}/share/fzf-tab-completion/fzf_python_completion.py') as file:
+                exec(file.read())
+          '';
+        };
 
         programs.bash.initExtra =
           lib.mkIf (cfg.bashIntegration.enable && config.programs.bash.enableCompletion)

@@ -7,6 +7,9 @@
 }:
 
 let
+  inherit (config.sops) secrets;
+  inherit (pkgs.nur.repos.rycee) firefox-addons;
+
   toAction =
     addon:
     let
@@ -16,7 +19,7 @@ let
     in
     "${normalizedAddonId}-browser-action";
 
-  addonActions = lib.mapAttrs (_: toAction) pkgs.nur.repos.rycee.firefox-addons;
+  addonActions = lib.mapAttrs (_: toAction) firefox-addons;
 
 in
 lib.mkIf config.programs.firefox.enable {
@@ -382,29 +385,24 @@ lib.mkIf config.programs.firefox.enable {
 
       settings."extensions.autoDisableScopes" = 0; # automatically enable extensions
       settings."extensions.update.autoUpdateDefault" = false;
-      extensions.packages = with pkgs.nur.repos.rycee.firefox-addons; [
-        auto-sort-bookmarks
-        auto-tab-discard
-        darkreader
-        i-dont-care-about-cookies
-        languagetool
-        refined-github
-        sidebery
-        simple-translate
-        tab-session-manager
-        ublock-origin
-        web-search-navigator
-      ];
-      extensions'.settings = with pkgs.nur.repos.rycee.firefox-addons; {
-        ${auto-sort-bookmarks.addonId}.settings.weh-prefs.auto_sort = true;
-        ${auto-tab-discard.addonId}.settings = {
-          notification.permission = true;
-          online = true;
-          paused = true;
-          prepends = "";
+      extensions' = {
+        auto-sort-bookmarks = {
+          package = firefox-addons.auto-sort-bookmarks;
+          settings.weh-prefs.auto_sort = true;
         };
-        ${languagetool.addonId} = {
-          files = [ config.sops.secrets."firefox_extensions/languagetool".path ];
+        auto-tab-discard = {
+          package = firefox-addons.auto-tab-discard;
+          settings = {
+            notification.permission = true;
+            online = true;
+            paused = true;
+            prepends = "";
+          };
+        };
+        darkreader.package = firefox-addons.darkreader;
+        i-dont-care-about-cookies.package = firefox-addons.i-dont-care-about-cookies;
+        languagetool = {
+          package = firefox-addons.languagetool;
           settings = {
             hasPickyModeEnabledGlobally = true;
             hasSynonymsEnabled = true;
@@ -414,18 +412,22 @@ lib.mkIf config.programs.firefox.enable {
               "nl"
             ];
           };
+          settingsFiles = [ secrets."firefox_extensions/languagetool".path ];
         };
-        ${simple-translate.addonId} = {
-          files = [ config.sops.secrets."firefox_extensions/simple-translate".path ];
+        refined-github.package = firefox-addons.refined-github;
+        sidebery.package = firefox-addons.sidebery;
+        simple-translate = {
+          package = firefox-addons.simple-translate;
           settings.Settings = {
             deeplPlan = "deeplFree";
             secondTargetLang = "en-US";
             targetLang = "de";
             translationApi = "deepl";
           };
+          settingsFiles = [ secrets."firefox_extensions/simple-translate".path ];
         };
-        ${tab-session-manager.addonId} = {
-          files = [ config.sops.secrets."firefox_extensions/tab-session-manager".path ];
+        tab-session-manager = {
+          package = firefox-addons.tab-session-manager;
           settings.Settings = {
             enabledAutoSync = true;
             ifAutoSave = false;
@@ -433,7 +435,10 @@ lib.mkIf config.programs.firefox.enable {
             saveButtonBehavior = "saveOnlyCurrentWindow";
             shouldTrackNewWindow = false;
           };
+          settingsFiles = [ secrets."firefox_extensions/tab-session-manager".path ];
         };
+        ublock-origin.package = firefox-addons.ublock-origin;
+        web-search-navigator.package = firefox-addons.web-search-navigator;
       };
     };
 

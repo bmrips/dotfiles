@@ -13,6 +13,7 @@
     (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.dell-precision-3490-nvidia
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia
+    ./custom-kernel.nix
   ];
 
   boot.kernelParams = [ "retbleed=stuff" ];

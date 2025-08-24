@@ -1,9 +1,5 @@
 {
-  coreutils,
   fetchFromGitHub,
-  fzf,
-  gawk,
-  gnugrep,
   lib,
   nix-update-script,
   rustPlatform,
@@ -28,13 +24,6 @@ rustPlatform.buildRustPackage {
   cargoHash = "sha256-Y9zQej5tW3DkptwnqdxxJTFgh1RL/r8xZultCoz0nYg=";
 
   strictDeps = true;
-
-  buildInputs = [
-    coreutils
-    fzf
-    gawk
-    gnugrep
-  ];
 
   postInstall = ''
     cd ..

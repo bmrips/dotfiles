@@ -87,7 +87,12 @@ in
     lib.mkMerge [
 
       {
-        home.packages = [ cfg.package ];
+        home.packages = [
+          cfg.package
+          pkgs.fzf
+          pkgs.gawk
+          pkgs.gnugrep
+        ];
 
         home.sessionVariables = {
           FZF_COMPLETION_OPTS = lib.mkIf (cfg.fzfOptions != { }) (lib.gnuCommand.line cfg.fzfOptions);

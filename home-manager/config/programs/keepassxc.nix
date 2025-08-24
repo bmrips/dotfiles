@@ -84,26 +84,20 @@ in
     }
 
     (lib.mkIf cfg.enable {
-      programs.firefox.profiles.default =
-        let
-          inherit (pkgs.nur.repos.rycee.firefox-addons) keepassxc-browser;
-        in
-        {
-          extensions.packages = [ keepassxc-browser ];
-          extensions'.settings.${keepassxc-browser.addonId} = {
-            files = [ config.sops.secrets."firefox_extensions/keepassxc-browser".path ];
-            settings.settings = {
-              autoFillSingleTotp = true;
-              autoReconnect = true;
-              checkUpdateKeePassXC = 0;
-              defaultGroupAlwaysAsk = true;
-              defaultPasswordManager = true;
-              downloadFaviconAfterSave = true;
-              saveDomainOnly = true;
-              saveDomainOnlyNewCreds = true;
-            };
-          };
+      programs.firefox.profiles.default.extensions'.keepassxc-browser = {
+        package = pkgs.nur.repos.rycee.firefox-addons.keepassxc-browser;
+        settings.settings = {
+          autoFillSingleTotp = true;
+          autoReconnect = true;
+          checkUpdateKeePassXC = 0;
+          defaultGroupAlwaysAsk = true;
+          defaultPasswordManager = true;
+          downloadFaviconAfterSave = true;
+          saveDomainOnly = true;
+          saveDomainOnlyNewCreds = true;
         };
+        settingsFiles = [ config.sops.secrets."firefox_extensions/keepassxc-browser".path ];
+      };
 
       programs.plasma.window-rules = [
         {

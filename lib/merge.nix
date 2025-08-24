@@ -1,6 +1,8 @@
 { lib, pkgs, ... }:
 
-{
+rec {
+  json = yaml;
+
   yaml =
     targetFile:
     lib.concatMapStrings (file: ''

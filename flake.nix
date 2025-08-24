@@ -102,7 +102,7 @@
         "radboud-precision3490" = nixosSystem {
           host = "radboud-precision3490";
           system = "x86_64-linux";
-          extraModules = [ ./hosts/radboud-precision3490.nix ];
+          extraModules = [ ./hosts/radboud-precision3490 ];
         };
       };
 

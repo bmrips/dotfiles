@@ -145,7 +145,7 @@ in
         in
         {
           ${storagePath} = lib.mkIf (sources != [ ]) {
-            type = "yaml";
+            type = "json";
             inherit sources;
           };
         };
@@ -155,7 +155,7 @@ in
       ++ [
         {
           ${permissionsPath} = {
-            type = "yaml";
+            type = "json";
             sources = [ permissionsFile ];
           };
         }

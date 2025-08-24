@@ -86,6 +86,10 @@ in
     (lib.mkIf cfg.enable {
       programs.firefox.profiles.default.extensions'.keepassxc-browser = {
         package = pkgs.nur.repos.rycee.firefox-addons.keepassxc-browser;
+        permissions = [
+          "internal:privateBrowsingAllowed"
+          "privacy"
+        ];
         settings.settings = {
           autoFillSingleTotp = true;
           autoReconnect = true;

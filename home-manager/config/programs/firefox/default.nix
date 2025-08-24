@@ -392,6 +392,7 @@ lib.mkIf config.programs.firefox.enable {
         };
         auto-tab-discard = {
           package = firefox-addons.auto-tab-discard;
+          permissions = [ "internal:privateBrowsingAllowed" ];
           settings = {
             notification.permission = true;
             online = true;
@@ -399,10 +400,24 @@ lib.mkIf config.programs.firefox.enable {
             prepends = "";
           };
         };
-        darkreader.package = firefox-addons.darkreader;
-        i-dont-care-about-cookies.package = firefox-addons.i-dont-care-about-cookies;
+        darkreader = {
+          package = firefox-addons.darkreader;
+          permissions = [ "internal:privateBrowsingAllowed" ];
+        };
+        i-dont-care-about-cookies = {
+          package = firefox-addons.i-dont-care-about-cookies;
+          permissions = [ "internal:privateBrowsingAllowed" ];
+          origins = [ "*://*/*" ];
+        };
         languagetool = {
           package = firefox-addons.languagetool;
+          permissions = [ "internal:privateBrowsingAllowed" ];
+          origins = [
+            "http://*/*"
+            "https://*/*"
+            "*://docs.google.com/*"
+            "*://languagetool.org/*"
+          ];
           settings = {
             hasPickyModeEnabledGlobally = true;
             hasSynonymsEnabled = true;
@@ -414,10 +429,39 @@ lib.mkIf config.programs.firefox.enable {
           };
           settingsFiles = [ secrets."firefox_extensions/languagetool".path ];
         };
-        refined-github.package = firefox-addons.refined-github;
-        sidebery.package = firefox-addons.sidebery;
+        refined-github = {
+          package = firefox-addons.refined-github;
+          origins = [
+            "https://github.com/*"
+            "https://api.github.com/*"
+            "https://gist.github.com/*"
+          ];
+        };
+        sidebery = {
+          package = firefox-addons.sidebery;
+          permissions = [
+            "internal:privateBrowsingAllowed"
+            "bookmarks"
+            "clipboardWrite"
+            "downloads"
+            "history"
+            "proxy"
+            "tabHide"
+            "<all_urls>"
+          ];
+          origins = [ "<all_urls>" ];
+        };
         simple-translate = {
           package = firefox-addons.simple-translate;
+          permissions = [
+            "internal:privateBrowsingAllowed"
+            "<all_urls>"
+          ];
+          origins = [
+            "<all_urls>"
+            "http://*/*"
+            "https://*/*"
+          ];
           settings.Settings = {
             deeplPlan = "deeplFree";
             secondTargetLang = "en-US";
@@ -428,6 +472,8 @@ lib.mkIf config.programs.firefox.enable {
         };
         tab-session-manager = {
           package = firefox-addons.tab-session-manager;
+          permissions = [ "internal:privateBrowsingAllowed" ];
+          origins = [ "https://www.googleapis.com/*" ];
           settings.Settings = {
             enabledAutoSync = true;
             ifAutoSave = false;
@@ -437,8 +483,15 @@ lib.mkIf config.programs.firefox.enable {
           };
           settingsFiles = [ secrets."firefox_extensions/tab-session-manager".path ];
         };
-        ublock-origin.package = firefox-addons.ublock-origin;
-        web-search-navigator.package = firefox-addons.web-search-navigator;
+        ublock-origin = {
+          package = firefox-addons.ublock-origin;
+          permissions = [ "internal:privateBrowsingAllowed" ];
+        };
+        web-search-navigator = {
+          package = firefox-addons.web-search-navigator;
+          permissions = [ "internal:privateBrowsingAllowed" ];
+          origins = [ "https://*/*" ];
+        };
       };
     };
 

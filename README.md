@@ -87,7 +87,6 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 1. Configure Firefox:
 
    - Sign in to my account.
-   - Give each plugin the requested optional permissions.
    - Dark Reader:
      - follow the system's theme, and
      - enable per-website dark theme detection.

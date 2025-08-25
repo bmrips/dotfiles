@@ -14,6 +14,8 @@
     inputs.nixos-hardware.nixosModules.dell-precision-3490-nvidia
   ];
 
+  boot.kernelParams = [ "retbleed=stuff" ];
+
   boot.lanzaboote = {
     enable = true;
     pkiBundle = "/var/lib/sbctl";

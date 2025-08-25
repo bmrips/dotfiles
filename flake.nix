@@ -5,54 +5,30 @@
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
     flake-parts.url = "github:hercules-ci/flake-parts";
-    haumea = {
-      url = "github:nix-community/haumea/v0.2.2";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    lanzaboote = {
-      url = "github:nix-community/lanzaboote";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks-nix.follows = "pre-commit";
-    };
+    haumea.url = "github:nix-community/haumea/v0.2.2";
+    haumea.inputs.nixpkgs.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
+    home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    lanzaboote.url = "github:nix-community/lanzaboote";
+    lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs_23_05.url = "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
-    nix-index-database = {
-      url = "github:nix-community/nix-index-database";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.flake-parts.follows = "flake-parts";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    plasma-manager = {
-      url = "github:nix-community/plasma-manager";
-      inputs.home-manager.follows = "home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    pre-commit = {
-      url = "github:bmrips/git-hooks.nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nix-index-database.url = "github:nix-community/nix-index-database";
+    nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = "github:nix-community/NUR";
+    nur.inputs.nixpkgs.follows = "nixpkgs";
+    plasma-manager.url = "github:nix-community/plasma-manager";
+    plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
+    pre-commit.url = "github:bmrips/git-hooks.nix";
+    pre-commit.inputs.nixpkgs.follows = "nixpkgs";
     preservation.url = "github:nix-community/preservation";
-    programs-db = {
-      url = "github:wamserma/flake-programs-sqlite";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    sops = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-    treefmt = {
-      url = "github:numtide/treefmt-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    programs-db.url = "github:wamserma/flake-programs-sqlite";
+    programs-db.inputs.nixpkgs.follows = "nixpkgs";
+    sops.url = "github:Mic92/sops-nix";
+    sops.inputs.nixpkgs.follows = "nixpkgs";
+    treefmt.url = "github:numtide/treefmt-nix";
+    treefmt.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =

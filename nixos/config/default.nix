@@ -137,12 +137,13 @@ in
   services.desktopManager.plasma6.enable = true;
   services.fwupd.enable = true;
   services.kmscon.enable = false; # see https://github.com/NixOS/nixpkgs/issues/385497
-  services.logind.powerKey = "ignore";
   services.pipewire.enable = true;
   services.printing.enable = true;
   services.resolved.enable = true;
   services.tlp.enable = true;
   services.tzupdate.enable = true;
+
+  services.logind.settings.Login.HandlePowerKey = "ignore";
 
   services.xserver.xkb = {
     layout = "us,de";

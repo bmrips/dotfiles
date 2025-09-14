@@ -75,8 +75,8 @@
                   programs-db = inputs.programs-db.packages.${system}.programs-sqlite;
                 };
                 sharedModules = [
-                  inputs.plasma-manager.homeManagerModules.plasma-manager
-                  inputs.sops.homeManagerModules.sops
+                  inputs.plasma-manager.homeModules.plasma-manager
+                  inputs.sops.homeModules.sops
                   ./home-manager
                 ];
               };

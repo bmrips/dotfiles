@@ -12,6 +12,7 @@
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
     inputs.nixos-hardware.nixosModules.dell-precision-3490-nvidia
+    inputs.nixos-hardware.nixosModules.common-gpu-nvidia
   ];
 
   boot.kernelParams = [ "retbleed=stuff" ];
@@ -48,10 +49,6 @@
 
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
-  hardware.nvidia.prime.offload = {
-    enable = true;
-    enableOffloadCmd = true;
-  };
 
   profiles.radboud.enable = true;
 

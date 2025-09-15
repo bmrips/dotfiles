@@ -20,7 +20,7 @@
     nur.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.url = "github:nix-community/plasma-manager";
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit.url = "github:bmrips/git-hooks.nix";
+    pre-commit.url = "github:cachix/git-hooks.nix";
     pre-commit.inputs.nixpkgs.follows = "nixpkgs";
     preservation.url = "github:nix-community/preservation";
     programs-db.url = "github:wamserma/flake-programs-sqlite";

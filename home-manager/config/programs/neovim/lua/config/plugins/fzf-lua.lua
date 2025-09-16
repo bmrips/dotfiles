@@ -8,7 +8,6 @@ return {
   opts = function()
     local actions = require('fzf-lua').actions
     return {
-      'border-fused',
       actions = {
         files = {
           true,

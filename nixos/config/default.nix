@@ -159,9 +159,17 @@ in
 
   system.configurationRevision =
     let
-      info = inputs.self.sourceInfo;
+      mkSourceInfo = info: info.shortRev or "${info.dirtyShortRev or "dirty"}.${info.lastModifiedDate}";
     in
-    info.shortRev or "${info.dirtyShortRev}.${info.lastModifiedDate}";
+    lib.concatStringsSep " " (
+      [ (mkSourceInfo inputs.self.sourceInfo) ]
+      ++ lib.pipe inputs [
+        (lib.flip lib.removeAttrs [ "self" ])
+        (lib.filterAttrs (_: input: input.sourceInfo ? revCount))
+        (lib.mapAttrs (name: input: "${name}:${mkSourceInfo input.sourceInfo}"))
+        lib.attrValues
+      ]
+    );
 
   # Ensure that `network-online.target` is only reached when the internet is
   # reachable.

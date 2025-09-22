@@ -31,6 +31,9 @@
 
     programs.nitrile.enable = true;
 
+    # Grant access to serial ports to communicate with Arduino boards.
+    users.users.${user}.extraGroups = [ "dialout" ];
+
     home-manager.users.${user}.profiles.radboud.enable = true;
   };
 }

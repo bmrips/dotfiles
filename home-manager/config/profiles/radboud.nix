@@ -10,13 +10,11 @@
 
   config = lib.mkIf config.profiles.radboud.enable {
     development.c.enable = true;
+    development.arduino.enable = true;
 
     profiles.gui.extra.enable = true;
 
-    home.packages = with pkgs; [
-      arduino-ide
-      eduvpn-client
-    ];
+    home.packages = with pkgs; [ eduvpn-client ];
 
     programs.firefox.profiles.default.settings = {
       "browser.toolbars.bookmarks.visibility" = lib.mkForce "always";

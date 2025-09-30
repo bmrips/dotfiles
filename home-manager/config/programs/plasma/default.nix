@@ -179,6 +179,7 @@ lib.mkMerge [
                     shown
                     ++ hidden
                     ++ [
+                      "chrome_status_icon_1" # Signal
                       "org.kde.plasma.cameraindicator"
                       "org.kde.plasma.devicenotifier"
                       "org.kde.plasma.keyboardindicator"
@@ -190,14 +191,13 @@ lib.mkMerge [
                       "org.kde.plasma.volume"
                     ];
                   shown = [
-                    "chrome_status_icon_1" # Signal
-                    "KeePassXC"
                     "org.kde.plasma.battery"
                     "org.kde.plasma.bluetooth"
                     "org.kde.plasma.brightness"
                     "org.kde.plasma.networkmanagement"
                   ];
                   hidden = [
+                    "KeePassXC"
                     "Nextcloud"
                     "org.kde.merkuro.contact.applet"
                     "org.kde.plasma.clipboard"

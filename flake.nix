@@ -131,29 +131,32 @@
               extraModules = [ ./hosts/installer.nix ];
             }).config.system.build.isoImage;
 
-          pre-commit.settings.hooks = {
-            actionlint.enable = true;
-            check-added-large-files.enable = true;
-            check-executables-have-shebangs.enable = true;
-            check-merge-conflicts.enable = true;
-            check-shebang-scripts-are-executable.enable = true;
-            check-symlinks.enable = true;
-            check-toml.enable = true;
-            check-vcs-permalinks.enable = true;
-            check-yaml.enable = true;
-            convco.enable = true;
-            deadnix.enable = true;
-            detect-private-keys.enable = true;
-            markdownlint.enable = true;
-            mixed-line-endings.enable = true;
-            selene.enable = true;
-            statix.enable = true;
-            statix.settings.format = "stderr";
-            treefmt.enable = true;
-            trim-trailing-whitespace.enable = true;
-            typos.enable = true;
-            yamlfmt.enable = true;
-            yamlfmt.entry = "${pkgs.yamlfmt}/bin/yamlfmt";
+          pre-commit.settings = {
+            package = pkgs.prek;
+            hooks = {
+              actionlint.enable = true;
+              check-added-large-files.enable = true;
+              check-executables-have-shebangs.enable = true;
+              check-merge-conflicts.enable = true;
+              check-shebang-scripts-are-executable.enable = true;
+              check-symlinks.enable = true;
+              check-toml.enable = true;
+              check-vcs-permalinks.enable = true;
+              check-yaml.enable = true;
+              convco.enable = true;
+              deadnix.enable = true;
+              detect-private-keys.enable = true;
+              markdownlint.enable = true;
+              mixed-line-endings.enable = true;
+              selene.enable = true;
+              statix.enable = true;
+              statix.settings.format = "stderr";
+              treefmt.enable = true;
+              trim-trailing-whitespace.enable = true;
+              typos.enable = true;
+              yamlfmt.enable = true;
+              yamlfmt.entry = "${pkgs.yamlfmt}/bin/yamlfmt";
+            };
           };
 
           treefmt.programs = {

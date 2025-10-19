@@ -6,7 +6,7 @@
 }:
 
 {
-  security.sudo.extraConfig = ''
+  security.sudo.extraConfig = /* bash */ ''
     # at the password request, display input as asterisks
     Defaults pwfeedback
 

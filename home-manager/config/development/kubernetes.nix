@@ -6,7 +6,7 @@
 }:
 
 let
-  kubectl-show-secrets = ''
+  kubectl-show-secrets = /* bash */ ''
     local single_secret_recipe='.data[] |= @base64d | .name = .metadata.name | pick(["name", "data"])'
     local multiple_secrets_recipe=".items | .[] |= ($single_secret_recipe)"
     local recipe
@@ -20,7 +20,7 @@ let
     ${pkgs.kubectl}/bin/kubectl get --output=yaml secret "$@" | ${pkgs.yq-go}/bin/yq "$recipe"
   '';
 
-  kubectl-wrapper = ''
+  kubectl-wrapper = /* bash */ ''
     case $1 in
       show-secrets) shift && kubectl-show-secrets "$@" ;;
       *) command ${pkgs.kubectl}/bin/kubectl "$@" ;;
@@ -44,7 +44,7 @@ in
 
     programs.starship.settings.kubernetes.disabled = false;
 
-    programs.bash.initExtra = ''
+    programs.bash.initExtra = /* bash */ ''
       # Enable `kubectl show-secrets`
       kubectl() {
         ${kubectl-wrapper}
@@ -55,7 +55,7 @@ in
     '';
 
     programs.zsh = {
-      initContent = ''
+      initContent = /* bash */ ''
         # Switch Kubernetes context
         zle -N fzf-kubectx-widget
         bindkey '^Bc' fzf-kubectx-widget
@@ -65,7 +65,7 @@ in
         bindkey '^Bn' fzf-kubens-widget
       '';
       siteFunctions = {
-        fzf-kubectx-widget = ''
+        fzf-kubectx-widget = /* bash */ ''
           zle push-line
           BUFFER="${pkgs.kubectx}/bin/kubectx"
           zle accept-line
@@ -73,7 +73,7 @@ in
           zle reset-prompt
           return $ret
         '';
-        fzf-kubens-widget = ''
+        fzf-kubens-widget = /* bash */ ''
           zle push-line
           BUFFER="${pkgs.kubectx}/bin/kubens"
           zle accept-line

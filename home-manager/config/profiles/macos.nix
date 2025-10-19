@@ -6,15 +6,15 @@
 }:
 
 let
-  readNixInitScript = ''
+  readNixInitScript = /* bash */ ''
     source /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
   '';
 
-  disableAccentCharacterSuggestions = ''
+  disableAccentCharacterSuggestions = /* bash */ ''
     defaults write -g ApplePressAndHoldEnabled -bool false
   '';
 
-  setBackgroundEnvVar = ''
+  setBackgroundEnvVar = /* bash */ ''
     # determine the background from the iTerm profile
     export BACKGROUND="$(tr '[:upper:]' '[:lower:]' <<<"$ITERM_PROFILE")"
   '';
@@ -35,7 +35,7 @@ in
         aliasesDir = "${config.home.homeDirectory}/Applications/Home Manager Apps Aliases";
         find = "${pkgs.findutils}/bin/find";
       in
-      ''
+      /* bash */ ''
         rm --recursive --force "${aliasesDir}"
         mkdir --parents "${aliasesDir}"
         ${find} -L "$newGenPath/home-files/Applications/Home Manager Apps/" -maxdepth 1 -name '*.app' -exec sh -c '

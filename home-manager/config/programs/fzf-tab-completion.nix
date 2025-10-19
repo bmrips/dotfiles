@@ -2,7 +2,7 @@
   programs.fzf-tab-completion = {
     fzfOptions.height = "60%";
     prompt = "❯ ";
-    zshIntegration.extraConfig = ''
+    zshIntegration.extraConfig = /* bash */ ''
       zstyle ':completion:*' fzf-search-display true  # search completion descriptions
       zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
 

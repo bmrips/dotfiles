@@ -55,7 +55,7 @@ let
 
   setWorkdirAsPrompt =
     let
-      printPwd = ''echo \$(pwd | sed 's#${config.home.homeDirectory}#~#')/'';
+      printPwd = /* bash */ ''echo \$(pwd | sed 's#${config.home.homeDirectory}#~#')/'';
     in
     "transform-prompt(${printPwd})";
 
@@ -67,7 +67,7 @@ let
     paging = "never";
   };
 
-  useFdForPathListings = ''
+  useFdForPathListings = /* bash */ ''
     # Path and directory completion, e.g. for `cd .config/**`
     _fzf_compgen_path() {
         ${config.programs.fd.package}/bin/fd --hidden --exclude=".git" . "$1"
@@ -96,7 +96,7 @@ let
           "prompt:${orange}"
         ];
     in
-    ''
+    /* bash */ ''
       if [[ $BACKGROUND = light ]]; then
         export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS --color=${colors "light"}"
       else
@@ -221,7 +221,7 @@ lib.mkIf cfg.enable {
 
   programs.zsh.siteFunctions.fzf-grep-widget =
     let
-      grep = lib.stringAsChars (c: if c == "\n" then "; " else c) ''
+      grep = lib.stringAsChars (c: if c == "\n" then "; " else c) /* bash */ ''
         local item
         eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${cfg.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
             echo -n "''${(q)item} "
@@ -231,7 +231,7 @@ lib.mkIf cfg.enable {
         return $ret
       '';
     in
-    ''
+    /* bash */ ''
       LBUFFER="''${LBUFFER}$(${grep})"
       local ret=$?
       zle reset-prompt
@@ -241,7 +241,7 @@ lib.mkIf cfg.enable {
   programs.zsh.initContent =
     useFdForPathListings
     + setColorsDynamically
-    + ''
+    + /* bash */ ''
       # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
       bindkey '^ ' fzf-file-widget
       bindkey '^_' fzf-history-widget

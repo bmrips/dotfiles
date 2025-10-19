@@ -10,9 +10,9 @@ let
         let
           keys = if lib.isString value then value else lib.concatStringsSep "; " value;
         in
-        ''<Action name="${name}" shortcut="${keys}"/>'';
+        /* xml */ ''<Action name="${name}" shortcut="${keys}"/>'';
     in
-    app: scheme: ''
+    app: scheme: /* xml */ ''
       <gui name="${app}" version="1">
         <ActionProperties>
           ${lib.concatStringsSep "\n    " (lib.mapAttrsToList mkAction scheme)}
@@ -52,7 +52,7 @@ let
     }
   );
 
-  mkWebSearchKeywordConfigFile = keyword: ''
+  mkWebSearchKeywordConfigFile = keyword: /* desktop */ ''
     [Desktop Entry]
     Charset=
     Hidden=false

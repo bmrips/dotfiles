@@ -15,7 +15,7 @@ lib.mkIf cfg.enable {
     })
   ];
 
-  programs.zsh.siteFunctions.fzf-zoxide-widget = ''
+  programs.zsh.siteFunctions.fzf-zoxide-widget = /* bash */ ''
     zle push-line
     local dir="$(${cfg.package}/bin/zoxide query --list | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $_ZO_FZF_OPTS" fzf --exit-0 --select-1 --no-multi)"
     if [[ -z "$dir" ]]; then
@@ -29,7 +29,7 @@ lib.mkIf cfg.enable {
     return $ret
   '';
 
-  programs.zsh.initContent = ''
+  programs.zsh.initContent = /* bash */ ''
     # Go to directory with zoxide
     zle -N fzf-zoxide-widget
     bindkey '^Y' fzf-zoxide-widget

@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 let
-  gitWrapper = ''
+  gitWrapper = /* bash */ ''
     case $1 in
       cd-root) local repo_root="$(command git rev-parse --show-toplevel)" && cd "$repo_root" ;;
       *) command git "$@" ;;
@@ -13,7 +13,7 @@ lib.mkIf config.programs.git.enable {
 
   home.shellAliases.g = "git";
 
-  programs.bash.initExtra = ''
+  programs.bash.initExtra = /* bash */ ''
     function git() {
       ${gitWrapper}
     }
@@ -95,7 +95,7 @@ lib.mkIf config.programs.git.enable {
       };
 
       mergetool.nvim = {
-        cmd = ''nvim -d "$LOCAL" "$MERGED" "$REMOTE"'';
+        cmd = /* bash */ ''nvim -d "$LOCAL" "$MERGED" "$REMOTE"'';
         trustExitCode = false;
       };
     };

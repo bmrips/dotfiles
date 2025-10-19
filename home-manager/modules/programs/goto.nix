@@ -35,7 +35,7 @@ in
     );
 
     programs.zsh = {
-      siteFunctions.fzf-goto-widget = ''
+      siteFunctions.fzf-goto-widget = /* bash */ ''
         _goto_resolve_db
         local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
         if [[ -z "$dir" ]]; then
@@ -49,7 +49,7 @@ in
         zle reset-prompt
         return $ret
       '';
-      initContent = ''
+      initContent = /* bash */ ''
         zle -N fzf-goto-widget
         bindkey '${cfg.fzfWidget.key}' fzf-goto-widget
       '';

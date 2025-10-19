@@ -119,7 +119,7 @@
               pkgs.age
               pkgs.sops
             ];
-            shellHook = prevAttrs.shellHook + ''
+            shellHook = prevAttrs.shellHook + /* bash */ ''
               git config diff.sops.textconv "sops decrypt"
             '';
           });

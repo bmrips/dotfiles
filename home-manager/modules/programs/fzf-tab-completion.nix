@@ -40,7 +40,7 @@ in
         description = ''
           Extra configuration lines to add verbatim to {file}`~/.bashrc`
         '';
-        example = ''
+        example = /* bash */ ''
           _fzf_bash_completion_loading_msg() { echo "''${PS1@P}''${READLINE_LINE}" | tail -n1; }
         '';
       };
@@ -76,7 +76,7 @@ in
         description = ''
           Extra configuration lines to add verbatim to {file}`~/.zshrc`
         '';
-        example = ''
+        example = /* bash */ ''
           # accept and retrigger completion when pressing / when completing cd
           zstyle ':completion::*:cd:*' fzf-completion-keybindings /:accept:'repeat-fzf-completion'
         '';
@@ -108,10 +108,12 @@ in
           FZF_TAB_COMPLETION_PROMPT = lib.mkIf (cfg.prompt != null) cfg.prompt;
         };
 
-        home.shellAliases.node = lib.mkIf cfg.nodeIntegration.enable "node -r ${cfg.package}/share/fzf-tab-completion/fzf-node-completion.js";
+        home.shellAliases.node = lib.mkIf cfg.nodeIntegration.enable /* bash */ ''
+          node -r ${cfg.package}/share/fzf-tab-completion/fzf-node-completion.js
+        '';
 
         home.file.".pythonstartup" = lib.mkIf cfg.python3Integration.enable {
-          text = ''
+          text = /* python */ ''
             with open('${cfg.package}/share/fzf-tab-completion/fzf_python_completion.py') as file:
                 exec(file.read())
           '';
@@ -120,7 +122,7 @@ in
         programs.bash.initExtra =
           lib.mkIf (cfg.bashIntegration.enable && config.programs.bash.enableCompletion)
             (
-              ''
+              /* bash */ ''
                 source ${cfg.package}/share/fzf-tab-completion/fzf-bash-completion.sh
                 bind -x '"\t": fzf_bash_completion'
               ''
@@ -128,7 +130,7 @@ in
             );
 
         programs.zsh.completionInit = lib.mkIf cfg.zshIntegration.enable (
-          ''
+          /* bash */ ''
             source ${cfg.package}/share/fzf-tab-completion/fzf-zsh-completion.sh
           ''
           + cfg.zshIntegration.extraConfig

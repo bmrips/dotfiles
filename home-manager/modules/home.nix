@@ -78,12 +78,12 @@ in
           let
             targetFile = "${config.home.homeDirectory}/${path}";
           in
-          ''
+          /* bash */ ''
             run mkdir $VERBOSE_ARG -p "$(dirname '${targetFile}')"
             run touch '${targetFile}'
           ''
           + lib.merge.${spec.type} targetFile spec.sources
-          + lib.optionalString (spec.mode != null) ''
+          + lib.optionalString (spec.mode != null) /* bash */ ''
             run chmod $VERBOSE_ARG ${spec.mode} ${targetFile}
           '';
       in

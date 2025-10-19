@@ -4,7 +4,7 @@ let
   sed = "${pkgs.gnused}/bin/sed";
   removeStoreEntriesFromPaths =
     lib.concatMapStrings
-      (path: ''
+      (path: /* bash */ ''
         export ${path}="$(${sed} -E 's#/nix/store/[^:]*:?##g' <<<''$${path})"
       '')
       [

@@ -49,7 +49,7 @@ in
       X = "| xargs";
     };
 
-    completionInit = ''
+    completionInit = /* bash */ ''
       zmodload zsh/complist
 
       bindkey -M menuselect '^A' send-break # abort
@@ -86,7 +86,7 @@ in
     '';
 
     siteFunctions = {
-      cd_parent = ''
+      cd_parent = /* bash */ ''
         zle push-line
         BUFFER="cd .."
         zle accept-line
@@ -94,7 +94,7 @@ in
         zle reset-prompt
         return $ret
       '';
-      cd_undo = ''
+      cd_undo = /* bash */ ''
         zle push-line
         BUFFER="popd"
         zle accept-line
@@ -102,15 +102,13 @@ in
         zle reset-prompt
         return $ret
       '';
-      common-commands = ''
+      common-commands = /* bash */ ''
         PATH='${
-          lib.makeBinPath (
-            with pkgs;
-            [
-              coreutils
-              gnused
-            ]
-          )
+          with pkgs;
+          lib.makeBinPath [
+            coreutils
+            gnused
+          ]
         }' \
         cat '${cfg.history.path}' |
           sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
@@ -120,11 +118,11 @@ in
           sort --numeric-sort --reverse |
           head --lines=15
       '';
-      edit-command-line-and-restore-cursor = ''
+      edit-command-line-and-restore-cursor = /* bash */ ''
         edit-command-line
         bar_cursor
       '';
-      rationalise-dot = ''
+      rationalise-dot = /* bash */ ''
         if [[ $LBUFFER == *[\ /].. || $LBUFFER == .. ]]; then
           LBUFFER+=/..
         else
@@ -135,6 +133,7 @@ in
 
     initContent = lib.mkMerge [
 
+      /* bash */
       ''
         # Display the cursor as a bar
         autoload -Uz add-zsh-hook add-zsh-hook-widget
@@ -198,7 +197,7 @@ in
         bindkey '^[3;5~' delete-char
       ''
 
-      (lib.optionalString (lib.strings.hasPrefix "vi" cfg.defaultKeymap) ''
+      (lib.optionalString (lib.strings.hasPrefix "vi" cfg.defaultKeymap) /* bash */ ''
         bindkey -M viins jk vi-cmd-mode
         bindkey -M vicmd H vi-beginning-of-line
         bindkey -M vicmd L vi-end-of-line

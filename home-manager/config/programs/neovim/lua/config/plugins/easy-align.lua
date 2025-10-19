@@ -1,7 +1,7 @@
 return {
   'junegunn/vim-easy-align',
   keys = { '<Plug>(EasyAlign)', '<Plug>(LiveEasyAlign)' },
-  cmd = { 'EasyAlgin', 'LiveEasyAlign' },
+  cmd = { 'EasyAlign', 'LiveEasyAlign' },
   opts = {
     delimiters = {
       ['>'] = {

@@ -41,13 +41,13 @@ in
     home.packages = [ cfg.package ];
 
     xdg.configFile.shellcheckrc.text = lib.mkIf (cfg.settings != { }) (
-      lib.concatLines (
-        lib.flatten (
-          lib.flip lib.mapAttrsToList cfg.settings (
-            name: value: if lib.isList value then map (v: "${name}=${v}") value else "${name}=${value}"
-          )
-        )
-      )
+      lib.pipe cfg.settings [
+        (lib.mapAttrsToList (
+          name: value: if lib.isList value then map (v: "${name}=${v}") value else "${name}=${value}"
+        ))
+        lib.flatten
+        lib.concatLines
+      ]
     );
 
   };

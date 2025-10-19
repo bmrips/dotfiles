@@ -6,7 +6,10 @@
   programs.plasma.window-rules = lib.mkIf config.programs.signal-desktop.enable [
     {
       description = "Signal";
-      match.window-class.value = "signal Signal";
+      match.window-class = {
+        match-whole = false;
+        value = "signal";
+      };
       apply = {
         maximizehoriz = false;
         maximizevert = false;

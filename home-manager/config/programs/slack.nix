@@ -6,9 +6,9 @@
   programs.plasma.window-rules = lib.mkIf config.programs.slack.enable [
     {
       description = "Slack";
-      match = {
-        window-class.value = "slack Slack";
-        window-role.value = "browser-window";
+      match.window-class = {
+        match-whole = false;
+        value = "Slack";
       };
       apply = {
         maximizehoriz = false;

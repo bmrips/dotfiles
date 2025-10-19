@@ -87,7 +87,7 @@ let
           "current-bg:${base01}"
           "current-fg:-1"
           "current-hl:${cyan}"
-          "gutter:-1"
+          "gutter:${base00}"
           "label:${orange}"
           "hl:${green}"
           "info:${cyan}"

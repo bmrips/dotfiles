@@ -121,6 +121,7 @@ in
     ];
     max-jobs = "auto";
     use-xdg-base-directories = true;
+    warn-dirty = false;
   };
 
   programs.bash.enable = true;

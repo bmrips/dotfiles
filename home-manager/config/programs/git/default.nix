@@ -32,6 +32,7 @@ lib.mkMerge [
         init.defaultBranch = "main";
         init.templateDir = "${./templates}";
         log.date = "human";
+        merge.conflictStyle = "zdiff3";
         merge.ff = "only";
         merge.tool = "nvim";
         pager.difftool = true;

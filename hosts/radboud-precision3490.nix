@@ -50,6 +50,8 @@
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
 
+  nixpkgs.config.cudaSupport = true;
+
   profiles.radboud.enable = true;
 
   security.tpm2.enable = true;

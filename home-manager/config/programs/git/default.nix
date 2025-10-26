@@ -36,6 +36,8 @@ lib.mkMerge [
         pull.rebase = true;
         push.gpgSign = "if-asked";
         push.useForceIfIncludes = true;
+        rebase.autoSquash = true;
+        rebase.autoStash = true;
         rebase.missingCommitsCheck = "error";
         rebase.updateRefs = true;
         rerere.enabled = true;
@@ -87,7 +89,7 @@ lib.mkMerge [
         pushf = "push --force-with-lease";
         r = "reset";
         rb = "rebase";
-        rbf = "rebase --autostash --autosquash";
+        rbf = "rebase --autosquash";
         s = "status --short";
         sl = "shortlog";
         sw = "switch";

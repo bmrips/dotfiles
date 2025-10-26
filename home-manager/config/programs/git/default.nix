@@ -21,38 +21,13 @@ lib.mkIf config.programs.git.enable {
 
   programs.zsh.siteFunctions.git = gitWrapper;
 
+  programs.delta.enable = true;
+
   programs.git = {
-    userName = "Benedikt Rips";
-    userEmail = "benedikt.rips@gmail.com";
     signing.key = null;
     signing.signByDefault = true;
 
-    delta = {
-      enable = true;
-      options =
-        let
-          fg = "normal";
-          hunk_color = "magenta";
-        in
-        {
-          file-modified-label = "𝚫";
-          hunk-header-decoration-style = "${hunk_color} ul";
-          hunk-header-line-number-style = "${hunk_color}";
-          hunk-header-style = "${hunk_color} line-number";
-          minus-style = "${fg} auto";
-          minus-emph-style = "${fg} auto";
-          navigate = true;
-          plus-style = "${fg} auto";
-          plus-emph-style = "${fg} auto";
-          syntax-theme = "base16";
-          width = 80;
-          zero-style = "${fg}";
-        };
-    };
-
-    difftastic.enableAsDifftool = true;
-
-    extraConfig = {
+    settings = {
       advice.detachedHead = false;
       advice.statusHints = false;
       core.whitespace = "tabwidth=4";
@@ -78,6 +53,8 @@ lib.mkIf config.programs.git.enable {
       rerere.enabled = true;
       stash.showStat = true;
       status.showStash = true;
+      user.name = "Benedikt Rips";
+      user.email = "benedikt.rips@gmail.com";
 
       # use HTTPS instead of plain Git for Github
       url."https://github.com/".insteadOf = "git://github.com/";
@@ -100,7 +77,7 @@ lib.mkIf config.programs.git.enable {
       };
     };
 
-    aliases = {
+    settings.alias = {
       a = "add";
       b = "branch";
       c = "commit";

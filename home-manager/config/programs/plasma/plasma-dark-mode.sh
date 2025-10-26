@@ -4,10 +4,12 @@ is_enabled() {
 
 disable() {
     plasma-apply-lookandfeel --apply org.kde.breezetwilight.desktop
+    plasma-apply-wallpaperimage "$wallpaper/contents/images/5120x2880.png"
 }
 
 enable() {
     plasma-apply-lookandfeel --apply org.kde.breezedark.desktop
+    plasma-apply-wallpaperimage "$wallpaper/contents/images_dark/5120x2880.png"
 }
 
 toggle() {

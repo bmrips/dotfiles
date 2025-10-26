@@ -6,7 +6,7 @@
 }:
 
 let
-  wallpaper = "${pkgs.kdePackages.plasma-workspace-wallpapers}/share/wallpapers/Nexus/";
+  wallpaper = "${pkgs.kdePackages.breeze}/share/wallpapers/Next/";
 
   # Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
   # editor.
@@ -30,6 +30,7 @@ let
       gnugrep
       kdePackages.plasma-workspace
     ];
+    runtimeEnv = { inherit wallpaper; };
     text = builtins.readFile ./plasma-dark-mode.sh;
   };
 

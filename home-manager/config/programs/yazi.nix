@@ -4,12 +4,12 @@
   programs.yazi = lib.mkMerge [
 
     {
-      settings.manager = {
+      settings.mgr = {
         sort_by = "natural";
         sort_translit = true;
       };
       keymap = {
-        manager.prepend_keymap = [
+        mgr.prepend_keymap = [
           {
             on = "<C-q>";
             run = "close";
@@ -57,7 +57,7 @@
 
     {
       plugins.toggle-pane = pkgs.yaziPlugins.toggle-pane;
-      keymap.manager.prepend_keymap = [
+      keymap.mgr.prepend_keymap = [
         {
           on = "|";
           run = "plugin toggle-pane min-preview";

@@ -29,24 +29,6 @@ in
       (lib.hm.assertions.assertPlatform "profiles.macos" pkgs lib.platforms.darwin)
     ];
 
-    # Need to create aliases because Spotlight doesn't consider symlinks.
-    home.activation.link-apps = lib.hm.dag.entryAfter [ "writeBarrier" ] (
-      let
-        aliasesDir = "${config.home.homeDirectory}/Applications/Home Manager Apps Aliases";
-        find = "${pkgs.findutils}/bin/find";
-      in
-      /* bash */ ''
-        rm --recursive --force "${aliasesDir}"
-        mkdir --parents "${aliasesDir}"
-        ${find} -L "$newGenPath/home-files/Applications/Home Manager Apps/" -maxdepth 1 -name '*.app' -exec sh -c '
-          real_app=$(readlink --canonicalize "{}")
-          target_app="${aliasesDir}/$(basename "{}")"
-          echo "Alias \"$real_app\" to \"$target_app\""
-          ${pkgs.mkalias}/bin/mkalias "$real_app" "$target_app"
-        ' \;
-      ''
-    );
-
     home.homeDirectory = "/Users/${config.home.username}";
 
     home.packages = with pkgs; [

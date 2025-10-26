@@ -111,6 +111,7 @@ in
   };
 
   nix.settings = {
+    allow-import-from-derivation = false;
     experimental-features = "flakes nix-command";
     extra-substituters = [
       "https://nix-community.cachix.org"

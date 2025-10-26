@@ -39,7 +39,7 @@ let
       license = lib.licenses.gpl3Only;
       maintainers = [ lib.maintainers.bmrips ];
       platforms = lib.platforms.all;
-      badPlatforms = lib.optional withReadlineSupport [ lib.systems.inspect.patterns.isAarch ];
+      badPlatforms = lib.optional withReadlineSupport lib.systems.inspect.patterns.isAarch;
     };
   };
 in

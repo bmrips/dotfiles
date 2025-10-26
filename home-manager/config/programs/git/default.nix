@@ -36,6 +36,8 @@ lib.mkMerge [
         merge.tool = "nvim";
         pager.difftool = true;
         pull.rebase = true;
+        push.autoSetupRemote = true;
+        push.default = "current";
         push.gpgSign = "if-asked";
         push.useForceIfIncludes = true;
         rebase.autoSquash = true;

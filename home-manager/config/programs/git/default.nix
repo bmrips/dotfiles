@@ -18,12 +18,14 @@ lib.mkMerge [
       settings = {
         advice.detachedHead = false;
         advice.statusHints = false;
+        core.fsmonitor = true;
         core.whitespace = "tabwidth=4";
         commit.template = "${./commit_message_template}";
         diff.algorithm = "histogram";
         diff.colorMoved = "default";
         diff.renames = "copy";
         diff.sops.textconv = "sops decrypt";
+        features.manyFiles = true;
         fetch.all = true;
         fetch.prune = true;
         fetch.writeCommitGraph = true;

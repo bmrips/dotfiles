@@ -59,7 +59,6 @@
     kate
     khelpcenter
     krdp
-    xwaylandvideobridge # exposes Wayland windows to X11 screen capture
   ];
 
   hardware.bluetooth.enable = true;

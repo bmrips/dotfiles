@@ -89,6 +89,8 @@ in
     tree
   ];
 
+  home.preferXdgDirectories = true;
+
   home.sessionVariables.TEXEDIT = "${config.home.sessionVariables.EDITOR} +%d %s";
 
   home.shellAliases = {

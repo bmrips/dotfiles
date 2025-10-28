@@ -45,7 +45,7 @@
           inherit system extraModules;
           specialArgs = {
             user = "bmr";
-            inherit host inputs;
+            inherit host inputs system;
           };
           lib = inputs.nixpkgs.lib.extend (
             final: _prev:
@@ -60,27 +60,12 @@
           );
           modules = [
             ./nixos
+            ./home-manager/submodule.nix
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.nix-index-database.nixosModules.nix-index
             inputs.nur.modules.nixos.default
             inputs.preservation.nixosModules.preservation
             inputs.sops.nixosModules.sops
-            inputs.home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                useGlobalPkgs = true;
-                extraSpecialArgs = {
-                  inherit host;
-                  pkgs_23_05 = inputs.nixpkgs_23_05.legacyPackages.${system};
-                  programs-db = inputs.programs-db.packages.${system}.programs-sqlite;
-                };
-                sharedModules = [
-                  inputs.plasma-manager.homeModules.plasma-manager
-                  inputs.sops.homeModules.sops
-                ];
-                users.bmr = ./home-manager;
-              };
-            }
           ];
         };
     in

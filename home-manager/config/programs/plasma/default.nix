@@ -31,7 +31,7 @@ let
       kdePackages.plasma-workspace
     ];
     runtimeEnv = { inherit wallpaper; };
-    text = builtins.readFile ./plasma-dark-mode.sh;
+    text = builtins.readFile ./dark-mode.sh;
   };
 
 in

@@ -29,7 +29,6 @@
 
         nix.package = pkgs.nix;
 
-        services.home-manager.autoUpgrade.enable = true;
       }
     ]
   );

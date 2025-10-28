@@ -21,7 +21,7 @@ let
           "errexit"
           "pipefail"
         ];
-        text = lib.readFile ./fzf-state.sh;
+        text = lib.readFile ./state.sh;
       };
     in
     "${drv}/bin/fzf-state";

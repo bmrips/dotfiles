@@ -448,7 +448,12 @@ return {
         desc = 'Delete the buffer'
       },
       { 'i',
-        '<Cmd>call append(".", readfile(findfile(expand("<cfile>")))) | delete<CR>',
+        function()
+          local normalizedNameUnderCursor = vim.fs.normalize(vim.fn.expand("<cfile>"))
+          local file = vim.fn.findfile(normalizedNameUnderCursor)
+          vim.fn.append('.', vim.fn.readfile(file))
+          vim.cmd.delete()
+        end,
         desc = 'Include file under cursor',
       },
       { 'p',

@@ -1,5 +1,5 @@
-{ programs-db, ... }:
+{ inputs, system, ... }:
 
 {
-  programs.command-not-found.dbPath = programs-db;
+  programs.command-not-found.dbPath = inputs.programs-db.packages.${system}.programs-sqlite;
 }

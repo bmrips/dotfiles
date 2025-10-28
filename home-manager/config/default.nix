@@ -141,7 +141,6 @@ in
   programs.gpg.enable = true;
   programs.goto.enable = true;
   programs.grep.enable = true;
-  programs.home-manager.enable = true;
   programs.less.enable = true;
   programs.man.generateCaches = true;
   programs.neovim.enable = true;
@@ -156,14 +155,6 @@ in
   programs.yazi.enable = true;
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
-
-  services.home-manager.autoExpire = {
-    enable = true;
-    frequency = "weekly";
-    timestamp = "-30 days";
-    store.cleanup = true;
-    store.options = "--delete-older-than 30d";
-  };
 
   sops = {
     defaultSopsFile = ./secrets.yaml;

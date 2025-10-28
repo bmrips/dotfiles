@@ -77,8 +77,8 @@
                 sharedModules = [
                   inputs.plasma-manager.homeModules.plasma-manager
                   inputs.sops.homeModules.sops
-                  ./home-manager
                 ];
+                users.bmr = ./home-manager;
               };
             }
           ];

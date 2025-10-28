@@ -100,7 +100,6 @@
     programs.kmail.enable = lib.mkForce false;
     programs.neovim.immutableConfig = lib.mkForce true;
 
-    services.home-manager.autoExpire.enable = lib.mkForce false;
     services.owncloud-client.enable = lib.mkForce false;
   };
 }

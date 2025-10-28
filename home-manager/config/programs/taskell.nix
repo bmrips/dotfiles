@@ -1,8 +1,8 @@
-{ pkgs_23_05, ... }:
+{ inputs, system, ... }:
 
 {
   programs.taskell = {
-    package = pkgs_23_05.taskell;
+    package = inputs.nixpkgs_23_05.legacyPackages.${system}.taskell;
     bindings = {
       new = "n, a";
       edit = "e";

@@ -1,5 +1,10 @@
-args@{ lib, ... }:
+args@{ inputs, lib, ... }:
 
 {
-  imports = lib.haumea.collectModules ./modules args ++ lib.haumea.collectModules ./config args;
+  imports = [
+    inputs.plasma-manager.homeModules.plasma-manager
+    inputs.sops.homeModules.sops
+  ]
+  ++ lib.haumea.collectModules ./modules args
+  ++ lib.haumea.collectModules ./config args;
 }

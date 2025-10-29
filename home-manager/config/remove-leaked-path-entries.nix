@@ -1,11 +1,10 @@
 { lib, pkgs, ... }:
 
 let
-  sed = "${pkgs.gnused}/bin/sed";
   removeStoreEntriesFromPaths =
     lib.concatMapStrings
       (path: /* bash */ ''
-        export ${path}="$(${sed} -E 's#/nix/store/[^:]*:?##g' <<<''$${path})"
+        export ${path}="$(${lib.getExe pkgs.gnused} -E 's#/nix/store/[^:]*:?##g' <<<''$${path})"
       '')
       [
         "XDG_CONFIG_DIRS"

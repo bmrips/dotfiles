@@ -8,10 +8,10 @@
 let
   smartly-sized-konsole =
     let
-      grep = "${pkgs.gnugrep}/bin/grep";
-      jq = "${pkgs.jq}/bin/jq";
-      konsole = "${pkgs.kdePackages.konsole}/bin/konsole";
-      kscreen-console = "${pkgs.kdePackages.kscreen}/bin/kscreen-console";
+      grep = lib.getExe pkgs.gnugrep;
+      jq = lib.getExe pkgs.jq;
+      konsole = lib.getExe pkgs.kdePackages.konsole;
+      kscreen-console = lib.getExe pkgs.kdePackages.kscreen;
     in
     pkgs.writeShellApplication {
       name = "smartly-sized-konsole";

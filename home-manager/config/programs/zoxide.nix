@@ -17,7 +17,7 @@ lib.mkIf cfg.enable {
 
   programs.zsh.siteFunctions.fzf-zoxide-widget = /* bash */ ''
     zle push-line
-    local dir="$(${cfg.package}/bin/zoxide query --list | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $_ZO_FZF_OPTS" fzf --exit-0 --select-1 --no-multi)"
+    local dir="$(${lib.getExe cfg.package} query --list | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $_ZO_FZF_OPTS" fzf --exit-0 --select-1 --no-multi)"
     if [[ -z "$dir" ]]; then
         zle redisplay
         return 0

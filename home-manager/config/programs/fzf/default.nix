@@ -24,7 +24,7 @@ let
         text = lib.readFile ./state.sh;
       };
     in
-    "${drv}/bin/fzf-state";
+    lib.getExe drv;
 
   mkBindings =
     spec:
@@ -70,10 +70,10 @@ let
   useFdForPathListings = /* bash */ ''
     # Path and directory completion, e.g. for `cd .config/**`
     _fzf_compgen_path() {
-        ${config.programs.fd.package}/bin/fd --hidden --exclude=".git" . "$1"
+        ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" . "$1"
     }
     _fzf_compgen_dir() {
-        ${config.programs.fd.package}/bin/fd --hidden --exclude=".git" --type=directory . "$1"
+        ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" --type=directory . "$1"
     }
   '';
 
@@ -126,7 +126,7 @@ lib.mkIf cfg.enable {
           reloadCmd = "${FZF_GREP_COMMAND} {q}";
         });
         multi = true;
-        preview = lib.escapeShellArg "${config.programs.bat.package}/bin/bat ${batArgs} {1}";
+        preview = lib.escapeShellArg "${lib.getExe config.programs.bat.package} ${batArgs} {1}";
       };
   };
 
@@ -223,7 +223,7 @@ lib.mkIf cfg.enable {
     let
       grep = lib.stringAsChars (c: if c == "\n" then "; " else c) /* bash */ ''
         local item
-        eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${cfg.package}/bin/fzf --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
+        eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${lib.getExe cfg.package} --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
             echo -n "''${(q)item} "
         done
         local ret=$?

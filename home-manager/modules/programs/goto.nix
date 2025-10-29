@@ -37,7 +37,7 @@ in
     programs.zsh = {
       siteFunctions.fzf-goto-widget = /* bash */ ''
         _goto_resolve_db
-        local dir="$(${pkgs.gnused}/bin/sed 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
+        local dir="$(${lib.getExe pkgs.gnused} 's/ /:/' $GOTO_DB | column -t -s : | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GOTO_OPTS" ${config.programs.fzf.package}/bin/fzf | ${pkgs.gnused}/bin/sed "s/^[a-zA-Z]* *//")"
         if [[ -z "$dir" ]]; then
             zle redisplay
             return 0

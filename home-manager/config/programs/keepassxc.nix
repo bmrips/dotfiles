@@ -20,7 +20,7 @@ let
     let
       desktopFile = "org.keepassxc.KeePassXC.desktop";
       wrapper = pkgs.writeShellScript "keepassxc" ''
-        ${cfg.package}/bin/keepassxc "$@" &
+        ${lib.getExe cfg.package} "$@" &
         sleep 1
         ${unlock}
       '';

@@ -144,7 +144,7 @@
               trim-trailing-whitespace.enable = true;
               typos.enable = true;
               yamlfmt.enable = true;
-              yamlfmt.entry = "${pkgs.yamlfmt}/bin/yamlfmt";
+              yamlfmt.entry = pkgs.lib.getExe pkgs.yamlfmt;
             };
           };
 

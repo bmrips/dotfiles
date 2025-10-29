@@ -25,7 +25,7 @@
 
     systemd.tmpfiles.settings.clm = {
       "/usr/bin/as"."L+".argument = "${pkgs.binutils}/bin/as";
-      "/usr/bin/gcc"."L+".argument = "${pkgs.gcc}/bin/gcc";
+      "/usr/bin/gcc"."L+".argument = lib.getExe pkgs.gcc;
     };
   };
 

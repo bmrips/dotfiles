@@ -67,7 +67,7 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.11";
+  system.stateVersion = "25.11";
 
   home-manager.users.${user} = {
     programs.keepassxc = {
@@ -100,7 +100,7 @@
     # You should not change this value, even if you update Home Manager. If you do
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
-    home.stateVersion = "24.11"; # Please read the comment before changing.
+    home.stateVersion = "25.11"; # Please read the comment before changing.
   };
 
 }

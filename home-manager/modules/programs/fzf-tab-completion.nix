@@ -14,7 +14,7 @@ in
 
   options.programs.fzf-tab-completion = {
 
-    enable = lib.mkEnableOption "fzf-tab-completion.";
+    enable = lib.mkEnableOption "fzf-tab-completion";
 
     package = lib.mkPackageOption pkgs "fzf-tab-completion" { };
 

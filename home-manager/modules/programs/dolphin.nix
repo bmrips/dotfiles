@@ -28,7 +28,7 @@ in
 {
 
   options.programs.dolphin = {
-    enable = lib.mkEnableOption "Dolphin.";
+    enable = lib.mkEnableOption "Dolphin";
     shortcutSchemes = lib.plasma.shortcutSchemesOption;
     viewProperties = {
       global = viewPropertiesOption "Global";

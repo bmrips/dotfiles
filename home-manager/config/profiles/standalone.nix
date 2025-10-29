@@ -6,7 +6,7 @@
 }:
 
 {
-  options.profiles.standalone.enable = lib.mkEnableOption "the standalone profile.";
+  options.profiles.standalone.enable = lib.mkEnableOption "the standalone profile";
 
   config = lib.mkIf config.profiles.standalone.enable (
     lib.mkMerge [

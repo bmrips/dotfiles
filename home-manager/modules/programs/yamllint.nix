@@ -14,7 +14,7 @@ in
 
   options.programs.yamllint = {
 
-    enable = lib.mkEnableOption "{command}`yamllint`.";
+    enable = lib.mkEnableOption "{command}`yamllint`";
 
     package = lib.mkPackageOption pkgs "yamllint" { };
 

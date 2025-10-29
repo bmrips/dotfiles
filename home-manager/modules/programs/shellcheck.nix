@@ -13,7 +13,7 @@ in
 
   options.programs.shellcheck = {
 
-    enable = lib.mkEnableOption "{command}`shellcheck`.";
+    enable = lib.mkEnableOption "{command}`shellcheck`";
 
     package = lib.mkPackageOption pkgs "shellcheck" { };
 

@@ -26,7 +26,7 @@ let
 
 in
 {
-  options.programs.neovim.immutableConfig = lib.mkEnableOption "immutable configuration.";
+  options.programs.neovim.immutableConfig = lib.mkEnableOption "immutable configuration";
 
   config = lib.mkMerge [
 

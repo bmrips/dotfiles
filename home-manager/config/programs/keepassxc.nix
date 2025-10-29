@@ -36,11 +36,11 @@ let
   unlockAfterScreensaverDeactivation =
     let
       dbus-monitor = "${pkgs.dbus}/bin/dbus-monitor";
-      rg = "${pkgs.ripgrep}/bin/rg";
+      grep = lib.getExe pkgs.gnugrep;
     in
     pkgs.writeShellScript "keepassxc-unlock" ''
       ${dbus-monitor} type=signal,interface=org.freedesktop.ScreenSaver,path=/ScreenSaver,member=ActiveChanged |
-          ${rg} 'boolean false' --line-buffered |
+          ${grep} 'boolean false' --line-buffered |
           while read -r; do
               echo 'Unlocking the KeePassXC database...'
               ${unlock}

@@ -136,7 +136,7 @@ in
   services.colord.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.fwupd.enable = true;
-  services.kmscon.enable = false; # see https://github.com/NixOS/nixpkgs/issues/385497
+  services.kmscon.enable = true;
   services.pipewire.enable = true;
   services.printing.enable = true;
   services.resolved.enable = true;

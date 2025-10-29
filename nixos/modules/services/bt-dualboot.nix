@@ -68,7 +68,7 @@ in
         Type = "oneshot";
         RemainAfterExit = true;
         ExecStop =
-          "${pkgs.bt-dualboot}/bin/bt-dualboot --sync-all"
+          "${lib.getExe pkgs.bt-dualboot} --sync-all"
           + (if cfg.registryBackups.enable then " --backup" else " --no-backup")
           + lib.optionalString (cfg.mountPoint != null) " --win ${cfg.mountPoint}";
       };

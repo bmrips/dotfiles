@@ -7,6 +7,6 @@ rec {
     targetFile:
     lib.concatMapStrings (file: /* bash */ ''
       [[ -r '${file}' ]] &&
-        run ${pkgs.yq-go}/bin/yq --inplace $VERBOSE_ARG '. *= load("${file}")' '${targetFile}'
+        run ${lib.getExe pkgs.yq-go} --inplace $VERBOSE_ARG '. *= load("${file}")' '${targetFile}'
     '');
 }

@@ -12,7 +12,7 @@ in
 {
 
   options.programs.slack = {
-    enable = lib.mkEnableOption "Slack.";
+    enable = lib.mkEnableOption "Slack";
     package = lib.mkPackageOption pkgs "slack" { };
     autostart = lib.mkOption {
       type = lib.types.bool;

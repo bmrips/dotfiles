@@ -6,7 +6,7 @@
 }:
 
 {
-  options.development.bash.enable = lib.mkEnableOption "Bash development tools.";
+  options.development.bash.enable = lib.mkEnableOption "Bash development tools";
 
   config = lib.mkIf config.development.bash.enable {
     home.packages = with pkgs; [

@@ -6,7 +6,7 @@
 }:
 
 {
-  options.development.arduino.enable = lib.mkEnableOption "Arduino development tools.";
+  options.development.arduino.enable = lib.mkEnableOption "Arduino development tools";
 
   config = lib.mkIf config.development.arduino.enable {
     home.packages = with pkgs; [

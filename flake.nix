@@ -47,17 +47,7 @@
             user = "bmr";
             inherit host inputs system;
           };
-          lib = inputs.nixpkgs.lib.extend (
-            final: _prev:
-            inputs.haumea.lib.load {
-              src = ./lib;
-              inputs = {
-                inherit inputs;
-                lib = final;
-                pkgs = import inputs.nixpkgs { inherit system; };
-              };
-            }
-          );
+          lib = inputs.self.lib system;
           modules = [
             ./nixos
             ./home-manager/submodule.nix
@@ -77,6 +67,20 @@
       ];
 
       systems = [ "x86_64-linux" ];
+
+      flake.lib =
+        system:
+        inputs.nixpkgs.lib.extend (
+          final: _prev:
+          inputs.haumea.lib.load {
+            src = ./lib;
+            inputs = {
+              inherit inputs;
+              lib = final;
+              pkgs = inputs.nixpkgs.legacyPackages.${system};
+            };
+          }
+        );
 
       flake.nixosConfigurations = {
         "private-xps13-9360" = nixosSystem {

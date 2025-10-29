@@ -7,7 +7,7 @@
 }:
 
 {
-  options.profiles.radboud.enable = lib.mkEnableOption "the Radboud profile.";
+  options.profiles.radboud.enable = lib.mkEnableOption "the Radboud profile";
 
   config = lib.mkIf config.profiles.radboud.enable {
     networking.networkmanager.ensureProfiles.profiles.eduroam = {

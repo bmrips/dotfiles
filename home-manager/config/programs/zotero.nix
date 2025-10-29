@@ -11,7 +11,7 @@ let
 in
 {
   options.programs.zotero = {
-    enable = lib.mkEnableOption "Zotero.";
+    enable = lib.mkEnableOption "Zotero";
     package = lib.mkPackageOption pkgs "zotero" { };
   };
 

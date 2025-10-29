@@ -24,7 +24,7 @@ in
 {
 
   options.programs.signal-desktop = {
-    enable = lib.mkEnableOption "Signal Desktop.";
+    enable = lib.mkEnableOption "Signal Desktop";
     package = lib.mkPackageOption pkgs "signal-desktop" { };
     autostart = lib.mkOption {
       type = lib.types.bool;

@@ -12,7 +12,7 @@ in
 {
 
   options.programs.kmail = {
-    enable = lib.mkEnableOption "KMail.";
+    enable = lib.mkEnableOption "KMail";
     package = lib.mkPackageOption pkgs [ "kdePackages" "kmail" ] { };
     shortcutSchemes = lib.plasma.shortcutSchemesOption;
   };

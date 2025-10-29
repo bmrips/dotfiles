@@ -8,7 +8,7 @@
 
 {
 
-  options.programs.nitrile.enable = lib.mkEnableOption "{command}`nitrile`.";
+  options.programs.nitrile.enable = lib.mkEnableOption "{command}`nitrile`";
 
   config = lib.mkIf config.programs.nitrile.enable {
     programs.nix-ld = {

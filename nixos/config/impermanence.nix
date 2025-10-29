@@ -1,7 +1,7 @@
 { config, lib, ... }:
 
 {
-  options.impermanence.enable = lib.mkEnableOption "an impermanent root file system.";
+  options.impermanence.enable = lib.mkEnableOption "an impermanent root file system";
 
   config = lib.mkIf config.impermanence.enable {
 

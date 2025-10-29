@@ -21,7 +21,7 @@ let
 
 in
 {
-  options.profiles.macos.enable = lib.mkEnableOption "the macOS profile.";
+  options.profiles.macos.enable = lib.mkEnableOption "the macOS profile";
 
   config = lib.mkIf config.profiles.macos.enable {
 

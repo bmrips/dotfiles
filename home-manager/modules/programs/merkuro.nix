@@ -12,7 +12,7 @@ in
 {
 
   options.programs.merkuro = {
-    enable = lib.mkEnableOption "Merkuro.";
+    enable = lib.mkEnableOption "Merkuro";
     package = lib.mkPackageOption pkgs [ "kdePackages" "merkuro" ] { };
     settings = lib.mkOption {
       type =

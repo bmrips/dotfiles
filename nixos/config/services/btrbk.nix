@@ -10,9 +10,7 @@ let
 in
 {
   options.services.btrbk = {
-    enable = lib.mkEnableOption "btrbk" // {
-      description = "Whether to enable backups with Btrbk.";
-    };
+    enable = lib.mkEnableOption "{command}`btrbk`";
     mountPoint = lib.mkOption {
       type = lib.types.str;
       default = "/media/btrfs_root";

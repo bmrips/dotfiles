@@ -6,7 +6,7 @@
 }:
 
 {
-  options.development.java.enable = lib.mkEnableOption "Java development tools.";
+  options.development.java.enable = lib.mkEnableOption "Java development tools";
 
   config = lib.mkIf config.development.java.enable {
     home.packages = with pkgs; [

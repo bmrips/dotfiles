@@ -12,8 +12,8 @@ let
 in
 {
   options.profiles.gui = {
-    enable = lib.mkEnableOption "the GUI profile.";
-    extra.enable = lib.mkEnableOption "extra GUI applications.";
+    enable = lib.mkEnableOption "the GUI profile";
+    extra.enable = lib.mkEnableOption "extra GUI applications";
   };
 
   config = lib.mkIf cfg.enable (

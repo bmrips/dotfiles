@@ -32,7 +32,7 @@
           blue = "base0D";
           light-blue = "base16";
           magenta = "base0E";
-          light-magenta = "17";
+          light-magenta = "base17";
         };
 
         colorConfigStr = lib.concatLines (

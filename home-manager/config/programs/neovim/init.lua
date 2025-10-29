@@ -12,7 +12,6 @@ opt.foldmethod = 'marker'
 opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
 opt.formatoptions:remove 't'
 opt.grepformat = '%f:%l:%c:%m'
-opt.guifont = 'JetBrainsMono NF SemiBold:h10' -- For Neovide
 opt.ignorecase = true
 opt.joinspaces = true
 opt.jumpoptions:append 'view'

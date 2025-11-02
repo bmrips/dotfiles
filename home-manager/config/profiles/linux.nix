@@ -41,9 +41,8 @@ in
     services.ssh-agent.enable = true;
     services.ssh-tpm-agent.enable = hasTPM2;
 
-    systemd.user.tmpfiles.rules = [
-      "v %C - - - '4 weeks'" # put the cache into a subvolume and clean it
-    ];
+    # Put the cache into a subvolume and clean files older than 4 weeks.
+    systemd.user.tmpfiles.rules = [ "v %C - - - '4 weeks'" ];
 
     xdg.userDirs.enable = true;
 

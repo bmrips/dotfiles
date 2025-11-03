@@ -1,9 +1,6 @@
 {
 
-  nixpkgs.config = {
-    allowAliases = false;
-    allowUnfree = true;
-  };
+  nixpkgs.config.allowUnfree = true;
 
   nixpkgs.overlays = map import [
     ./packages

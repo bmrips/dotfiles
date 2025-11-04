@@ -37,7 +37,7 @@ in
       maxCacheTtl = 43200; # 12 hours at most
     };
 
-    services.owncloud-client.enable = true;
+    services.nextcloud-client.enable = true;
     services.ssh-agent.enable = true;
     services.ssh-tpm-agent.enable = hasTPM2;
 

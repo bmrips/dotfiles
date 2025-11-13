@@ -9,6 +9,7 @@ return {
       theme = 'gruvbox-material',
       component_separators = { left = '', right = '' },
       section_separators = { left = '', right = '' },
+      always_show_tabline = false,
     },
     sections = {
       lualine_b = { 'diagnostics' },
@@ -51,6 +52,5 @@ return {
   config = function(_, opts)
     require('lualine').setup(opts)
     vim.opt.showmode = false
-    vim.opt.showtabline = 1
   end,
 }

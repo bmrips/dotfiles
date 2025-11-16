@@ -20,7 +20,6 @@
       "browser.toolbars.bookmarks.visibility" = lib.mkForce "always";
     };
 
-    programs.glab.enable = true;
     programs.merkuro.enable = true;
     programs.slack.enable = true;
     programs.zotero.enable = true;

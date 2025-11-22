@@ -43,6 +43,13 @@
   fileSystems."${config.boot.loader.efi.efiSysMountPoint}" = {
     device = "/dev/disk/by-uuid/12CE-A600";
     fsType = "vfat";
+    options = [
+      "dmask=0077"
+      "fmask=0177"
+      "nodev"
+      "noexec"
+      "nosuid"
+    ];
   };
 
   dualboot.windows.device = "/dev/disk/by-uuid/CAE4531BE45308D9";

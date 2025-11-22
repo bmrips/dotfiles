@@ -82,6 +82,13 @@ in
   fileSystems.${config.boot.loader.efi.efiSysMountPoint} = {
     device = "/dev/disk/by-uuid/B2BD-72B9";
     fsType = "vfat";
+    options = [
+      "dmask=0077"
+      "fmask=0177"
+      "nodev"
+      "noexec"
+      "nosuid"
+    ];
   };
 
   dualboot.windows.device = "/dev/disk/by-uuid/16E2EEDDE2EEBFDB";

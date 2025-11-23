@@ -12,7 +12,7 @@
     home.packages = with pkgs; [
       yaml-language-server
       yamlfmt
-      yq
+      yq-go
     ];
     programs.yamllint.enable = true;
   };

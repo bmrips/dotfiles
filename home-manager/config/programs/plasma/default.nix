@@ -392,14 +392,15 @@ lib.mkMerge [
           new-private-window = "Shift+Launch (5)";
           profile-manager-window = "Ctrl+Launch (5)";
         };
-        "services/signal.desktop"._launch = "Meta+M";
-        "services/slack.desktop"._launch = "Meta+,";
         "services/org.kde.kmail2.desktop" = {
           _launch = "Launch Mail";
           Composer = "Shift+Launch Mail";
         };
+        "services/org.kde.merkuro.calendar.desktop"._launch = "Launch (6)";
         "services/org.kde.plasma.emojier.desktop"._launch = "Meta+.";
         "services/org.keepassxc.KeePassXC.desktop"._launch = "Meta+;";
+        "services/signal.desktop"._launch = "Meta+M";
+        "services/slack.desktop"._launch = "Meta+,";
         "services/spotify.desktop"._launch = "Launch (9)";
       };
 

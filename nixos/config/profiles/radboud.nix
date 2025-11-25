@@ -16,8 +16,6 @@
       wifi.ssid = "eduroam";
       wifi-security.key-mgmt = "wpa-eap";
       "802-1x" = {
-        anonymous-identity = "anonymous@ru.nl";
-        ca-cert = "${./ca-cert.pem}";
         domain-suffix-match = "ru.nl";
         eap = "peap;";
         identity = "benedikt.rips@ru.nl";

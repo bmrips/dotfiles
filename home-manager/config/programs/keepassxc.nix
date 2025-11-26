@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  nixosConfig,
   pkgs,
   ...
 }:
@@ -46,6 +47,9 @@ let
               ${unlock}
           done
     '';
+
+  windowsCfg = nixosConfig.dualboot.windows;
+  escapedWindowsMountPoint = lib.systemd.escapeDir windowsCfg.mountPoint;
 
 in
 {
@@ -145,6 +149,27 @@ in
       };
 
       xdg.autostart.entries = [ "${unlockedKeepassxc}" ];
+    })
+
+    (lib.mkIf (cfg.enable && nixosConfig != null && windowsCfg.device != null) {
+      systemd.user.services.keepassxc-copy-database = {
+        Unit = {
+          Description = "Copy the KeePassXC database to Windows before shutdown";
+          Requires = [ "${escapedWindowsMountPoint}.mount" ];
+          After = [ "${escapedWindowsMountPoint}.mount" ];
+        };
+        Install.WantedBy = [ "graphical-session.target" ];
+        Service = {
+          Type = "oneshot";
+          RemainAfterExit = true;
+          ExecStop = lib.concatStringsSep " " [
+            "${pkgs.coreutils}/bin/cp"
+            "--update"
+            "${config.home.homeDirectory}/Documents/passwords.kdbx"
+            "${windowsCfg.mountPoint}/Users/bened/Desktop/"
+          ];
+        };
+      };
     })
   ];
 }

@@ -7,14 +7,7 @@
 
 let
   cfg = config.services.bt-dualboot;
-
-  escapedMountPoint = lib.pipe cfg.mountPoint [
-    lib.strings.normalizePath
-    (lib.removePrefix "/")
-    (lib.removeSuffix "/")
-    (builtins.replaceStrings [ "/" ] [ "-" ])
-  ];
-
+  escapedMountPoint = lib.systemd.escapeDir cfg.mountPoint;
 in
 {
 

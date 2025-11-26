@@ -23,7 +23,11 @@ in
     fileSystems.${cfg.mountPoint} = {
       inherit (cfg) device;
       fsType = "ntfs-3g";
-      options = [ "noauto" ];
+      options = [
+        "dmask=0077"
+        "fmask=0177"
+        "noauto"
+      ];
     };
     services.bt-dualboot = {
       inherit (config.hardware.bluetooth) enable;

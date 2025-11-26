@@ -402,6 +402,7 @@ lib.mkMerge [
         "services/signal.desktop"._launch = "Meta+M";
         "services/slack.desktop"._launch = "Meta+,";
         "services/spotify.desktop"._launch = "Launch (9)";
+        "services/zotero.desktop"._launch = "Launch (7)";
       };
 
       hotkeys.commands.toggle-dark-mode = {

@@ -1,4 +1,5 @@
 {
+  config,
   lib,
   modulesPath,
   pkgs,
@@ -95,7 +96,8 @@
     development.markdown.enable = lib.mkForce false;
     development.yaml.enable = lib.mkForce false;
 
-    home.file."Desktop/passwords.kdbx".source = /home + "/${user}" + /Documents/passwords.kdbx;
+    home.file."Desktop/passwords.kdbx".source =
+      /. + config.home-manager.users.${user}.programs.keepassxc.databasePath;
 
     programs.kmail.enable = lib.mkForce false;
     programs.neovim.immutableConfig = lib.mkForce true;

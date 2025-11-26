@@ -60,14 +60,9 @@ in
     in
     {
       base = english;
-      address = german;
       ctype = german;
-      measurement = german;
       monetary = german;
       numeric = german;
-      paper = german;
-      telephone = german;
-      time = german;
     };
 
   home.packages = with pkgs; [

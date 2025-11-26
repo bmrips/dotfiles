@@ -13,7 +13,7 @@ let
     ${pkgs.dbus}/bin/dbus-send --type=method_call --print-reply \
         --dest=org.keepassxc.KeePassXC.MainWindow \
         /keepassxc org.keepassxc.KeePassXC.MainWindow.openDatabase \
-        string:${config.home.homeDirectory}/Cloud/Documents/passwords.kdbx \
+        string:${cfg.databasePath} \
         string:"$(cat ${config.sops.secrets.keepassxc_password.path})"
   '';
 
@@ -53,13 +53,20 @@ let
 
 in
 {
-  options.programs.keepassxc.autounlock = lib.mkOption {
-    type = lib.types.bool;
-    default = false;
-    example = true;
-    description = ''
-      Whether to unlock Keepassxc automatically on login and screen unlocking.
-    '';
+  options.programs.keepassxc = {
+    autounlock = lib.mkOption {
+      type = lib.types.bool;
+      default = false;
+      example = true;
+      description = ''
+        Whether to unlock Keepassxc automatically on login and screen unlocking.
+      '';
+    };
+    databasePath = lib.mkOption {
+      type = lib.types.str;
+      default = "${config.home.homeDirectory}/Documents/passwords.kdbx";
+      description = "The path to the database.";
+    };
   };
 
   config = lib.mkMerge [
@@ -165,7 +172,7 @@ in
           ExecStop = lib.concatStringsSep " " [
             "${pkgs.coreutils}/bin/cp"
             "--update"
-            "${config.home.homeDirectory}/Documents/passwords.kdbx"
+            cfg.databasePath
             "${windowsCfg.mountPoint}/Users/bened/Desktop/"
           ];
         };

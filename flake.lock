@@ -342,15 +342,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1762784320,
-        "narHash": "sha256-odsk96Erywk5hs0dhArF38zb7Oe0q6LZ70gXbxAPKno=",
-        "owner": "nix-community",
+        "lastModified": 1763719408,
+        "narHash": "sha256-r8llpRMTPDLkSaHwErQg0q/YqMF5xHlWWF7ntbBtzZc=",
+        "owner": "bmrips",
         "repo": "plasma-manager",
-        "rev": "7911a0f8a44c7e8b29d031be3149ee8943144321",
+        "rev": "72eb94914bee505a65f75abb26487c898d46da46",
         "type": "github"
       },
       "original": {
-        "owner": "nix-community",
+        "owner": "bmrips",
+        "ref": "fix-commas-in-shortcuts",
         "repo": "plasma-manager",
         "type": "github"
       }

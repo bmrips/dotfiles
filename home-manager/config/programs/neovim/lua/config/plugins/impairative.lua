@@ -172,12 +172,11 @@ return {
                 cmd = 'cnewer'
               end
             end
-            local ok, err = pcall(vim.cmd, {
-              cmd = cmd,
+            local ok, err = pcall(vim.cmd[cmd], {
               count = vim.v.count1,
             })
             if not ok then
-              vim.api.nvim_err_writeln(err)
+              vim.api.nvim_echo(err, false, { err = true })
             end
           else
             local it = require('impairative.helpers').walk_files_tree(

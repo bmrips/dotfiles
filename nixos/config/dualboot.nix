@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  user,
+  ...
+}:
 
 let
   cfg = config.dualboot.windows;
@@ -27,6 +32,7 @@ in
         "dmask=0077"
         "fmask=0177"
         "noauto"
+        "uid=${toString config.users.users.${user}.uid}"
       ];
     };
     services.bt-dualboot = {

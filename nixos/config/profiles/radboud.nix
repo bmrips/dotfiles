@@ -17,7 +17,7 @@
       wifi-security.key-mgmt = "wpa-eap";
       "802-1x" = {
         domain-suffix-match = "ru.nl";
-        eap = "peap;";
+        eap = "peap";
         identity = "benedikt.rips@ru.nl";
         password = "$EDUROAM_PASSWORD";
         phase2-auth = "mschapv2";

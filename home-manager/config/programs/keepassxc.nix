@@ -155,7 +155,7 @@ in
         Service.ExecStart = "${unlockAfterScreensaverDeactivation}";
       };
 
-      xdg.autostart.entries = [ "${unlockedKeepassxc}" ];
+      xdg.autostart.entries = [ unlockedKeepassxc ];
     })
 
     (lib.mkIf (cfg.enable && nixosConfig != null && windowsCfg.device != null) {

@@ -8,6 +8,17 @@
 let
   cfg = config.programs.slack;
 
+  minimizedSlack =
+    let
+      desktopFile = "slack.desktop";
+    in
+    pkgs.runCommandLocal desktopFile { } ''
+      substitute \
+        ${cfg.package}/share/applications/${desktopFile} $out \
+        --replace-fail \
+        'Exec=${cfg.package}/bin/slack -s %U' \
+        'Exec=${cfg.package}/bin/slack --silent --startup %U'
+    '';
 in
 {
 
@@ -23,9 +34,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    xdg.autostart.entries = lib.mkIf cfg.autostart [
-      "${cfg.package}/share/applications/slack.desktop"
-    ];
+    xdg.autostart.entries = lib.mkIf cfg.autostart [ minimizedSlack ];
   };
 
 }

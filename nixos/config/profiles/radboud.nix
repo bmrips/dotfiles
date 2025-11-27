@@ -24,6 +24,9 @@
       };
     };
 
+    # With eduroam, association might time out otherwise.
+    networking.networkmanager.wifi.scanRandMacAddress = false;
+
     # Since eduVPN creates openVPN profiles.
     networking.networkmanager.plugins = [ pkgs.networkmanager-openvpn ];
 

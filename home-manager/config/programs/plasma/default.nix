@@ -53,7 +53,6 @@ lib.mkMerge [
             layout = "us";
             variant = "intl-unicode";
           }
-          { layout = "de"; }
         ];
         options = [
           "altwin:swap_lalt_lwin"

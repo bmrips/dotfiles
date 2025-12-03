@@ -35,7 +35,7 @@
       ## Done
     '';
     theme.other = {
-      statusBar.fg = "default";
+      statusBar.fg = "black";
       statusBar.bg = "brightBlack";
       subtaskCurrent.fg = "magenta";
       subtaskIncomplete.fg = "default";

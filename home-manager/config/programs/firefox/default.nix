@@ -419,6 +419,8 @@ lib.mkIf config.programs.firefox.enable {
             "*://languagetool.org/*"
           ];
           settings = {
+            deVariant = "de-DE";
+            enVariant = "en-GB";
             hasPickyModeEnabledGlobally = true;
             hasSynonymsEnabled = true;
             motherTongue = "de";

@@ -153,25 +153,13 @@ return {
       }
       h:unified_function {
         key = 'f',
-        desc = 'Jump to {previous|next} file in dir',
-        better_n = true,
+        desc = 'Jump to {previous|next} file',
         fun = function(direction)
           local win_info = vim.fn.getwininfo(vim.api.nvim_get_current_win())[1] or {}
           if win_info.quickfix == 1 then
-            local cmd
-            if win_info.loclist == 1 then
-              if direction == 'backward' then
-                cmd = 'lolder'
-              else
-                cmd = 'lnewer'
-              end
-            else
-              if direction == 'backward' then
-                cmd = 'colder'
-              else
-                cmd = 'cnewer'
-              end
-            end
+            local qf_or_loc_list = win_info.loclist == 1 and 'l' or 'q'
+            local older_or_newer = direction == 'backward' and 'older' or 'newer'
+            local cmd = qf_or_loc_list .. older_or_newer
             local ok, err = pcall(vim.cmd[cmd], {
               count = vim.v.count1,
             })
@@ -183,8 +171,7 @@ return {
               vim.fn.expand '%',
               direction == 'backward'
             )
-            local path
-            path = it:nth(vim.v.count1)
+            local path = it:nth(vim.v.count1)
             if path then
               require('impairative.util').jump_to { filename = path }
             end

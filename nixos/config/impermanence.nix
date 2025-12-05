@@ -39,9 +39,15 @@
         find /mnt/prev_roots/ -maxdepth 1 -mtime +30 \
           -exec btrfs subvolume delete --recursive {} +
 
-        echo "Move the current /root subvolume to /prev_roots"
         timestamp="$(date --iso-8601=minutes --date="@$(stat -c %Y /mnt/root)")"
-        mv /mnt/root "/mnt/prev_roots/$timestamp"
+        target="/mnt/prev_roots/$timestamp"
+
+        if [[ -e $target ]]; then
+          exit
+        fi
+
+        echo "Move the current /root subvolume to /prev_roots"
+        mv /mnt/root "$target"
 
         echo "Initialize the new /root subvolume"
         btrfs subvolume create /mnt/root

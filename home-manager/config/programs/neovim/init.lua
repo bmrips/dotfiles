@@ -31,7 +31,6 @@ opt.spellsuggest:append '10' -- 10 suggestions max
 opt.splitbelow = true
 opt.splitkeep = 'screen'
 opt.splitright = true
-opt.suffixes = { '.bak', '~', '.swp', '.info', '.log' } -- Suffixes with lower priority
 opt.tabstop = 4
 opt.termguicolors = vim.env.COLORTERM ~= nil -- Enable Truecolor support
 opt.textwidth = 80

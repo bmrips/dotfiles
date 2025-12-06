@@ -5,6 +5,7 @@
   lib,
   system,
   user,
+  utils,
   ...
 }:
 
@@ -22,7 +23,14 @@ in
   home-manager = {
     useGlobalPkgs = true;
     useUserPackages = true;
-    extraSpecialArgs = { inherit host inputs system; };
+    extraSpecialArgs = {
+      inherit
+        host
+        inputs
+        system
+        utils
+        ;
+    };
     users.${user} = ./.;
   };
 }

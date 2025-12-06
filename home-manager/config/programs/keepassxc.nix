@@ -3,6 +3,7 @@
   lib,
   nixosConfig,
   pkgs,
+  utils,
   ...
 }:
 
@@ -49,7 +50,7 @@ let
     '';
 
   windowsCfg = nixosConfig.dualboot.windows;
-  escapedWindowsMountPoint = lib.systemd.escapeDir windowsCfg.mountPoint;
+  escapedWindowsMountPoint = utils.escapeSystemdPath windowsCfg.mountPoint;
 
 in
 {

@@ -2,12 +2,13 @@
   config,
   lib,
   pkgs,
+  utils,
   ...
 }:
 
 let
   cfg = config.services.bt-dualboot;
-  escapedMountPoint = lib.systemd.escapeDir cfg.mountPoint;
+  escapedMountPoint = utils.escapeSystemdPath cfg.mountPoint;
 in
 {
 

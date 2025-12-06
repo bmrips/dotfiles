@@ -1,6 +1,6 @@
 { lib, self, ... }:
 
 {
-  args = lib.cli.toGNUCommandLine { optionValueSeparator = "="; };
+  args = lib.cli.toCommandLineGNU { };
   line = attrs: lib.concatStringsSep " " (self.args attrs);
 }

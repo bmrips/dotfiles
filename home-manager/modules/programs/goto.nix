@@ -31,7 +31,7 @@ in
 
   config = lib.mkIf cfg.enable {
     home.sessionVariables.FZF_GOTO_OPTS = lib.mkIf (cfg.fzfWidget.options != { }) (
-      lib.cli.toGNUCommandLineShell { } cfg.fzfWidget.options
+      lib.gnuCommand.line cfg.fzfWidget.options
     );
 
     programs.zsh = {

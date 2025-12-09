@@ -137,6 +137,7 @@
               deadnix.enable = true;
               detect-private-keys.enable = true;
               markdownlint.enable = true;
+              markdownlint.settings.configuration.line_length = false;
               mixed-line-endings.enable = true;
               selene.enable = true;
               statix.enable = true;

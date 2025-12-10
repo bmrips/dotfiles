@@ -1,6 +1,8 @@
 return {
   settings = {
-    ['bashIde.includeAllWorkspaceSymbols'] = true,
+    bashIde = {
+      includeAllWorkspaceSymbols = true,
+    },
   },
   filetypes = { 'bash', 'sh' },
 }

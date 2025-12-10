@@ -4,6 +4,11 @@ return {
       formatting = {
         command = { 'nixfmt' },
       },
+      nix = {
+        flake = {
+          autoEvalInputs = true,
+        },
+      },
     },
   },
 }

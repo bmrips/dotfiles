@@ -1,7 +1,7 @@
 return {
   'idanarye/nvim-impairative',
   event = 'VeryLazy',
-  dependencies = 'jonatan-branting/nvim-better-n',
+  dependencies = 'bmrips/nvim-better-n',
   opts = {
     enable = '[o',
     disable = ']o',

@@ -1,7 +1,12 @@
 return {
   settings = {
     Lua = {
-      ['format.enable'] = false,
+      completion = {
+        autoRequire = false,
+      },
+      format = {
+        enable = false,
+      },
     },
   },
 }

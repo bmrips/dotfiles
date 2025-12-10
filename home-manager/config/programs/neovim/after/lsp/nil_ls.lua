@@ -1,5 +1,9 @@
 return {
   settings = {
-    ['nil.formatting.command'] = { 'nixfmt' },
+    ['nil'] = {
+      formatting = {
+        command = { 'nixfmt' },
+      },
+    },
   },
 }

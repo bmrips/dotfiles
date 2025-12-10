@@ -4,5 +4,4 @@ return {
       includeAllWorkspaceSymbols = true,
     },
   },
-  filetypes = { 'bash', 'sh' },
 }

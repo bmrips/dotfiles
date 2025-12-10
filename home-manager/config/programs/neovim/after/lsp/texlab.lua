@@ -5,6 +5,7 @@ return {
         -- Remove the `-pdf` argument to let the build mode be determined by the
         -- latexmk configuration.
         args = { '-interaction=nonstopmode', '-synctex=1', '%f' },
+        onSave = true,
       },
       forwardSearch = {
         executable = 'sioyek',

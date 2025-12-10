@@ -72,7 +72,7 @@ require('lazy').setup('config.plugins', {
     rtp = { reset = true },
   },
   rocks = {
-    enabled = false,
+    hererocks = false,
   },
 })
 

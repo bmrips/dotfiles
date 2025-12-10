@@ -7,6 +7,10 @@ return {
         args = { '-interaction=nonstopmode', '-synctex=1', '%f' },
         onSave = true,
       },
+      chktex = {
+        onEdit = true,
+        onOpenAndSave = true,
+      },
       forwardSearch = {
         executable = 'sioyek',
         args = {

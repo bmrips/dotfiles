@@ -14,6 +14,7 @@ return {
       'bashls',
       'clangd',
       'dartls',
+      'emmylua_ls',
       'harper_ls',
       'hls',
       'jdtls',

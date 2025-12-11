@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.development.lua.enable {
     home.packages = with pkgs; [
-      lua-language-server
+      emmylua-ls
       selene
       stylua
     ];

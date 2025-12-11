@@ -6,6 +6,12 @@ return {
       },
       format = {
         enable = false,
+        callSnippet = true,
+      },
+      strict = {
+        requirePath = true,
+        typeCall = true,
+        arrayIndex = true,
       },
     },
   },

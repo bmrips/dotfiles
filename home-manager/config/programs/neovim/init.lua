@@ -78,6 +78,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.g.tex_flavor = 'latex'
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
+---@diagnostic disable-next-line: undefined-field
 if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
     'git',
@@ -89,6 +90,7 @@ if not vim.uv.fs_stat(lazypath) then
 end
 opt.runtimepath:prepend(lazypath)
 
+---@diagnostic disable-next-line: missing-fields, param-type-mismatch
 require('lazy').setup('config.plugins', {
   defaults = {
     lazy = true,
@@ -160,10 +162,12 @@ vim.api.nvim_create_autocmd('LspAttach', {
       client:supports_method(cap, args.buf)
     end
 
+    ---@diagnostic disable-next-line: unnecessary-if
     if client_supports 'inlayHintProvider' then
       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
     end
 
+    ---@diagnostic disable-next-line: unnecessary-if
     if client_supports 'textDocument/foldingRange' then
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'

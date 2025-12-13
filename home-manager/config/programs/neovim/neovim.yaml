@@ -8,3 +8,5 @@ globals:
       - type: bool
       - type: string
         required: false
+  Snacks:
+    any: true

@@ -162,23 +162,20 @@ lib.mkIf cfg.enable {
 
     defaultOptions =
       let
-        arrowHead = "❯";
+        arrowHead = "";
         bindings = mkBindings {
-          "alt-[" = "change-preview-window(nohidden,down|nohidden,right|nohidden,up|nohidden,left)";
-          "alt-]" = "change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)";
-          alt-j = "preview-half-page-down";
-          alt-k = "preview-half-page-up";
+          change = "first"; # focus the first element when the query is changed
+          ctrl-a = "toggle-all";
+          ctrl-u = "half-page-up";
+          ctrl-d = "half-page-down";
+          ctrl-f = "preview-half-page-down";
+          ctrl-b = "preview-half-page-up";
+          ctrl-r = "change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)";
           alt-p = [
             "toggle-preview"
             labelPreviewWithFilename
           ];
           alt-w = "toggle-preview-wrap";
-          change = "first"; # focus the first element when the query is changed
-          ctrl-a = "toggle-all";
-          ctrl-alt-j = "preview-down";
-          ctrl-alt-k = "preview-up";
-          ctrl-b = "half-page-up";
-          ctrl-f = "half-page-down";
         };
       in
       lib.gnuCommand.args {

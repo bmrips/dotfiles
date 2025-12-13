@@ -6,10 +6,7 @@ return {
         vim.cmd.nohlsearch()
         vim.cmd.diffupdate()
         vim.cmd.mode() -- clear and redraw the screen
-        require('notify').dismiss {
-          pending = false,
-          silent = true,
-        }
+        Snacks.notifier.hide()
       end,
       desc = 'Clear screen and redraw',
     },
@@ -318,9 +315,7 @@ return {
         desc = 'Change word under cursor',
       },
       { 'g>',
-        function()
-          require('fzf-lua').grep_visual()
-        end,
+        function() Snacks.picker.grep_word() end,
         desc = 'Grep visual selection',
         mode = 'x',
       },
@@ -438,9 +433,35 @@ return {
     }},
     { '<Leader>', {
       { 'd',
-        '<Cmd>bdelete<CR>',
-        desc = 'Delete the buffer'
+        function() Snacks.bufdelete.delete() end,
+        desc = 'Delete the buffer',
       },
+      { 'e',
+        function() Snacks.explorer.open() end,
+        desc = 'Toggle explorer',
+      },
+      { 'g', {
+        {
+          'i',
+          function() Snacks.picker.gh_issue() end,
+          desc = 'GitHub Issues (open)',
+        },
+        {
+          'I',
+          function() Snacks.picker.gh_issue { state = 'all' } end,
+          desc = 'GitHub Issues (all)',
+        },
+        {
+          'p',
+          function() Snacks.picker.gh_pr() end,
+          desc = 'GitHub Pull Requests (open)',
+        },
+        {
+          'P',
+          function() Snacks.picker.gh_pr { state = 'all' } end,
+          desc = 'GitHub Pull Requests (all)',
+        },
+      }},
       { 'i',
         function()
           local normalizedNameUnderCursor = vim.fs.normalize(vim.fn.expand('<cfile>'))
@@ -449,6 +470,10 @@ return {
           vim.cmd.delete()
         end,
         desc = 'Include file under cursor',
+      },
+      { 'n',
+        function() Snacks.notifier.show_history() end,
+        desc = 'Notification history',
       },
       { 'p',
         function()
@@ -465,6 +490,10 @@ return {
       { 'x',
         '<Cmd>x<CR>',
         desc = 'Exit',
+      },
+      { '.',
+        function() Snacks.scratch() end,
+        desc = 'Toggle scratch buffer',
       },
     }},
     { '<LocalLeader>', {
@@ -493,9 +522,7 @@ return {
         desc = 'View document in the browser',
       },
       { '<C-d>',
-        function()
-          require('fzf-lua').diagnostics_workspace()
-        end,
+        function() Snacks.picker.diagnostics() end,
         desc = 'Diagnostics (fuzzy)',
       },
     }},
@@ -506,189 +533,141 @@ return {
     },
     { ',', {
       { '<Space>',
-        function()
-          require('fzf-lua').builtin()
-        end,
+        function() Snacks.picker.pickers() end,
+        desc = 'Pickers',
       },
       { ',',
         function()
-          require('fzf-lua').resume()
+          Snacks.picker.resume {
+            exclude = {
+              'lsp_declarations',
+              'lsp_definitions',
+              'lsp_implementations',
+              'lsp_type_definitions',
+            },
+          }
         end,
         desc = 'Resume'
       },
       { ':',
-        function()
-          require('fzf-lua').command_history()
-        end,
+        function() Snacks.picker.command_history() end,
         desc = 'Command history',
       },
       { '/',
-        function()
-          require('fzf-lua').search_history()
-        end,
+        function() Snacks.picker.search_history() end,
         desc = 'Search history',
       },
       { '?',
-        function()
-          require('fzf-lua').search_history()
-        end,
+        function() Snacks.picker.search_history() end,
         desc = 'Search history',
       },
       { 'a',
-        function()
-          require('fzf-lua').args()
-        end,
+        function() Snacks.picker 'arguments' end,
         desc = 'Arguments',
       },
       { 'A',
-        function()
-          require('fzf-lua').autocmds()
-        end,
+        function() Snacks.picker.autocmds() end,
         desc = 'Autocmds',
       },
       { 'b',
-        function()
-          require('fzf-lua').buffers()
-        end,
+        function() Snacks.picker.buffers() end,
         desc = 'Buffers',
       },
       { 'c',
-        function()
-          require('fzf-lua').commands()
-        end,
+        function() Snacks.picker.commands() end,
         desc = 'Commands',
       },
       { 'C',
-        function()
-          require('fzf-lua').colorschemes()
-        end,
+        function() Snacks.picker.colorschemes() end,
         desc = 'Colorschemes',
       },
       { 'f',
-        function()
-          require('fzf-lua').files()
-        end,
+        function() Snacks.picker.files() end,
         desc = 'Files',
       },
       { 'F',
-        function()
-          require('fzf-lua').git_files()
-        end,
+        function() Snacks.picker.git_files() end,
         desc = 'Git-tracked files',
       },
       { '<C-f>',
-        function()
-          require('fzf-lua').oldfiles()
-        end,
-        desc = 'Recent Files',
+        function() Snacks.picker.recent() end,
+        desc = 'Recent files',
       },
       { 'g',
-        function()
-          require('fzf-lua').live_grep()
-        end,
+        function() Snacks.picker.grep() end,
         desc = 'Grep',
-      },
-      { 'G',
-        function()
-          require('fzf-lua').live_grep_glob()
-        end,
-        desc = 'Grep with --glob',
       },
       { '<C-g>',
         function()
-          require('fzf-lua').live_grep { resume = true }
+          Snacks.picker.resume {
+            include = { 'grep', 'grep_word' },
+          }
         end,
-        desc = 'Resume last grep',
+        desc = 'Git grep',
       },
       { 'h',
-        function()
-          require('fzf-lua').help_tags()
-        end,
+        function() Snacks.picker.help() end,
         desc = 'Help tags',
       },
       { 'H',
-        function()
-          require('fzf-lua').man_pages()
-        end,
+        function() Snacks.picker.man() end,
         desc = 'Man pages',
       },
+      { 'i',
+        function() Snacks.picker.icons() end,
+        desc = 'Icons',
+      },
       { 'j',
-        function()
-          require('fzf-lua').jumps()
-        end,
+        function() Snacks.picker.jumps() end,
         desc = 'Jumps',
       },
       { 'k',
-        function()
-          require('fzf-lua').keymaps()
-        end,
+        function() Snacks.picker.keymaps() end,
         desc = 'Keymaps',
       },
       { 'l',
-        function()
-          require('fzf-lua').lines()
-        end,
+        function() Snacks.picker.lines() end,
         desc = 'Buffer lines',
       },
       { 'L',
-        function()
-          require('fzf-lua').blines()
-        end,
+        function() Snacks.picker.grep_buffers() end,
         desc = 'Current buffer lines',
       },
       { 'm',
-        function()
-          require('fzf-lua').marks()
-        end,
+        function() Snacks.picker.marks() end,
         desc = 'Marks',
       },
-      { 'o',
-        function()
-          require('fzf-lua').grep_cword()
-        end,
-        desc = 'Grep word under cursor',
-      },
-      { 'O',
-        function()
-          require('fzf-lua').grep_cWORD()
-        end,
-        desc = 'Grep WORD under cursor',
+      { 'n',
+        function() Snacks.picker.notifications() end,
+        desc = 'Notifications',
       },
       { 'q',
-        function()
-          require('fzf-lua').quickfix()
-        end,
+        function() Snacks.picker.qflist() end,
         desc = 'Quickfix list',
       },
       { 'Q',
-        function()
-          require('fzf-lua').loclist()
-        end,
+        function() Snacks.picker.loclist() end,
         desc = 'Location list',
       },
       { 'r',
-        function()
-          require('fzf-lua').registers()
-        end,
+        function() Snacks.picker.registers() end,
         desc = 'Registers',
       },
       { 's',
-        function()
-          require('fzf-lua').spell_suggest()
-        end,
-        desc = 'Spelling suggestions',
+        function() Snacks.scratch.select() end,
+        desc = 'Select scratch buffer',
       },
       { 't',
-        function()
-          require('fzf-lua').filetypes()
-        end,
+        function() Snacks.picker 'filetypes' end,
         desc = 'Filetypes',
       },
-      { 'T',
-        function()
-          require('fzf-lua').tagstack()
-        end,
-        desc = 'Tags',
+      { 'u',
+        function() Snacks.picker.undo() end,
+        desc = 'Undo history',
+      },
+      { 'w',
+        function() Snacks.picker.grep_word() end,
+        desc = 'Grep word under cursor',
       },
     }},
 
@@ -702,12 +681,6 @@ return {
       { 'jk',
         '<Esc>',
         desc = 'Escape insert mode',
-      },
-      { '<C-f>',
-        function()
-          require('fzf-lua').complete_path()
-        end,
-        desc = 'Complete file names',
       },
     }},
 
@@ -857,12 +830,6 @@ return {
         },
       }},
       { '<LocalLeader>', {
-        { '/',
-          function()
-            require('fzf-lua').lsp_finder()
-          end,
-          desc = 'All LSP locations',
-        },
         { 'a',
           vim.lsp.buf.code_action,
           cond = client_supports 'codeActionProvider',
@@ -932,38 +899,23 @@ return {
           desc = "List the symbol's usages",
         },
         { '<C-', {
-          { 'a>',
-            function()
-              require('fzf-lua').lsp_code_actions()
-            end,
-            cond = client_supports 'codeActionProvider',
-            desc = 'Code actions (fuzzy)',
-          },
           { 'i>',
-            function()
-              require('fzf-lua').lsp_incoming_calls()
-            end,
+            function() Snacks.picker.lsp_incoming_calls() end,
             cond = client_supports 'incomingCallsProvider',
             desc = 'Incoming calls (fuzzy)',
           },
           { 'o>',
-            function()
-              require('fzf-lua').lsp_outgoing_calls()
-            end,
+            function() Snacks.picker.lsp_outgoing_calls() end,
             cond = client_supports 'outgoindCallsProvider',
             desc = 'Outgoing calls (fuzzy)',
           },
           { 'r>',
-            function()
-              require('fzf-lua').lsp_references()
-            end,
+            function() Snacks.picker.lsp_references() end,
             cond = client_supports 'referencesProvider',
             desc = "Symbol's references (fuzzy)",
           },
           { 's>',
-            function()
-              require('fzf-lua').lsp_workspace_symbols()
-            end,
+            function() Snacks.picker.lsp_workspace_symbols() end,
             cond = client_supports 'workspaceSymbolProvider',
             desc = 'Workspace symbols (fuzzy)',
           },

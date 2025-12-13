@@ -6,10 +6,7 @@ return {
         vim.cmd.nohlsearch()
         vim.cmd.diffupdate()
         vim.cmd.mode() -- clear and redraw the screen
-        require('notify').dismiss {
-          pending = false,
-          silent = true,
-        }
+        Snacks.notifier.hide()
       end,
       desc = 'Clear screen and redraw',
     },
@@ -319,7 +316,7 @@ return {
       },
       { 'g>',
         function()
-          require('fzf-lua').grep_visual()
+          Snacks.picker.grep_word()
         end,
         desc = 'Grep visual selection',
         mode = 'x',
@@ -444,8 +441,12 @@ return {
     }},
     { '<Leader>', {
       { 'd',
-        '<Cmd>bdelete<CR>',
-        desc = 'Delete the buffer'
+        function() Snacks.bufdelete.delete() end,
+        desc = 'Delete the buffer',
+      },
+      { 'e',
+        function() Snacks.explorer.open() end,
+        desc = 'Toggle explorer',
       },
       { 'i',
         function()
@@ -455,6 +456,10 @@ return {
           vim.cmd.delete()
         end,
         desc = 'Include file under cursor',
+      },
+      { 'n',
+        function() Snacks.notifier.show_history() end,
+        desc = 'Notification history',
       },
       { 'p',
         function()
@@ -468,9 +473,17 @@ return {
         end,
         desc = 'Toggle session autosave',
       },
+      { 'S',
+        function() Snacks.scratch.select() end,
+        desc = "Select scratch buffer",
+      },
       { 'x',
         '<Cmd>x<CR>',
         desc = 'Exit',
+      },
+      { '.',
+        function() Snacks.scratch() end,
+        desc = 'Toggle scratch buffer',
       },
     }},
     { '<LocalLeader>', {
@@ -493,7 +506,7 @@ return {
       },
       { '<C-d>',
         function()
-          require('fzf-lua').diagnostics_workspace()
+          Snacks.picker.diagnostics()
         end,
         desc = 'Diagnostics (fuzzy)',
       },
@@ -506,90 +519,91 @@ return {
     { ',', {
       { '<Space>',
         function()
-          require('fzf-lua').builtin()
+          Snacks.picker.pickers()
         end,
+        desc = 'Pickers',
       },
       { ',',
         function()
-          require('fzf-lua').resume()
+          Snacks.picker.resume()
         end,
         desc = 'Resume'
       },
       { ':',
         function()
-          require('fzf-lua').command_history()
+          Snacks.picker.command_history()
         end,
         desc = 'Command history',
       },
       { '/',
         function()
-          require('fzf-lua').search_history()
+          Snacks.picker.search_history()
         end,
         desc = 'Search history',
       },
       { '?',
         function()
-          require('fzf-lua').search_history()
+          Snacks.picker.search_history()
         end,
         desc = 'Search history',
       },
       { 'a',
         function()
-          require('fzf-lua').args()
+          Snacks.picker.args() -- TODO
         end,
         desc = 'Arguments',
       },
       { 'A',
         function()
-          require('fzf-lua').autocmds()
+          Snacks.picker.autocmds()
         end,
         desc = 'Autocmds',
       },
       { 'b',
         function()
-          require('fzf-lua').buffers()
+          Snacks.picker.buffers()
         end,
         desc = 'Buffers',
       },
       { 'c',
         function()
-          require('fzf-lua').commands()
+          Snacks.picker.commands()
         end,
         desc = 'Commands',
       },
       { 'C',
         function()
-          require('fzf-lua').colorschemes()
+          Snacks.picker.colorschemes()
         end,
         desc = 'Colorschemes',
       },
       { 'f',
         function()
-          require('fzf-lua').files()
+          Snacks.picker.files()
         end,
         desc = 'Files',
       },
       { 'F',
         function()
-          require('fzf-lua').git_files()
+          Snacks.picker.git_files()
         end,
         desc = 'Git-tracked files',
       },
       { '<C-f>',
         function()
-          require('fzf-lua').oldfiles()
+          Snacks.picker.recent()
         end,
-        desc = 'Recent Files',
+        desc = 'Recent files',
       },
       { 'g',
         function()
-          require('fzf-lua').live_grep()
+          Snacks.picker.grep()
         end,
         desc = 'Grep',
       },
       { 'G',
         function()
-          require('fzf-lua').live_grep_glob()
+          Snacks.picker.git_grep()
         end,
         desc = 'Grep with --glob',
       },
@@ -601,93 +615,91 @@ return {
       },
       { 'h',
         function()
-          require('fzf-lua').help_tags()
+          Snacks.picker.help()
         end,
         desc = 'Help tags',
       },
       { 'H',
         function()
-          require('fzf-lua').man_pages()
+          Snacks.picker.man()
         end,
         desc = 'Man pages',
       },
+      { 'i',
+        function() Snacks.picker.icons() end,
+        desc = 'Icons',
+      },
       { 'j',
         function()
-          require('fzf-lua').jumps()
+          Snacks.picker.jumps()
         end,
         desc = 'Jumps',
       },
       { 'k',
         function()
-          require('fzf-lua').keymaps()
+          Snacks.picker.keymaps()
         end,
         desc = 'Keymaps',
       },
       { 'l',
         function()
-          require('fzf-lua').lines()
+          Snacks.picker.lines()
         end,
         desc = 'Buffer lines',
       },
       { 'L',
         function()
-          require('fzf-lua').blines()
+          Snacks.picker.grep_buffers()
         end,
         desc = 'Current buffer lines',
       },
       { 'm',
         function()
-          require('fzf-lua').marks()
+          Snacks.picker.marks()
         end,
         desc = 'Marks',
       },
       { 'o',
         function()
-          require('fzf-lua').grep_cword()
+          Snacks.picker.grep_word()
         end,
         desc = 'Grep word under cursor',
       },
       { 'O',
         function()
-          require('fzf-lua').grep_cWORD()
+          Snacks.picker.grep_cWORD() -- TODO
         end,
         desc = 'Grep WORD under cursor',
       },
       { 'q',
         function()
-          require('fzf-lua').quickfix()
+          Snacks.picker.qflist()
         end,
         desc = 'Quickfix list',
       },
       { 'Q',
         function()
-          require('fzf-lua').loclist()
+          Snacks.picker.loclist()
         end,
         desc = 'Location list',
       },
       { 'r',
         function()
-          require('fzf-lua').registers()
+          Snacks.picker.registers()
         end,
         desc = 'Registers',
       },
       { 's',
         function()
-          require('fzf-lua').spell_suggest()
+          Snacks.picker.spelling()
         end,
         desc = 'Spelling suggestions',
       },
       { 't',
         function()
-          require('fzf-lua').filetypes()
+          Snacks.picker.filetypes() -- TODO
         end,
         desc = 'Filetypes',
-      },
-      { 'T',
-        function()
-          require('fzf-lua').tagstack()
-        end,
-        desc = 'Tags',
       },
     }},
 
@@ -704,7 +716,7 @@ return {
       },
       { '<C-f>',
         function()
-          require('fzf-lua').complete_path()
+          Snacks.picker.complete_path() -- TODO
         end,
         desc = 'Complete file names',
       },

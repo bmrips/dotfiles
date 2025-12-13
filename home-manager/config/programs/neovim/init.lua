@@ -4,6 +4,7 @@ local opt = vim.opt
 opt.background = vim.env.BACKGROUND or 'dark' -- Adapt background to terminal background
 opt.breakindent = true
 opt.clipboard = 'unnamedplus'
+opt.completeopt:append 'fuzzy'
 opt.expandtab = true
 opt.exrc = true
 opt.fillchars = 'fold: ,foldopen:,foldsep: ,foldclose:'

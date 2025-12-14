@@ -13,7 +13,7 @@ return {
       lsp_format = 'fallback',
     },
     formatters_by_ft = {
-      ['*'] = { 'treefmt', 'trim_newlines', 'trim_whitespace' },
+      ['*'] = { 'keep-sorted', 'treefmt', 'trim_newlines', 'trim_whitespace' },
       bash = { 'shfmt' },
       cabal = { 'cabal_fmt' },
       dart = { 'dart_format' },

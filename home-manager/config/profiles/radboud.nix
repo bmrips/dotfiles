@@ -16,6 +16,13 @@
 
     home.packages = with pkgs; [ eduvpn-client ];
 
+    programs.git.includes = [
+      {
+        condition = "hasconfig:remote.*.url:git@gitlab.science.ru.nl:*/**";
+        contents.user.email = "benedikt.rips@ru.nl";
+      }
+    ];
+
     programs.merkuro.enable = true;
     programs.slack.enable = true;
     programs.zotero.enable = true;

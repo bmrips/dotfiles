@@ -16,10 +16,6 @@
 
     home.packages = with pkgs; [ eduvpn-client ];
 
-    programs.firefox.profiles.default.settings = {
-      "browser.toolbars.bookmarks.visibility" = lib.mkForce "always";
-    };
-
     programs.merkuro.enable = true;
     programs.slack.enable = true;
     programs.zotero.enable = true;

@@ -59,6 +59,11 @@
 
   profiles.radboud.enable = true;
 
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+  };
+
   security.tpm2.enable = true;
 
   services.btrbk.enable = true;

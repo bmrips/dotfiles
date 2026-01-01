@@ -8,22 +8,6 @@
 let
   wallpaper = "${pkgs.kdePackages.breeze}/share/wallpapers/Next/";
 
-  # Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
-  # editor.
-  copy-forms = pkgs.writeShellApplication {
-    name = "copy-forms";
-    runtimeInputs = with pkgs; [ ghostscript_headless ];
-    text = ''
-      if [[ -z $1 ]]; then
-          echo "Error: no argument given!" >&2
-          exit 1
-      fi
-
-      base="''${1%.pdf}"
-      gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile="$base.copy.pdf" "$base.pdf"
-    '';
-  };
-
   plasma-dark-mode = pkgs.writeShellApplication {
     name = "plasma-dark-mode";
     runtimeInputs = with pkgs; [
@@ -629,7 +613,6 @@ lib.mkMerge [
       with pkgs;
       with pkgs.kdePackages;
       [
-        copy-forms
         kcalc
         kcolorchooser
         qt6.qtimageformats

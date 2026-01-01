@@ -27,7 +27,7 @@ let
         name = lib.mkOption {
           type = lib.types.str;
           default = name;
-          defaultText = "The attribute name of this definition.";
+          defaultText = "<name>";
           description = "The name of this web search keyword.";
         };
         keys = lib.mkOption {

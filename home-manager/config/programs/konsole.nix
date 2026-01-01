@@ -37,7 +37,7 @@ let
       background = "base00";
       foreground = "base05";
       black.normal = background;
-      black.bright = "base03";
+      black.intense = "base03";
       white = foreground;
       red = "base08";
       yellow = "base0A";

@@ -83,6 +83,11 @@
           }
         );
 
+      flake.overlays = {
+        konsole_with_full_font_hinting = import ./nixpkgs/konsole_with_full_font_hinting.nix;
+        packages = import ./nixpkgs/packages/overlay.nix;
+      };
+
       flake.nixosConfigurations = {
         "private-xps13-9360" = nixosSystem {
           host = "private-xps13-9360";
@@ -114,12 +119,14 @@
             '';
           });
 
-          packages.installer =
-            (nixosSystem {
-              inherit system;
-              host = "installer";
-              extraModules = [ ./hosts/installer.nix ];
-            }).config.system.build.isoImage;
+          packages = import ./nixpkgs/packages/default.nix pkgs // {
+            installer =
+              (nixosSystem {
+                inherit system;
+                host = "installer";
+                extraModules = [ ./hosts/installer.nix ];
+              }).config.system.build.isoImage;
+          };
 
           pre-commit.settings = {
             package = pkgs.prek;

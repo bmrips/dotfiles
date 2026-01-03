@@ -71,7 +71,7 @@ lib.mkIf config.programs.firefox.enable {
         "browser.download.useDownloadDir" = true;
 
         # Never translate German.
-        "browser.translations.neverTranslateLanguages" = "de";
+        "browser.translations.neverTranslateLanguages" = "de,nl";
 
         # Do not suggest recent searches or open tabs.
         "browser.urlbar.suggest.searches" = false;

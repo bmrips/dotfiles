@@ -80,6 +80,7 @@ in
         General.ConfigVersion = 2;
         General.HideWindowOnCopy = true;
         Security.IconDownloadFallback = true;
+        Security.LockDatabaseIdle = false;
         SSHAgent.Enabled = true;
         GUI = {
           ApplicationTheme = "classic";

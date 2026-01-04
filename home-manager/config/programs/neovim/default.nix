@@ -53,7 +53,7 @@ in
       sops.secrets.deepl_api_token = { };
 
       home.sessionVariables = {
-        DEEPL_API_TOKEN = "$(cat ${config.sops.secrets.deepl_api_token.path})";
+        DEEPL_AUTH_KEY = "$(cat ${config.sops.secrets.deepl_api_token.path})";
         NVIM_TREESITTER = "${treesitter}";
       };
 

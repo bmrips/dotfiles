@@ -161,6 +161,10 @@
               enable = true;
               settings.wrap = "no";
             };
+            nixf-diagnose = {
+              enable = true;
+              ignore = [ "sema-primop-overridden" ];
+            };
             nixfmt.enable = true;
             shfmt = {
               enable = true;

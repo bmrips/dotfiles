@@ -420,12 +420,6 @@ return {
             '<Cmd>vertical wincmd i<CR>',
             desc = 'Open import in vert split',
           },
-          { 'r>',
-            function()
-              require('smart-splits').start_resize_mode()
-            end,
-            desc = 'Enter resize mode'
-          },
         }},
       }},
       { 'x>',

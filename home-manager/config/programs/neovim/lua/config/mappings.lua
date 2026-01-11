@@ -485,6 +485,13 @@ return {
         desc = 'Format buffer',
         mode = { 'n', 'o', 'x' },
       },
+      { 'v',
+        function()
+          local is_running = require('livepreview').is_running()
+          vim.cmd.LivePreview(is_running and 'close' or 'start')
+        end,
+        desc = 'View document in the browser',
+      },
       { '<C-d>',
         function()
           require('fzf-lua').diagnostics_workspace()

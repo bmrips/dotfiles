@@ -725,7 +725,7 @@ return {
             }
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Go to definition',
+          desc = 'Goto definition',
         },
         { 'D',
           function()
@@ -734,7 +734,7 @@ return {
             }
           end,
           cond = client_supports 'declarationProvider',
-          desc = 'Go to declaration',
+          desc = 'Goto declaration',
         },
         { 'i',
           function()
@@ -743,7 +743,7 @@ return {
             }
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Go to implementation',
+          desc = 'Goto implementation',
         },
         { 't',
           function()
@@ -752,7 +752,7 @@ return {
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Go to type definition',
+          desc = 'Goto type definition',
         },
       }},
       { '<C-k>',
@@ -769,7 +769,7 @@ return {
             }
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Open definition in split',
+          desc = 'Goto definition (split)',
         },
         { 'D',
           function()
@@ -778,7 +778,7 @@ return {
             }
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Open definition in tab split',
+          desc = 'Goto definition (tab split)',
         },
         { '<C-d>',
           function()
@@ -787,7 +787,7 @@ return {
             }
           end,
           cond = client_supports 'definitionProvider',
-          desc = 'Open definition in vert split',
+          desc = 'Goto definition (vsplit)',
         },
         { 'i',
           function()
@@ -796,7 +796,7 @@ return {
             }
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Open implementation in split',
+          desc = 'Goto implementation (split)',
         },
         { 'I',
           function()
@@ -805,7 +805,7 @@ return {
             }
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Open implementation in tab split',
+          desc = 'Goto implementation (tab split)',
         },
         { '<C-i>',
           function()
@@ -814,7 +814,7 @@ return {
             }
           end,
           cond = client_supports 'implementationProvider',
-          desc = 'Open implementation in vert split',
+          desc = 'Goto implementation (vsplit)',
         },
         { 't',
           function()
@@ -823,7 +823,7 @@ return {
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Open type definition in split',
+          desc = 'Goto type definition (split)',
         },
         { 'T',
           function()
@@ -832,7 +832,7 @@ return {
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Open type definition in tab split',
+          desc = 'Goto type definition (tab split)',
         },
         { '<C-t>',
           function()
@@ -841,7 +841,7 @@ return {
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
-          desc = 'Open type definition in vert split',
+          desc = 'Goto type definition (vsplit)',
         },
       }},
       { '<LocalLeader>', {

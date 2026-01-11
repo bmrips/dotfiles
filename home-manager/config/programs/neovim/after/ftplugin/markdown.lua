@@ -10,14 +10,4 @@ opt.tabstop = 2
 vim.b.undo_ftplugin = vim.b.undo_ftplugin
   .. '| set joinspaces< shiftwidth< softtabstop< suffixesadd< tabstop<'
 
---stylua: ignore
-require('nest').applyKeymaps {
-  { '<LocalLeader>', buffer = true, {
-    { 'v',
-      '<Cmd>MarkdownPreviewToggle<CR>',
-      desc = 'View document in the browser',
-    },
-  }},
-}
-
 vim.b.undo_ftplugin = 'mapclear <buffer>'

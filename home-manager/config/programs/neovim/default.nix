@@ -33,9 +33,7 @@ in
     {
       programs.neovim = {
         defaultEditor = true;
-        withNodeJs = true; # for markdown-preview.nvim
         withRuby = false;
-        extraPackages = [ pkgs.gnumake ]; # for markdown-preview.nvim
         plugins = [ treesitter ];
       };
     }

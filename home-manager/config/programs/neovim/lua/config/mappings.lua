@@ -443,7 +443,7 @@ return {
       },
       { 'i',
         function()
-          local normalizedNameUnderCursor = vim.fs.normalize(vim.fn.expand("<cfile>"))
+          local normalizedNameUnderCursor = vim.fs.normalize(vim.fn.expand('<cfile>'))
           local file = vim.fn.findfile(normalizedNameUnderCursor)
           vim.fn.append('.', vim.fn.readfile(file))
           vim.cmd.delete()
@@ -495,7 +495,7 @@ return {
     { ';',
       ':',
       desc = 'Command mode',
-      mode = { "n", "o", "x" },
+      mode = { 'n', 'o', 'x' },
     },
     { ',', {
       { '<Space>',
@@ -758,7 +758,7 @@ return {
       { '<C-k>',
         vim.lsp.buf.signature_help,
         cond = client_supports 'signatureHelpProvider',
-        desc = "Show the symbol's signature",
+        desc = 'Show signature',
         mode = { 'i', 's' },
       },
       { '<C-w>', {

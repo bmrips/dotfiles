@@ -6,8 +6,6 @@ return {
       default = {
         augend.integer.alias.decimal_int,
         augend.integer.alias.hex,
-        augend.constant.alias.alpha,
-        augend.constant.alias.Alpha,
         augend.date.alias['%Y/%m/%d'],
         augend.date.alias['%Y-%m-%d'],
         augend.date.alias['%d.%m.%Y'],

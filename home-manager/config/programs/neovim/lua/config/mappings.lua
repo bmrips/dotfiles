@@ -729,6 +729,12 @@ return {
           cond = client_supports 'implementationProvider',
           desc = 'Goto implementation',
         },
+        { 'r',
+          vim.lsp.buf.rename,
+          cond = client_supports 'renameProvider',
+          desc = 'Rename',
+          nowait = true, -- to override Neovim's default-mappings
+        },
         { 't',
           function()
             Snacks.picker.lsp_type_definitions {
@@ -880,9 +886,9 @@ return {
           desc = 'Quickfix list',
         },
         { 'r',
-          vim.lsp.buf.rename,
-          cond = client_supports 'renameProvider',
-          desc = 'Rename symbol under cursor',
+          function() Snacks.picker.lsp_references() end,
+          cond = client_supports 'referencesProvider',
+          desc = 'References',
         },
         { 's',
           function() Snacks.picker.lsp_workspace_symbols() end,
@@ -905,11 +911,6 @@ return {
             require('trouble.api').toggle 'lsp'
           end,
           desc = 'All LSP locations',
-        },
-        { 'u',
-          function() Snacks.picker.lsp_references() end,
-          cond = client_supports 'referencesProvider',
-          desc = 'Usages',
         },
       }},
     }

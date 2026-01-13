@@ -31,9 +31,9 @@ local augroup = vim.api.nvim_create_augroup('tex', { clear = false })
 -- Compile documents on save
 if tex.bufIsDocument(0) then
   vim.api.nvim_create_autocmd('BufWritePost', {
+    desc = 'Compile the document on save',
     group = augroup,
     buffer = 0,
-    desc = 'Compile the document on save',
     callback = function()
       vim.api.nvim_exec_autocmds('QuickFixCmdPre', {
         pattern = vim.api.nvim_buf_get_name(0),
@@ -49,9 +49,9 @@ end
 
 -- Write all TeX buffers before compiling
 vim.api.nvim_create_autocmd('QuickFixCmdPre', {
+  desc = 'Write all TeX buffers before compiling',
   group = augroup,
   buffer = 0,
-  desc = 'Write all TeX buffers before compiling',
   callback = function(args)
     vim.cmd.bufdo 'if expand("%:e") =~# "tex|sty|cls|bib|pgf" | update | endif'
     vim.api.nvim_set_current_buf(args.buf)

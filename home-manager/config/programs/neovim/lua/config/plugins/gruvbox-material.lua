@@ -12,8 +12,9 @@ return {
     require('compat.vimscript.plugin').setup 'gruvbox_material_'(nil, opts)
 
     vim.api.nvim_create_autocmd('Colorscheme', {
-      pattern = 'gruvbox-material',
       desc = 'Colorscheme overrides',
+      pattern = 'gruvbox-material',
+      group = vim.api.nvim_create_augroup('gruvbox-material', { clear = false }),
       callback = function()
         vim.api.nvim_set_hl(0, 'QuickFixLine', { link = 'Visual' })
         vim.api.nvim_set_hl(0, 'Search', { link = 'Substitute' })

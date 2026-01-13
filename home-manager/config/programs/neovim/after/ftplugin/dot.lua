@@ -6,9 +6,9 @@ opt.makeprg = 'dot -Tpdf % -o %:r.pdf'
 -- Write the buffer before compiling
 local augroup = vim.api.nvim_create_augroup('dot', { clear = false })
 vim.api.nvim_create_autocmd('QuickFixCmdPre', {
+  desc = 'Write the buffer before compiling',
   group = augroup,
   buffer = 0,
-  desc = 'Write the buffer before compiling',
   callback = function()
     vim.cmd.update()
   end,

@@ -12,6 +12,8 @@ return {
     setHlGroup()
 
     vim.api.nvim_create_autocmd('Colorscheme', {
+      desc = 'Undo highlighting overrides',
+      group = vim.api.nvim_create_augroup('highlight-undo', { clear = false }),
       callback = setHlGroup,
     })
   end,

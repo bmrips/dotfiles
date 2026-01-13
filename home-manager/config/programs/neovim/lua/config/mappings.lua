@@ -704,8 +704,8 @@ return {
       { 'g', {
         { 'd',
           function()
-            vim.lsp.buf.definition {
-              on_list = require('util.lsp.goto')(),
+            Snacks.picker.lsp_definitions {
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'definitionProvider',
@@ -713,8 +713,8 @@ return {
         },
         { 'D',
           function()
-            vim.lsp.buf.declaration {
-              on_list = require('util.lsp.goto')(),
+            Snacks.picker.lsp_declarations {
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'declarationProvider',
@@ -722,8 +722,8 @@ return {
         },
         { 'i',
           function()
-            vim.lsp.buf.implementation {
-              on_list = require('util.lsp.goto')(),
+            Snacks.picker.lsp_implementations {
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'implementationProvider',
@@ -731,8 +731,8 @@ return {
         },
         { 't',
           function()
-            vim.lsp.buf.type_definition {
-              on_list = require('util.lsp.goto')(),
+            Snacks.picker.lsp_type_definitions {
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
@@ -753,8 +753,9 @@ return {
       { '<C-w>', {
         { 'd',
           function()
-            vim.lsp.buf.definition {
-              on_list = require('util.lsp.goto')('split'),
+            Snacks.picker.lsp_definitions {
+              confirm = 'qflist_or_split',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'definitionProvider',
@@ -762,8 +763,9 @@ return {
         },
         { 'D',
           function()
-            vim.lsp.buf.definition {
-              on_list = require('util.lsp.goto')('tab split'),
+            Snacks.picker.lsp_declarations {
+              confirm = 'qflist_or_split',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'definitionProvider',
@@ -771,8 +773,9 @@ return {
         },
         { '<C-d>',
           function()
-            vim.lsp.buf.definition {
-              on_list = require('util.lsp.goto')('vert split'),
+            Snacks.picker.lsp_definitions {
+              confirm = 'qflist_or_vsplit',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'definitionProvider',
@@ -780,8 +783,9 @@ return {
         },
         { 'i',
           function()
-            vim.lsp.buf.implementation {
-              on_list = require('util.lsp.goto')('split'),
+            Snacks.picker.lsp_implementations {
+              confirm = 'qflist_or_split',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'implementationProvider',
@@ -789,8 +793,9 @@ return {
         },
         { 'I',
           function()
-            vim.lsp.buf.implementation {
-              on_list = require('util.lsp.goto')('tab split'),
+            Snacks.picker.lsp_implementations {
+              confirm = 'qflist_or_tab',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'implementationProvider',
@@ -798,8 +803,9 @@ return {
         },
         { '<C-i>',
           function()
-            vim.lsp.buf.implementation {
-              on_list = require('util.lsp.goto')('vert split'),
+            Snacks.picker.lsp_implementations {
+              confirm = 'qflist_or_vsplit',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'implementationProvider',
@@ -807,8 +813,9 @@ return {
         },
         { 't',
           function()
-            vim.lsp.buf.type_definition {
-              on_list = require('util.lsp.goto')('split'),
+            Snacks.picker.lsp_type_definitions {
+              confirm = 'qflist_or_split',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
@@ -816,8 +823,9 @@ return {
         },
         { 'T',
           function()
-            vim.lsp.buf.type_definition {
-              on_list = require('util.lsp.goto')('tab split'),
+            Snacks.picker.lsp_type_definitions {
+              confirm = 'qflist_or_tab',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
@@ -825,8 +833,9 @@ return {
         },
         { '<C-t>',
           function()
-            vim.lsp.buf.type_definition {
-              on_list = require('util.lsp.goto')('vert split'),
+            Snacks.picker.lsp_type_definitions {
+              confirm = 'qflist_or_vsplit',
+              unique_lines = vim.bo.filetype == 'lua',
             }
           end,
           cond = client_supports 'typeDefinitionProvider',
@@ -842,14 +851,14 @@ return {
         },
         { 'c', {
           { 'i',
-            vim.lsp.buf.incoming_calls,
+            function() Snacks.picker.lsp_incoming_calls() end,
             cond = client_supports 'incomingCallsProvider',
-            desc = 'List incoming calls',
+            desc = 'Incoming calls',
           },
           { 'o',
-            vim.lsp.buf.outgoing_calls,
-            cond = client_supports 'outgoingCallsProvider',
-            desc = 'List outgoing calls',
+            function() Snacks.picker.lsp_outgoing_calls() end,
+            cond = client_supports 'outgoindCallsProvider',
+            desc = 'Outgoing calls',
           },
         }},
         { 'o',
@@ -876,14 +885,14 @@ return {
           desc = 'Rename symbol under cursor',
         },
         { 's',
-          vim.lsp.buf.workspace_symbol,
+          function() Snacks.picker.lsp_workspace_symbols() end,
           cond = client_supports 'workspaceSymbolProvider',
-          desc = 'List all workspace symbols',
+          desc = 'Workspace symbols',
         },
         { 'S',
-          vim.lsp.buf.document_symbol,
+          function() Snacks.picker.lsp_symbols() end,
           cond = client_supports 'documentSymbolProvider',
-          desc = 'List all document symbols',
+          desc = 'Document symbols',
         },
         { 't',
           function()
@@ -898,32 +907,10 @@ return {
           desc = 'All LSP locations',
         },
         { 'u',
-          vim.lsp.buf.references,
+          function() Snacks.picker.lsp_references() end,
           cond = client_supports 'referencesProvider',
-          desc = "List the symbol's usages",
+          desc = 'Usages',
         },
-        { '<C-', {
-          { 'i>',
-            function() Snacks.picker.lsp_incoming_calls() end,
-            cond = client_supports 'incomingCallsProvider',
-            desc = 'Incoming calls (fuzzy)',
-          },
-          { 'o>',
-            function() Snacks.picker.lsp_outgoing_calls() end,
-            cond = client_supports 'outgoindCallsProvider',
-            desc = 'Outgoing calls (fuzzy)',
-          },
-          { 'r>',
-            function() Snacks.picker.lsp_references() end,
-            cond = client_supports 'referencesProvider',
-            desc = "Symbol's references (fuzzy)",
-          },
-          { 's>',
-            function() Snacks.picker.lsp_workspace_symbols() end,
-            cond = client_supports 'workspaceSymbolProvider',
-            desc = 'Workspace symbols (fuzzy)',
-          },
-        }},
       }},
     }
   end,

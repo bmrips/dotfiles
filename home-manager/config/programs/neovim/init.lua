@@ -48,6 +48,35 @@ vim.api.nvim_create_autocmd('UILeave', {
   end,
 })
 
+vim.diagnostic.config {
+  signs = {
+    text = {
+      [vim.diagnostic.severity.ERROR] = ' ',
+      [vim.diagnostic.severity.WARN] = ' ',
+      [vim.diagnostic.severity.INFO] = ' ',
+      [vim.diagnostic.severity.HINT] = '󰛩 ',
+    },
+  },
+}
+
+vim.api.nvim_create_autocmd('QuickFixCmdPost', {
+  desc = 'Open the quickfix and location list windows automatically',
+  callback = function(info)
+    local openLoclist = info.match:sub(1, 1) == 'l'
+    vim.cmd[openLoclist and 'lopen' or 'copen']()
+  end,
+})
+
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight yanked text',
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
+
+-- Set Latex as my preferred TeX flavour.
+vim.g.tex_flavor = 'latex'
+
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.uv.fs_stat(lazypath) then
   vim.fn.system {
@@ -78,35 +107,6 @@ require('lazy').setup('config.plugins', {
 })
 
 vim.cmd.colorscheme 'gruvbox-material'
-
-vim.diagnostic.config {
-  signs = {
-    text = {
-      [vim.diagnostic.severity.ERROR] = ' ',
-      [vim.diagnostic.severity.WARN] = ' ',
-      [vim.diagnostic.severity.INFO] = ' ',
-      [vim.diagnostic.severity.HINT] = '󰛩 ',
-    },
-  },
-}
-
-vim.api.nvim_create_autocmd('QuickFixCmdPost', {
-  desc = 'Open the quickfix and location list windows automatically',
-  callback = function(info)
-    local openLoclist = info.match:sub(1, 1) == 'l'
-    vim.cmd[openLoclist and 'lopen' or 'copen']()
-  end,
-})
-
-vim.api.nvim_create_autocmd('TextYankPost', {
-  desc = 'Highlight yanked text',
-  callback = function()
-    vim.highlight.on_yank()
-  end,
-})
-
--- Set Latex as my preferred TeX flavour.
-vim.g.tex_flavor = 'latex'
 
 local mappings = require 'config.mappings'
 

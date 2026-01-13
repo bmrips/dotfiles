@@ -18,6 +18,7 @@ return vim.tbl_deep_extend('keep', source, {
         if pcall(vim.treesitter.start, args.buf) then
           vim.opt_local.foldmethod = 'expr'
           vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+          vim.opt_local.indentexpr = 'v:lua.require"nvim-treesitter".indentexpr()'
         end
       end,
     })

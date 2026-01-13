@@ -60,6 +60,16 @@ local window_navigation_in_non_auto_close_sources = {
   },
 }
 
+local edit = function(cmd)
+  return { action = 'edit', cmd = cmd }
+end
+
+local qflist_or = function(alt_action)
+  return function(picker)
+    picker:action(#picker:selected() > 1 and 'qflist' or alt_action)
+  end
+end
+
 return {
   'folke/snacks.nvim',
   priority = 1000,
@@ -124,9 +134,13 @@ return {
         },
       },
       actions = {
-        qflist_or_edit = function(picker)
-          picker:action(#picker:selected() > 1 and 'qflist' or 'edit')
-        end,
+        edit_split = edit 'split',
+        edit_tab = edit 'tab',
+        edit_vsplit = edit 'vsplit',
+        qflist_or_edit = qflist_or 'edit',
+        qflist_or_split = qflist_or 'edit_split',
+        qflist_or_tab = qflist_or 'edit_tab',
+        qflist_or_vsplit = qflist_or 'edit_vsplit',
       },
       layouts = {
         horizontal = {

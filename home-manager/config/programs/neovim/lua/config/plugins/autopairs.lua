@@ -15,6 +15,17 @@ return {
 
     -- stylua: ignore
     autopairs.add_rules {
+      Rule('= ', ',', 'lua')
+        :with_pair(function(info)
+          local prev_char = info.line:sub(info.col - 2, info.col - 2)
+          local rest_of_line = info.line:sub(info.col)
+          return prev_char:match('[^=<>~]') ~= nil
+            and rest_of_line:match('^%s*$') ~= nil
+            and ts_conds.is_ts_node{ 'table_constructor', 'field' }(info)
+        end)
+        :with_move(function(info)
+          return info.char == ','
+        end),
       Rule('$', '$', { 'markdown', 'tex' })
         :with_move(function(info)
           return info.char == '$' and info.next_char == info.rule.end_pair

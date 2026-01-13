@@ -12,14 +12,15 @@ return {
       }
     )
   end,
-  config = function()
-    require('lint').linters_by_ft = {
-      editorconfig = { 'editorconfig-checker' },
-      lua = { 'selene' },
-      markdown = { 'markdownlint' },
-      nix = { 'deadnix', 'statix' },
-      yaml = { 'yamllint' },
-      zsh = { 'zsh' },
-    }
+  opts = {
+    editorconfig = { 'editorconfig-checker' },
+    lua = { 'selene' },
+    markdown = { 'markdownlint' },
+    nix = { 'deadnix', 'statix' },
+    yaml = { 'yamllint' },
+    zsh = { 'zsh' },
+  },
+  config = function(_, opts)
+    require('lint').linters_by_ft = opts
   end,
 }

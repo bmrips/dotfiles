@@ -875,6 +875,18 @@ return {
           end,
           desc = 'Toggle outline',
         },
+        { 'q',
+          function()
+            require('trouble.api').toggle 'loclist'
+          end,
+          desc = 'Location list',
+        },
+        { 'Q',
+          function()
+            require('trouble.api').toggle 'qflist'
+          end,
+          desc = 'Quickfix list',
+        },
         { 'r',
           vim.lsp.buf.rename,
           cond = client_supports 'renameProvider',
@@ -891,7 +903,6 @@ return {
           desc = 'List all document symbols',
         },
         { 't',
-          '<leader>cs',
           function()
             require('trouble.api').toggle 'symbols'
           end,
@@ -902,18 +913,6 @@ return {
             require('trouble.api').toggle 'lsp'
           end,
           desc = 'All LSP locations',
-        },
-        { 'q',
-          function()
-            require('trouble.api').toggle 'loclist'
-          end,
-          desc = 'Location list',
-        },
-        { 'Q',
-          function()
-            require('trouble.api').toggle 'qflist'
-          end,
-          desc = 'Quickfix list',
         },
         { 'u',
           vim.lsp.buf.references,

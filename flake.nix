@@ -151,8 +151,6 @@
               treefmt.enable = true;
               trim-trailing-whitespace.enable = true;
               typos.enable = true;
-              yamlfmt.enable = true;
-              yamlfmt.entry = pkgs.lib.getExe pkgs.yamlfmt;
             };
           };
 
@@ -180,6 +178,7 @@
                 quote_style = "AutoPreferSingle";
               };
             };
+            yamlfmt.enable = true;
           };
         };
 

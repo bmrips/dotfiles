@@ -12,10 +12,10 @@ let
 
   unlock = /* bash */ ''
     ${pkgs.dbus}/bin/dbus-send --type=method_call --print-reply \
-        --dest=org.keepassxc.KeePassXC.MainWindow \
-        /keepassxc org.keepassxc.KeePassXC.MainWindow.openDatabase \
-        string:${cfg.databasePath} \
-        string:"$(cat ${config.sops.secrets.keepassxc_password.path})"
+      --dest=org.keepassxc.KeePassXC.MainWindow \
+      /keepassxc org.keepassxc.KeePassXC.MainWindow.openDatabase \
+      string:${cfg.databasePath} \
+      string:"$(cat ${config.sops.secrets.keepassxc_password.path})"
   '';
 
   unlockedKeepassxc =

@@ -19,8 +19,8 @@ lib.mkIf cfg.enable {
     zle push-line
     local dir="$(${lib.getExe cfg.package} query --list | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $_ZO_FZF_OPTS" fzf --exit-0 --select-1 --no-multi)"
     if [[ -z "$dir" ]]; then
-        zle redisplay
-        return 0
+      zle redisplay
+      return 0
     fi
     BUFFER="cd -- ''${(q)dir}"
     zle accept-line

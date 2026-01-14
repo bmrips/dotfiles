@@ -6,7 +6,7 @@ in
   programs.bash = {
     initExtra = /* bash */ ''
       function mkcd() {
-          ${mkcd}
+        ${mkcd}
       }
     '';
   };

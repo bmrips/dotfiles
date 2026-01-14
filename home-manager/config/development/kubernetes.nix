@@ -12,9 +12,9 @@ let
     local recipe
 
     if (($# == 1)); then
-        recipe="$single_secret_recipe"
+      recipe="$single_secret_recipe"
     else
-        recipe="$multiple_secrets_recipe"
+      recipe="$multiple_secrets_recipe"
     fi
 
     ${lib.getExe pkgs.kubectl} get --output=yaml secret "$@" | ${pkgs.yq-go}/bin/yq "$recipe"

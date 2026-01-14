@@ -139,19 +139,19 @@ in
         autoload -Uz add-zsh-hook add-zsh-hook-widget
 
         function bar_cursor() {
-            echo -ne "\e[6 q"
+          echo -ne "\e[6 q"
         }
 
         function block_cursor() {
-            echo -ne "\e[2 q"
+          echo -ne "\e[2 q"
         }
 
         function underline_cursor() {
-            echo -ne "\e[4 q"
+          echo -ne "\e[4 q"
         }
 
         function zle-line-init() {
-            bar_cursor
+          bar_cursor
         }
         zle -N zle-line-init
 
@@ -204,11 +204,11 @@ in
 
         # Adapt the cursor shape to the mode
         function zle-keymap-select {
-            case $KEYMAP in
-                viins|main) bar_cursor ;;
-                viopp)      underline_cursor ;;
-                *)          block_cursor ;;
-            esac
+          case $KEYMAP in
+            viins|main) bar_cursor ;;
+            viopp)      underline_cursor ;;
+            *)          block_cursor ;;
+          esac
         }
         zle -N zle-keymap-select
 
@@ -222,12 +222,12 @@ in
         zle -N select-quoted
         zle -N select-bracketed
         for km in viopp visual; do
-            for c in {a,i}''${(s..)^:-q\'\"\`}; do
-                bindkey -M $km -- $c select-quoted
-            done
-            for c in {a,i}''${(s..)^:-'bB()[]{}<>'}; do
-                bindkey -M $km -- $c select-bracketed
-            done
+          for c in {a,i}''${(s..)^:-q\'\"\`}; do
+            bindkey -M $km -- $c select-quoted
+          done
+          for c in {a,i}''${(s..)^:-'bB()[]{}<>'}; do
+            bindkey -M $km -- $c select-bracketed
+          done
         done
 
         # vim-surround

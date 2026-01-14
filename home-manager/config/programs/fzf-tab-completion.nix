@@ -7,8 +7,8 @@
       zstyle ':completion:*' fzf-completion-opts --tiebreak=chunk  # do not skew the ordering
 
       keys=(
-          ctrl-y:accept:'repeat-fzf-completion'  # accept the completion and retrigger it
-          alt-enter:accept:'zle accept-line'  # accept the completion and run it
+        ctrl-y:accept:'repeat-fzf-completion'  # accept the completion and retrigger it
+        alt-enter:accept:'zle accept-line'  # accept the completion and run it
       )
       zstyle ':completion:*' fzf-completion-keybindings "''${keys[@]}"
 

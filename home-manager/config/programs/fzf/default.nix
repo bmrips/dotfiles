@@ -70,10 +70,10 @@ let
   useFdForPathListings = /* bash */ ''
     # Path and directory completion, e.g. for `cd .config/**`
     _fzf_compgen_path() {
-        ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" . "$1"
+      ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" . "$1"
     }
     _fzf_compgen_dir() {
-        ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" --type=directory . "$1"
+      ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" --type=directory . "$1"
     }
   '';
 
@@ -221,7 +221,7 @@ lib.mkIf cfg.enable {
       grep = lib.stringAsChars (c: if c == "\n" then "; " else c) /* bash */ ''
         local item
         eval $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${lib.getExe cfg.package} --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
-            echo -n "''${(q)item} "
+          echo -n "''${(q)item} "
         done
         local ret=$?
         echo

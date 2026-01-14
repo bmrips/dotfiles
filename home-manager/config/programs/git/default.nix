@@ -136,7 +136,7 @@ lib.mkMerge [
     programs.zsh.siteFunctions.git = gitWrapper;
     programs.bash.initExtra = /* bash */ ''
       function git() {
-          ${gitWrapper}
+        ${gitWrapper}
       }
     '';
   })

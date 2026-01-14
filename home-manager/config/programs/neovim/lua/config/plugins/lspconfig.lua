@@ -13,6 +13,7 @@ return {
     vim.lsp.enable {
       'bashls',
       'dartls',
+      'harper_ls',
       'hls',
       'jdtls',
       'ltex_plus',

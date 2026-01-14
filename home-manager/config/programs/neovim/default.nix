@@ -34,7 +34,10 @@ in
       programs.neovim = {
         defaultEditor = true;
         withRuby = false;
-        extraPackages = with pkgs; [ ltex-ls-plus ];
+        extraPackages = with pkgs; [
+          harper
+          ltex-ls-plus
+        ];
         plugins = [ treesitter ];
       };
     }

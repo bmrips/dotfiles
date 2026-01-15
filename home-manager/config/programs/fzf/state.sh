@@ -4,7 +4,7 @@ mkdir --parents $state_dir
 shopt -s nullglob
 for file in "$state_dir"/*; do
     pre_var=${file#"$state_dir/"}
-    eval "${pre_var//-/_}=1"
+    "${pre_var//-/_}=1"
 done
 
 print_icon() {

@@ -109,15 +109,16 @@
           ...
         }:
         {
-          devShells.default = config.pre-commit.devShell.overrideAttrs (prevAttrs: {
-            nativeBuildInputs = (prevAttrs.nativeBuildInputs or [ ]) ++ [
+          devShells.default = pkgs.mkShell {
+            inputsFrom = [ config.pre-commit.devShell ];
+            packages = [
               pkgs.age
               pkgs.sops
             ];
-            shellHook = prevAttrs.shellHook + /* bash */ ''
+            shellHook = /* bash */ ''
               git config diff.sops.textconv "sops decrypt"
             '';
-          });
+          };
 
           packages = import ./nixpkgs/packages/default.nix pkgs // {
             installer =

@@ -104,13 +104,14 @@
       perSystem =
         {
           config,
+          lib,
           pkgs,
           system,
           ...
         }:
         {
           devShells.default = pkgs.mkShell {
-            inputsFrom = [ config.pre-commit.devShell ];
+            inputsFrom = lib.optional config.pre-commit.settings.enable config.pre-commit.devShell;
             packages = [
               pkgs.age
               pkgs.sops
@@ -154,6 +155,9 @@
               typos.enable = true;
             };
           };
+
+          treefmt.flakeCheck =
+            !config.pre-commit.settings.enable || !config.pre-commit.settings.hooks.treefmt.enable;
 
           treefmt.programs = {
             mdformat = {

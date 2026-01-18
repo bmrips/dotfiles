@@ -26,7 +26,7 @@ opt.include:append [[
 vim.b.undo_ftplugin = vim.b.undo_ftplugin
   .. '| set comments< define< include< iskeyword< makeprg< path< suffixesadd< textwidth<'
 
-local augroup = vim.api.nvim_create_augroup('tex', { clear = false })
+local augroup = vim.api.nvim_create_augroup('tex', { clear = true })
 
 -- Compile documents on save
 if tex.bufIsDocument(0) then

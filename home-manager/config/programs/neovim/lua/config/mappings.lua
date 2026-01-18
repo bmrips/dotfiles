@@ -497,7 +497,7 @@ return {
     { '<LocalLeader>', {
       { 'd',
         function()
-          require('trouble.api').toggle 'diagnostics'
+          require('trouble').toggle 'diagnostics'
         end,
         desc = 'Diagnostics',
       },
@@ -867,21 +867,9 @@ return {
         }},
         { 'o',
           function()
-            require('aerial').toggle()
+            require('trouble').toggle 'symbols'
           end,
           desc = 'Toggle outline',
-        },
-        { 'q',
-          function()
-            require('trouble.api').toggle 'loclist'
-          end,
-          desc = 'Location list',
-        },
-        { 'Q',
-          function()
-            require('trouble.api').toggle 'qflist'
-          end,
-          desc = 'Quickfix list',
         },
         { 'r',
           function() Snacks.picker.lsp_references() end,
@@ -897,18 +885,6 @@ return {
           function() Snacks.picker.lsp_symbols() end,
           cond = client_supports 'documentSymbolProvider',
           desc = 'Document symbols',
-        },
-        { 't',
-          function()
-            require('trouble.api').toggle 'symbols'
-          end,
-          desc = 'Symbols',
-        },
-        { 'T',
-          function()
-            require('trouble.api').toggle 'lsp'
-          end,
-          desc = 'All LSP locations',
         },
       }},
     }

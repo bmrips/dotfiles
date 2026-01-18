@@ -867,7 +867,7 @@ return {
         }},
         { 'o',
           function()
-            require('aerial').toggle()
+            require('trouble.api').toggle 'symbols'
           end,
           desc = 'Toggle outline',
         },
@@ -897,18 +897,6 @@ return {
           function() Snacks.picker.lsp_symbols() end,
           cond = client_supports 'documentSymbolProvider',
           desc = 'Document symbols',
-        },
-        { 't',
-          function()
-            require('trouble.api').toggle 'symbols'
-          end,
-          desc = 'Symbols',
-        },
-        { 'T',
-          function()
-            require('trouble.api').toggle 'lsp'
-          end,
-          desc = 'All LSP locations',
         },
       }},
     }

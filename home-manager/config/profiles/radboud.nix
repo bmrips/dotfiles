@@ -33,6 +33,10 @@
       settings = {
         "davmail.mode" = "O365Interactive";
         "davmail.oauth.persistToken" = true;
+
+        # Set a static fingerprint/salt such that it is non-flaky.
+        # See https://github.com/mguessan/davmail/issues/403.
+        "davmail.oauth.fingerprint" = "0000000000000000";
       };
     };
   };

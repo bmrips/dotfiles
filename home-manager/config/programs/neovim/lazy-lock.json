@@ -1,5 +1,6 @@
 {
   "aerial.nvim": { "branch": "master", "commit": "da0ceef62eb58b9bec1975017beb2f28c3b1e72c" },
+  "atone.nvim": { "branch": "main", "commit": "d1c1f08bfe23ac56536d0091c8a398938ee9db4e" },
   "blink-emoji.nvim": { "branch": "master", "commit": "066013e4c98a9318408ee3f1ca2dbcb6fa3e4c06" },
   "blink.cmp": { "branch": "main", "commit": "820f1ddf634ec267412e403711bf74be26cac677" },
   "conform.nvim": { "branch": "master", "commit": "c2526f1cde528a66e086ab1668e996d162c75f4f" },
@@ -42,7 +43,6 @@
   "todo-comments.nvim": { "branch": "main", "commit": "31e3c38ce9b29781e4422fc0322eb0a21f4e8668" },
   "treesj": { "branch": "main", "commit": "186084dee5e9c8eec40f6e39481c723dd567cb05" },
   "trouble.nvim": { "branch": "main", "commit": "bd67efe408d4816e25e8491cc5ad4088e708a69a" },
-  "undotree": { "branch": "main", "commit": "3976ed63d7fb0cc47f6a778e230a390a399df69c" },
   "vim-clean": { "branch": "main", "commit": "de5f3303abdd628a54befdaf75d51ba5fa8197a8" },
   "vim-easy-align": { "branch": "master", "commit": "9815a55dbcd817784458df7a18acacc6f82b1241" },
   "vim-indent-object": { "branch": "master", "commit": "8ab36d5ec2a3a60468437a95e142ce994df598c6" },

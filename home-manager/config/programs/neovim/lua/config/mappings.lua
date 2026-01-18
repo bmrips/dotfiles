@@ -197,7 +197,7 @@ return {
     },
     { 'U',
       function()
-        require('undotree').toggle()
+        vim.cmd.Atone 'toggle'
       end,
       desc = 'Open undo tree',
     },

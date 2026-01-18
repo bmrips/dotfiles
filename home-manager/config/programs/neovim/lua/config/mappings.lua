@@ -869,7 +869,7 @@ return {
         }},
         { 'o',
           function()
-            require('aerial').toggle()
+            require('trouble.api').toggle 'symbols'
           end,
           desc = 'Toggle outline',
         },

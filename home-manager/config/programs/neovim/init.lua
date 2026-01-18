@@ -61,6 +61,7 @@ vim.diagnostic.config {
 
 vim.api.nvim_create_autocmd('QuickFixCmdPost', {
   desc = 'Open the quickfix and location list windows automatically',
+  group = vim.api.nvim_create_augroup('qflist_auto-open', { clear = true }),
   callback = function(info)
     local openLoclist = info.match:sub(1, 1) == 'l'
     vim.cmd[openLoclist and 'lopen' or 'copen']()

@@ -13,11 +13,9 @@ return {
     { '<CR>',
       function()
         local type = vim.opt_local.buftype:get()
-        if type == 'quickfix' or type == 'prompt' or type == 'nofile' then
-          return '<CR>'
-        else
-          return '<C-^>'
-        end
+        return (type == 'quickfix' or type == 'prompt' or type == 'nofile')
+          and '<CR>'
+          or '<C-^>'
       end,
       desc = 'Switch to alternate buffer',
       expr = true,

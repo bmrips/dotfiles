@@ -12,6 +12,7 @@ return {
   config = function()
     vim.lsp.enable {
       'bashls',
+      'clangd',
       'dartls',
       'harper_ls',
       'hls',

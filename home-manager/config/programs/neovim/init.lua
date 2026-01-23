@@ -74,7 +74,7 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
--- Set Latex as my preferred TeX flavour.
+-- Set LaTeX as my preferred TeX flavour.
 vim.g.tex_flavor = 'latex'
 
 local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'

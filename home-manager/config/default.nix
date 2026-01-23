@@ -48,7 +48,7 @@ in
     };
     mv.interactive = true;
     rm.preserve-root = true;
-    tree.C = true; # always colorise output
+    tree.C = true; # always colourise output
     tree.dirsfirst = true;
     wget.continue = true;
   };

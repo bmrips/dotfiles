@@ -22,6 +22,7 @@ let
 in
 {
   development.bash.enable = true;
+  development.json.enable = true;
   development.lua.enable = true;
   development.markdown.enable = true;
   development.nix.enable = true;

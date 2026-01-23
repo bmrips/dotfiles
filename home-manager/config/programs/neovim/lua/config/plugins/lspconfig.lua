@@ -18,6 +18,7 @@ return {
       'harper_ls',
       'hls',
       'jdtls',
+      'jsonls',
       'ltex_plus',
       'nil_ls',
       'texlab',

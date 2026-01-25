@@ -88,8 +88,6 @@
   virtualisation.podman.enable = lib.mkForce false;
 
   home-manager.users.${user} = {
-    home.stateVersion = lib.trivial.release;
-
     accounts.email.accounts.Gmail.primary = true;
 
     development.bash.enable = lib.mkForce false;

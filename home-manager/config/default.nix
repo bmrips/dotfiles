@@ -1,5 +1,6 @@
 {
   config,
+  lib,
   osConfig,
   pkgs,
   ...
@@ -107,6 +108,10 @@ in
     p = "podman";
     t = "tree --gitignore";
   };
+
+  home.stateVersion = lib.mkIf config.submoduleSupport.enable (
+    lib.mkDefault osConfig.system.stateVersion
+  );
 
   nix.settings = {
     experimental-features = "flakes nix-command";

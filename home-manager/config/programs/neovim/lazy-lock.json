@@ -35,7 +35,7 @@
   "pretty-fold.nvim": { "branch": "master", "commit": "1eb18f228972e86b7b8f5ef33ca8091e53fb1e49" },
   "promise-async": { "branch": "main", "commit": "119e8961014c9bfaf1487bf3c2a393d254f337e2" },
   "quickfix-reflector.vim": { "branch": "master", "commit": "6a6a9e28e1713b9e9db99eec1e6672e5666c01b9" },
-  "session.nvim": { "branch": "main", "commit": "3ecb765279724a7f8c0b197950c031ceaf357b0c" },
+  "session.nvim": { "branch": "main", "commit": "82606cafa59862e47458de751b9a82ad8b2353c0" },
   "smart-splits.nvim": { "branch": "master", "commit": "b544cd9254ad76bb5890dd653dd8e8ce8187d064" },
   "snacks.nvim": { "branch": "main", "commit": "fe7cfe9800a182274d0f868a74b7263b8c0c020b" },
   "targets.vim": { "branch": "master", "commit": "6325416da8f89992b005db3e4517aaef0242602e" },

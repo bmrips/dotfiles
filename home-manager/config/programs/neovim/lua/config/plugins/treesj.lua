@@ -1,5 +1,6 @@
 return {
   'Wansmer/treesj',
+  dependencies = 'nvim-treesitter',
   cmd = {
     'TSJJoin',
     'TSJSplit',

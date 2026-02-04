@@ -104,14 +104,13 @@
       perSystem =
         {
           config,
-          lib,
           pkgs,
           system,
           ...
         }:
         {
           devShells.default = pkgs.mkShell {
-            inputsFrom = lib.optional config.pre-commit.settings.enable config.pre-commit.devShell;
+            inputsFrom = [ config.pre-commit.devShell ];
             packages = [
               pkgs.age
               pkgs.sops

@@ -24,7 +24,7 @@ in
       (lib.hm.assertions.assertPlatform "profiles.linux" pkgs lib.platforms.linux)
     ];
 
-    # List all processes and the systemd units they belong to.
+    # List all processes and the Systemd units they belong to.
     home.shellAliases.ps-systemd = "ps xawf -eo pid,user,cgroup,args";
 
     # Compact Firefox UI.
@@ -38,7 +38,7 @@ in
     };
 
     services.nextcloud-client.enable = true;
-    services.ssh-agent.enable = true;
+    services.ssh-agent.enable = !hasTPM2;
     services.ssh-tpm-agent.enable = hasTPM2;
 
     # Put the cache into a subvolume and clean files older than 4 weeks.

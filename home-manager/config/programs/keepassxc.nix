@@ -81,7 +81,7 @@ in
         General.HideWindowOnCopy = true;
         Security.IconDownloadFallback = true;
         Security.LockDatabaseIdle = false;
-        SSHAgent.Enabled = true;
+        SSHAgent.Enabled = config.services.ssh-agent.enable;
         GUI = {
           ApplicationTheme = "classic";
           CheckForUpdates = false;

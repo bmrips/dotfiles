@@ -105,154 +105,158 @@ let
     '';
 
 in
-lib.mkIf cfg.enable {
+lib.mkMerge [
+  {
+    programs.fzf = {
+      changeDirWidgetCommand = "${fzf-state} get-source directories";
 
-  home.sessionVariables = rec {
-    FZF_GREP_COMMAND = "${fzf-state} get-source grep";
-    FZF_GREP_OPTS =
-      let
-        label = lib.escapeShellArg " Grep ";
-        batArgs = lib.gnuCommand.line (
-          filePreviewArgs
-          // {
-            highlight-line = "{2}";
-            line-range = lib.shell.subshell "${fzf-state} get-visible-range {2}";
-          }
-        );
-      in
-      lib.gnuCommand.line {
-        bind = mkBindings (fzf-state-bindings {
-          inherit label;
-          reloadCmd = "${FZF_GREP_COMMAND} {q}";
-        });
-        multi = true;
-        preview = lib.escapeShellArg "${lib.getExe config.programs.bat.package} ${batArgs} {1}";
-      };
-  };
-
-  programs.fzf = {
-    changeDirWidgetCommand = "${fzf-state} get-source directories";
-
-    changeDirWidgetOptions =
-      let
-        label = lib.escapeShellArg " Directories ";
-      in
-      lib.gnuCommand.args {
-        bind = mkBindings [
-          {
-            start = [ setWorkdirAsPrompt ];
-            focus = labelPreviewWithFilename;
-          }
-          (fzf-state-bindings {
-            inherit label;
-            reloadCmd = cfg.changeDirWidgetCommand;
-          })
-        ];
-        preview = lib.shell.dirPreview "{}";
-      };
-
-    defaultCommand =
-      let
-        args = lib.gnuCommand.line {
-          hidden = true;
-          type = "file";
-        };
-      in
-      "fd ${args}";
-
-    defaultOptions =
-      let
-        arrowHead = "";
-        bindings = mkBindings {
-          change = "first"; # focus the first element when the query is changed
-          ctrl-a = "toggle-all";
-          ctrl-u = "half-page-up";
-          ctrl-d = "half-page-down";
-          ctrl-f = "preview-half-page-down";
-          ctrl-b = "preview-half-page-up";
-          ctrl-r = "change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)";
-          alt-p = [
-            "toggle-preview"
-            labelPreviewWithFilename
+      changeDirWidgetOptions =
+        let
+          label = lib.escapeShellArg " Directories ";
+        in
+        lib.gnuCommand.args {
+          bind = mkBindings [
+            {
+              start = [ setWorkdirAsPrompt ];
+              focus = labelPreviewWithFilename;
+            }
+            (fzf-state-bindings {
+              inherit label;
+              reloadCmd = cfg.changeDirWidgetCommand;
+            })
           ];
-          alt-w = "toggle-preview-wrap";
+          preview = lib.shell.dirPreview "{}";
         };
-      in
-      lib.gnuCommand.args {
-        bind = bindings;
-        border = "top";
-        height = "60%";
-        highlight-line = true;
-        layout = "reverse";
-        info = "inline-right";
-        prompt = lib.escapeShellArg "${arrowHead} ";
-        preview-window = "right,border,hidden";
+
+      defaultCommand =
+        let
+          args = lib.gnuCommand.line {
+            hidden = true;
+            type = "file";
+          };
+        in
+        "fd ${args}";
+
+      defaultOptions =
+        let
+          arrowHead = "";
+          bindings = mkBindings {
+            change = "first"; # Focus the first element when the query is changed
+            ctrl-a = "toggle-all";
+            ctrl-u = "half-page-up";
+            ctrl-d = "half-page-down";
+            ctrl-f = "preview-half-page-down";
+            ctrl-b = "preview-half-page-up";
+            ctrl-r = "change-preview-window(nohidden,down|nohidden,left|nohidden,up|nohidden,right)";
+            alt-p = [
+              "toggle-preview"
+              labelPreviewWithFilename
+            ];
+            alt-w = "toggle-preview-wrap";
+          };
+        in
+        lib.gnuCommand.args {
+          bind = bindings;
+          border = "top";
+          height = "60%";
+          highlight-line = true;
+          layout = "reverse";
+          info = "inline-right";
+          prompt = lib.escapeShellArg "${arrowHead} ";
+          preview-window = "right,border,hidden";
+        };
+
+      fileWidgetCommand = "${fzf-state} get-source files";
+
+      fileWidgetOptions =
+        let
+          label = lib.escapeShellArg " Files ";
+        in
+        lib.gnuCommand.args {
+          bind = mkBindings [
+            {
+              start = setWorkdirAsPrompt;
+              focus = labelPreviewWithFilename;
+            }
+            (fzf-state-bindings {
+              inherit label;
+              reloadCmd = cfg.fileWidgetCommand;
+            })
+          ];
+          preview = lib.escapeShellArg "bat ${lib.gnuCommand.line filePreviewArgs} {}";
+        };
+
+      historyWidgetOptions = lib.gnuCommand.args {
+        border-label = lib.escapeShellArg " History ";
       };
-
-    fileWidgetCommand = "${fzf-state} get-source files";
-
-    fileWidgetOptions =
-      let
-        label = lib.escapeShellArg " Files ";
-      in
-      lib.gnuCommand.args {
-        bind = mkBindings [
-          {
-            start = setWorkdirAsPrompt;
-            focus = labelPreviewWithFilename;
-          }
-          (fzf-state-bindings {
-            inherit label;
-            reloadCmd = cfg.fileWidgetCommand;
-          })
-        ];
-        preview = lib.escapeShellArg "bat ${lib.gnuCommand.line filePreviewArgs} {}";
-      };
-
-    historyWidgetOptions = lib.gnuCommand.args {
-      border-label = lib.escapeShellArg " History ";
     };
-  };
+  }
 
-  programs.bash.initExtra = useFdForPathListings + setColorsDynamically;
+  (lib.mkIf cfg.enable {
 
-  programs.zsh.siteFunctions.fzf-grep-widget =
-    let
-      grep = lib.stringAsChars (c: if c == "\n" then "; " else c) /* bash */ ''
-        local item
-        $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${lib.getExe cfg.package} --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
-          echo -n "''${(q)item} "
-        done
+    home.sessionVariables = rec {
+      FZF_GREP_COMMAND = "${fzf-state} get-source grep";
+      FZF_GREP_OPTS =
+        let
+          label = lib.escapeShellArg " Grep ";
+          batArgs = lib.gnuCommand.line (
+            filePreviewArgs
+            // {
+              highlight-line = "{2}";
+              line-range = lib.shell.subshell "${fzf-state} get-visible-range {2}";
+            }
+          );
+        in
+        lib.gnuCommand.line {
+          bind = mkBindings (fzf-state-bindings {
+            inherit label;
+            reloadCmd = "${FZF_GREP_COMMAND} {q}";
+          });
+          multi = true;
+          preview = lib.escapeShellArg "${lib.getExe config.programs.bat.package} ${batArgs} {1}";
+        };
+    };
+
+    programs.bash.initExtra = useFdForPathListings + setColorsDynamically;
+
+    programs.zsh.siteFunctions.fzf-grep-widget =
+      let
+        grep = lib.stringAsChars (c: if c == "\n" then "; " else c) /* bash */ ''
+          local item
+          $FZF_GREP_COMMAND "" | FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS $FZF_GREP_OPTS" ${lib.getExe cfg.package} --bind="change:reload($FZF_GREP_COMMAND {q} || true)" --ansi --disabled --delimiter=: | ${pkgs.gnused}/bin/sed 's/:.*$//' | ${pkgs.coreutils}/bin/uniq | while read item; do
+            echo -n "''${(q)item} "
+          done
+          local ret=$?
+          echo
+          return $ret
+        '';
+      in
+      /* bash */ ''
+        LBUFFER="''${LBUFFER}$(${grep})"
         local ret=$?
-        echo
+        zle reset-prompt
         return $ret
       '';
-    in
-    /* bash */ ''
-      LBUFFER="''${LBUFFER}$(${grep})"
-      local ret=$?
-      zle reset-prompt
-      return $ret
-    '';
 
-  programs.zsh.initContent =
-    useFdForPathListings
-    + setColorsDynamically
-    + /* bash */ ''
-      # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
-      bindkey '^ ' fzf-file-widget
-      bindkey '^_' fzf-history-widget
-      bindkey '^T' fzf-cd-widget
+    programs.zsh.initContent =
+      useFdForPathListings
+      + setColorsDynamically
+      + /* bash */ ''
+        # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
+        bindkey '^ ' fzf-file-widget
+        bindkey '^_' fzf-history-widget
+        bindkey '^T' fzf-cd-widget
 
-      bindkey -M vicmd '^R' redo  # restore redo
+        bindkey -M vicmd '^R' redo  # restore redo
 
-      # Preview when completing env vars (note: only works for exported variables).
-      # Eval twice, first to unescape the string, second to expand the $variable.
-      zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
+        # Preview when completing env vars (note: only works for exported variables).
+        # Eval twice, first to unescape the string, second to expand the $variable.
+        zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
 
-      # Interactive grep
-      zle -N fzf-grep-widget
-      bindkey '^G' fzf-grep-widget
-    '';
+        # Interactive grep
+        zle -N fzf-grep-widget
+        bindkey '^G' fzf-grep-widget
+      '';
 
-}
+  })
+]

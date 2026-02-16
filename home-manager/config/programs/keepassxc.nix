@@ -81,7 +81,6 @@ in
         General.HideWindowOnCopy = true;
         Security.IconDownloadFallback = true;
         Security.LockDatabaseIdle = false;
-        SSHAgent.Enabled = true;
         GUI = {
           ApplicationTheme = "classic";
           CheckForUpdates = false;
@@ -127,7 +126,7 @@ in
             maximizehoriz = false;
             maximizevert = false;
             placement.apply = "force";
-            placement.value = 5; # centered
+            placement.value = 5; # centred
             size.value = "464,291";
           };
         }
@@ -138,7 +137,7 @@ in
             maximizehoriz = false;
             maximizevert = false;
             placement.apply = "force";
-            placement.value = 5; # centered
+            placement.value = 5; # centred
             size.value = "600,528";
           };
         }

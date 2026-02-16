@@ -10,12 +10,13 @@
 }:
 
 let
-  cfg = config.home-manager;
+  hm = config.home-manager;
+  userCfg = hm.users.${user};
 in
 {
   imports = [ inputs.home-manager.nixosModules.home-manager ];
 
-  environment.pathsToLink = lib.mkIf (cfg.useUserPackages && cfg.users.${user}.xdg.portal.enable) [
+  environment.pathsToLink = lib.mkIf (hm.useUserPackages && userCfg.xdg.portal.enable) [
     "/share/applications"
     "/share/xdg-desktop-portal"
   ];

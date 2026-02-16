@@ -5,6 +5,9 @@
   ...
 }:
 
+let
+  cfg = config.security.tpm2;
+in
 {
   security.tpm2 = {
     abrmd.enable = true;
@@ -13,7 +16,5 @@
     tctiEnvironment.interface = "tabrmd";
   };
 
-  users.users.${user}.extraGroups = lib.mkIf config.security.tpm2.enable [
-    config.security.tpm2.tssGroup
-  ];
+  users.users.${user}.extraGroups = lib.mkIf cfg.enable [ cfg.tssGroup ];
 }

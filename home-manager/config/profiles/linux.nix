@@ -30,6 +30,9 @@ in
     # Compact Firefox UI.
     programs.firefox.profiles.default.settings."browser.uidensity" = 1;
 
+    # Use TPM-sealed SSH keys if available.
+    programs.keepassxc.settings.SSHAgent.Enabled = !hasTPM2;
+
     services.gpg-agent = {
       enable = true;
       pinentry.package = pkgs.pinentry-qt;

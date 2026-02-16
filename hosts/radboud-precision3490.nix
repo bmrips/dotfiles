@@ -1,7 +1,6 @@
 {
   config,
   inputs,
-  lib,
   modulesPath,
   user,
   ...
@@ -82,10 +81,7 @@
   system.stateVersion = "26.05";
 
   home-manager.users.${user} = {
-    programs.keepassxc = {
-      autounlock = true;
-      settings.SSHAgent.Enabled = lib.mkForce false; # use TPM-sealed keys instead
-    };
+    programs.keepassxc.autounlock = true;
 
     programs.plasma.input.touchpads = [
       {

@@ -10,8 +10,6 @@
     "networkmanager"
   ];
 
-  networking.networkmanager.wifi.powersave = true;
-
   networking.networkmanager.ensureProfiles.profiles = {
     Home = {
       connection.id = "Home";

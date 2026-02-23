@@ -637,7 +637,7 @@ lib.mkMerge [
           "media.hardwaremediakeys.enabled" = false;
         };
         extensions'.plasma-browser-integration = {
-          package = pkgs.nur.repos.rycee.firefox-addons.plasma-integration;
+          package = pkgs.firefox-addons.plasma-integration;
           permissions = [
             "internal:privateBrowsingAllowed"
             "history"

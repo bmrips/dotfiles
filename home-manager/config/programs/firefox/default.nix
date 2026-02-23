@@ -8,7 +8,6 @@
 
 let
   inherit (config.sops) secrets;
-  inherit (pkgs.nur.repos.rycee) firefox-addons;
 
   toAction =
     addon:
@@ -19,7 +18,7 @@ let
     in
     "${normalizedAddonId}-browser-action";
 
-  addonActions = lib.mapAttrs (_: toAction) firefox-addons;
+  addonActions = lib.mapAttrs (_: toAction) pkgs.firefox-addons;
 
 in
 lib.mkMerge [
@@ -388,11 +387,11 @@ lib.mkMerge [
         settings."extensions.update.autoUpdateDefault" = false;
         extensions' = {
           auto-sort-bookmarks = {
-            package = firefox-addons.auto-sort-bookmarks;
+            package = pkgs.firefox-addons.auto-sort-bookmarks;
             settings.weh-prefs.auto_sort = true;
           };
           auto-tab-discard = {
-            package = firefox-addons.auto-tab-discard;
+            package = pkgs.firefox-addons.auto-tab-discard;
             permissions = [ "internal:privateBrowsingAllowed" ];
             settings = {
               notification.permission = true;
@@ -402,16 +401,16 @@ lib.mkMerge [
             };
           };
           darkreader = {
-            package = firefox-addons.darkreader;
+            package = pkgs.firefox-addons.darkreader;
             permissions = [ "internal:privateBrowsingAllowed" ];
           };
           i-dont-care-about-cookies = {
-            package = firefox-addons.i-dont-care-about-cookies;
+            package = pkgs.firefox-addons.i-dont-care-about-cookies;
             permissions = [ "internal:privateBrowsingAllowed" ];
             origins = [ "*://*/*" ];
           };
           languagetool = {
-            package = firefox-addons.languagetool;
+            package = pkgs.firefox-addons.languagetool;
             permissions = [ "internal:privateBrowsingAllowed" ];
             origins = [
               "http://*/*"
@@ -433,7 +432,7 @@ lib.mkMerge [
             settingsFiles = [ secrets."firefox_extensions/languagetool".path ];
           };
           refined-github = {
-            package = firefox-addons.refined-github;
+            package = pkgs.firefox-addons.refined-github;
             origins = [
               "https://github.com/*"
               "https://api.github.com/*"
@@ -441,7 +440,7 @@ lib.mkMerge [
             ];
           };
           sidebery = {
-            package = firefox-addons.sidebery;
+            package = pkgs.firefox-addons.sidebery;
             permissions = [
               "internal:privateBrowsingAllowed"
               "bookmarks"
@@ -455,7 +454,7 @@ lib.mkMerge [
             origins = [ "<all_urls>" ];
           };
           simple-translate = {
-            package = firefox-addons.simple-translate;
+            package = pkgs.firefox-addons.simple-translate;
             permissions = [
               "internal:privateBrowsingAllowed"
               "<all_urls>"
@@ -474,7 +473,7 @@ lib.mkMerge [
             settingsFiles = [ secrets."firefox_extensions/simple-translate".path ];
           };
           tab-session-manager = {
-            package = firefox-addons.tab-session-manager;
+            package = pkgs.firefox-addons.tab-session-manager;
             permissions = [ "internal:privateBrowsingAllowed" ];
             origins = [ "https://www.googleapis.com/*" ];
             settings.Settings = {
@@ -487,11 +486,11 @@ lib.mkMerge [
             settingsFiles = [ secrets."firefox_extensions/tab-session-manager".path ];
           };
           ublock-origin = {
-            package = firefox-addons.ublock-origin;
+            package = pkgs.firefox-addons.ublock-origin;
             permissions = [ "internal:privateBrowsingAllowed" ];
           };
           web-search-navigator = {
-            package = firefox-addons.web-search-navigator;
+            package = pkgs.firefox-addons.web-search-navigator;
             permissions = [ "internal:privateBrowsingAllowed" ];
             origins = [ "https://*/*" ];
           };

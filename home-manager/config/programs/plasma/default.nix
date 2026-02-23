@@ -620,7 +620,6 @@ lib.mkMerge [
       ]
       ++ lib.optionals config.profiles.gui.extra.enable [
         akregator
-        kgpg
         haruna
         skanpage
       ];

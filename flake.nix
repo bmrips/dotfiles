@@ -4,6 +4,8 @@
 
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
+    firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+    firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
     haumea.url = "github:nix-community/haumea/v0.2.2";
     haumea.inputs.nixpkgs.follows = "nixpkgs";
@@ -16,8 +18,6 @@
     nixpkgs_23_05.url = "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
-    nur.url = "github:nix-community/NUR";
-    nur.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.url = "github:bmrips/plasma-manager";
     plasma-manager.inputs.home-manager.follows = "home-manager";
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -52,9 +52,9 @@
           modules = [
             ./nixos
             ./home-manager/submodule.nix
+            { nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ]; }
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.nix-index-database.nixosModules.nix-index
-            inputs.nur.modules.nixos.default
             inputs.preservation.nixosModules.preservation
             inputs.sops.nixosModules.sops
           ];

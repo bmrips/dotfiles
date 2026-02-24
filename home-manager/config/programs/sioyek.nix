@@ -25,12 +25,9 @@
   };
 
   programs.sioyek.config = {
-    background_color = "1 1 1";
     custom_background_color = "0.16 0.16 0.16";
     custom_text_color = "0.9 0.9 0.9";
-    dark_mode_background_color = "0 0 0";
     font_size = "15";
-    page_separator_color = "0.9 0.9 0.9";
     page_separator_width = "2";
     startup_commands = "toggle_horizontal_scroll_lock;toggle_statusbar";
     status_bar_color = "0.16 0.16 0.16";

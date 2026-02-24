@@ -18,15 +18,13 @@
     ];
     previous_page = "K";
     reload = "<C-r>";
-    toggle_custom_color = "i";
+    toggle_dark_mode = "i";
     toggle_horizontal_scroll_lock = "<C-h>";
     toggle_statusbar = "<f3>";
     zoom_in = "=";
   };
 
   programs.sioyek.config = {
-    custom_background_color = "0.16 0.16 0.16";
-    custom_text_color = "0.9 0.9 0.9";
     font_size = "15";
     page_separator_width = "2";
     startup_commands = "toggle_horizontal_scroll_lock;toggle_statusbar";

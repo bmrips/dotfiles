@@ -22,14 +22,16 @@ in
 
     btrfs.subvolumeMounts."/" = cfg.mountPoint;
 
-    services.btrbk = {
-      instances.${host}.settings.volume.${cfg.mountPoint} = {
+    services.btrbk.instances.btrbk = {
+      onCalendar = "hourly";
+      snapshotOnly = true; # the backup disk is offline
+      settings.volume.${cfg.mountPoint} = {
         snapshot_dir = "btrbk_snapshots";
         target = "${config.hardware.devices.lacie_drive.mountPoint}/backup/${host}";
         subvolume.home = {
           snapshot_preserve_min = "2d";
           snapshot_preserve = "14d";
-          target_preserve_min = "no";
+          target_preserve_min = "latest"; # in case of an emergency backup
           target_preserve = "12w *m";
         };
       };

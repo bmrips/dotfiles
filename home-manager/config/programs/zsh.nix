@@ -18,11 +18,11 @@ in
     historySubstringSearch.enable = true;
     autosuggestion.enable = true;
 
-    history = rec {
+    history = {
       extended = true;
       ignoreSpace = false;
       path = "${config.xdg.stateHome}/zsh/history";
-      save = size;
+      save = cfg.history.size;
       share = false;
       size = 100000;
     };

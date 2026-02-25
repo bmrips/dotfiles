@@ -27,8 +27,8 @@ in
         snapshot_dir = "btrbk_snapshots";
         target = "${config.hardware.devices.lacie_drive.mountPoint}/backup/${host}";
         subvolume.home = {
-          snapshot_preserve_min = "2d";
-          snapshot_preserve = "14d";
+          snapshot_preserve_min = "7d";
+          snapshot_preserve = "30d";
           target_preserve_min = "no";
           target_preserve = "12w *m";
         };

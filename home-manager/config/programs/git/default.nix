@@ -122,6 +122,7 @@ lib.mkMerge [
         [ "* text=auto" ] ++ lib.mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
 
       ignores = [
+        "/.direnv/"
         "Session*.vim"
         "taskell.md"
       ];

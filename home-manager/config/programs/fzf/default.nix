@@ -194,7 +194,7 @@ lib.mkMerge [
 
   (lib.mkIf cfg.enable {
 
-    home.sessionVariables = rec {
+    home.sessionVariables = {
       FZF_GREP_COMMAND = "${fzf-state} get-source grep";
       FZF_GREP_OPTS =
         let
@@ -210,7 +210,7 @@ lib.mkMerge [
         lib.gnuCommand.line {
           bind = mkBindings (fzf-state-bindings {
             inherit label;
-            reloadCmd = "${FZF_GREP_COMMAND} {q}";
+            reloadCmd = "${config.home.sessionVariables.FZF_GREP_COMMAND} {q}";
           });
           multi = true;
           preview = lib.escapeShellArg "${lib.getExe config.programs.bat.package} ${batArgs} {1}";

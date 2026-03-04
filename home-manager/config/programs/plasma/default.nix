@@ -651,6 +651,8 @@ lib.mkMerge [
     programs.konsole.enable = true;
     programs.okular.enable = true;
 
+    services.gpg-agent.pinentry.package = pkgs.pinentry-qt;
+
     xdg.portal = {
       enable = true;
       extraPortals = [ pkgs.kdePackages.xdg-desktop-portal-kde ];

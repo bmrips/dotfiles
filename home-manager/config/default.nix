@@ -156,6 +156,12 @@ in
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
 
+  services.gpg-agent = {
+    enable = true;
+    defaultCacheTtl = 3600; # at least one hour
+    maxCacheTtl = 43200; # 12 hours at most
+  };
+
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile =

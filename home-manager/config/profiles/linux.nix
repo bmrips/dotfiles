@@ -33,13 +33,6 @@ in
     # Use TPM-sealed SSH keys if available.
     programs.keepassxc.settings.SSHAgent.Enabled = !hasTPM2;
 
-    services.gpg-agent = {
-      enable = true;
-      pinentry.package = pkgs.pinentry-qt;
-      defaultCacheTtl = 3600; # at least one hour
-      maxCacheTtl = 43200; # 12 hours at most
-    };
-
     services.nextcloud-client.enable = true;
     services.ssh-agent.enable = !hasTPM2;
     services.ssh-tpm-agent.enable = hasTPM2;

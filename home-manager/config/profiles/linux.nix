@@ -7,14 +7,11 @@
 }:
 
 let
-  inherit (pkgs.stdenv) hostPlatform;
-
   hasTPM2 = config.submoduleSupport.enable && osConfig.security.tpm2.enable;
-
 in
 {
   options.profiles.linux.enable = lib.mkEnableOption "the Linux profile" // {
-    default = hostPlatform.isLinux;
+    default = pkgs.stdenv.hostPlatform.isLinux;
     defaultText = "pkgs.stdenv.hostPlatform.isLinux";
   };
 

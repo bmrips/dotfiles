@@ -39,5 +39,7 @@
         "davmail.oauth.fingerprint" = "0000000000000000";
       };
     };
+
+    services.gpg-agent.sshKeys = [ "E9A3C51CC575A8B0610A78799C3396888765BA26" ];
   };
 }

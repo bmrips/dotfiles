@@ -156,7 +156,11 @@ in
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
 
-  services.gpg-agent.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    sshKeys = [ "08BECD87A81CAF3A81F659CF8B128172289FA772" ];
+  };
 
   sops = {
     defaultSopsFile = ./secrets.yaml;

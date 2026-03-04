@@ -96,6 +96,8 @@ in
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
 
+  security.tpm2.enable = true;
+
   services.btrbk.enable = true;
   services.btrfs.autoScrub.enable = true;
   services.hardware.bolt.enable = true;

@@ -121,6 +121,8 @@ in
   home-manager.users.${user} = {
     profiles.gui.extra.enable = true;
 
+    programs.keepassxc.autounlock = true;
+
     programs.plasma.input.touchpads = [
       {
         name = "DLL075B:01 06CB:76AF Touchpad";

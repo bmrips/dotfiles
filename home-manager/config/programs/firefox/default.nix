@@ -479,6 +479,8 @@ lib.mkMerge [
             settings.Settings = {
               enabledAutoSync = true;
               ifAutoSave = false;
+              ifAutoSaveWhenClose = false;
+              ifAutoSaveWhenExitBrowser = false;
               ifSupportTst = true;
               saveButtonBehavior = "saveOnlyCurrentWindow";
               shouldTrackNewWindow = false;

@@ -1,14 +1,10 @@
 {
   config,
   lib,
-  osConfig,
   pkgs,
   ...
 }:
 
-let
-  hasTPM2 = config.submoduleSupport.enable && osConfig.security.tpm2.enable;
-in
 {
   options.profiles.linux.enable = lib.mkEnableOption "the Linux profile" // {
     default = pkgs.stdenv.hostPlatform.isLinux;
@@ -27,12 +23,7 @@ in
     # Compact Firefox UI.
     programs.firefox.profiles.default.settings."browser.uidensity" = 1;
 
-    # Use TPM-sealed SSH keys if available.
-    programs.keepassxc.settings.SSHAgent.Enabled = !hasTPM2;
-
     services.nextcloud-client.enable = true;
-    services.ssh-agent.enable = !hasTPM2;
-    services.ssh-tpm-agent.enable = hasTPM2;
 
     # Put the cache into a subvolume and clean files older than 4 weeks.
     systemd.user.tmpfiles.rules = [ "v %C - - - '4 weeks'" ];

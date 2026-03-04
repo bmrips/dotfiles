@@ -148,7 +148,6 @@ in
   programs.readline.enable = true;
   programs.ripgrep.enable = true;
   programs.ripgrep-all.enable = true;
-  programs.ssh.enable = true;
   programs.starship.enable = true;
   programs.taskell.enable = true;
   programs.translate-shell.enable = true;
@@ -156,7 +155,11 @@ in
   programs.zoxide.enable = true;
   programs.zsh.enable = true;
 
-  services.gpg-agent.enable = true;
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    sshKeys = [ "08BECD87A81CAF3A81F659CF8B128172289FA772" ];
+  };
 
   sops = {
     defaultSopsFile = ./secrets.yaml;

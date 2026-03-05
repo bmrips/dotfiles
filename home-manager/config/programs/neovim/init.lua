@@ -33,7 +33,6 @@ opt.splitbelow = true
 opt.splitkeep = 'screen'
 opt.splitright = true
 opt.tabstop = 4
-opt.termguicolors = vim.env.COLORTERM ~= nil -- Enable Truecolor support
 opt.textwidth = 80
 opt.undofile = true
 opt.wildmode = { 'longest', 'full' } -- Complete till longest common string

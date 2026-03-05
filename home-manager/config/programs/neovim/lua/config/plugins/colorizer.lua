@@ -7,6 +7,9 @@ return {
     'ColorizerReloadAllBuffers',
     'ColorizerToggle',
   },
+  init = function()
+    vim.opt.termguicolors = true
+  end,
   opts = {
     lazy_load = true,
     user_default_options = {

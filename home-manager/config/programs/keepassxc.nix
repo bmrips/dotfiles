@@ -10,64 +10,15 @@
 let
   cfg = config.programs.keepassxc;
 
-  unlock = /* bash */ ''
-    ${pkgs.dbus}/bin/dbus-send --type=method_call --print-reply \
-      --dest=org.keepassxc.KeePassXC.MainWindow \
-      /keepassxc org.keepassxc.KeePassXC.MainWindow.openDatabase \
-      string:${cfg.databasePath} \
-      string:"$(cat ${config.sops.secrets.keepassxc_password.path})"
-  '';
-
-  unlockedKeepassxc =
-    let
-      desktopFile = "org.keepassxc.KeePassXC.desktop";
-      wrapper = pkgs.writeShellScript "keepassxc" ''
-        ${lib.getExe cfg.package} "$@" &
-        sleep 1
-        ${unlock}
-      '';
-    in
-    pkgs.runCommandLocal desktopFile { } ''
-      substitute \
-        ${cfg.package}/share/applications/${desktopFile} $out \
-        --replace-fail \
-        'Exec=keepassxc %f' \
-        'Exec=${wrapper} %f'
-    '';
-
-  unlockAfterScreensaverDeactivation =
-    let
-      dbus-monitor = "${pkgs.dbus}/bin/dbus-monitor";
-      grep = lib.getExe pkgs.gnugrep;
-    in
-    pkgs.writeShellScript "keepassxc-unlock" ''
-      ${dbus-monitor} type=signal,interface=org.freedesktop.ScreenSaver,path=/ScreenSaver,member=ActiveChanged |
-          ${grep} 'boolean false' --line-buffered |
-          while read -r; do
-              echo 'Unlocking the KeePassXC database...'
-              ${unlock}
-          done
-    '';
-
   windowsCfg = nixosConfig.dualboot.windows;
+  isDualBooted = nixosConfig != null && windowsCfg.device != null;
   escapedWindowsMountPoint = utils.escapeSystemdPath windowsCfg.mountPoint;
-
 in
 {
-  options.programs.keepassxc = {
-    autounlock = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      example = true;
-      description = ''
-        Whether to unlock Keepassxc automatically on login and screen unlocking.
-      '';
-    };
-    databasePath = lib.mkOption {
-      type = lib.types.str;
-      default = "${config.home.homeDirectory}/Documents/passwords.kdbx";
-      description = "The path to the database.";
-    };
+  options.programs.keepassxc.databasePath = lib.mkOption {
+    type = lib.types.str;
+    default = "${config.home.homeDirectory}/Documents/passwords.kdbx";
+    description = "The path to the database.";
   };
 
   config = lib.mkMerge [
@@ -143,25 +94,8 @@ in
           };
         }
       ];
-    })
 
-    (lib.mkIf (cfg.enable && cfg.autounlock) {
-      # For auto-unlocking, we want to use a custom autostart unit.
-      programs.keepassxc.autostart = lib.mkOverride 90 false;
-
-      sops.secrets.keepassxc_password = { };
-
-      systemd.user.services.keepassxc-unlock = {
-        Unit.Description = "Unlocks the KeePassXC database after unlocking the screen";
-        Install.WantedBy = [ "graphical-session.target" ];
-        Service.ExecStart = "${unlockAfterScreensaverDeactivation}";
-      };
-
-      xdg.autostart.entries = [ unlockedKeepassxc ];
-    })
-
-    (lib.mkIf (cfg.enable && nixosConfig != null && windowsCfg.device != null) {
-      systemd.user.services.keepassxc-copy-database = {
+      systemd.user.services.keepassxc-copy-database = lib.mkIf isDualBooted {
         Unit = {
           Description = "Copy the KeePassXC database to Windows before shutdown";
           Requires = [ "${escapedWindowsMountPoint}.mount" ];

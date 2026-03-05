@@ -96,6 +96,8 @@ in
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
 
+  profiles.radboud.enable = true;
+
   security.tpm2.enable = true;
 
   services.btrbk.enable = true;
@@ -117,25 +119,21 @@ in
   # it would make to your configuration, and migrated your data accordingly.
   system.stateVersion = "26.05";
 
-  home-manager.users.${user} = {
-    profiles.gui.extra.enable = true;
-
-    programs.plasma.input.touchpads = [
-      {
-        name = "DLL075B:01 06CB:76AF Touchpad";
-        vendorId = "06CB";
-        productId = "76AF";
-        accelerationProfile = "default";
-        disableWhileTyping = true;
-        naturalScroll = true;
-        pointerSpeed = 0.0;
-        rightClickMethod = "twoFingers";
-        scrollMethod = "twoFingers";
-        tapAndDrag = true;
-        tapToClick = true;
-        twoFingerTap = "rightClick";
-      }
-    ];
-  };
+  home-manager.users.${user}.programs.plasma.input.touchpads = [
+    {
+      name = "DLL075B:01 06CB:76AF Touchpad";
+      vendorId = "06CB";
+      productId = "76AF";
+      accelerationProfile = "default";
+      disableWhileTyping = true;
+      naturalScroll = true;
+      pointerSpeed = 0.0;
+      rightClickMethod = "twoFingers";
+      scrollMethod = "twoFingers";
+      tapAndDrag = true;
+      tapToClick = true;
+      twoFingerTap = "rightClick";
+    }
+  ];
 
 }

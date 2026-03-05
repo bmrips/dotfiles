@@ -71,35 +71,30 @@
 
   zramSwap.enable = true;
 
-  # This option defines the first version of NixOS you have installed on this particular machine,
-  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
+  # This option defines the first version of NixOS you have installed on this
+  # particular machine, and is used to maintain compatibility with application
+  # data (e.g. databases) created on older NixOS versions.
   #
-  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
-  # and migrated your data accordingly.
-  #
-  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  # Do NOT change this value unless you have manually inspected all the changes
+  # it would make to your configuration, and migrated your data accordingly.
   system.stateVersion = "26.05";
 
-  home-manager.users.${user} = {
-    programs.keepassxc.autounlock = true;
-
-    programs.plasma.input.touchpads = [
-      {
-        name = "VEN_06CB:00 06CB:CEEC Touchpad";
-        vendorId = "06CB";
-        productId = "CEEC";
-        accelerationProfile = "default";
-        disableWhileTyping = true;
-        naturalScroll = true;
-        pointerSpeed = 0.0;
-        rightClickMethod = "twoFingers";
-        scrollMethod = "twoFingers";
-        scrollSpeed = 1.0;
-        tapAndDrag = true;
-        tapToClick = true;
-        twoFingerTap = "rightClick";
-      }
-    ];
-  };
+  home-manager.users.${user}.programs.plasma.input.touchpads = [
+    {
+      name = "VEN_06CB:00 06CB:CEEC Touchpad";
+      vendorId = "06CB";
+      productId = "CEEC";
+      accelerationProfile = "default";
+      disableWhileTyping = true;
+      naturalScroll = true;
+      pointerSpeed = 0.0;
+      rightClickMethod = "twoFingers";
+      scrollMethod = "twoFingers";
+      scrollSpeed = 1.0;
+      tapAndDrag = true;
+      tapToClick = true;
+      twoFingerTap = "rightClick";
+    }
+  ];
 
 }

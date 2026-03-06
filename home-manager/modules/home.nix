@@ -87,7 +87,10 @@ in
             run chmod $VERBOSE_ARG ${spec.mode} ${targetFile}
           '';
       in
-      lib.hm.dag.entryAfter [ "writeBoundary" ] (
+      # FIXME: Not all `home.file'` definitions are dependent on sops-nix. Also,
+      # the sops-nix activation section asynchronously starts a systemd service,
+      # hence we can not be sure that the secrets are accessible.
+      lib.hm.dag.entryAfter [ "writeBoundary" "sops-nix" ] (
         lib.concatMapAttrsStringSep "\n" mkFile config.home.file'
       );
   };

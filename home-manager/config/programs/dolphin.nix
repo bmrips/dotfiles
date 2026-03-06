@@ -124,7 +124,8 @@ lib.mkMerge [
       };
       DetailsMode = {
         PreviewSize = 16;
-        SidePadding = 0;
+        LeftPadding = 0;
+        RightPadding = 0;
       };
       General = {
         GlobalViewProps = true;

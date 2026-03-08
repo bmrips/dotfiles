@@ -177,13 +177,13 @@ lib.mkMerge [
                   shown = [
                     "org.kde.plasma.battery"
                     "org.kde.plasma.bluetooth"
-                    "org.kde.plasma.brightness"
                     "org.kde.plasma.networkmanagement"
                   ];
                   hidden = [
                     "KeePassXC"
                     "Nextcloud"
                     "org.kde.merkuro.contact.applet"
+                    "org.kde.plasma.brightness"
                     "org.kde.plasma.clipboard"
                     "org.kde.plasma.weather"
                     "ownCloud"

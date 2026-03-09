@@ -151,7 +151,8 @@ lib.mkMerge [
                 showOnlyCurrentDesktop = false;
                 showToolTips = false;
                 sortingStrategy = 3; # by desktop
-                wheelEnabled = false;
+                wheelEnabled = "AdjustVolume";
+                wheelSkipMinimized = false;
               };
             }
             "org.kde.plasma.marginsseparator"

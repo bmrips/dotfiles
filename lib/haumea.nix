@@ -6,11 +6,10 @@ in
 haumea
 // {
   collectModules =
-    path: args:
+    path:
     lib.collect builtins.isPath (
       haumea.load {
         src = path;
-        inputs = args;
         loader = haumea.loaders.path;
       }
     );

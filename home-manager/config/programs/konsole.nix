@@ -38,13 +38,20 @@ let
       foreground = "base05";
       black.normal = background;
       black.intense = "base03";
-      white = foreground;
-      red = "base08";
-      yellow = "base0A";
-      green = "base0B";
-      cyan = "base0C";
-      blue = "base0D";
-      magenta = "base0E";
+      white.normal = "base06";
+      white.intense = "base07";
+      red.normal = "base08";
+      red.intense = "base12";
+      yellow.normal = "base0A";
+      yellow.intense = "base13";
+      green.normal = "base0B";
+      green.intense = "base14";
+      cyan.normal = "base0C";
+      cyan.intense = "base15";
+      blue.normal = "base0D";
+      blue.intense = "base16";
+      magenta.normal = "base0E";
+      magenta.intense = "base17";
     }
     // {
       name = "Gruvbox ${darkness}";
@@ -56,12 +63,10 @@ let
     {
       extraConfig = {
         Appearance = {
-          # Nerd symbols are messed up in the bold series of the medium weight
-          # variant of JetBrains Mono, hence we avoid the bold series.
           BoldIntense = false;
           ColorScheme = "Gruvbox_${darkness}";
           EmojiFont = "Noto Color Emoji,${toString fontSize},-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
-          Font = "JetBrainsMono Nerd Font,${toString fontSize},-1,5,500,0,0,0,0,0,0,0,0,0,0,1,Medium";
+          Font = "JetBrainsMono Nerd Font,${toString fontSize},-1,5,500,0,0,0,0,0,0,0,0,0,0,1";
           WordMode = true;
           WordModeAttr = false;
         };

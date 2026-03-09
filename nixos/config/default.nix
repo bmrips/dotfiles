@@ -66,7 +66,7 @@ in
   };
 
   documentation.man = {
-    generateCaches = true;
+    cache.enable = true;
     man-db.enable = true;
   };
 

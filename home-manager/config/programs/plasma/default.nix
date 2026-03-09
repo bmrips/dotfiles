@@ -525,7 +525,7 @@ lib.mkMerge [
       };
 
       # Disable window outlines
-      configFile.breezerc.Common.OutlineIntensity = "OutlineOff";
+      configFile.breezerc.Common.OutlineEnabled = false;
 
       configFile.plasmanotifyrc = {
         Notifications.LowPriorityHistory = true;

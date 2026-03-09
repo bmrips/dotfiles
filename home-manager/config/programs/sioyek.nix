@@ -27,7 +27,10 @@
   programs.sioyek.config = {
     font_size = "15";
     page_separator_width = "2";
-    startup_commands = "toggle_horizontal_scroll_lock;toggle_statusbar";
+    startup_commands = [
+      "toggle_horizontal_scroll_lock"
+      "toggle_statusbar"
+    ];
     status_bar_color = "0.16 0.16 0.16";
     super_fast_search = "1";
   };

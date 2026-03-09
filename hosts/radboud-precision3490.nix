@@ -51,8 +51,6 @@
     ];
   };
 
-  dualboot.windows.device = "/dev/disk/by-uuid/CAE4531BE45308D9";
-
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
 

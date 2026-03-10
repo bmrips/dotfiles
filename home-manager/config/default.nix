@@ -29,7 +29,12 @@ in
   development.nix.enable = true;
   development.yaml.enable = true;
 
-  fonts.fontconfig.enable = true;
+  fonts.fontconfig = {
+    enable = true;
+    antialiasing = true;
+    hinting = "slight";
+    subpixelRendering = "rgb";
+  };
 
   home.defaultCommandFlags = {
     chgrp.preserve-root = true;

@@ -26,7 +26,6 @@ return {
     formatters_by_ft = {
       ['*'] = { 'keep-sorted', 'treefmt', 'trim_newlines', 'trim_whitespace' },
       bash = { 'shfmt' },
-      cabal = { 'cabal_fmt' },
       dart = { 'dart_format' },
       haskell = { 'fourmolu' },
       json = { 'jq' },

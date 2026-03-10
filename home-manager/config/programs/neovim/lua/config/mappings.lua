@@ -208,9 +208,7 @@ return {
       mode = { 'n', 'x', 'o' },
     },
     { 'U',
-      function()
-        vim.cmd.Atone 'toggle'
-      end,
+      '<Cmd>Atone toggle<CR>',
       desc = 'Open undo tree',
     },
     { 'y', {

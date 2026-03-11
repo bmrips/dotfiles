@@ -504,7 +504,6 @@ lib.mkMerge [
 
   (lib.mkIf config.programs.firefox.enable {
     sops.secrets = {
-      "firefox_extensions/keepassxc-browser" = { };
       "firefox_extensions/languagetool" = { };
       "firefox_extensions/simple-translate" = { };
       "firefox_extensions/tab-session-manager" = { };

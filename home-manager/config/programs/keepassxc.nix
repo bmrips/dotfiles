@@ -48,6 +48,8 @@ in
     }
 
     (lib.mkIf cfg.enable {
+      sops.secrets."firefox_extensions/keepassxc-browser" = { };
+
       programs.firefox.profiles.default.extensions'.keepassxc-browser = {
         package = pkgs.firefox-addons.keepassxc-browser;
         permissions = [

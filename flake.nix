@@ -72,11 +72,11 @@
       flake.lib =
         system:
         inputs.nixpkgs.lib.extend (
-          final: _prev:
+          final: prev:
           inputs.haumea.lib.load {
             src = ./lib;
             inputs = {
-              inherit inputs;
+              inherit final inputs prev;
               lib = final;
               pkgs = inputs.nixpkgs.legacyPackages.${system};
             };

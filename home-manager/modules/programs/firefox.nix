@@ -18,46 +18,46 @@ let
     { config, ... }:
     {
       options = {
-        enable = lib.mkEnableOption "this extension." // {
+        enable = lib.mkEnableOption "this extension" // {
           default = true;
         };
         package = lib.mkOption {
-          type = lib.types.package;
-          example = "pkgs.nur.repos.rycee.firefox-addons.ublock-origin";
           description = "The extension package to install.";
+          example = "pkgs.nur.repos.rycee.firefox-addons.ublock-origin";
+          type = lib.types.package;
         };
         id = lib.mkOption {
-          type = lib.types.str;
+          description = "The id of this extension.";
           default = config.package.addonId;
           defaultText = "config.package.addonId";
-          description = "The id of this extension.";
+          type = lib.types.str;
         };
         origins = lib.mkOption {
-          type = with lib.types; listOf str;
-          default = [ ];
-          example = [ "<all_urls>" ];
           description = "Additional origins on which this extensions is allowed";
+          example = [ "<all_urls>" ];
+          default = [ ];
+          type = with lib.types; listOf str;
         };
         permissions = lib.mkOption {
-          type = with lib.types; listOf str;
-          default = [ ];
-          example = [ "internal:privateBrowsingAllowed" ];
           description = "Additional permissions granted to this extensions";
+          example = [ "internal:privateBrowsingAllowed" ];
+          default = [ ];
+          type = with lib.types; listOf str;
         };
         settings = lib.mkOption {
-          inherit (json) type;
-          default = { };
           description = ''
             Settings to be merged into the current settings.
           '';
+          default = { };
+          inherit (json) type;
         };
         settingsFiles = lib.mkOption {
-          type = with lib.types; listOf path;
-          default = [ ];
           description = ''
             Files containing settings that will be merged into the current
             settings. This option is useful to set secrets.
           '';
+          default = [ ];
+          type = with lib.types; listOf (either path pathWithDeps);
         };
       };
     }
@@ -91,7 +91,7 @@ in
       config =
         let
           extensions = lib.attrValues config.extensions';
-          hasSettings = ext: ext.settings != { } || ext.settingsFiles != { };
+          hasSettings = ext: ext.settings != { } || ext.settingsFiles != [ ];
         in
         {
           # Enable legacy extension storage

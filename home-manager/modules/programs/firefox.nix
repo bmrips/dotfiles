@@ -120,13 +120,12 @@ in
           permissions = lib.optionalAttrs (ext.permissions != [ ]) { inherit (ext) permissions; };
         in
         lib.nameValuePair ext.id (origins // permissions);
-      permissionsFile = json.generate "firefox_${profile.name}_extension-preferences.json" (
-        lib.pipe extensions [
-          (map mkPermissions)
-          (lib.filter (pair: pair.value != { }))
-          lib.listToAttrs
-        ]
-      );
+      permissions = lib.pipe extensions [
+        (map mkPermissions)
+        (lib.filter (pair: pair.value != { }))
+        lib.listToAttrs
+      ];
+      permissionsFile = json.generate "firefox_${profile.name}_extension-preferences.json" permissions;
       applySettings =
         ext:
         let
@@ -152,14 +151,12 @@ in
     in
     lib.mkMerge (
       map applySettings extensions
-      ++ [
-        {
-          ${permissionsPath} = {
-            type = "json";
-            sources = [ permissionsFile ];
-          };
-        }
-      ]
+      ++ lib.optional (permissions != { }) {
+        ${permissionsPath} = {
+          type = "json";
+          sources = [ permissionsFile ];
+        };
+      }
     )
   );
 }

@@ -470,6 +470,10 @@ return {
       },
     }},
     { '<Leader>', {
+      { 'c',
+        '<Cmd>ColorizerToggle<CR>',
+        desc = 'Colorize',
+      },
       { 'd',
         function() Snacks.bufdelete.delete() end,
         desc = 'Delete the buffer',

@@ -4,7 +4,7 @@ let
   merge =
     format: targetFile:
     lib.concatMapStrings (file: /* bash */ ''
-      run ${lib.getExe pkgs.yq-go} --inplace $VERBOSE_ARG --output-format ${format} \
+      ${lib.getExe pkgs.yq-go} --inplace --output-format ${format} \
         '. *= load("${file}")' \
         '${targetFile}'
     '');

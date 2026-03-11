@@ -1,36 +1,59 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  utils,
+  ...
+}:
 
 let
-  defaultFlags = config.home.defaultCommandFlags;
+  cfg = config.home;
+
+  pathWithDeps = lib.types.submodule {
+    options = {
+      path = lib.mkOption {
+        description = "The file to be merged.";
+        type = lib.types.path;
+      };
+      dependsOn = lib.mkOption {
+        description = "Systemd units that provide the file.";
+        default = [ ];
+        type = with lib.types; listOf str;
+      };
+    };
+  };
 
   fileSubmodule = lib.types.submodule {
     options = {
       enable = lib.mkOption {
-        type = lib.types.bool;
-        default = true;
         description = "Whether this file shall be overridden.";
+        default = true;
+        type = lib.types.bool;
       };
       mode = lib.mkOption {
-        type = with lib.types; nullOr (strMatching "[[:digit:]]{3,4}");
-        default = null;
-        example = "0600";
         description = "Mode of the file, given in octal digits.";
+        example = "0600";
+        default = null;
+        type = with lib.types; nullOr (strMatching "[[:digit:]]{3,4}");
       };
       sources = lib.mkOption {
-        type = with lib.types; either path (listOf path);
-        default = [ ];
-        apply = v: if builtins.isList v then v else [ v ];
         description = "The files that will be merged into the target.";
+        type = with lib.types; listOf (either path pathWithDeps);
+        apply = map (x: if lib.types.path.check x then { path = x; } else x);
       };
       type = lib.mkOption {
-        type = lib.types.enum (lib.attrNames lib.merge);
         description = ''
           The type of the file. It determines how the sources are merged into
           the target.
         '';
+        type = lib.types.enum (lib.attrNames lib.merge);
       };
     };
   };
+
+  enabledFiles = lib.filterAttrs (_: s: s.enable) cfg.file';
+
+  serviceName = path: "home-manager-merge-${utils.escapeSystemdPath path}";
 
 in
 {
@@ -69,30 +92,57 @@ in
   };
 
   config = {
-    home.shellAliases = lib.mapAttrs (prog: opts: "${prog} ${lib.gnuCommand.line opts}") defaultFlags;
+    assertions = lib.flip lib.mapAttrsToList enabledFiles (
+      path: spec: {
+        assertion = spec.sources != [ ];
+        message = ''
+          No sources defined for ${
+            lib.showAttrPath [
+              "home"
+              "file'"
+              path
+            ]
+          }.
+        '';
+      }
+    );
 
-    home.activation.mergeHomeFiles =
+    home.shellAliases = lib.mapAttrs (
+      prog: opts: "${prog} ${lib.gnuCommand.line opts}"
+    ) cfg.defaultCommandFlags;
+
+    systemd.user.services = lib.flip lib.mapAttrs' enabledFiles (
+      path: spec:
       let
-        mkFile =
-          path: spec:
-          let
-            targetFile = "${config.home.homeDirectory}/${path}";
-          in
+        targetFile = "${config.home.homeDirectory}/${path}";
+        sources = lib.unique (map (s: s.path) spec.sources);
+        dependencies = lib.unique (lib.concatMap (s: s.dependsOn or [ ]) spec.sources);
+        script = pkgs.writeShellScript "merge_${path}.sh" (
           /* bash */ ''
-            run mkdir $VERBOSE_ARG -p "$(dirname '${targetFile}')"
-            run touch '${targetFile}'
+            set -euo pipefail
+            mkdir -p "$(dirname '${targetFile}')"
+            touch '${targetFile}'
           ''
-          + lib.merge.${spec.type} targetFile spec.sources
+          + lib.merge.${spec.type} targetFile sources
           + lib.optionalString (spec.mode != null) /* bash */ ''
-            run chmod $VERBOSE_ARG ${spec.mode} ${targetFile}
-          '';
+            chmod ${spec.mode} ${targetFile}
+          ''
+        );
       in
-      # FIXME: Not all `home.file'` definitions are dependent on sops-nix. Also,
-      # the sops-nix activation section asynchronously starts a Systemd service,
-      # hence we can not be sure that the secrets are accessible.
-      lib.hm.dag.entryAfter [ "writeBoundary" "sops-nix" ] (
-        lib.concatMapAttrsStringSep "\n" mkFile config.home.file'
-      );
+      lib.nameValuePair (serviceName path) {
+        Unit = {
+          Description = "Merge Home Manager configuration into '${path}'";
+          After = dependencies;
+          Requires = dependencies;
+        };
+        Install.WantedBy = dependencies;
+        Service = {
+          Type = "oneshot";
+          ExecStart = "${script}";
+          X-Restart-Triggers = sources;
+        };
+      }
+    );
   };
 
 }

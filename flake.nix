@@ -182,7 +182,10 @@
                 quote_style = "AutoPreferSingle";
               };
             };
-            yamlfmt.enable = true;
+            yamlfmt = {
+              enable = true;
+              includes = [ ".convco" ];
+            };
           };
         };
 

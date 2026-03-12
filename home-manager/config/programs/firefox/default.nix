@@ -130,9 +130,8 @@ lib.mkMerge [
           # Disable domain guessing.
           "browser.fixup.alternate.enabled" = false;
 
-          # Disable Normandy and Shield.
-          "app.normandy.enabled" = false;
-          "app.shield.optoutstudies.enabled" = false;
+          # Automatically send crash reports.
+          "browser.crashReports.unsubmittedCheck.autoSubmit2" = true;
 
           # Disable experiments.
           "messaging-system.rsexperimentloader.enabled" = false;

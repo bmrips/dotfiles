@@ -91,11 +91,6 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
      - follow the system's theme, and
      - enable per-website dark theme detection.
 
-1. Configure Signal:
-
-   - Hide the menu bar.
-   - Minimize to the system tray.
-
 1. Configure Spotify:
 
    - Minimize to the system tray

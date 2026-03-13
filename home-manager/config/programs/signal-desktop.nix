@@ -1,7 +1,17 @@
 { config, lib, ... }:
 
 {
-  programs.signal-desktop.autostart = true;
+  programs.signal-desktop = {
+    autostart = true;
+    config = {
+      mediaPermissions = true;
+      mediaCameraPermissions = true;
+    };
+    ephemeralConfig = {
+      system-tray-setting = "MinimizeToAndStartInSystemTray";
+      window.autoHideMenuBar = true;
+    };
+  };
 
   programs.plasma.window-rules = lib.mkIf config.programs.signal-desktop.enable [
     {

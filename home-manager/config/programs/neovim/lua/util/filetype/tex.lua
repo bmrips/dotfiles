@@ -7,7 +7,7 @@ function M.createEnvironment(env)
   end
 
   local pos = vim.api.nvim_win_get_cursor(0)
-  local row, col = pos[1], pos[2]
+  local row, col = pos[1], pos[2] + 1
   local code = {
     '\\begin{' .. env .. '}',
     string.rep(' ', col) .. '\\end{' .. env .. '}',

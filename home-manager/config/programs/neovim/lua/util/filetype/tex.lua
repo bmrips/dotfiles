@@ -8,10 +8,18 @@ function M.createEnvironment(env)
 
   local pos = vim.api.nvim_win_get_cursor(0)
   local row, col = pos[1], pos[2]
+
+  -- If the line is nonempty, we want to insert _after_ the cursor.
+  local line = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1]
+  if line and line ~= '' then
+    col = col + 1
+  end
+
   local code = {
     '\\begin{' .. env .. '}',
     string.rep(' ', col) .. '\\end{' .. env .. '}',
   }
+
   vim.api.nvim_buf_set_text(0, row - 1, col, row - 1, col, code)
   vim.api.nvim_win_set_cursor(0, { row, col + #code[1] })
 end

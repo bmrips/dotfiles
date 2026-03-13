@@ -148,6 +148,7 @@ in
   sops = {
     defaultSopsFile = ./secrets.yaml;
     age.keyFile = "/var/lib/sops/age/keys.txt";
+    age.generateKey = true;
     secrets.hashed_password.neededForUsers = true;
   };
   environment.variables.SOPS_AGE_KEY_FILE = config.sops.age.keyFile;

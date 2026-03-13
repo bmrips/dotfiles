@@ -168,11 +168,14 @@ in
 
   sops = {
     defaultSopsFile = ./secrets.yaml;
-    age.keyFile =
+    age =
       if config.submoduleSupport.enable then
-        osConfig.sops.age.keyFile
+        { inherit (osConfig.sops.age) keyFile; }
       else
-        "${config.xdg.configHome}/sops/age/keys.txt";
+        {
+          keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
+          generateKey = true;
+        };
   };
 
   xdg.enable = true;

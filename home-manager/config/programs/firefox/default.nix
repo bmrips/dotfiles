@@ -122,6 +122,10 @@ lib.mkMerge [
           "print.print_footerleft" = "";
           "print.print_headerright" = "";
 
+          # Disable AI enhancements
+          "browser.ai.control.default" = "blocked";
+          "browser.ml.chat.menu" = false;
+
           # Disable slow startup notifications.
           "browser.slowStartup.maxSamples" = 0;
           "browser.slowStartup.notificationDisabled" = true;

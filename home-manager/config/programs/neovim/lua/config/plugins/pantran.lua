@@ -1,5 +1,6 @@
 return {
-  'potamides/pantran.nvim',
+  'bmrips/pantran.nvim',
+  branch = 'deepl-authentication',
   opts = {
     default_engine = 'deepl',
     engines = {

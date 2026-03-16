@@ -23,22 +23,8 @@
       }
     ];
 
-    programs.merkuro.enable = true;
     programs.slack.enable = true;
     programs.zotero.enable = true;
-
-    services.davmail = {
-      enable = pkgs.stdenv.hostPlatform.isLinux;
-      imitateOutlook = true;
-      settings = {
-        "davmail.mode" = "O365Interactive";
-        "davmail.oauth.persistToken" = true;
-
-        # Set a static fingerprint/salt such that it is non-flaky.
-        # See https://github.com/mguessan/davmail/issues/403.
-        "davmail.oauth.fingerprint" = "0000000000000000";
-      };
-    };
 
     services.gpg-agent.sshKeys = [ "E9A3C51CC575A8B0610A78799C3396888765BA26" ];
   };

@@ -183,7 +183,6 @@ lib.mkMerge [
                   hidden = [
                     "KeePassXC"
                     "Nextcloud"
-                    "org.kde.merkuro.contact.applet"
                     "org.kde.plasma.brightness"
                     "org.kde.plasma.clipboard"
                     "org.kde.plasma.weather"
@@ -380,7 +379,6 @@ lib.mkMerge [
           _launch = "Launch Mail";
           Composer = "Shift+Launch Mail";
         };
-        "services/org.kde.merkuro.calendar.desktop"._launch = "Launch (6)";
         "services/org.kde.plasma.emojier.desktop"._launch = "Meta+.";
         "services/org.keepassxc.KeePassXC.desktop"._launch = "Meta+;";
         "services/signal.desktop"._launch = "Meta+M";

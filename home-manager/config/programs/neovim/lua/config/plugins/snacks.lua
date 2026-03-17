@@ -87,7 +87,57 @@ return {
         { section = 'keys', gap = 1, padding = 1 },
         { section = 'startup' },
       },
-    }, -- TODO
+      preset = {
+        keys = {
+          {
+            icon = ' ',
+            key = 'f',
+            desc = 'Find file',
+            action = function()
+              Snacks.dashboard.pick 'files'
+            end,
+          },
+          {
+            icon = ' ',
+            key = 'n',
+            desc = 'New file',
+            action = '<Cmd>ene<CR>',
+          },
+          {
+            icon = ' ',
+            key = 'g',
+            desc = 'Grep',
+            action = function()
+              Snacks.dashboard.pick 'live_grep'
+            end,
+          },
+          {
+            icon = ' ',
+            key = 'r',
+            desc = 'Recent Files',
+            action = function()
+              Snacks.dashboard.pick 'oldfiles'
+            end,
+          },
+          {
+            icon = ' ',
+            key = 'c',
+            desc = 'Config',
+            action = function()
+              Snacks.dashboard.pick('files', { cwd = vim.fn.stdpath 'config' })
+            end,
+          },
+          {
+            icon = '󰒲 ',
+            key = 'p',
+            desc = 'Plugins',
+            action = '<Cmd>Lazy<CR>',
+            enabled = package.loaded.lazy ~= nil,
+          },
+          { icon = ' ', key = 'q', desc = 'Quit', action = '<Cmd>q<CR>' },
+        },
+      },
+    },
     explorer = {
       enabled = true,
       replace_netrw = true,

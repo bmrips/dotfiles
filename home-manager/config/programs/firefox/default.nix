@@ -68,7 +68,7 @@ lib.mkMerge [
           "browser.download.dir" = "${config.home.homeDirectory}/Downloads";
           "browser.download.useDownloadDir" = true;
 
-          # Never translate German.
+          # Never translate German and Dutch.
           "browser.translations.neverTranslateLanguages" = "de,nl";
 
           # Do not suggest recent searches or open tabs.
@@ -235,7 +235,7 @@ lib.mkMerge [
                 auto-sort-bookmarks
                 auto-tab-discard
                 darkreader
-                i-dont-care-about-cookies
+                istilldontcareaboutcookies
                 keepassxc-browser
                 languagetool
                 plasma-integration
@@ -257,7 +257,7 @@ lib.mkMerge [
               auto-sort-bookmarks
               auto-tab-discard
               darkreader
-              i-dont-care-about-cookies
+              istilldontcareaboutcookies
               keepassxc-browser
               languagetool
               plasma-integration
@@ -405,8 +405,8 @@ lib.mkMerge [
             package = pkgs.firefox-addons.darkreader;
             permissions = [ "internal:privateBrowsingAllowed" ];
           };
-          i-dont-care-about-cookies = {
-            package = pkgs.firefox-addons.i-dont-care-about-cookies;
+          i-still-dont-care-about-cookies = {
+            package = pkgs.firefox-addons.istilldontcareaboutcookies;
             permissions = [ "internal:privateBrowsingAllowed" ];
             origins = [ "*://*/*" ];
           };

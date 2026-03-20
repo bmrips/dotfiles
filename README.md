@@ -84,16 +84,9 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 
 1. Commit the configuration for the new host.
 
-1. Configure Firefox:
+1. Sign in to my Firefox account.
 
-   - Sign in to my account.
-   - Dark Reader:
-     - follow the system's theme, and
-     - enable per-website dark theme detection.
-
-1. Configure Spotify:
-
-   - Minimize to the system tray
+1. Configure Spotify to minimize itself to the system tray.
 
 ### KDE Plasma
 

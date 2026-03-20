@@ -29,6 +29,9 @@ lib.mkMerge [
       profiles.default = {
 
         settings = {
+          # Disable welcome messages
+          "browser.aboutwelcome.didSeeFinalScreen" = true;
+
           # Do not warn when visiting about:config.
           "browser.aboutConfig.showWarning" = false;
 
@@ -144,6 +147,10 @@ lib.mkMerge [
           "browser.newtabpage.enabled" = false;
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
+
+          # Disable form autofill.
+          "extensions.formautofill.addresses.enabled" = false;
+          "extensions.formautofill.creditCards.enabled" = false;
 
           # Disable extension recommendations.
           "extensions.htmlaboutaddons.recommendations.enabled" = false;

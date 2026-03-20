@@ -155,27 +155,6 @@ lib.mkMerge [
           # Disable extension recommendations.
           "extensions.htmlaboutaddons.recommendations.enabled" = false;
 
-          # Disable Safe Browsing.
-          "browser.safebrowsing.blockedURIs.enabled" = false;
-          "browser.safebrowsing.downloads.enabled" = false;
-          "browser.safebrowsing.downloads.remote.block_dangerous" = false;
-          "browser.safebrowsing.downloads.remote.block_dangerous_host" = false;
-          "browser.safebrowsing.downloads.remote.block_potentially_unwanted" = false;
-          "browser.safebrowsing.downloads.remote.block_uncommon" = false;
-          "browser.safebrowsing.downloads.remote.enabled" = false;
-          "browser.safebrowsing.downloads.remote.url" = "";
-          "browser.safebrowsing.malware.enabled" = false;
-          "browser.safebrowsing.phishing.enabled" = false;
-          "browser.safebrowsing.provider.google4.dataSharing.enabled" = false;
-          "browser.safebrowsing.provider.google4.dataSharingURL" = "";
-          "browser.safebrowsing.provider.google4.reportMalwareMistakeURL" = "";
-          "browser.safebrowsing.provider.google4.reportPhishMistakeURL" = "";
-          "browser.safebrowsing.provider.google4.reportURL" = "";
-          "browser.safebrowsing.provider.google.reportMalwareMistakeURL" = "";
-          "browser.safebrowsing.provider.google.reportPhishMistakeURL" = "";
-          "browser.safebrowsing.provider.google.reportURL" = "";
-          "browser.safebrowsing.reportPhishURL" = "";
-
           # Disable live search suggestions.
           "browser.search.suggest.enabled" = false;
 

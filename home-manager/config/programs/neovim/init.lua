@@ -158,15 +158,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
     local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
 
     local client_supports = function(cap)
-      client:supports_method(cap, args.buf)
+      return client:supports_method(cap, args.buf)
     end
 
-    ---@diagnostic disable-next-line: unnecessary-if
     if client_supports 'inlayHintProvider' then
       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
     end
 
-    ---@diagnostic disable-next-line: unnecessary-if
     if client_supports 'textDocument/foldingRange' then
       local win = vim.api.nvim_get_current_win()
       vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'

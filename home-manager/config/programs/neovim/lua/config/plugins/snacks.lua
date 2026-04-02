@@ -216,7 +216,7 @@ return {
             local arguments = {}
             for i = 0, vim.fn.argc() - 1 do
               local arg = vim.fn.argv(i)
-              local st = vim.uv.fs_stat(arg --[[@as string]])
+              local st = vim.uv.fs_stat(arg)
               if st and st.type == 'file' then
                 table.insert(arguments, { file = arg })
               end

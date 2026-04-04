@@ -15,7 +15,7 @@ opt.formatoptions:remove 't'
 opt.grepformat = '%f:%l:%c:%m'
 opt.ignorecase = true
 opt.joinspaces = true
-opt.jumpoptions:append 'view'
+opt.jumpoptions:append { 'stack', 'view' }
 opt.lazyredraw = true
 opt.linebreak = true
 opt.listchars = { eol = '󰌑', tab = '› ', trail = '·' }

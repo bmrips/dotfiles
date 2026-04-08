@@ -22,6 +22,15 @@ return {
       signature = { enabled = true },
       sources = {
         default = { 'lsp', 'path', 'snippets', 'buffer' },
+        providers = {
+          snippets = {
+            opts = {
+              extended_filetypes = {
+                dart = { 'flutter' },
+              },
+            },
+          },
+        },
       },
     },
     opts_extend = { 'sources.default' },

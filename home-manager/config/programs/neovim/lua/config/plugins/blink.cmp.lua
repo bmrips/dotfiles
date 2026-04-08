@@ -9,13 +9,6 @@ return {
     ---@type blink.cmp.Config
     opts = {
       appearance = { nerd_font_variant = 'mono' },
-      cmdline = {
-        completion = {
-          list = {
-            selection = { preselect = false },
-          },
-        },
-      },
       completion = {
         documentation = { auto_show = true },
         list = {

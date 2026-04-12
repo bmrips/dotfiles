@@ -33,7 +33,6 @@ in
     {
       programs.neovim = {
         defaultEditor = true;
-        withRuby = false;
         extraPackages = with pkgs; [
           harper
           ltex-ls-plus

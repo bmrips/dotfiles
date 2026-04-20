@@ -33,6 +33,7 @@ in
     {
       programs.neovim = {
         defaultEditor = true;
+        sideloadInitLua = true;
         extraPackages = with pkgs; [
           harper
           ltex-ls-plus

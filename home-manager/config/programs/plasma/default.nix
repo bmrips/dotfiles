@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  nixosConfig,
   pkgs,
   ...
 }:
@@ -219,7 +220,12 @@ lib.mkMerge [
         {
           general.pausePlayersOnSuspend = true;
           batteryLevels = {
-            criticalAction = "hibernate";
+            criticalAction =
+              let
+                kernelParams = lib.attrByPath [ "boot" "kernelParams" ] [ ] nixosConfig;
+                hibernationEnabled = lib.any (lib.hasPrefix "resume=") kernelParams;
+              in
+              if hibernationEnabled then "hibernate" else "sleep";
             criticalLevel = 10;
             lowLevel = 20;
           };

@@ -201,7 +201,7 @@ return {
     { 'S',
       function ()
         require('leap').leap {
-          target_windows = require('leap.util').get_enterable_windows(),
+          target_windows = require('leap.user').get_enterable_windows(),
         }
       end,
       desc = 'Leap outside',

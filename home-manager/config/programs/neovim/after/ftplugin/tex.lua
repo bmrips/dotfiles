@@ -1,6 +1,6 @@
 local opt = vim.opt_local
-local file = require 'util.file'
-local tex = require 'util.filetype.tex'
+local file = require 'file'
+local tex = require 'filetype.tex'
 
 opt.comments = ':%'
 opt.iskeyword:remove '_'

@@ -10,7 +10,7 @@ opt.exrc = true
 opt.fillchars = 'fold: ,foldopen:,foldsep: ,foldclose:'
 opt.foldlevelstart = 99
 opt.foldmethod = 'marker'
-opt.foldtext = "v:lua.require'config.foldtext'(v:foldstart)"
+opt.foldtext = "v:lua.require'fold'.text(v:foldstart)"
 opt.formatoptions:remove 't'
 opt.grepformat = '%f:%l:%c:%m'
 opt.ignorecase = true
@@ -89,7 +89,7 @@ end
 opt.runtimepath:prepend(lazypath)
 
 ---@diagnostic disable-next-line: missing-fields, param-type-mismatch
-require('lazy').setup('config.plugins', {
+require('lazy').setup('plugins', {
   defaults = {
     lazy = true,
   },
@@ -108,7 +108,7 @@ require('lazy').setup('config.plugins', {
 
 vim.cmd.colorscheme 'gruvbox-material'
 
-local mappings = require 'config.mappings'
+local mappings = require 'mappings'
 
 local nest = require 'nest'
 nest.defaults.silent = false
@@ -150,7 +150,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'Set settings specific to buffers with attached language server',
   nested = true,
   callback = function(args)
-    require('util.windows').for_windows_of_buf(args.buf, function(win)
+    require('windows').for_windows_of_buf(args.buf, function(win)
       vim.wo[win][0].signcolumn = 'yes:1'
     end)
 

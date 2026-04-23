@@ -1,11 +1,11 @@
-local plugin = {}
+local M = {}
 
--- Create a `function(plugin)` that sets a table of plugin options to global
--- vimscript variables.  The options have to be specified via the `plugin.opts`
--- key as a table and are assigned to global vimscript variables via
--- `compat.vimscript.dict_to_vars_with_prefix`.  If `config.recurse` is true,
+-- Create a `function(plugin)` that sets a table of plugin options to global Vim
+-- script variables. The options have to be specified via the `plugin.opts` key
+-- as a table and are assigned to global Vim script variables via
+-- `compat.vimscript.dict_to_vars_with_prefix`. If `config.recurse` is true,
 -- `compat.vimscript.dict_to_vars_rec_with_prefix` is used instead.
-function plugin.setup(prefix, config)
+function M.setup(prefix, config)
   local cfg = config or {}
   local vimscript = require 'compat.vimscript'
 
@@ -20,4 +20,4 @@ function plugin.setup(prefix, config)
   end
 end
 
-return plugin
+return M

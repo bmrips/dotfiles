@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'windwp/nvim-autopairs',
   event = 'InsertEnter',
@@ -46,7 +48,7 @@ return {
           return prev_char:match('[^=<>!]') ~= nil
             and rest_of_line:match('^%s*$') ~= nil
             -- 'source': comments
-            -- 'program': multi-line strings representing Bash scripts
+            -- 'program': multiline strings representing Bash scripts
             and ts_conds.is_not_ts_node{ 'source', 'string_fragment', 'program' }(info)
         end)
         :with_move(function(info)
@@ -57,7 +59,7 @@ return {
           local prev_char = info.line:sub(info.col - 5, info.col - 5)
           return prev_char:match('[^%w_-]') ~= nil
             -- 'source': comments
-            -- 'program': multi-line strings representing Bash scripts
+            -- 'program': multiline strings representing Bash scripts
             and ts_conds.is_not_ts_node{ 'source', 'string_fragment', 'program' }(info)
         end)
         :with_move(function(info)

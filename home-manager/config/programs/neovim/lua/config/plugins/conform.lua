@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'stevearc/conform.nvim',
   event = 'BufWritePre',

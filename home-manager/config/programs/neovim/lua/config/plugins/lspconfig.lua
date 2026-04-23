@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'neovim/nvim-lspconfig',
   event = 'FileType',

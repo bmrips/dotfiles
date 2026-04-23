@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'junegunn/vim-easy-align',
   keys = { '<Plug>(EasyAlign)', '<Plug>(LiveEasyAlign)' },

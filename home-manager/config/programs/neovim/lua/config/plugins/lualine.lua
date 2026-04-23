@@ -1,5 +1,7 @@
 local filename = { 'filename', path = 1 }
 
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'nvim-lualine/lualine.nvim',
   event = 'VeryLazy',

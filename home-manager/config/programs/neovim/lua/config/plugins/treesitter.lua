@@ -8,19 +8,25 @@ local source = localDir and {
   build = ':TSUpdate',
 }
 
-return vim.tbl_deep_extend('keep', source, {
-  name = 'nvim-treesitter',
-  init = function()
-    vim.api.nvim_create_autocmd('FileType', {
-      desc = 'Enable tree-sitter if available',
-      group = vim.api.nvim_create_augroup('nvim-treesitter', { clear = true }),
-      callback = function(args)
-        if pcall(vim.treesitter.start, args.buf) then
-          vim.opt_local.foldmethod = 'expr'
-          vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-          vim.opt_local.indentexpr = 'v:lua.require"nvim-treesitter".indentexpr()'
-        end
-      end,
-    })
-  end,
-})
+return vim.tbl_deep_extend(
+  'keep',
+  source,
+  ---@module 'lazy.types'
+  ---@type LazyPluginSpec
+  {
+    name = 'nvim-treesitter',
+    init = function()
+      vim.api.nvim_create_autocmd('FileType', {
+        desc = 'Enable tree-sitter if available',
+        group = vim.api.nvim_create_augroup('nvim-treesitter', { clear = true }),
+        callback = function(args)
+          if pcall(vim.treesitter.start, args.buf) then
+            vim.opt_local.foldmethod = 'expr'
+            vim.opt_local.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+            vim.opt_local.indentexpr = 'v:lua.require"nvim-treesitter".indentexpr()'
+          end
+        end,
+      })
+    end,
+  }
+)

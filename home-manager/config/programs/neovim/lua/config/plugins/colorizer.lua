@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'catgoose/nvim-colorizer.lua',
   event = 'BufReadPre',

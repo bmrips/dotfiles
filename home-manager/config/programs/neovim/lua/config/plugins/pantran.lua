@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'bmrips/pantran.nvim',
   branch = 'deepl-authentication',

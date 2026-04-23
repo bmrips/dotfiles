@@ -70,6 +70,8 @@ local qflist_or = function(alt_action)
   end
 end
 
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'folke/snacks.nvim',
   priority = 1000,

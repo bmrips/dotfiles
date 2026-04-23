@@ -96,6 +96,8 @@ in
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
 
+  profiles.radboud.enable = true;
+
   security.tpm2.enable = true;
 
   services.btrbk.enable = true;

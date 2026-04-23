@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'folke/lazydev.nvim',
   ft = 'lua',

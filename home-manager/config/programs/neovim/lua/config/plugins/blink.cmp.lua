@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec[]
 return {
   {
     'saghen/blink.cmp',

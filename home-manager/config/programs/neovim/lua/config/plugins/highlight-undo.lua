@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'tzachar/highlight-undo.nvim',
   keys = { { 'u' }, { '<C-r>' } },

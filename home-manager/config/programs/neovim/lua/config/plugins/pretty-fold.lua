@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   -- use fork of 'anuvyklack/pretty-fold.nvim' until
   -- https://github.com/anuvyklack/pretty-fold.nvim/issues/39 is merged

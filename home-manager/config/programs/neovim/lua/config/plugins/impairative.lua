@@ -1,3 +1,5 @@
+---@module 'lazy.types'
+---@type LazyPluginSpec
 return {
   'idanarye/nvim-impairative',
   event = 'VeryLazy',

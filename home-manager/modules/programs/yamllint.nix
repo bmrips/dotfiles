@@ -37,9 +37,9 @@ in
 
   config = lib.mkIf cfg.enable {
     home.packages = [ cfg.package ];
-    home.sessionVariables.YAMLLINT_CONFIG_FILE = lib.mkIf (cfg.settings != { }) (
-      yaml.generate "yamllint.yaml" cfg.settings
-    );
+    home.sessionVariables = lib.mkIf (cfg.settings != { }) {
+      YAMLLINT_CONFIG_FILE = yaml.generate "yamllint.yaml" cfg.settings;
+    };
   };
 
 }

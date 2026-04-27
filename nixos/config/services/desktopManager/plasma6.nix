@@ -10,6 +10,6 @@ lib.mkIf config.services.desktopManager.plasma6.enable {
   profiles.gui.enable = true;
   services.displayManager = {
     defaultSession = "plasma";
-    sddm.enable = true;
+    plasma-login-manager.enable = true;
   };
 }

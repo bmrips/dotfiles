@@ -103,17 +103,24 @@ in
         targetFile = "${config.home.homeDirectory}/${path}";
         sources = lib.unique (map (s: s.path) spec.sources);
         dependencies = lib.unique (lib.concatMap (s: s.dependsOn or [ ]) spec.sources);
-        script = pkgs.writeShellScript "merge_${path}.sh" (
-          /* bash */ ''
-            set -euo pipefail
-            mkdir -p "$(dirname '${targetFile}')"
-            touch '${targetFile}'
-          ''
-          + lib.merge.${spec.type} targetFile sources
-          + lib.optionalString (spec.mode != null) /* bash */ ''
-            chmod ${spec.mode} ${targetFile}
-          ''
-        );
+        script =
+          let
+            name = "merge_${path}.sh";
+            drv = pkgs.writeShellApplication {
+              inherit name;
+              runtimeInputs = [ pkgs.coreutils ];
+              text =
+                /* bash */ ''
+                  mkdir -p "$(dirname '${targetFile}')"
+                  touch '${targetFile}'
+                ''
+                + lib.merge.${spec.type} targetFile sources
+                + lib.optionalString (spec.mode != null) /* bash */ ''
+                  chmod ${spec.mode} ${targetFile}
+                '';
+            };
+          in
+          "${drv}/bin/${name}";
       in
       lib.nameValuePair (serviceName path) {
         Unit = {

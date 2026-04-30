@@ -12,7 +12,6 @@ in
 lib.mkMerge [
   {
     programs.git = {
-      signing.key = null;
       signing.signByDefault = true;
 
       settings = {

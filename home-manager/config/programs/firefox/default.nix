@@ -299,7 +299,7 @@ lib.mkMerge [
                 icon = nixIcon;
                 urls = [
                   {
-                    template = "https://home-manager-options.extranix.com/?release=master&query={searchTerms}";
+                    template = "https://search.nixos.org/packages?channel=unstable&query={searchTerms}&source=home_manager";
                   }
                 ];
               };

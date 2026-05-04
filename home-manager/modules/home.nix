@@ -83,7 +83,7 @@ in
         assertion = spec.sources != [ ];
         message = ''
           No sources defined for ${
-            lib.showAttrPath [
+            lib.options.showOption [
               "home"
               "file'"
               path

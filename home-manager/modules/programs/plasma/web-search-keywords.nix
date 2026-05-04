@@ -114,7 +114,7 @@ in
       message = ''
         No trigger keys are defined for the '${keyword.name}' Plasma web search keyword.
         Set it through '${
-          lib.showAttrPath [
+          lib.options.showOption [
             "programs"
             "plasma"
             "webSearchKeyword"

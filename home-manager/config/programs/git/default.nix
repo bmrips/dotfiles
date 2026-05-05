@@ -12,7 +12,10 @@ in
 lib.mkMerge [
   {
     programs.git = {
-      signing.signByDefault = true;
+      signing = {
+        signByDefault = true;
+        format = "openpgp";
+      };
 
       settings = {
         advice.detachedHead = false;

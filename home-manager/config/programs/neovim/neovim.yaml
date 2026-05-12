@@ -1,12 +1,13 @@
 base: lua51
-lua_versions: [luajit]
+lua_versions:
+  - luajit
 globals:
-  vim:
-    any: true
   assert:
     args:
-      - type: bool
+      - type: any
       - type: string
         required: false
   Snacks:
+    any: true
+  vim:
     any: true

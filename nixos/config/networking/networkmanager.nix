@@ -32,7 +32,5 @@
   };
 
   sops.secrets.networks = { };
-  networking.networkmanager.ensureProfiles.environmentFiles = [
-    config.sops.secrets.networks.path
-  ];
+  networking.networkmanager.ensureProfiles.environmentFiles = config.lib.sops.pathOptional "networks";
 }

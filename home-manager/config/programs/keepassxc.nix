@@ -66,9 +66,7 @@ in
           saveDomainOnly = true;
           saveDomainOnlyNewCreds = true;
         };
-        settingsFiles = [
-          (config.lib.sops.path "firefox_extensions/keepassxc-browser")
-        ];
+        settingsFiles = config.lib.sops.pathUnit "firefox_extensions/keepassxc-browser";
       };
 
       programs.plasma.window-rules = [

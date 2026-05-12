@@ -11,7 +11,7 @@ lib.mkMerge [
 
   (lib.mkIf config.programs.gh.enable {
     sops.secrets.github_api_token = { };
-    home.sessionVariables.GH_TOKEN = "$(cat ${config.sops.secrets.github_api_token.path})";
+    home.sessionVariables.GH_TOKEN = config.lib.sops.pathCat "github_api_token";
   })
 
 ]

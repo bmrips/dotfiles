@@ -83,6 +83,8 @@
   security.sudo.wheelNeedsPassword = false;
   security.tpm2.enable = true;
 
+  sops.secrets = lib.mkForce { };
+
   system.stateVersion = lib.trivial.release;
 
   virtualisation.podman.enable = lib.mkForce false;
@@ -100,6 +102,8 @@
     programs.kmail.enable = lib.mkForce false;
     programs.neovim.immutableConfig = lib.mkForce true;
 
-    services.owncloud-client.enable = lib.mkForce false;
+    services.nextcloud-client.enable = lib.mkForce false;
+
+    sops.secrets = lib.mkForce { };
   };
 }

@@ -166,17 +166,5 @@ in
     sshKeys = [ "08BECD87A81CAF3A81F659CF8B128172289FA772" ];
   };
 
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    age =
-      if config.submoduleSupport.enable then
-        { inherit (osConfig.sops.age) keyFile; }
-      else
-        {
-          keyFile = "${config.xdg.configHome}/sops/age/keys.txt";
-          generateKey = true;
-        };
-  };
-
   xdg.enable = true;
 }

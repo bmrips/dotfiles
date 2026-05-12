@@ -416,9 +416,7 @@ lib.mkMerge [
                 "nl"
               ];
             };
-            settingsFiles = [
-              (config.lib.sops.path "firefox_extensions/languagetool")
-            ];
+            settingsFiles = config.lib.sops.pathUnit "firefox_extensions/languagetool";
           };
           refined-github = {
             package = pkgs.firefox-addons.refined-github;
@@ -459,9 +457,7 @@ lib.mkMerge [
               targetLang = "de";
               translationApi = "deepl";
             };
-            settingsFiles = [
-              (config.lib.sops.path "firefox_extensions/simple-translate")
-            ];
+            settingsFiles = config.lib.sops.pathUnit "firefox_extensions/simple-translate";
           };
           tab-session-manager = {
             package = pkgs.firefox-addons.tab-session-manager;
@@ -476,9 +472,7 @@ lib.mkMerge [
               saveButtonBehavior = "saveOnlyCurrentWindow";
               shouldTrackNewWindow = false;
             };
-            settingsFiles = [
-              (config.lib.sops.path "firefox_extensions/tab-session-manager")
-            ];
+            settingsFiles = config.lib.sops.pathUnit "firefox_extensions/tab-session-manager";
           };
           ublock-origin = {
             package = pkgs.firefox-addons.ublock-origin;

@@ -145,14 +145,6 @@ in
     options = "grp:shifts_toggle,eurosign:e,ctrl:swapcaps,altwin:swap_alt_win";
   };
 
-  sops = {
-    defaultSopsFile = ./secrets.yaml;
-    age.keyFile = "/var/lib/sops/age/keys.txt";
-    age.generateKey = true;
-    secrets.hashed_password.neededForUsers = true;
-  };
-  environment.variables.SOPS_AGE_KEY_FILE = config.sops.age.keyFile;
-
   system.configurationRevision =
     let
       mkSourceInfo = info: info.shortRev or "${info.dirtyShortRev or "dirty"}.${info.lastModifiedDate}";
@@ -192,7 +184,7 @@ in
   users.users.${user} = {
     isNormalUser = true;
     description = "Benedikt Rips";
-    hashedPasswordFile = config.sops.secrets.hashed_password.path;
+    hashedPasswordFile = config.lib.sops.path "hashed_password";
     shell = pkgs.zsh;
     uid = 1000;
   };

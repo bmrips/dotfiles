@@ -19,6 +19,12 @@ return {
         option = 'cursorline',
       }
       h:getter_setter {
+        key = 'C',
+        name = 'code lenses',
+        get = vim.lsp.codelens.is_enabled,
+        set = vim.lsp.codelens.enable,
+      }
+      h:getter_setter {
         key = 'd',
         name = 'diff mode',
         get = function()
@@ -39,6 +45,12 @@ return {
       h:option {
         key = 'i',
         option = 'ignorecase',
+      }
+      h:getter_setter {
+        key = 'I',
+        name = 'inlay hints',
+        get = vim.lsp.inlay_hint.is_enabled,
+        set = vim.lsp.inlay_hint.enable,
       }
       h:option {
         key = 'l',

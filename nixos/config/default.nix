@@ -198,6 +198,4 @@ in
   };
 
   virtualisation.podman.enable = true;
-
-  zramSwap.enable = true;
 }

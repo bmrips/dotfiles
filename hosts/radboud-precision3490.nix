@@ -80,6 +80,8 @@
   # it would make to your configuration, and migrated your data accordingly.
   system.stateVersion = "26.05";
 
+  zramSwap.enable = true;
+
   home-manager.users.${user}.programs.plasma.input.touchpads = [
     {
       name = "VEN_06CB:00 06CB:CEEC Touchpad";

@@ -154,7 +154,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.wo[win][0].signcolumn = 'yes:1'
     end)
 
-    local client = assert(vim.lsp.get_client_by_id(args.data.client_id))
+    local client = assert(
+      vim.lsp.get_client_by_id(args.data.client_id),
+      'LSP client with id ' .. args.data.client_id .. ' not found'
+    )
 
     local client_supports = function(cap)
       return client:supports_method(cap, args.buf)

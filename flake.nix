@@ -87,15 +87,15 @@
       };
 
       flake.nixosConfigurations = {
-        "private-xps13-9360" = nixosSystem {
-          host = "private-xps13-9360";
+        precision3490 = nixosSystem {
+          host = "precision3490";
           system = "x86_64-linux";
-          extraModules = [ ./hosts/private-xps13-9360.nix ];
+          extraModules = [ ./hosts/precision3490.nix ];
         };
-        "radboud-precision3490" = nixosSystem {
-          host = "radboud-precision3490";
+        xps13-9360 = nixosSystem {
+          host = "xps13-9360";
           system = "x86_64-linux";
-          extraModules = [ ./hosts/radboud-precision3490.nix ];
+          extraModules = [ ./hosts/xps13-9360.nix ];
         };
       };
 

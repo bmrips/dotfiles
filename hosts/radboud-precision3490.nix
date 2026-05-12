@@ -33,11 +33,16 @@
     };
   };
 
-  # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
-  # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
-  impermanence.enable = true;
-  btrfs.device = "/dev/mapper/nixos";
-  btrfs.mountOptions.ssd = true;
+  btrfs = {
+    # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
+    # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
+    device = "/dev/mapper/nixos";
+    mountOptions.ssd = true;
+    subvolumeMounts = {
+      root = "/";
+      home = "/home";
+    };
+  };
 
   fileSystems."${config.boot.loader.efi.efiSysMountPoint}" = {
     device = "/dev/disk/by-uuid/12CE-A600";

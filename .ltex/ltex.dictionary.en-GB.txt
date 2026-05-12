@@ -3,3 +3,5 @@ KeePassXC
 KMail
 Dotfiles
 lanzaboote
+dotfiles
+disko

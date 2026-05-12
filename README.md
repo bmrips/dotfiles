@@ -1,8 +1,8 @@
 # Dotfiles
 
-## Creating an installation device
+## Creating an Installation Device
 
-```text
+```sh
 nix build .#installer.iso-installer --impure --no-link --print-out-paths
 sudo dd if=result/iso/*.iso of=/dev/sda bs=10M status=progress && sync
 ```
@@ -35,7 +35,7 @@ sudo dd if=result/iso/*.iso of=/dev/sda bs=10M status=progress && sync
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/bmrips/dotfiles ~/.config/home-manager`.
+1. Clone the repository: `git clone https://github.com/bmrips/dotfiles [~/.config/home-manager]`.
 
 1. Enable the development shell through direnv: `direnv allow ~/.config/home-manager`.
 
@@ -55,19 +55,51 @@ sudo dd if=result/iso/*.iso of=/dev/sda bs=10M status=progress && sync
 
 ### NixOS
 
-1. Install the age key: `sudo install -Dm 0600 -o bmr -g root keys.txt /var/lib/sops/age/keys.txt`.
+1. Format the drive with [disko](https://github.com/nix-community/disko/blob/master/docs/quickstart.md):
 
-1. Enable secure boot through [lanzaboote](https://github.com/nix-community/lanzaboote).
+   ```sh
+   sudo nix run github:nix-community/disko/latest -- --mode destroy,format,mount --flake .#HOSTNAME
+   ```
 
-1. Enable TPM disk decryption by enrolling it into the LUKS2 encrypted volume:
+1. In case of a re-installation, copy the most recent backup to the snapshots directory and make a writable snapshot of it at `/home`:
 
-```text
-sudo systemd-cryptenroll <luks-volume> --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000
-```
+   ```sh
+   sudo btrfs send /media/lacie/HOST/BACKUP | sudo btrfs receive /mnt/snapshots
+   sudo btrfs subvolume snapshot /mnt/snapshots/BACKUP /mnt/home
+   ```
 
-The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-pcr=yes` decryption option in my NixOS config to prevent attacks from rogue operating systems as explained [in this blog post](https://oddlama.org/blog/bypassing-disk-encryption-with-tpm2-unlock). The effect of the countermeasure is explained in the [Arch wiki](https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module).
+1. Install the age key: `sudo install -Dm 0600 -o bmr -g root keys.txt /mnt/var/lib/sops/age/keys.txt`.
 
-1. Build and activate the configuration: `nixos-install --flake /mnt/home/bmr/.config/home-manager#<hostname>`.
+1. Generate signing keys for [lanzaboote](https://github.com/nix-community/lanzaboote): `sudo nixos-enter -c 'nix run ixpkgs#sbctl --- create-keys`.
+
+1. Install the configuration and add a bootloader entry:
+
+   ```sh
+   sudo nixos-install --no-root-passwd --flake /mnt/home/bmr/.config/home-manager#HOSTNAME
+   sudo efibootmgr --create --disk DISK --part 1 --label NixOS --loader '\EFI\systemd\systemd-bootx64.efi'
+   ```
+
+1. Copy the dotfiles repository to the target:
+
+   ```sh
+   sudo mkdir -p /mnt/home/bmr/.config/
+   sudo cp -r . /mnt/home/bmr/.config/home-manager
+   ```
+
+1. Reboot into the BIOS, set Secure Boot into setup mode, and boot into NixOS. Ensure that Secure Boot is set into setup mode by running `bootctl status`.
+
+1. Enrol your signing keys: `sudo nix run nixpkgs#sbctl -- enroll-keys --microsoft`.
+
+1. Reboot once more and set Secure Boot into deployed mode if required. This ensures that the enrolment succeeded.
+
+1. Enable TPM-backed disk decryption by enrolling a TPM-guarded token for the LUKS2 encrypted volume. Additionally, add a recovery key:
+
+   ```sh
+   sudo systemd-cryptenroll LUKS_VOLUME --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000
+   sudo systemd-cryptenroll LUKS_VOLUME --wipe-slot=recovery --recovery-key
+   ```
+
+   The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-pcr=yes` decryption option in my NixOS config to prevent attacks from rogue operating systems as explained [in this blog post](https://oddlama.org/blog/bypassing-disk-encryption-with-tpm2-unlock). The effect of the countermeasure is explained in the [Arch wiki](https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module).
 
 ### Standalone Home Manager
 
@@ -75,7 +107,7 @@ The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-p
 
 1. Build and activate the configuration: `nix run home-manager -- switch`.
 
-## Remaining configuration
+## Remaining Configuration
 
 1. Set the repo's URL to `git@github.com:bmrips/dotfiles.git` to communicate through SSH in the future.
 

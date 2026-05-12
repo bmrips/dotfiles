@@ -4,6 +4,8 @@
 
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
+    disko.url = "github:nix-community/disko/latest";
+    disko.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
     firefox-addons.inputs.nixpkgs.follows = "nixpkgs";
     flake-parts.url = "github:hercules-ci/flake-parts";
@@ -56,6 +58,7 @@
           modules = [
             ./nixos
             ./home-manager/submodule.nix
+            inputs.disko.nixosModules.disko
             { nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ]; }
             inputs.lanzaboote.nixosModules.lanzaboote
             inputs.nix-index-database.nixosModules.nix-index

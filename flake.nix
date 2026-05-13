@@ -38,14 +38,19 @@
         {
           host,
           system,
+          user ? "bmr",
           extraModules,
           ...
         }:
         inputs.nixpkgs.lib.nixosSystem {
           inherit system extraModules;
           specialArgs = {
-            user = "bmr";
-            inherit host inputs system;
+            inherit
+              host
+              inputs
+              system
+              user
+              ;
           };
           lib = inputs.self.lib system;
           modules = [
@@ -118,14 +123,15 @@
             '';
           };
 
-          packages = import ./nixpkgs/packages/default.nix pkgs // {
-            installer =
-              (nixosSystem {
-                inherit system;
-                host = "installer";
-                extraModules = [ ./hosts/installer.nix ];
-              }).config.system.build.isoImage;
-          };
+          legacyPackages.installer =
+            (nixosSystem {
+              inherit system;
+              host = "installer";
+              user = "nixos";
+              extraModules = [ ./hosts/installer.nix ];
+            }).config.system.build.images;
+
+          packages = import ./nixpkgs/packages/default.nix pkgs;
 
           pre-commit.settings = {
             package = pkgs.prek;

@@ -17,7 +17,7 @@ in
 {
   options.programs.keepassxc.databasePath = lib.mkOption {
     type = lib.types.str;
-    default = "${config.home.homeDirectory}/Documents/passwords.kdbx";
+    default = "~/Documents/passwords.kdbx";
     description = "The path to the database.";
   };
 

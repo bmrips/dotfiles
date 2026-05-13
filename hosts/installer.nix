@@ -1,54 +1,23 @@
 {
-  config,
   lib,
-  modulesPath,
   pkgs,
   user,
   ...
 }:
 
 {
-  imports = [
-    "${toString modulesPath}/installer/cd-dvd/iso-image.nix"
-    "${toString modulesPath}/profiles/base.nix"
-  ];
-
-  hardware.enableAllFirmware = true;
-  hardware.enableAllHardware = true;
-
-  isoImage.makeEfiBootable = true;
-  isoImage.makeUsbBootable = true;
-
-  boot.loader.grub.memtest86.enable = true;
-  boot.supportedFilesystems.zfs = false;
-
-  # Adds terminus_font for people with HiDPI displays.
-  console.packages = [ pkgs.terminus_font ];
+  image.modules.iso-installer = {
+    boot.supportedFilesystems.zfs = false;
+    installer.cloneConfig = false;
+    system.installer.channel.enable = false;
+  };
 
   documentation.man.enable = true;
   documentation.doc.enable = true;
 
-  # Prevent installation media from evacuating persistent storage, as their
-  # var directory is not persistent and it would thus result in deletion of
-  # those entries.
-  environment.etc."systemd/pstore.conf".text = ''
-    [PStore]
-    Unlink=no
-  '';
-
   # Allow log in without a password and automatically login the user.
-  users.users.root = {
-    hashedPasswordFile = lib.mkForce null;
-    initialHashedPassword = "";
-  };
-  users.users.${user} = {
-    hashedPasswordFile = lib.mkForce null;
-    initialHashedPassword = "";
-  };
-  services.getty = {
-    autologinUser = user;
-    helpLine = "The 'bmr' and 'root' accounts have empty passwords.";
-  };
+  users.users.root.initialHashedPassword = "";
+  users.users.${user}.initialHashedPassword = "";
   services.displayManager.autoLogin.user = user;
 
   environment.plasma6.excludePackages = with pkgs.kdePackages; [
@@ -63,6 +32,7 @@
   ];
 
   hardware.bluetooth.enable = true;
+  hardware.enableAllFirmware = true;
   hardware.sane.enable = lib.mkForce false;
 
   networking.networkmanager.enable = true;
@@ -96,8 +66,7 @@
     development.markdown.enable = lib.mkForce false;
     development.yaml.enable = lib.mkForce false;
 
-    home.file."Desktop/passwords.kdbx".source =
-      /. + config.home-manager.users.${user}.programs.keepassxc.databasePath;
+    home.file."Desktop/passwords.kdbx".source = "/home/bmr/Documents/passwords.kdbx";
 
     programs.kmail.enable = lib.mkForce false;
     programs.neovim.immutableConfig = lib.mkForce true;

@@ -30,7 +30,6 @@ in
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "video=efifb:nobgrt" ]; # hide the UEFI vendor logo
     loader.efi.canTouchEfiVariables = true;
-    loader.efi.efiSysMountPoint = "/efi";
     plymouth.enable = true;
   };
 

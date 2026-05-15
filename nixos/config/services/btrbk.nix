@@ -26,7 +26,7 @@ in
       onCalendar = "hourly";
       snapshotOnly = true; # the backup disk is offline
       settings.volume.${cfg.mountPoint} = {
-        snapshot_dir = "btrbk_snapshots";
+        snapshot_dir = "snapshots";
         target = "${config.hardware.devices.lacie_drive.mountPoint}/backup/${host}";
         subvolume.home = {
           snapshot_preserve_min = "2d";

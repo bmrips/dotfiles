@@ -59,6 +59,8 @@
 
   virtualisation.podman.enable = lib.mkForce false;
 
+  zramSwap.enable = true;
+
   home-manager.users.${user} = {
     accounts.email.accounts.Gmail.primary = true;
 

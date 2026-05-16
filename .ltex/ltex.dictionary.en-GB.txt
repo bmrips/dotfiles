@@ -6,3 +6,4 @@ lanzaboote
 dotfiles
 disko
 writable
+vendored

@@ -11,30 +11,43 @@ in
 {
 
   options.dualboot.windows = {
-    device = lib.mkOption {
-      type = with lib.types; nullOr str;
-      default = null;
-      description = "The Windows device.";
-      example = "/dev/disk/by-uuid/16E2EEDDE2EEBFDB";
-    };
+    enable = lib.mkEnableOption "Windows dual booting";
     mountPoint = lib.mkOption {
-      type = lib.types.str;
+      description = "Mount point of the Microsoft basic data partition.";
       default = "/media/windows";
-      description = "Path where the Windows system is mounted.";
+      type = lib.types.str;
     };
   };
 
-  config = lib.mkIf (cfg.device != null) {
+  config = lib.mkIf cfg.enable {
+    disko.devices.disk.main.content.partitions = {
+      "Microsoft reserved" = {
+        type = "0C01";
+        priority = 290;
+        size = "16M";
+      };
+      "Microsoft basic data" = {
+        type = "0700";
+        priority = 300;
+      };
+      "Windows recovery" = {
+        type = "2700";
+        priority = 310;
+        size = "781M";
+      };
+    };
+
     fileSystems.${cfg.mountPoint} = {
-      inherit (cfg) device;
+      inherit (config.disko.devices.disk.main.content.partitions."Microsoft basic data") device;
       fsType = "ntfs-3g";
       options = [
         "dmask=0077"
         "fmask=0177"
-        "noauto"
+        "noauto" # We can not assume that Windows has already been reinstalled
         "uid=${toString config.users.users.${user}.uid}"
       ];
     };
+
     services.bt-dualboot = {
       inherit (config.hardware.bluetooth) enable;
       inherit (cfg) mountPoint;

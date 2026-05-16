@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   modulesPath,
   user,
@@ -14,47 +13,29 @@
     inputs.nixos-hardware.nixosModules.common-gpu-nvidia
   ];
 
-  boot.kernelParams = [ "retbleed=stuff" ];
-
-  boot.lanzaboote = {
+  disko = {
     enable = true;
-    pkiBundle = "/var/lib/sbctl";
-  };
-
-  boot.initrd = {
-    availableKernelModules = [ "aesni_intel" ];
-    luks.devices.nixos = {
-      device = "/dev/disk/by-uuid/256d1efd-5e12-4caf-8e1c-9b51c41f46c4";
-      allowDiscards = true;
-      crypttabExtraOpts = [
-        "tpm2-device=auto"
-        "tpm2-measure-pcr=yes"
-      ];
+    devices.disk.main = {
+      device = "/dev/disk/by-id/nvme-BG6_KIOXIA_1024GB_7E3CTA9NZ16G";
+      content.partitions = {
+        "DELL support" = {
+          priority = 200;
+          size = "1493M";
+        };
+        "Microsoft basic data".size = "200G";
+        Swap.size = "32G";
+        LUKS.content.content.mountOptions = [ "ssd" ];
+      };
     };
   };
 
-  btrfs = {
-    # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.
-    # See https://github.com/NixOS/nixpkgs/issues/250003 for more information.
-    device = "/dev/mapper/nixos";
-    mountOptions.ssd = true;
-    subvolumeMounts = {
-      root = "/";
-      home = "/home";
-    };
+  boot = {
+    initrd.availableKernelModules = [ "aesni_intel" ];
+    kernelParams = [ "retbleed=stuff" ];
+    lanzaboote.enable = true;
   };
 
-  fileSystems."${config.boot.loader.efi.efiSysMountPoint}" = {
-    device = "/dev/disk/by-uuid/12CE-A600";
-    fsType = "vfat";
-    options = [
-      "dmask=0077"
-      "fmask=0177"
-      "nodev"
-      "noexec"
-      "nosuid"
-    ];
-  };
+  dualboot.windows.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
@@ -66,8 +47,6 @@
     remotePlay.openFirewall = true;
   };
 
-  services.btrbk.enable = true;
-  services.btrfs.autoScrub.enable = true;
   services.hardware.bolt.enable = true;
 
   # This option defines the first version of NixOS you have installed on this
@@ -77,8 +56,6 @@
   # Do NOT change this value unless you have manually inspected all the changes
   # it would make to your configuration, and migrated your data accordingly.
   system.stateVersion = "26.05";
-
-  zramSwap.enable = true;
 
   home-manager.users.${user}.programs.plasma.input.touchpads = [
     {

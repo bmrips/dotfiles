@@ -127,6 +127,8 @@ in
 
   programs.zsh.enable = true;
 
+  security.tpm2.enable = lib.mkDefault config.boot.lanzaboote.enable;
+
   services.colord.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.fwupd.enable = true;

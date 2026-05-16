@@ -5,3 +5,4 @@ Dotfiles
 lanzaboote
 dotfiles
 disko
+writable

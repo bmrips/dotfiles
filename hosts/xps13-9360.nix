@@ -85,10 +85,7 @@
       "retbleed=stuff"
       "zswap.enabled=1"
     ];
-    lanzaboote = {
-      enable = true;
-      pkiBundle = "/var/lib/sbctl";
-    };
+    lanzaboote.enable = true;
   };
 
   hardware.bluetooth.enable = true;

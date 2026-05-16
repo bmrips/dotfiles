@@ -29,6 +29,7 @@ in
     initrd.systemd.enable = true;
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "video=efifb:nobgrt" ]; # hide the UEFI vendor logo
+    lanzaboote.pkiBundle = "/var/lib/sbctl";
     loader.efi.canTouchEfiVariables = true;
     plymouth.enable = true;
   };

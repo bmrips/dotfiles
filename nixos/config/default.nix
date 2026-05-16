@@ -34,13 +34,6 @@ in
     plymouth.enable = true;
   };
 
-  btrfs.mountOptions = {
-    compress = "zstd";
-    lazytime = true;
-    rw = true;
-    strictatime = true;
-  };
-
   console = {
     earlySetup = true;
     colors = with lib.gruvbox_material.scheme "dark"; [

@@ -71,27 +71,55 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
 ### NixOS
 
+1. Boot into the BIOS, set Secure Boot into setup mode, and boot the installation medium. Ensure that Secure Boot is set into setup mode by running `bootctl status`.
+
+1. Back up the EFI system partition and vendored partitions like the “DELL support” partition.
+
+   ```sh
+   sudo dd if=/dev/nvme0n1p1 of=/media/lacie/data/HOST/ESP.img bs=4M status=progress
+   sudo mount -r /dev/nvme0n1p1 /mnt
+   sudo cp -R /mnt /media/lacie/data/HOST/ESP
+   sudo umount /mnt
+   sudo dd if=/dev/nvme0n1p2 of=/media/lacie/data/HOST/DELL_Support.img bs=4M status=progress
+   ```
+
 1. Format the drive with [disko](https://github.com/nix-community/disko/blob/master/docs/quickstart.md):
 
    ```sh
    sudo nix run github:nix-community/disko/latest -- --mode destroy,format,mount --flake .#HOSTNAME
    ```
 
-1. In case of a re-installation, copy the most recent backup to the snapshots directory and make a writable snapshot of it at `/home`:
+1. Restore the partitions that you backed up in the first step:
 
    ```sh
-   sudo btrfs send /media/lacie/HOST/BACKUP | sudo btrfs receive /mnt/snapshots
+   sudo cp -R /media/lacie/data/HOST/ESP/* /mnt/boot
+   sudo dd if=/media/lacie/data/HOST/DELL_Support.img of=/dev/nvme0n1p2 bs=4M status=progress
+   ```
+
+1. Transfer the most recent backup and make a writable snapshot of it at `/home`:
+
+   ```sh
+   sudo mkdir /mnt/snapshots
+   sudo btrfs send /media/lacie/backup/HOST/BACKUP | sudo btrfs receive /mnt/snapshots
+   sudo btrfs subvolume delete /mnt/home
    sudo btrfs subvolume snapshot /mnt/snapshots/BACKUP /mnt/home
+   ```
+
+1. Generate and enrol Secure Boot signing keys for [lanzaboote](https://github.com/nix-community/lanzaboote):
+
+   ```sh
+   sudo sbctl create-keys
+   sudo enroll-keys --microsoft
+   sudo mkdir -p /var/lib
+   sudo cp -R /var/lib/sbctl /mnt/var/lib
    ```
 
 1. Install the age key: `sudo install -Dm 0600 -o bmr -g root keys.txt /mnt/var/lib/sops/age/keys.txt`.
 
-1. Generate signing keys for [lanzaboote](https://github.com/nix-community/lanzaboote): `sudo nixos-enter -c 'nix run ixpkgs#sbctl --- create-keys`.
-
 1. Install the configuration and add a bootloader entry:
 
    ```sh
-   sudo nixos-install --no-root-passwd --flake /mnt/home/bmr/.config/home-manager#HOSTNAME
+   sudo nixos-install --no-root-passwd --flake ~/dotfiles#HOSTNAME
    sudo efibootmgr --create --disk DISK --part 1 --label NixOS --loader '\EFI\systemd\systemd-bootx64.efi'
    ```
 
@@ -99,14 +127,9 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
    ```sh
    sudo mkdir -p /mnt/home/bmr/.config/
-   sudo cp -r . /mnt/home/bmr/.config/home-manager
+   sudo cp -R . /mnt/home/bmr/.config/home-manager
+   sudo chown -R 1000:users /mnt/home/bmr/.config/home-manager
    ```
-
-1. Reboot into the BIOS, set Secure Boot into setup mode, and boot into NixOS. Ensure that Secure Boot is set into setup mode by running `bootctl status`.
-
-1. Enrol your signing keys: `sudo nix run nixpkgs#sbctl -- enroll-keys --microsoft`.
-
-1. Reboot once more and set Secure Boot into deployed mode if required. This ensures that the enrolment succeeded.
 
 1. Enable TPM-backed disk decryption by enrolling a TPM-guarded token for the LUKS2 encrypted volume. Additionally, add a recovery key:
 
@@ -116,6 +139,8 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
    ```
 
    The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-pcr=yes` decryption option in my NixOS config to prevent attacks from rogue operating systems as explained [in this blog post](https://oddlama.org/blog/bypassing-disk-encryption-with-tpm2-unlock). The effect of the countermeasure is explained in the [Arch wiki](https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module).
+
+1. Reboot and set Secure Boot into deployed mode if required.
 
 ### Standalone Home Manager
 

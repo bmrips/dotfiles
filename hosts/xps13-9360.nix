@@ -1,5 +1,4 @@
 {
-  config,
   inputs,
   modulesPath,
   user,
@@ -12,66 +11,16 @@
     inputs.nixos-hardware.nixosModules.dell-xps-13-9360
   ];
 
-  disko.devices.disk.main = {
-    device = "/dev/disk/by-id/nvme-THNSN5256GPUK_NVMe_TOSHIBA_256GB_Y6EB70N0KMBU";
-    content = {
-      type = "gpt";
-      partitions = {
-        "EFI system" = {
-          type = "EF00";
-          priority = 500; # place the ESP first
-          size = "1G";
-          content = {
-            type = "filesystem";
-            format = "vfat";
-            mountpoint = "/boot";
-            mountOptions = [
-              "dmask=0077"
-              "fmask=0177"
-              "nodev"
-              "noexec"
-              "nosuid"
-            ];
-          };
-        };
-        Swap = {
-          size = "8G";
-          content = {
-            type = "swap";
-            mountOptions = [ "nofail" ];
-            randomEncryption = true;
-          };
-        };
-        LUKS = {
-          type = "8309";
-          size = "100%";
-          content = {
-            type = "luks";
-            name = "nixos";
-            settings = {
-              allowDiscards = true;
-              crypttabExtraOpts = [
-                "tpm2-device=auto"
-                "tpm2-measure-pcr=yes"
-              ];
-            };
-            content = {
-              type = "btrfs";
-              mountpoint = "/";
-              inherit (config.btrfs) mountOptions;
-              subvolumes = {
-                "home" = { };
-                "nix" = { };
-                "var/cache" = { };
-              };
-            };
-          };
-        };
+  disko = {
+    enable = true;
+    devices.disk.main = {
+      device = "/dev/disk/by-id/nvme-THNSN5256GPUK_NVMe_TOSHIBA_256GB_Y6EB70N0KMBU";
+      content.partitions = {
+        Swap.size = "8G";
+        LUKS.content.content.mountOptions = [ "ssd" ];
       };
     };
   };
-
-  btrfs.mountOptions.ssd = true;
 
   boot = {
     initrd.availableKernelModules = [
@@ -81,21 +30,13 @@
       "usbhid"
       "xhci_pci"
     ];
-    kernelParams = [
-      "retbleed=stuff"
-      "zswap.enabled=1"
-    ];
+    kernelParams = [ "retbleed=stuff" ];
     lanzaboote.enable = true;
   };
 
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;
 
-  services.btrbk = {
-    enable = true;
-    mountPoint = "/";
-  };
-  services.btrfs.autoScrub.enable = true;
   services.hardware.bolt.enable = true;
 
   services.udev.extraRules = ''

@@ -11,7 +11,7 @@ let
   cfg = config.programs.keepassxc;
 
   windowsCfg = nixosConfig.dualboot.windows;
-  isDualBooted = nixosConfig != null && windowsCfg.device != null;
+  isDualBooted = nixosConfig != null && windowsCfg.enable;
   escapedWindowsMountPoint = utils.escapeSystemdPath windowsCfg.mountPoint;
 in
 {
@@ -111,7 +111,7 @@ in
             "${pkgs.coreutils}/bin/cp"
             "--update"
             cfg.databasePath
-            "${windowsCfg.mountPoint}/Users/bened/Desktop/"
+            "${windowsCfg.mountPoint}/Users/${config.home.username}/Desktop/"
           ];
         };
       };

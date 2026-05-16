@@ -190,6 +190,4 @@ in
     shell = pkgs.zsh;
     uid = 1000;
   };
-
-  virtualisation.podman.enable = true;
 }

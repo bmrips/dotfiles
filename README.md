@@ -4,7 +4,23 @@
 
 ```sh
 nix build .#installer.iso-installer --impure --no-link --print-out-paths
-sudo dd if=result/iso/*.iso of=/dev/sda bs=10M status=progress && sync
+sudo dd if=result/iso/IMAGE.iso of=/dev/sda bs=10M status=progress && sync
+```
+
+### Debugging the Installer Image
+
+In order to debug the installer image, build its QEMU variant and run it via QEMU as a virtual machine.
+
+```sh
+nix build .#installer.qemu --impure
+nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio -vga virtio -m 8G -smp cpus=4 -snapshot result/*.qcow2
+```
+
+Note, that changes are not persisted across reboots. In order to persist changes, you first need to make the image writable by copying it from the Nix store to some writable location and setting write permissions for the owner. Then, run it with `-drive` instead of `-snapshot` to write changes to the image:
+
+```sh
+install -m 644 result/*.qcow2 .
+nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio -vga virtio -m 8G -smp cpus=4 -drive file=IMAGE.qcow2
 ```
 
 ## Bootstrapping Nix on macOS

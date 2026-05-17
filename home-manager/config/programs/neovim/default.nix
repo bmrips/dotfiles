@@ -61,6 +61,10 @@ in
 
       xdg.configFile.nvim.source =
         if cfg.immutableConfig then ./. else config.lib.file.mkOutOfStoreSymlink' ./.;
+
+      # Install blink-fuzzy-lib such that it has not to be built by lazy.nvim
+      xdg.dataFile."nvim/lazy/blink.cmp/target/release/libblink_cmp_fuzzy.so".source =
+        "${pkgs.vimPlugins.blink-cmp.passthru.blink-fuzzy-lib}/lib/libblink_cmp_fuzzy.so";
     })
 
   ];

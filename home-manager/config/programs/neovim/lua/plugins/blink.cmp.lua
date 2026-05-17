@@ -5,7 +5,6 @@ return {
     'saghen/blink.cmp',
     event = { 'CmdlineEnter', 'InsertEnter' },
     dependencies = 'rafamadriz/friendly-snippets',
-    build = 'nix run .#build-plugin',
 
     ---@module 'blink.cmp'
     ---@type blink.cmp.Config

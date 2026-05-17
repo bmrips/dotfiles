@@ -45,6 +45,7 @@ in
         "fmask=0177"
         "noauto" # We can not assume that Windows has already been reinstalled
         "uid=${toString config.users.users.${user}.uid}"
+        "X-mount.mkdir"
       ];
     };
 

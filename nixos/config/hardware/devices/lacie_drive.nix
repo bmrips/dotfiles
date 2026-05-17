@@ -31,6 +31,7 @@ in
         "noauto"
         "rw"
         "strictatime"
+        "X-mount.mkdir"
       ];
     };
     systemd.mounts = [

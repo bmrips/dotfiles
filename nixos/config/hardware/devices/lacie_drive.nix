@@ -17,7 +17,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.etc.crypttab.text = ''
-      ${name} UUID=17a21a62-269e-4d40-a28d-1d49ae100d36 - noauto,tpm2-device=auto
+      ${name} UUID=17a21a62-269e-4d40-a28d-1d49ae100d36 - noauto
     '';
     fileSystems.${cfg.mountPoint} = {
       # Refer to encrypted volumes as /dev/mapper/<volume> to disable timeouts.

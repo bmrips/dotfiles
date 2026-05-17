@@ -86,7 +86,7 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 1. Format the drive with [disko](https://github.com/nix-community/disko/blob/master/docs/quickstart.md):
 
    ```sh
-   sudo nix run github:nix-community/disko/latest -- --mode destroy,format,mount --flake .#HOSTNAME
+   sudo disko --mode destroy,format,mount --flake ~/dotfiles#HOSTNAME
    ```
 
 1. Restore the partitions that you backed up in the first step:

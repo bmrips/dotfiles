@@ -1,6 +1,8 @@
 {
+  inputs,
   lib,
   pkgs,
+  system,
   user,
   ...
 }:
@@ -32,7 +34,13 @@
     krdp
   ];
 
+  environment.systemPackages = [
+    pkgs.sbctl
+    inputs.disko.packages.${system}.disko
+  ];
+
   hardware.bluetooth.enable = true;
+  hardware.devices.lacie_drive.enable = true;
   hardware.enableAllFirmware = true;
   hardware.sane.enable = lib.mkForce false;
 
@@ -56,6 +64,10 @@
 
   sops.secrets = lib.mkForce { };
 
+  system.extraDependencies = lib.attrValues inputs ++ [
+    inputs.self.devShells.${system}.default
+  ];
+
   system.stateVersion = lib.trivial.release;
 
   virtualisation.podman.enable = lib.mkForce false;
@@ -69,7 +81,10 @@
     development.markdown.enable = lib.mkForce false;
     development.yaml.enable = lib.mkForce false;
 
-    home.file."Desktop/passwords.kdbx".source = "/home/bmr/Documents/passwords.kdbx";
+    home.file = {
+      "dotfiles".source = inputs.self;
+      "Desktop/passwords.kdbx".source = "/home/bmr/Documents/passwords.kdbx";
+    };
 
     programs.kmail.enable = lib.mkForce false;
     programs.neovim.immutableConfig = lib.mkForce true;

@@ -9,6 +9,7 @@
   image.modules.iso-installer = {
     boot.supportedFilesystems.zfs = false;
     installer.cloneConfig = false;
+    isoImage.squashfsCompression = "zstd -Xcompression-level 3";
     system.installer.channel.enable = false;
   };
 

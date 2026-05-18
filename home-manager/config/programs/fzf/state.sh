@@ -1,4 +1,4 @@
-state_dir=/tmp/fzf
+state_dir=/run/user/$UID/fzf
 mkdir --parents $state_dir
 
 shopt -s nullglob
@@ -6,12 +6,6 @@ for file in "$state_dir"/*; do
     pre_var=${file#"$state_dir/"}
     eval "${pre_var//-/_}=1"
 done
-
-print_icon() {
-    if [[ -n ${!1} ]]; then
-        echo " ${2:-icon missing} "
-    fi
-}
 
 print_status() {
     if [[ -n ${!1} ]]; then

@@ -30,7 +30,6 @@ in
       "auto_pushd"
       "hist_reduce_blanks"
       "inc_append_history_time"
-      "null_glob" # remove patterns without matches from argument list
       "sh_word_split" # split fields like in Bash
     ];
 

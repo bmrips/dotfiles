@@ -168,6 +168,10 @@
           treefmt.programs = {
             mdformat = {
               enable = true;
+              plugins = ps: [
+                ps.mdformat-gfm
+                ps.mdformat-gfm-alerts
+              ];
               settings.wrap = "no";
             };
             nixf-diagnose = {

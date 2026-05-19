@@ -67,15 +67,7 @@ let
     paging = "never";
   };
 
-  useFdForPathListings = /* bash */ ''
-    # Path and directory completion, e.g. for `cd .config/**`
-    _fzf_compgen_path() {
-      ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" . "$1"
-    }
-    _fzf_compgen_dir() {
-      ${lib.getExe config.programs.fd.package} --hidden --exclude=".git" --type=directory . "$1"
-    }
-  '';
+  compgen = ''${lib.getExe config.programs.fd.package} --hidden --exclude=".git" . "$1"'';
 
   setColorsDynamically =
     let
@@ -217,7 +209,39 @@ lib.mkMerge [
         };
     };
 
-    programs.bash.initExtra = useFdForPathListings + setColorsDynamically;
+    programs.bash.initExtra = setColorsDynamically + ''
+      # Path and directory completion, e.g. for `cd .config/**`
+      _fzf_compgen_path() {
+        ${compgen}
+      }
+      _fzf_compgen_dir() {
+        ${compgen} --type=directory
+      }
+    '';
+
+    programs.zsh = {
+      initContent = setColorsDynamically + /* bash */ ''
+        # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
+        bindkey '^ ' fzf-file-widget
+        bindkey '^_' fzf-history-widget
+        bindkey '^T' fzf-cd-widget
+
+        bindkey -M vicmd '^R' redo  # restore redo
+
+        # Preview when completing env vars (note: only works for exported variables).
+        # Eval twice, first to unescape the string, second to expand the $variable.
+        zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
+
+        # Interactive grep
+        zle -N fzf-grep-widget
+        bindkey '^G' fzf-grep-widget
+      '';
+      siteFunctions = {
+        # Path and directory completion, e.g. for `cd .config/**`
+        _fzf_compgen_path = compgen;
+        _fzf_compgen_dir = "${compgen} --type=dir";
+      };
+    };
 
     programs.zsh.siteFunctions.fzf-grep-widget =
       let
@@ -236,26 +260,6 @@ lib.mkMerge [
         local ret=$?
         zle reset-prompt
         return $ret
-      '';
-
-    programs.zsh.initContent =
-      useFdForPathListings
-      + setColorsDynamically
-      + /* bash */ ''
-        # Select files with Ctrl+Space, history with Ctrl+/, directories with Ctrl+T
-        bindkey '^ ' fzf-file-widget
-        bindkey '^_' fzf-history-widget
-        bindkey '^T' fzf-cd-widget
-
-        bindkey -M vicmd '^R' redo  # restore redo
-
-        # Preview when completing env vars (note: only works for exported variables).
-        # Eval twice, first to unescape the string, second to expand the $variable.
-        zstyle ':completion::*:(-command-|-parameter-|-brace-parameter-|export|unset|expand):*' fzf-completion-opts --preview='eval eval echo {1}' --preview-window=wrap
-
-        # Interactive grep
-        zle -N fzf-grep-widget
-        bindkey '^G' fzf-grep-widget
       '';
 
   })

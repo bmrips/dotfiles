@@ -20,7 +20,6 @@ in
 
     history = {
       extended = true;
-      ignoreSpace = false;
       path = "${config.xdg.stateHome}/zsh/history";
       save = cfg.history.size;
       share = false;

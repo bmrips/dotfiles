@@ -11,7 +11,7 @@ prev.types
       dependsOn = lib.mkOption {
         description = "Systemd units that provide the file.";
         default = [ ];
-        type = with lib.types; listOf str;
+        type = with lib.types; listOf nonEmptyStr;
       };
     };
   };

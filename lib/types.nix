@@ -2,6 +2,7 @@
 
 prev.types
 // {
+  mergeablePath = with lib.types; either path pathWithDeps;
   pathWithDeps = lib.types.submodule {
     options = {
       path = lib.mkOption {

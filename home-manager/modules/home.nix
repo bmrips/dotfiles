@@ -24,7 +24,7 @@ let
       };
       sources = lib.mkOption {
         description = "The files that will be merged into the target.";
-        type = with lib.types; listOf (either path pathWithDeps);
+        type = with lib.types; listOf mergeablePath;
         apply = map (x: if lib.types.path.check x then { path = x; } else x);
       };
       type = lib.mkOption {

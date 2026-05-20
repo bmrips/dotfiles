@@ -57,7 +57,7 @@ let
             settings. This option is useful to set secrets.
           '';
           default = [ ];
-          type = with lib.types; listOf (either path pathWithDeps);
+          type = with lib.types; listOf mergeablePath;
         };
       };
     }

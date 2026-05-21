@@ -1,18 +1,12 @@
 {
   config,
   lib,
-  nixosConfig,
   pkgs,
-  utils,
   ...
 }:
 
 let
   cfg = config.programs.keepassxc;
-
-  windowsCfg = nixosConfig.dualboot.windows;
-  isDualBooted = nixosConfig != null && windowsCfg.enable;
-  escapedWindowsMountPoint = utils.escapeSystemdPath windowsCfg.mountPoint;
 in
 {
   options.programs.keepassxc.databasePath = lib.mkOption {
@@ -96,25 +90,6 @@ in
           };
         }
       ];
-
-      systemd.user.services.keepassxc-copy-database = lib.mkIf isDualBooted {
-        Unit = {
-          Description = "Copy the KeePassXC database to Windows before shutdown";
-          Requires = [ "${escapedWindowsMountPoint}.mount" ];
-          After = [ "${escapedWindowsMountPoint}.mount" ];
-        };
-        Install.WantedBy = [ "graphical-session.target" ];
-        Service = {
-          Type = "oneshot";
-          RemainAfterExit = true;
-          ExecStop = lib.concatStringsSep " " [
-            "${pkgs.coreutils}/bin/cp"
-            "--update"
-            cfg.databasePath
-            "${windowsCfg.mountPoint}/Users/${config.home.username}/Desktop/"
-          ];
-        };
-      };
     })
   ];
 }

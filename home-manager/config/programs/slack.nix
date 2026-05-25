@@ -10,7 +10,7 @@
         description = "Slack";
         match.window-class = {
           match-whole = false;
-          value = "Slack";
+          value = "slack";
         };
         apply = {
           maximizehoriz = false;

@@ -50,7 +50,7 @@
   #
   # Do NOT change this value unless you have manually inspected all the changes
   # it would make to your configuration, and migrated your data accordingly.
-  system.stateVersion = "26.05";
+  system.stateVersion = "26.11";
 
   home-manager.users.${user} = {
     profiles.gui.extra.enable = true;

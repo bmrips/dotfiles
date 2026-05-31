@@ -7,52 +7,36 @@
 
 {
   services.kmscon = {
-
-    hwRender = true;
-
-    extraConfig =
-      let
-        inherit (config.services.xserver) xkb;
-
-        colors = lib.base16.asRgbCodes (lib.gruvbox_material.scheme "dark") rec {
-          foreground = "base05";
-          background = "base00";
-          black = background;
-          white = foreground;
-          dark-grey = "base04";
-          light-grey = "base03";
-          red = "base08";
-          light-red = "base12";
-          yellow = "base0A";
-          light-yellow = "base13";
-          green = "base0B";
-          light-green = "base14";
-          cyan = "base0C";
-          light-cyan = "base15";
-          blue = "base0D";
-          light-blue = "base16";
-          magenta = "base0E";
-          light-magenta = "base17";
-        };
-
-        colorConfigStr = lib.concatLines (
-          [ "palette=custom" ] ++ lib.mapAttrsToList (n: v: "palette-${n}=${v}") colors
-        );
-
-      in
-      ''
-        font-size=11
-        xkb-layout=${xkb.layout}
-        xkb-options=${xkb.options}
-        ${colorConfigStr}
-      '';
-
-    fonts = [
-      {
-        name = "JetbrainsMono NF Medium";
-        package = pkgs.nerd-fonts.jetbrains-mono;
-      }
-    ];
-
+    useXkbConfig = true;
+    config = {
+      font-name = "JetbrainsMono NF Medium";
+      font-size = 11;
+      hwaccel = true;
+      palette = "custom";
+    }
+    // lib.base16.asRgbCodes (lib.gruvbox_material.scheme "dark") rec {
+      palette-foreground = "base05";
+      palette-background = "base00";
+      palette-black = palette-background;
+      palette-white = palette-foreground;
+      palette-dark-grey = "base04";
+      palette-light-grey = "base03";
+      palette-red = "base08";
+      palette-light-red = "base12";
+      palette-yellow = "base0A";
+      palette-light-yellow = "base13";
+      palette-green = "base0B";
+      palette-light-green = "base14";
+      palette-cyan = "base0C";
+      palette-light-cyan = "base15";
+      palette-blue = "base0D";
+      palette-light-blue = "base16";
+      palette-magenta = "base0E";
+      palette-light-magenta = "base17";
+    };
   };
+
+  fonts.packages = lib.mkIf config.services.kmscon.enable [
+    pkgs.nerd-fonts.jetbrains-mono
+  ];
 }

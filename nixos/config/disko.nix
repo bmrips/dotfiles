@@ -85,5 +85,12 @@
     };
 
     services.btrfs.autoScrub.enable = true;
+
+    # Disable hibernation since the swap space is encrypted randomly.
+    systemd.sleep.settings.Sleep = {
+      AllowHibernation = false;
+      AllowHybridSleep = false;
+      AllowSuspendThenHibernate = false;
+    };
   };
 }

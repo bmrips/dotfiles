@@ -10,7 +10,7 @@
     useXkbConfig = true;
     config = {
       font-name = "JetbrainsMono NF Medium";
-      font-size = 11;
+      font-size = 14;
       hwaccel = true;
       multi-monitor = "largest";
       palette = "custom";

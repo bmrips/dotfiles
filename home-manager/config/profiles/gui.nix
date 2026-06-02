@@ -26,7 +26,6 @@ in
 
       (lib.mkIf cfg.extra.enable {
         home.packages = [
-          pkgs.logseq
           pkgs.spotify
         ]
         ++ lib.optionals hostPlatform.isLinux [

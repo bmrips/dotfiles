@@ -40,6 +40,9 @@ return {
     'saghen/blink.cmp',
     optional = true,
     dependencies = 'moyiz/blink-emoji.nvim',
+
+    ---@module 'blink.cmp'
+    ---@type blink.cmp.Config
     opts = {
       sources = {
         default = { 'emoji' },

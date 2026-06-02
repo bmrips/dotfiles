@@ -12,6 +12,7 @@
       font-name = "JetbrainsMono NF Medium";
       font-size = 11;
       hwaccel = true;
+      multi-monitor = "largest";
       palette = "custom";
     }
     // lib.base16.asRgbCodes (lib.gruvbox_material.scheme "dark") rec {

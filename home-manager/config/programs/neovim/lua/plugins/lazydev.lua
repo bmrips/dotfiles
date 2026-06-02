@@ -1,7 +1,8 @@
 ---@module 'lazy.types'
 ---@type LazyPluginSpec
 return {
-  'folke/lazydev.nvim',
+  'bmrips/lazydev.nvim',
+  branch = 'emmylua-support',
   ft = 'lua',
   opts = {
     library = {

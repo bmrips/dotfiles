@@ -3,7 +3,10 @@
 return {
   'saghen/blink.cmp',
   event = { 'CmdlineEnter', 'InsertEnter' },
-  dependencies = 'rafamadriz/friendly-snippets',
+  dependencies = {
+    'saghen/blink.lib',
+    'rafamadriz/friendly-snippets',
+  },
 
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
@@ -14,9 +17,6 @@ return {
       list = {
         selection = { preselect = false },
       },
-    },
-    fuzzy = {
-      prebuilt_binaries = { download = false },
     },
     keymap = { preset = 'enter' },
     signature = { enabled = true },

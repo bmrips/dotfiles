@@ -99,7 +99,7 @@ require('lazy').setup('plugins', {
   -- Reset neither packpath nor runtime path since Nix injects dependencies
   performance = {
     reset_packpath = false,
-    rtp = { reset = true },
+    rtp = { reset = false },
   },
   rocks = {
     hererocks = false,

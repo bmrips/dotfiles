@@ -36,6 +36,7 @@ in
         sideloadInitLua = true;
         extraPackages = with pkgs; [
           harper
+          inotify-tools # Replacement for libuv-watchdirs as recommended by lspconfig
           ltex-ls-plus
         ];
         plugins = [ treesitter ];

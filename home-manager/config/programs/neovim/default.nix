@@ -58,6 +58,7 @@ in
       home.sessionVariables = {
         DEEPL_AUTH_KEY = config.lib.sops.pathCat "deepl_api_token";
         NVIM_TREESITTER = treesitter;
+        LIBSQLITE = "${pkgs.sqlite.out}/lib/libsqlite3.so"; # To speed up snacks.nvim pickers
       };
 
       xdg.configFile.nvim.source =

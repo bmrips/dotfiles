@@ -162,6 +162,9 @@ return {
     },
     picker = {
       enabled = true,
+      db = {
+        sqlite3_path = vim.env.LIBSQLITE,
+      },
       layout = {
         cycle = false,
         preset = function()

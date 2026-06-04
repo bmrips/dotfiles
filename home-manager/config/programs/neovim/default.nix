@@ -56,7 +56,7 @@ in
 
       home.sessionVariables = {
         DEEPL_AUTH_KEY = config.lib.sops.pathCat "deepl_api_token";
-        NVIM_TREESITTER = "${treesitter}";
+        NVIM_TREESITTER = treesitter;
       };
 
       xdg.configFile.nvim.source =

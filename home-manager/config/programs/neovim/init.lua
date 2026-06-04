@@ -102,7 +102,7 @@ require('lazy').setup('plugins', {
     rtp = { reset = false },
   },
   rocks = {
-    hererocks = false,
+    enabled = false,
   },
 })
 

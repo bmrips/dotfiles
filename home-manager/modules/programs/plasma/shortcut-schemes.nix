@@ -1,22 +1,27 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
+  xml = pkgs.formats.xml { };
+
   mkShortcutSchemeFor =
     let
-      mkAction =
-        name: value:
-        let
-          keys = if lib.isString value then value else lib.concatStringsSep "; " value;
-        in
-        /* xml */ ''<Action name="${name}" shortcut="${keys}"/>'';
+      mkAction = name: keys: {
+        "@name" = name;
+        "@shortcut" = if lib.isString keys then keys else lib.concatStringsSep "; " keys;
+      };
     in
-    app: scheme: /* xml */ ''
-      <gui name="${app}" version="1">
-        <ActionProperties>
-          ${lib.concatStringsSep "\n    " (lib.mapAttrsToList mkAction scheme)}
-        </ActionProperties>
-      </gui>
-    '';
+    app: scheme: {
+      gui = {
+        "@name" = app;
+        "@version" = "1";
+        ActionProperties.Action = lib.mapAttrsToList mkAction scheme;
+      };
+    };
 in
 {
   options.programs.plasma.shortcutSchemes = lib.mkOption {
@@ -30,7 +35,7 @@ in
     lib.mapAttrs' (
       name: scheme: {
         name = "${app}/shortcuts/${name}";
-        value.text = mkShortcutSchemeFor app scheme;
+        value.source = xml.generate "shortcuts-${app}-${name}" (mkShortcutSchemeFor app scheme);
       }
     )
   ) config.programs.plasma.shortcutSchemes;

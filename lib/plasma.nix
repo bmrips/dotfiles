@@ -2,13 +2,13 @@
 
 {
   shortcutSchemesOption = lib.mkOption {
+    description = "Shortcut schemes.";
+    default = { };
     type =
       with lib.types;
       let
-        shortcut = either str (listOf str);
+        keys = either str (listOf str);
       in
-      attrsOf (attrsOf shortcut);
-    default = { };
-    description = "Shortcut schemes.";
+      attrsWith' "scheme-name" (attrsWith' "action" keys);
   };
 }

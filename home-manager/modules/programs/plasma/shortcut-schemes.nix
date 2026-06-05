@@ -20,14 +20,9 @@ let
 in
 {
   options.programs.plasma.shortcutSchemes = lib.mkOption {
-    type =
-      with lib.types;
-      let
-        shortcut = either str (listOf str);
-      in
-      attrsOf (attrsOf (attrsOf shortcut));
-    default = { };
     description = "Shortcut schemes.";
+    default = { };
+    type = lib.types.attrsWith' "app" lib.plasma.shortcutSchemesOption.type;
   };
 
   config.xdg.dataFile = lib.concatMapAttrs (

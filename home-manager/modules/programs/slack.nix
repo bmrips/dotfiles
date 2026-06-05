@@ -24,7 +24,7 @@ in
 
   options.programs.slack = {
     enable = lib.mkEnableOption "Slack";
-    package = lib.mkPackageOption pkgs "slack" { };
+    package = lib.mkPackageOption pkgs "slack" { nullable = true; };
     autostart = lib.mkOption {
       type = lib.types.bool;
       default = false;

@@ -16,7 +16,7 @@ in
 
     enable = lib.mkEnableOption "{command}`yamllint`";
 
-    package = lib.mkPackageOption pkgs "yamllint" { };
+    package = lib.mkPackageOption pkgs "yamllint" { nullable = true; };
 
     settings = lib.mkOption {
       inherit (yaml) type;

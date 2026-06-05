@@ -13,7 +13,7 @@ in
 
   options.programs.signal-desktop = {
     enable = lib.mkEnableOption "Signal Desktop";
-    package = lib.mkPackageOption pkgs "signal-desktop" { };
+    package = lib.mkPackageOption pkgs "signal-desktop" { nullable = true; };
     autostart = lib.mkOption {
       description = "Whether Signal Desktop starts automatically on login.";
       default = false;

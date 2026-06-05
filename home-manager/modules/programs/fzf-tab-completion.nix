@@ -16,7 +16,7 @@ in
 
     enable = lib.mkEnableOption "fzf-tab-completion";
 
-    package = lib.mkPackageOption pkgs "fzf-tab-completion" { };
+    package = lib.mkPackageOption pkgs "fzf-tab-completion" { nullable = true; };
 
     fzfOptions = lib.mkOption {
       type = with lib.types; attrsOf str;

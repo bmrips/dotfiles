@@ -46,7 +46,7 @@ in
 
     enable = lib.mkEnableOption "{command}`taskell`";
 
-    package = lib.mkPackageOption pkgs "taskell" { };
+    package = lib.mkPackageOption pkgs "taskell" { nullable = true; };
 
     bindings = lib.mkOption {
       type = with lib.types; attrsOf str;

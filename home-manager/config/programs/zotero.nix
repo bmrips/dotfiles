@@ -12,7 +12,7 @@ in
 {
   options.programs.zotero = {
     enable = lib.mkEnableOption "Zotero";
-    package = lib.mkPackageOption pkgs "zotero" { };
+    package = lib.mkPackageOption pkgs "zotero" { nullable = true; };
   };
 
   config = lib.mkIf cfg.enable {

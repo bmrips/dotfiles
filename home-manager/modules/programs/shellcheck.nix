@@ -15,7 +15,7 @@ in
 
     enable = lib.mkEnableOption "{command}`shellcheck`";
 
-    package = lib.mkPackageOption pkgs "shellcheck" { };
+    package = lib.mkPackageOption pkgs "shellcheck" { nullable = true; };
 
     settings = lib.mkOption {
       type = with lib.types; attrsOf (either str (listOf str));

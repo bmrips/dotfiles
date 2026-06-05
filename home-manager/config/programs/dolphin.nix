@@ -63,11 +63,11 @@ lib.mkMerge [
       activate_tab_7 = "Alt+8";
       activate_last_tab = "Alt+9";
       activate_next_tab = [
-        "Ctrl+]"
+        "Ctrl+>"
         "Ctrl+Tab"
       ];
       activate_prev_tab = [
-        "Ctrl+["
+        "Ctrl+<"
         "Ctrl+Shift+Tab"
       ];
       icons = "Ctrl+1";

@@ -11,8 +11,14 @@ lib.mkMerge [
       file_quit = "Ctrl+Q";
       close_current_tab = "Ctrl+W";
       create_new_tab = "Ctrl+T";
-      activate_next_tab = "Ctrl+]";
-      activate_previous_tab = "Ctrl+[";
+      activate_next_tab = [
+        "Ctrl+>"
+        "Ctrl+Tab"
+      ];
+      activate_previous_tab = [
+        "Ctrl+<"
+        "Ctrl+Shift+Tab"
+      ];
       activate_tab_01 = "Alt+1";
       activate_tab_02 = "Alt+2";
       activate_tab_03 = "Alt+3";

@@ -102,12 +102,12 @@ lib.mkMerge [
         file_quit = "Ctrl+Q";
         file_close = "Ctrl+W";
         tab-next = [
+          "Ctrl+>"
           "Ctrl+Tab"
-          "Ctrl+]"
         ];
         tab-previous = [
+          "Ctrl+<"
           "Ctrl+Shift+Tab"
-          "Ctrl+["
         ];
         undo-close-tab = "Ctrl+Shift+T";
         help_contents = "F1";

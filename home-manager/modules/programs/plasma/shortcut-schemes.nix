@@ -12,7 +12,7 @@ let
     let
       mkAction = name: keys: {
         "@name" = name;
-        "@shortcut" = if lib.isString keys then keys else lib.concatStringsSep "; " keys;
+        "@shortcut" = lib.concatStringsSep "; " keys;
       };
     in
     app: scheme: {
@@ -28,6 +28,7 @@ in
     description = "Shortcut schemes.";
     default = { };
     type = lib.types.attrsWith' "app" lib.plasma.shortcutSchemesOption.type;
+    apply = lib.mapAttrsRecursive (_: v: if lib.isString v then [ v ] else v);
   };
 
   config.xdg.dataFile = lib.concatMapAttrs (

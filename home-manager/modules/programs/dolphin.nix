@@ -3,15 +3,7 @@
 let
   cfg = config.programs.dolphin;
 
-  basicSettingsType =
-    with lib.types;
-    nullOr (oneOf [
-      bool
-      float
-      int
-      str
-    ]);
-  viewPropertiesType = lib.types.attrsOf basicSettingsType;
+  viewPropertiesType = lib.types.attrsOf lib.plasma.coercedSettingsType;
   viewPropertiesOption =
     kind:
     lib.mkOption {
@@ -35,9 +27,9 @@ in
       remote = viewPropertiesOption "Remote";
       trash = viewPropertiesOption "Trash";
       local = lib.mkOption {
-        type = lib.types.attrsOf viewPropertiesType;
-        default = { };
         description = "Directory-local view properties";
+        default = { };
+        type = lib.types.attrsOf viewPropertiesType;
       };
     };
   };

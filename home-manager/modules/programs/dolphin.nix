@@ -42,9 +42,9 @@ in
     };
   };
 
-  config.programs.plasma = {
+  config.programs.plasma = lib.mkIf cfg.enable {
 
-    shortcutSchemes.dolphin = lib.mkIf cfg.enable cfg.shortcutSchemes;
+    shortcutSchemes.dolphin = cfg.shortcutSchemes;
 
     dataFile =
       let

@@ -624,7 +624,6 @@ lib.mkMerge [
         plasma-dark-mode
       ]
       ++ lib.optionals config.profiles.gui.extra.enable [
-        akregator
         haruna
         skanpage
       ];
@@ -651,6 +650,7 @@ lib.mkMerge [
       };
     };
 
+    programs.akregator.enable = true;
     programs.dolphin.enable = true;
     programs.kmail.enable = true;
     programs.konsole.enable = true;

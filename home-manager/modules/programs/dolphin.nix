@@ -1,4 +1,9 @@
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   cfg = config.programs.dolphin;
@@ -21,6 +26,10 @@ in
 
   options.programs.dolphin = {
     enable = lib.mkEnableOption "Dolphin";
+    package = lib.mkPackageOption pkgs [ "kdePackages" "dolphin" ] {
+      nullable = true;
+      default = null;
+    };
     shortcutSchemes = lib.plasma.shortcutSchemesOption;
     viewProperties = {
       global = viewPropertiesOption "Global";
@@ -34,26 +43,28 @@ in
     };
   };
 
-  config.programs.plasma = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
+    home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
 
-    shortcutSchemes.dolphin = cfg.shortcutSchemes;
+    programs.plasma = {
+      dataFile =
+        let
+          mkFilename = kind: "dolphin/view_properties/${kind}/.directory";
+        in
+        lib.mkMerge [
+          {
+            ${mkFilename "global"}.Dolphin = cfg.viewProperties.global;
+            ${mkFilename "remote"}.Dolphin = cfg.viewProperties.remote;
+            ${mkFilename "trash"}.Dolphin = cfg.viewProperties.remote;
+          }
+          (lib.mapAttrs' (path: props: {
+            name = mkFilename "local/${path}";
+            value.Dolphin = props;
+          }) cfg.viewProperties.local)
+        ];
 
-    dataFile =
-      let
-        mkFilename = kind: "dolphin/view_properties/${kind}/.directory";
-      in
-      lib.mkMerge [
-        {
-          ${mkFilename "global"}.Dolphin = cfg.viewProperties.global;
-          ${mkFilename "remote"}.Dolphin = cfg.viewProperties.remote;
-          ${mkFilename "trash"}.Dolphin = cfg.viewProperties.remote;
-        }
-        (lib.mapAttrs' (path: props: {
-          name = mkFilename "local/${path}";
-          value.Dolphin = props;
-        }) cfg.viewProperties.local)
-      ];
-
+      shortcutSchemes.dolphin = cfg.shortcutSchemes;
+    };
   };
 
 }

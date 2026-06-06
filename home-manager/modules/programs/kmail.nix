@@ -18,11 +18,11 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = with pkgs.kdePackages; [
-      akonadi-search
+    home.packages = lib.mkIf (cfg.package != null) [
+      pkgs.kdePackages.akonadi-search
       cfg.package
-      kleopatra
-      kmail-account-wizard
+      pkgs.kdePackages.kleopatra
+      pkgs.kdePackages.kmail-account-wizard
     ];
     programs.plasma.shortcutSchemes.kmail2 = cfg.shortcutSchemes;
   };

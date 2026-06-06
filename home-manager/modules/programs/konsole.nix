@@ -137,6 +137,11 @@ in
 
   options.programs.konsole = {
 
+    package = lib.mkPackageOption pkgs [ "kdePackages" "konsole" ] {
+      nullable = true;
+      default = null;
+    };
+
     colorSchemes = lib.mkOption {
       description = "Color schemes.";
       example = {
@@ -174,12 +179,14 @@ in
 
   config = lib.mkIf cfg.enable {
 
+    home.packages = lib.mkIf (cfg.package != null) [ cfg.package ];
+
+    programs.plasma.shortcutSchemes.konsole = cfg.shortcutSchemes;
+
     xdg.dataFile = lib.mapAttrs' (name: value: {
       name = "konsole/${name}.colorscheme";
       value.source = ini.generate "${name}.colorscheme" (mkColorScheme value);
     }) cfg.colorSchemes;
-
-    programs.plasma.shortcutSchemes.konsole = cfg.shortcutSchemes;
 
   };
 }

@@ -1,5 +1,7 @@
-{
-  programs.merkuro.settings = {
+{ config, lib, ... }:
+
+lib.mkIf config.programs.merkuro.enable {
+  programs.plasma.configFile.kalendarrc = {
     General = {
       enableMaps = true;
       forceCollapsedMainDrawer = true;

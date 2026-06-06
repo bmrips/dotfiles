@@ -126,6 +126,7 @@ lib.mkMerge [
         PreviewSize = 16;
         LeftPadding = 0;
         RightPadding = 0;
+        SidePadding = 0;
       };
       General = {
         GlobalViewProps = true;

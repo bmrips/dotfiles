@@ -131,8 +131,7 @@ in
 
     initContent = lib.mkMerge [
 
-      /* bash */
-      ''
+      /* bash */ ''
         # Display the cursor as a bar
         autoload -Uz add-zsh-hook add-zsh-hook-widget
 

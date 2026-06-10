@@ -10,11 +10,12 @@ return {
   end,
   settings = {
     ltex = {
-      language = 'en-GB',
       additionalRules = {
         enablePickyRules = true,
       },
       completionEnabled = true,
+      language = 'en-GB',
+      languageToolHttpServerUri = 'http://localhost:8081',
       latex = {
         commands = {
           ['\\citep{}'] = 'dummy',

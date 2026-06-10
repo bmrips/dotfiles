@@ -416,7 +416,6 @@ lib.mkMerge [
                 "nl"
               ];
             };
-            settingsFiles = config.lib.sops.pathUnit "firefox_extensions/languagetool";
           };
           refined-github = {
             package = pkgs.firefox-addons.refined-github;
@@ -491,7 +490,6 @@ lib.mkMerge [
 
   (lib.mkIf config.programs.firefox.enable {
     sops.secrets = {
-      "firefox_extensions/languagetool" = { };
       "firefox_extensions/simple-translate" = { };
       "firefox_extensions/tab-session-manager" = { };
     };

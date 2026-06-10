@@ -105,10 +105,21 @@ in
 
   nix.channel.enable = false;
 
-  nix.settings = {
+  nix.settings = rec {
+    auto-allocate-uids = true;
     auto-optimise-store = true;
     download-buffer-size = 536870912; # 512 MiB
-    experimental-features = "flakes nix-command";
+    experimental-features = lib.concatStringsSep " " (
+      [
+        "flakes"
+        "nix-command"
+      ]
+      ++ lib.optionals auto-allocate-uids [
+        "auto-allocate-uids"
+        "cgroups"
+      ]
+    );
+    system-features = lib.optional auto-allocate-uids "uid-range";
     trusted-users = [ user ];
     use-xdg-base-directories = true;
   };

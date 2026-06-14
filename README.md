@@ -160,10 +160,6 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
 ## Remaining Configuration
 
-1. Set the repo's URL to `git@github.com:bmrips/dotfiles.git` to communicate through SSH in the future.
-
-1. Set the repo's e-mail address: `git config user.email benedikt.rips@gmail.com`.
-
 1. Import my GPG keys from the KeePassXC database.
 
 1. Commit the configuration for the new host.

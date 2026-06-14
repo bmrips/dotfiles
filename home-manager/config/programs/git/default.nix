@@ -125,6 +125,23 @@ lib.mkMerge [
         "Session*.vim"
         "taskell.md"
       ];
+
+      # Set the push protocol, user name, and user email for my private GitHub account.
+      settings.url."git@github.com:bmrips/".pushInsteadOf = "https://github.com/bmrips/";
+      includes =
+        let
+          setUserFor = url: {
+            condition = "hasconfig:remote.*.url:${url}/**";
+            contents.user = {
+              name = "Benedikt Rips";
+              email = "benedikt.rips@gmail.com";
+            };
+          };
+        in
+        map setUserFor [
+          "https://github.com/bmrips"
+          "git@github.com:bmrips/"
+        ];
     };
   }
 

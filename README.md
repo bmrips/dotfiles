@@ -134,16 +134,23 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
    chown -R 1000:users /mnt/home/bmr/.config/home-manager
    ```
 
-1. Enable TPM-backed disk decryption by enrolling a TPM-guarded token for the LUKS2 encrypted volume. Additionally, add a recovery key:
+1. Enable TPM-backed LUKS volume unlocking by enrolling a TPM-guarded token for the LUKS2 encrypted volume:
 
    ```sh
    systemd-cryptenroll LUKS_VOLUME --wipe-slot=tpm2 --tpm2-device=auto --tpm2-pcrs=7+15:sha256=0000000000000000000000000000000000000000000000000000000000000000
-   systemd-cryptenroll LUKS_VOLUME --wipe-slot=recovery --recovery-key
    ```
 
    The `--tpm2-pcrs:...+15:sha256=0...` option is combined with the `tpm2-measure-pcr=yes` decryption option in my NixOS config to prevent attacks from rogue operating systems as explained [in this blog post](https://oddlama.org/blog/bypassing-disk-encryption-with-tpm2-unlock). The effect of the countermeasure is explained in the [Arch wiki](https://wiki.archlinux.org/title/Systemd-cryptenroll#Trusted_Platform_Module).
 
 1. Reboot and set Secure Boot into deployed mode if required.
+
+1. Add a recovery key for the LUKS volume:
+
+   ```sh
+   systemd-cryptenroll LUKS_VOLUME --wipe-slot=recovery --recovery-key
+   ```
+
+   Store the recovery key in the KeePassXC database.
 
 ### Standalone Home Manager
 

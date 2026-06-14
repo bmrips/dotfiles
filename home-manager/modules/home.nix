@@ -131,7 +131,7 @@ in
         Install.WantedBy = dependencies;
         Service = {
           Type = "oneshot";
-          ExecStart = "${script}";
+          ExecStart = script;
           X-Restart-Triggers = sources;
         };
       }

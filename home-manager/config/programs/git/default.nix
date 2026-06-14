@@ -53,9 +53,6 @@ lib.mkMerge [
         user.name = "Benedikt Rips";
         user.email = "benedikt.rips@gmail.com";
 
-        # use HTTPS instead of plain Git for Github
-        url."https://github.com/".insteadOf = "git://github.com/";
-
         color = {
           diff = {
             frag = "magenta bold";

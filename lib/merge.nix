@@ -1,16 +1,28 @@
 { lib, pkgs, ... }:
 
 let
-  merge =
-    format: targetFile:
-    lib.concatMapStrings (file: /* bash */ ''
+  mergeYq =
+    format: _: targetFile:
+    lib.concatMapStrings (sourceFile: ''
       ${lib.getExe pkgs.yq-go} --inplace --output-format ${format} \
-        '. *= load("${file}")' \
+        '. *= load("${sourceFile}")' \
         '${targetFile}'
     '');
 
 in
 {
-  json = merge "json";
-  yaml = merge "yaml";
+  json = mergeYq "json";
+  yaml = mergeYq "yaml";
+
+  xml =
+    { stylesheet }:
+    targetFile:
+    lib.concatMapStrings (sourceFile: ''
+      ${lib.getExe pkgs.saxon_12-he} \
+        -xsl:${stylesheet} \
+        -s:${targetFile} \
+        -o:${targetFile}.new \
+        sourceFile=${sourceFile}
+      mv ${targetFile}.new ${targetFile}
+    '');
 }

@@ -34,6 +34,11 @@ let
         '';
         type = lib.types.enum (lib.attrNames lib.merge);
       };
+      mergeParams = lib.mkOption {
+        description = "Parameters for the merging function.";
+        default = { };
+        type = with lib.types; attrsOf anything;
+      };
     };
   };
 
@@ -114,7 +119,7 @@ in
                   mkdir -p "$(dirname '${targetFile}')"
                   touch '${targetFile}'
                 ''
-                + lib.merge.${spec.type} targetFile sources
+                + lib.merge.${spec.type} spec.mergeParams targetFile sources
                 + lib.optionalString (spec.mode != null) /* bash */ ''
                   chmod ${spec.mode} ${targetFile}
                 '';

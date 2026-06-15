@@ -8,7 +8,7 @@
 
 lib.mkMerge [
   {
-    services.printing.drivers = with pkgs; [ epson-workforce-635-nx625-series ];
+    services.printing.drivers = [ pkgs.epson-workforce-635-nx625-series ];
   }
 
   (lib.mkIf config.services.printing.enable {

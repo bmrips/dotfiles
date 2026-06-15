@@ -12,7 +12,7 @@ let
 
   nvim-prune-undodir = pkgs.writeShellApplication {
     name = "nvim-prune-undodir";
-    runtimeInputs = with pkgs; [ coreutils ];
+    runtimeInputs = [ pkgs.coreutils ];
     text = ''
       IFS=$'\n'
       for file in ${config.xdg.stateHome}/nvim/undo/*; do

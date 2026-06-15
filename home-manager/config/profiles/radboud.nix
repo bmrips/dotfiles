@@ -14,7 +14,7 @@
 
     profiles.gui.extra.enable = true;
 
-    home.packages = with pkgs; [ eduvpn-client ];
+    home.packages = [ pkgs.eduvpn-client ];
 
     programs.git.includes = [
       {

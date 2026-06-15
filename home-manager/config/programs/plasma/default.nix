@@ -616,16 +616,15 @@ lib.mkMerge [
 
     home.packages =
       with pkgs;
-      with pkgs.kdePackages;
       [
-        kcalc
-        kcolorchooser
-        qt6.qtimageformats
+        kdePackages.kcalc
+        kdePackages.kcolorchooser
+        kdePackages.qtimageformats
         plasma-dark-mode
       ]
       ++ lib.optionals config.profiles.gui.extra.enable [
         haruna
-        skanpage
+        kdePackages.skanpage
       ];
 
     profiles.gui.enable = true;

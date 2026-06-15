@@ -148,7 +148,7 @@ lib.mkMerge [
         # editor.
         copy-forms = pkgs.writeShellApplication {
           name = "copy-forms";
-          runtimeInputs = with pkgs; [ ghostscript_headless ];
+          runtimeInputs = [ pkgs.ghostscript_headless ];
           text = ''
             if [[ -z $1 ]]; then
                 echo "Error: no argument given!" >&2

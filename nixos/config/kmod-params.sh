@@ -19,6 +19,6 @@ for param in *; do
     # shellcheck disable=SC2059
     printf "$format" \
         "$param" \
-        "$(cat "$param")" \
+        "$(<"$param")" \
         "$(rg "^$param:" <<<"$modinfo" | sed "s/^$param://")"
 done

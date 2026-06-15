@@ -108,7 +108,7 @@ in
             gnused
           ]
         }' \
-        cat '${cfg.history.path}' |
+        <'${cfg.history.path}' |
           sed ': merge;/\\$/{N;s/\\\n//;b merge};s/^[^;]*;//' |
           cut --delimiter=" " --fields=1 |
           sort |

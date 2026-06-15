@@ -22,7 +22,7 @@ in
   };
 
   lib.sops = {
-    pathCat = secret: lib.mkIf (cfg.secrets ? ${secret}) "$(cat ${cfg.secrets.${secret}.path})";
+    pathRead = secret: lib.mkIf (cfg.secrets ? ${secret}) "$(<'${cfg.secrets.${secret}.path}')";
     pathUnit =
       secret:
       lib.optional (cfg.secrets ? ${secret}) {

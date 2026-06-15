@@ -163,7 +163,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
       return client:supports_method(cap, args.buf)
     end
 
-    if client_supports 'inlayHintProvider' then
+    -- Disable inlay hints in Haskell files
+    if client_supports 'inlayHintProvider' and vim.bo.filetype ~= 'haskell' then
       vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
     end
 

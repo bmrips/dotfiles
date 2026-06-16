@@ -130,7 +130,7 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
    ```sh
    mkdir -p /mnt/home/bmr/projects
-   cp -R . /mnt/home/bmr/projects/dotfiles
+   cp -R ~/dotfiles /mnt/home/bmr/projects/dotfiles
    chown -R 1000:users /mnt/home/bmr/projects/dotfiles
    ```
 

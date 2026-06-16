@@ -81,10 +81,7 @@
     development.markdown.enable = lib.mkForce false;
     development.yaml.enable = lib.mkForce false;
 
-    home.file = {
-      "dotfiles".source = inputs.self;
-      "Desktop/passwords.kdbx".source = "/home/bmr/Documents/passwords.kdbx";
-    };
+    home.file."Desktop/passwords.kdbx".source = "/home/bmr/Documents/passwords.kdbx";
 
     programs.kmail.enable = lib.mkForce false;
     programs.neovim.immutableConfig = lib.mkForce true;

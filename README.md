@@ -51,9 +51,11 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
 ## Installation
 
-1. Clone the repository: `git clone https://github.com/bmrips/dotfiles [~/.config/home-manager]`.
+1. Clone the repository:
 
-1. Enable the development shell through direnv: `direnv allow ~/.config/home-manager`.
+   ```sh
+   git clone https://github.com/bmrips/dotfiles [~/projects/dotfiles]
+   ```
 
 1. Roll-out the secrets contained in this repo to this machine:
 
@@ -66,8 +68,6 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
      ```sh
      SOPS_AGE_KEY_FILE=keys.txt sops updatekeys {home-manager,nixos}/config/secrets.yaml
      ```
-
-1. Reuse an existing host configuration or create a new one.
 
 ### NixOS
 
@@ -129,9 +129,9 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 1. Copy the dotfiles repository to the target:
 
    ```sh
-   mkdir -p /mnt/home/bmr/.config/
-   cp -R . /mnt/home/bmr/.config/home-manager
-   chown -R 1000:users /mnt/home/bmr/.config/home-manager
+   mkdir -p /mnt/home/bmr/projects
+   cp -R . /mnt/home/bmr/projects/dotfiles
+   chown -R 1000:users /mnt/home/bmr/projects/dotfiles
    ```
 
 1. Enable TPM-backed LUKS volume unlocking by enrolling a TPM-guarded token for the LUKS2 encrypted volume:
@@ -160,7 +160,9 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
 ## Remaining Configuration
 
-1. Import my GPG keys from the KeePassXC database.
+1. Enable the development shell through direnv: `direnv allow ~/projects/dotfiles`.
+
+1. Import my GPG subkeys from the KeePassXC database.
 
 1. Commit the configuration for the new host.
 

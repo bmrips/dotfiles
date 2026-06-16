@@ -34,4 +34,7 @@ in
     };
     users.${user} = ./.;
   };
+
+  systemd.tmpfiles.settings.nixos."/etc/nixos"."L+".argument =
+    "${userCfg.home.homeDirectory}/projects/dotfiles";
 }

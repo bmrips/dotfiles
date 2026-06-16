@@ -1,13 +1,6 @@
 # Dotfiles
 
-## Creating an Installation Device
-
-```sh
-nix build .#installer.iso-installer --impure
-sudo dd if=result/iso/IMAGE.iso of=/dev/sda bs=10M status=progress && sync
-```
-
-### Debugging the Installer Image
+## Debugging the Installer Image
 
 In order to debug the installer image, build its QEMU variant and run it via QEMU as a virtual machine.
 
@@ -73,6 +66,13 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
 > [!IMPORTANT]
 > Every command in this section has to be prefixed with `sudo`.
+
+1. Create an installation device
+
+   ```sh
+   nix build .#installer.iso-installer --impure
+   dd if=result/iso/IMAGE.iso of=/dev/sda bs=10M status=progress && sync
+   ```
 
 1. Boot into the BIOS, set Secure Boot into setup mode, and boot the installation medium. Ensure that Secure Boot is set into setup mode by running `bootctl status`.
 

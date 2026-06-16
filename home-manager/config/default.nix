@@ -99,7 +99,6 @@ in
     ip = "ip -color=auto";
 
     c = "cd";
-    hm = "home-manager";
     l = "ll";
     "l." = "ld .*";
     la = "ll -A";

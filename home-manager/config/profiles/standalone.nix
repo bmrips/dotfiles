@@ -19,6 +19,8 @@
           }
         ];
 
+        home.shellAliases.hm = "home-manager";
+
         i18n.glibcLocales = pkgs.glibcLocales.override {
           allLocales = false;
           locales = [

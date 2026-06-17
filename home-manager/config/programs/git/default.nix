@@ -120,12 +120,6 @@ lib.mkMerge [
         in
         [ "* text=auto" ] ++ lib.mapAttrsToList (ext: driver: "*.${ext} diff=${driver}") diffDrivers;
 
-      ignores = [
-        "/.direnv/"
-        "Session*.vim"
-        "taskell.md"
-      ];
-
       # Set the push protocol, user name, and user email for my private GitHub account.
       settings.url."git@github.com:bmrips/".pushInsteadOf = "https://github.com/bmrips/";
       includes =

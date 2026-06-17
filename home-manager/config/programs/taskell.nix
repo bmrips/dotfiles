@@ -1,6 +1,14 @@
-{ inputs, system, ... }:
+{
+  config,
+  inputs,
+  lib,
+  system,
+  ...
+}:
 
 {
+  programs.git.ignores = lib.mkIf config.programs.taskell.enable [ "taskell.md" ];
+
   programs.taskell = {
     package = inputs.nixpkgs_23_05.legacyPackages.${system}.taskell;
     bindings = {

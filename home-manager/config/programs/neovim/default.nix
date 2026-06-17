@@ -53,13 +53,15 @@ in
         vim = "nvim";
       };
 
-      sops.secrets.deepl_api_token = { };
-
       home.sessionVariables = {
         DEEPL_AUTH_KEY = config.lib.sops.pathRead "deepl_api_token";
         NVIM_TREESITTER = treesitter;
         LIBSQLITE = "${pkgs.sqlite.out}/lib/libsqlite3.so"; # To speed up snacks.nvim pickers
       };
+
+      programs.git.ignores = [ "Session*.vim" ];
+
+      sops.secrets.deepl_api_token = { };
 
       xdg.configFile.nvim.source =
         if cfg.immutableConfig then ./. else config.lib.file.mkOutOfStoreSymlink' ./.;

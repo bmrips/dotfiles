@@ -9,12 +9,14 @@ lib.mkMerge [
         "CS SYD" = {
           comment = "Tom Sydney Kerckhove";
           homepage = "https://cs-syd.eu/";
+          loadFullWebsite = true;
           type = "RSS";
           url = "https://cs-syd.eu/atom.xml";
         };
         "KDE Blogs" = {
           description = "Recent content on KDE Blogs";
           homepage = "https://blogs.kde.org/";
+          loadFullWebsite = true;
           type = "RSS";
           url = "https://blogs.kde.org/index.xml";
         };
@@ -22,6 +24,7 @@ lib.mkMerge [
           comment = "Johann Zuber";
           description = "A personal blog about programming topics I enjoy";
           homepage = "https://www.leftfold.tech/";
+          loadFullWebsite = true;
           type = "RSS";
           url = "https://www.leftfold.tech/feed.xml";
         };

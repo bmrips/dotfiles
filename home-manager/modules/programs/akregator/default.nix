@@ -41,6 +41,11 @@ let
           default = null;
           type = with lib.types; nullOr str;
         };
+        copyright = lib.mkOption {
+          description = "Copyright information.";
+          default = null;
+          type = with lib.types; nullOr str;
+        };
         description = lib.mkOption {
           description = "Description of this feed.";
           example = "Recent content on KDE Blogs";
@@ -161,6 +166,7 @@ let
       "@fetchInterval" = feed.updateInterval;
     }
     // setIfNonNull "@comment" feed.comment
+    // setIfNonNull "@copyright" feed.copyright
     // setIfNonNull "@description" feed.description
     // setIfNonNull "@loadLinkedWebsite" feed.loadFullWebsite
     // setIfNonNull "@markImmediatelyAsRead" feed.markImmediatelyAsRead

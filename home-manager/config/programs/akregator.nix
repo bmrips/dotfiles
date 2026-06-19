@@ -6,12 +6,35 @@ lib.mkMerge [
     programs.akregator = {
 
       feeds = {
+        "Adventures in Linux and KDE" = {
+          comment = "Nate Graham";
+          description = "Below is a brief look at recent changes in the KDE projects I work on and follow!";
+          homepage = "https://pointieststick.com";
+          loadFullWebsite = true;
+          type = "RSS";
+          url = "https://pointieststick.com/feed/";
+        };
         "CS SYD" = {
           comment = "Tom Sydney Kerckhove";
           homepage = "https://cs-syd.eu/";
           loadFullWebsite = true;
           type = "RSS";
           url = "https://cs-syd.eu/atom.xml";
+        };
+        "Haskell for all" = {
+          comment = "Gabriella Gonzalez";
+          description = "A blog about Haskell and functional programming.";
+          homepage = "https://haskellforall.com";
+          loadFullWebsite = true;
+          type = "RSS";
+          url = "https://haskellforall.com/rss.xml";
+        };
+        "jade's www site" = {
+          description = "computers i guess";
+          homepage = "https://jade.fyi";
+          loadFullWebsite = true;
+          type = "RSS";
+          url = "https://jade.fyi/rss.xml";
         };
         "KDE Blogs" = {
           description = "Recent content on KDE Blogs";
@@ -27,6 +50,22 @@ lib.mkMerge [
           loadFullWebsite = true;
           type = "RSS";
           url = "https://www.leftfold.tech/feed.xml";
+        };
+        "Patterns in Functional Programming" = {
+          comment = "Jeremy Gibbons";
+          description = "Exploiting the relationship between data structure and program structure";
+          homepage = "https://patternsinfp.wordpress.com";
+          loadFullWebsite = true;
+          type = "RSS";
+          url = "https://patternsinfp.wordpress.com/feed/";
+        };
+        "The Haskell Cast" = {
+          copyright = "Copyright 2013";
+          description = "Listen to regular interviews with the Haskell community. The podcast covers news, libraries, and whatever other topics we wander onto with our guests.";
+          homepage = "https://www.haskellcast.com";
+          loadFullWebsite = true;
+          type = "RSS";
+          url = "https://www.haskellcast.com/feed.xml";
         };
       };
 

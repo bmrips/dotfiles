@@ -221,7 +221,6 @@ lib.mkMerge [
                 auto-sort-bookmarks
                 auto-tab-discard
                 darkreader
-                istilldontcareaboutcookies
                 keepassxc-browser
                 languagetool
                 plasma-integration
@@ -243,7 +242,6 @@ lib.mkMerge [
               auto-sort-bookmarks
               auto-tab-discard
               darkreader
-              istilldontcareaboutcookies
               keepassxc-browser
               languagetool
               plasma-integration
@@ -391,11 +389,6 @@ lib.mkMerge [
             package = pkgs.firefox-addons.darkreader;
             permissions = [ "internal:privateBrowsingAllowed" ];
           };
-          i-still-dont-care-about-cookies = {
-            package = pkgs.firefox-addons.istilldontcareaboutcookies;
-            permissions = [ "internal:privateBrowsingAllowed" ];
-            origins = [ "*://*/*" ];
-          };
           languagetool = {
             package = pkgs.firefox-addons.languagetool;
             permissions = [ "internal:privateBrowsingAllowed" ];
@@ -476,6 +469,34 @@ lib.mkMerge [
           ublock-origin = {
             package = pkgs.firefox-addons.ublock-origin;
             permissions = [ "internal:privateBrowsingAllowed" ];
+            settings = {
+              cloudStorageEnabled = true;
+              localStorage.deviceName = host;
+              selectedFilterLists = [
+                "user-filters"
+                "ublock-filters"
+                "ublock-badware"
+                "ublock-privacy"
+                "ublock-quick-fixes"
+                "ublock-unbreak"
+                "easylist"
+                "easyprivacy"
+                "urlhaus-1"
+                "plowe-0"
+                "fanboy-cookiemonster"
+                "ublock-cookies-easylist"
+                "fanboy-social"
+                "fanboy-thirdparty_social"
+                "fanboy-ai-suggestions"
+                "easylist-chat"
+                "easylist-newsletters"
+                "easylist-notifications"
+                "easylist-annoyances"
+                "ublock-annoyances"
+                "DEU-0"
+                "NLD-0"
+              ];
+            };
           };
           web-search-navigator = {
             package = pkgs.firefox-addons.web-search-navigator;

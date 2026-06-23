@@ -59,11 +59,11 @@
           modules = [
             ./nixos
             ./home-manager/submodule.nix
-            inputs.disko.nixosModules.disko
+            inputs.disko.nixosModules.default
             { nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ]; }
-            inputs.lanzaboote.nixosModules.lanzaboote
-            inputs.nix-index-database.nixosModules.nix-index
-            inputs.sops.nixosModules.sops
+            inputs.lanzaboote.nixosModules.default
+            inputs.nix-index-database.nixosModules.default
+            inputs.sops.nixosModules.default
           ];
         };
     in

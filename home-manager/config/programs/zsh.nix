@@ -14,9 +14,9 @@ in
 
     defaultKeymap = "viins";
 
-    syntaxHighlighting.enable = true;
-    historySubstringSearch.enable = true;
     autosuggestion.enable = true;
+    fastSyntaxHighlighting.enable = true;
+    historySubstringSearch.enable = true;
 
     history = {
       extended = true;

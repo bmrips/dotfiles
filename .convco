@@ -52,7 +52,7 @@ issuePrefixes:
   - '#'
 host: https://github.com
 owner: bmrips
-repository: user-config
+repository: dotfiles
 template: null
 commitTemplate: null
 scopeRegex: ^[[:alnum:]]+(?:[-_/][[:alnum:]]+)*$

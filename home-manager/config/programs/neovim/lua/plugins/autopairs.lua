@@ -65,6 +65,25 @@ return {
         :with_move(function(info)
           return info.char == ';'
         end),
+      Rule('|', '|', { 'haskell', 'lhaskell' })
+        :with_pair(function(info)
+          local preceding = info.line:sub(1, info.col - 1)
+          local trailing = info.line:sub(info.col)
+          return (
+              (preceding:match '%[[edtp]?$' ~= nil and trailing:match '^%]' ~= nil)
+              or (preceding:match '%[e?|$' ~= nil and trailing:match '^|%]')
+            )
+            and ts_conds.is_not_ts_node 'string'(info)
+        end)
+        :with_del(function(info)
+          local preceding = info.line:sub(1, info.col)
+          local trailing = info.line:sub(info.col + 1)
+          return (
+              (preceding:match '%[[edtp]?|$' ~= nil and trailing:match '^|%]' ~= nil)
+              or (preceding:match '%[e?||$' ~= nil and trailing:match '^||%]')
+            )
+            and ts_conds.is_not_ts_node 'string'(info)
+        end),
     }
 
     -- When typing a space, insert a pair of spaces in specified pairs
@@ -74,6 +93,15 @@ return {
       ['['] = ']',
       ['\\['] = '\\]',
       ['{'] = '}',
+
+      -- Template Haskell (typed) quotes
+      ['[|'] = '|]',
+      ['[e|'] = '|]',
+      ['[d|'] = '|]',
+      ['[t|'] = '|]',
+      ['[p|'] = '|]',
+      ['[||'] = '||]',
+      ['[e||'] = '||]',
     }
 
     -- stylua: ignore

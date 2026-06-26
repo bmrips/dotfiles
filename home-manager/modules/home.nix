@@ -116,7 +116,7 @@ in
               runtimeInputs = [ pkgs.coreutils ];
               text =
                 /* bash */ ''
-                  mkdir -p "$(dirname '${targetFile}')"
+                  mkdir -p "${dirOf targetFile}"
                   touch '${targetFile}'
                 ''
                 + lib.merge.${spec.type} spec.mergeParams targetFile sources

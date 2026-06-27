@@ -15,18 +15,15 @@
       <body>
         <!-- Concatenate outlines from both files and merge by @htmlUrl -->
         <xsl:for-each-group
-          select="
-            body/outline |
-            document($sourceFile)/opml/body/outline
-          "
+          select="body/outline | document($sourceFile)/opml/body/outline"
           group-by="@htmlUrl">
 
           <outline>
             <xsl:variable name="group" select="current-group()"/>
 
             <!-- Dynamically merge all attributes from the group -->
-            <xsl:for-each select="$group[1]/@*">
-              <xsl:variable name="attr" select="name()"/>
+            <xsl:for-each select="distinct-values($group/@*/name())">
+              <xsl:variable name="attr" select="."/>
               <xsl:attribute name="{$attr}">
                 <!-- Scan from last to first, return first non-empty -->
                 <xsl:variable name="non-empty-group" select="$group[@*[name() = $attr] != '']"/>

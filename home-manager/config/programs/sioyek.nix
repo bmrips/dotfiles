@@ -20,6 +20,10 @@
     reload = "<C-r>";
     toggle_dark_mode = "i";
     toggle_horizontal_scroll_lock = "<C-h>";
+    toggle_presentation_mode = [
+      "c"
+      "<f5>"
+    ];
     toggle_statusbar = "<f3>";
     zoom_in = "=";
   };

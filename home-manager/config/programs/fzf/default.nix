@@ -100,25 +100,26 @@ in
 lib.mkMerge [
   {
     programs.fzf = {
-      changeDirWidgetCommand = "${fzf-state} get-source directories";
-
-      changeDirWidgetOptions =
-        let
-          label = lib.escapeShellArg " Directories ";
-        in
-        lib.gnuCommand.args {
-          bind = mkBindings [
-            {
-              start = [ setWorkdirAsPrompt ];
-              focus = labelPreviewWithFilename;
-            }
-            (fzf-state-bindings {
-              inherit label;
-              reloadCmd = cfg.changeDirWidgetCommand;
-            })
-          ];
-          preview = lib.shell.dirPreview "{}";
-        };
+      changeDirWidget = {
+        command = "${fzf-state} get-source directories";
+        options =
+          let
+            label = lib.escapeShellArg " Directories ";
+          in
+          lib.gnuCommand.args {
+            bind = mkBindings [
+              {
+                start = [ setWorkdirAsPrompt ];
+                focus = labelPreviewWithFilename;
+              }
+              (fzf-state-bindings {
+                inherit label;
+                reloadCmd = cfg.changeDirWidget.command;
+              })
+            ];
+            preview = lib.shell.dirPreview "{}";
+          };
+      };
 
       defaultCommand =
         let
@@ -158,27 +159,28 @@ lib.mkMerge [
           preview-window = "right,border,hidden";
         };
 
-      fileWidgetCommand = "${fzf-state} get-source files";
+      fileWidget = {
+        command = "${fzf-state} get-source files";
+        options =
+          let
+            label = lib.escapeShellArg " Files ";
+          in
+          lib.gnuCommand.args {
+            bind = mkBindings [
+              {
+                start = setWorkdirAsPrompt;
+                focus = labelPreviewWithFilename;
+              }
+              (fzf-state-bindings {
+                inherit label;
+                reloadCmd = cfg.fileWidget.command;
+              })
+            ];
+            preview = lib.escapeShellArg "bat ${lib.gnuCommand.line filePreviewArgs} {}";
+          };
+      };
 
-      fileWidgetOptions =
-        let
-          label = lib.escapeShellArg " Files ";
-        in
-        lib.gnuCommand.args {
-          bind = mkBindings [
-            {
-              start = setWorkdirAsPrompt;
-              focus = labelPreviewWithFilename;
-            }
-            (fzf-state-bindings {
-              inherit label;
-              reloadCmd = cfg.fileWidgetCommand;
-            })
-          ];
-          preview = lib.escapeShellArg "bat ${lib.gnuCommand.line filePreviewArgs} {}";
-        };
-
-      historyWidgetOptions = lib.gnuCommand.args {
+      historyWidget.options = lib.gnuCommand.args {
         border-label = lib.escapeShellArg " History ";
       };
     };

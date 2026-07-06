@@ -37,7 +37,6 @@ lib.mkMerge [
         merge.conflictStyle = "zdiff3";
         merge.ff = "only";
         merge.tool = "nvim";
-        pager.difftool = true;
         pull.rebase = true;
         push.autoSetupRemote = true;
         push.default = "current";

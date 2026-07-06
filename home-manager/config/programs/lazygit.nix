@@ -13,7 +13,10 @@
     };
     git = {
       overrideGpg = true;
-      pagers = [ { pager = "delta --paging=never --width=-1"; } ];
+      pagers = [
+        { pager = "delta --paging=never --width=-1"; }
+        { pager = "delta --paging=never --width=-1 --side-by-side"; }
+      ];
     };
     promptToReturnFromSubprocess = false;
   };

@@ -26,8 +26,6 @@
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
     pre-commit.url = "github:cachix/git-hooks.nix";
     pre-commit.inputs.nixpkgs.follows = "nixpkgs";
-    programs-db.url = "github:wamserma/flake-programs-sqlite";
-    programs-db.inputs.nixpkgs.follows = "nixpkgs";
     sops.url = "github:Mic92/sops-nix";
     sops.inputs.nixpkgs.follows = "nixpkgs";
     treefmt.url = "github:numtide/treefmt-nix";
@@ -62,7 +60,6 @@
             inputs.disko.nixosModules.default
             { nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ]; }
             inputs.lanzaboote.nixosModules.default
-            inputs.nix-index-database.nixosModules.default
             inputs.sops.nixosModules.default
           ];
         };

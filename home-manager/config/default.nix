@@ -1,5 +1,6 @@
 {
   config,
+  inputs,
   lib,
   osConfig,
   pkgs,
@@ -22,6 +23,8 @@ let
 
 in
 {
+  imports = [ inputs.nix-index-database.homeModules.default ];
+
   development.bash.enable = true;
   development.json.enable = true;
   development.lua.enable = true;
@@ -132,7 +135,6 @@ in
 
   programs.bash.enable = true;
   programs.bat.enable = true;
-  programs.command-not-found.enable = true;
   programs.dircolors.enable = true;
   programs.direnv.enable = true;
   programs.fd.enable = true;

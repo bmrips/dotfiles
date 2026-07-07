@@ -150,6 +150,7 @@ in
   programs.less.enable = true;
   programs.man.generateCaches = true;
   programs.neovim.enable = true;
+  programs.nix-index-database.comma.enable = true;
   programs.nix-your-shell.enable = true;
   programs.readline.enable = true;
   programs.ripgrep-all.enable = true;

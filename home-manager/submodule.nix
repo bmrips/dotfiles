@@ -35,6 +35,16 @@ in
     users.${user} = ./.;
   };
 
+  nix.settings =
+    let
+      inheritIfSet = lib.flip lib.pipe [
+        (lib.filter (name: userCfg.nix.settings ? ${name}))
+        (lib.map (name: lib.nameValuePair name userCfg.nix.settings.${name}))
+        lib.listToAttrs
+      ];
+    in
+    inheritIfSet [ "use-xdg-base-directories" ];
+
   systemd.tmpfiles.settings.nixos."/etc/nixos"."L+".argument =
     "${userCfg.home.homeDirectory}/projects/dotfiles";
 }

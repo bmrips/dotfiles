@@ -326,11 +326,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1765048962,
-        "narHash": "sha256-cE8UlAOyfOVG6UdkpLumCDN/0kB1724Mj6syorTCQaI=",
+        "lastModified": 1783501229,
+        "narHash": "sha256-lfPov43gxB5iFPJItyazwUSFtOGVzVIgYxYLcdsAW10=",
         "owner": "bmrips",
         "repo": "plasma-manager",
-        "rev": "c20882e489f6c06a712009759e5b74d9e7657a42",
+        "rev": "357f9f6614e28997a16d4d384309dc5e90c8e378",
         "type": "github"
       },
       "original": {

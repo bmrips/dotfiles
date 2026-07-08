@@ -421,7 +421,7 @@ lib.mkMerge [
           VideoSave.videoFilenameTemplate = filenameTemplate;
         };
 
-      webSearchKeywords = {
+      searchPlugins.webSearchKeywords = {
         default = "google";
         preferred = [
           "deepl"

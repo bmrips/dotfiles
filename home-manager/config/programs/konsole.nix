@@ -61,10 +61,14 @@ let
     darkness:
     { fontSize }:
     {
+      colorScheme = "Gruvbox_${darkness}";
+      font = {
+        name = "JetBrainsMono Nerd Font";
+        size = fontSize;
+      };
       extraConfig = {
         Appearance = {
           BoldIntense = false;
-          ColorScheme = "Gruvbox_${darkness}";
           EmojiFont = "Noto Color Emoji,${toString fontSize},-1,5,400,0,0,0,0,0,0,0,0,0,0,1";
           Font = "JetBrainsMono Nerd Font,${toString fontSize},-1,5,500,0,0,0,0,0,0,0,0,0,0,1";
           WordMode = true;

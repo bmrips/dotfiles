@@ -38,6 +38,7 @@ in
       G = "| rg";
       H = "| head";
       L = "| less";
+      LE = "&| less";
       NE = "2>/dev/null";
       NO = "&>/dev/null";
       S = "| sort";

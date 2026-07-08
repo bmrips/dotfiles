@@ -64,7 +64,7 @@ let
         };
 
     in
-    name: {
+    { config, name, ... }: {
       options = {
         name = lib.mkOption {
           description = "Name of the colorscheme.";
@@ -72,10 +72,9 @@ let
           defaultText = "<name>";
           type = lib.types.str;
         };
-        extraSettings = lib.mkOption {
+        settings = lib.mkOption {
           description = ''
-            Extra settings for the colorscheme. May be used to override
-            settings set through other options.
+            Settings for the colorscheme.
           '';
           example = {
             Blur = true;
@@ -96,41 +95,38 @@ let
         cyan = colorWithVariants "cyan";
         white = colorWithVariants "white";
       };
-    };
 
-  mkColorScheme =
-    let
-      nameMap = {
-        background = "Background";
-        foreground = "Foreground";
-        black = "Color0";
-        red = "Color1";
-        green = "Color2";
-        yellow = "Color3";
-        blue = "Color4";
-        magenta = "Color5";
-        cyan = "Color6";
-        white = "Color7";
-      };
-      mkColorWithVariants =
-        col: vals:
+      config.settings =
+        let
+          nameMap = {
+            background = "Background";
+            foreground = "Foreground";
+            black = "Color0";
+            red = "Color1";
+            green = "Color2";
+            yellow = "Color3";
+            blue = "Color4";
+            magenta = "Color5";
+            cyan = "Color6";
+            white = "Color7";
+          };
+          mkColorWithVariants =
+            col: vals:
+            {
+              "${nameMap.${col}}".Color = vals.normal;
+            }
+            // lib.optionalAttrs (vals.faint != null) {
+              "${nameMap.${col}}Faint".Color = vals.faint;
+            }
+            // lib.optionalAttrs (vals.intense != null) {
+              "${nameMap.${col}}Intense".Color = vals.intense;
+            };
+        in
         {
-          "${nameMap.${col}}".Color = vals.normal;
+          General.Description = config.name;
         }
-        // lib.optionalAttrs (vals.faint != null) {
-          "${nameMap.${col}}Faint".Color = vals.faint;
-        }
-        // lib.optionalAttrs (vals.intense != null) {
-          "${nameMap.${col}}Intense".Color = vals.intense;
-        };
-    in
-    scheme:
-    lib.recursiveUpdate (
-      {
-        General.Description = scheme.name;
-      }
-      // lib.concatMapAttrs mkColorWithVariants (lib.intersectAttrs nameMap scheme)
-    ) scheme.extraSettings;
+        // lib.concatMapAttrs mkColorWithVariants (lib.intersectAttrs nameMap config);
+    };
 
 in
 {
@@ -183,9 +179,9 @@ in
 
     programs.plasma.shortcutSchemes.konsole = cfg.shortcutSchemes;
 
-    xdg.dataFile = lib.mapAttrs' (name: value: {
+    xdg.dataFile = lib.mapAttrs' (name: spec: {
       name = "konsole/${name}.colorscheme";
-      value.source = ini.generate "${name}.colorscheme" (mkColorScheme value);
+      value.source = ini.generate "${name}.colorscheme" spec.settings;
     }) cfg.colorSchemes;
 
   };

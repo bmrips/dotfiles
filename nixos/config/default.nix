@@ -106,7 +106,7 @@ in
   nix.settings = rec {
     auto-allocate-uids = true;
     auto-optimise-store = true;
-    download-buffer-size = 536870912; # 512 MiB
+    download-buffer-size = "512M";
     experimental-features = lib.concatStringsSep " " (
       [
         "flakes"

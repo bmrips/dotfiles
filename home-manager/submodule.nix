@@ -43,7 +43,10 @@ in
         lib.listToAttrs
       ];
     in
-    inheritIfSet [ "use-xdg-base-directories" ];
+    inheritIfSet [
+      "min-free"
+      "use-xdg-base-directories"
+    ];
 
   systemd.tmpfiles.settings.nixos."/etc/nixos"."L+".argument =
     "${userCfg.home.homeDirectory}/projects/dotfiles";

@@ -131,6 +131,7 @@ in
     lint-absolute-path-literals = "warn";
     lint-short-path-literals = "warn";
     lint-url-literals = "warn";
+    min-free = "1G";
     max-jobs = "auto";
     use-xdg-base-directories = true;
     warn-dirty = false;

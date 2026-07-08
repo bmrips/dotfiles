@@ -119,7 +119,6 @@ in
     );
     system-features = lib.optional auto-allocate-uids "uid-range";
     trusted-users = [ user ];
-    use-xdg-base-directories = true;
   };
 
   programs.git.config.user = {

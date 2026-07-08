@@ -1,7 +1,7 @@
 name: Check whether the flake evaluates and run its tests
 on: push
 jobs:
-  pre-commit:
+  nix-flake-check:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code

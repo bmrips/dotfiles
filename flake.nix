@@ -71,7 +71,7 @@
         treefmt.flakeModule
       ];
 
-      systems = [ "x86_64-linux" ];
+      systems = inputs.nixpkgs.lib.systems.flakeExposed;
 
       flake.lib =
         system:

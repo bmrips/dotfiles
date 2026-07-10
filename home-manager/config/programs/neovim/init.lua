@@ -154,6 +154,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
       vim.wo[win][0].signcolumn = 'yes:1'
     end)
 
+    ---@diagnostic disable-next-line: call-non-callable
     local client = assert(
       vim.lsp.get_client_by_id(args.data.client_id),
       'LSP client with id ' .. args.data.client_id .. ' not found'

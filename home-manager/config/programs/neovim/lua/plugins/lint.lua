@@ -1,7 +1,7 @@
 ---@module 'lazy.types'
 ---@type LazyPluginSpec
 return {
-  'mfussenegger/nvim-lint',
+  'https://codeberg.org/mfussenegger/nvim-lint',
   init = function()
     vim.api.nvim_create_autocmd(
       { 'BufWritePost', 'BufReadPost', 'BufModifiedSet', 'InsertLeave' },

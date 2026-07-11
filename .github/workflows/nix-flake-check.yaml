@@ -3,6 +3,7 @@ on: push
 jobs:
   nix-flake-check:
     runs-on: ubuntu-latest
+    permissions: {}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

@@ -53,5 +53,22 @@
       ];
     })
 
+    (lib.mkIf config.programs.gh.enable {
+      customCommands = [
+        {
+          description = "Open Github PR in browser";
+          context = "localBranches";
+          key = "G";
+          command = "gh pr view --web bmrips:{{.SelectedLocalBranch.Name}}";
+        }
+        {
+          description = "Open Github PR in browser";
+          context = "commits";
+          key = "G";
+          command = "gh pr view --web";
+        }
+      ];
+    })
+
   ];
 }

@@ -17,6 +17,10 @@
         "Rips, Benedikt" = "cyan";
       };
       nerdFontsVersion = "3";
+      skipAmendWarning = true;
+      skipDiscardChangeWarning = true;
+      skipStashWarning = true;
+      skipRewordInEditorWarning = true;
     };
     promptToReturnFromSubprocess = false;
   };

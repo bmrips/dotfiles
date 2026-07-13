@@ -6,6 +6,31 @@
   programs.lazygit.settings = lib.mkMerge [
 
     {
+      customCommands = [
+        {
+          description = "Push commit";
+          context = "commits";
+          key = "P";
+          prompts = [
+            {
+              title = "Which remote shall the commit be pushed to?";
+              condition = "{{if .SelectedLocalBranch.UpstreamRemote}}false{{end}}";
+              type = "menuFromCommand";
+              command = "git remote";
+              key = "PushRemote";
+            }
+          ];
+          command = ''
+            {{- if .SelectedLocalBranch.UpstreamRemote -}}
+            git push --force-with-lease {{.SelectedLocalBranch.UpstreamRemote}} {{.SelectedLocalCommit.Hash}}:{{.SelectedLocalBranch.UpstreamBranch}}
+            {{- else if .PushRemote -}}
+            git push {{.PushRemote}} {{.SelectedLocalCommit.Hash}}:{{.SelectedLocalBranch.Name}}
+            {{- end -}}
+          '';
+          loadingText = "Pushing commit...";
+          output = "log";
+        }
+      ];
       git.overrideGpg = true;
       gui = {
         authorColors = {

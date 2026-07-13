@@ -93,7 +93,7 @@ lib.mkMerge [
         r = "reset";
         rb = "rebase";
         rbf = "rebase --autosquash";
-        s = "status --short";
+        s = "status --short --branch";
         sl = "shortlog";
         sw = "switch";
       };

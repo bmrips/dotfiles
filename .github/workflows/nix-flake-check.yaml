@@ -1,17 +1,17 @@
-name: Check whether the flake evaluates and run its tests
-on: push
 jobs:
   nix-flake-check:
-    runs-on: ubuntu-latest
     permissions: {}
+    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v7
-      - name: Install Nix
-        uses: cachix/install-nix-action@v31
+      - uses: actions/checkout@v7
+      - uses: cachix/install-nix-action@v31
       - name: Create passwords database stub for the installer image
-        run: |
-          sudo mkdir -p /home/bmr/Documents
+        run: 'sudo mkdir -p /home/bmr/Documents
+
           sudo touch /home/bmr/Documents/passwords.kdbx
-      - name: Check flake and run its tests
+
+'
+      - name: Check flake
         run: nix flake check --print-build-logs --impure
+name: Evaluate the flake and run its checks
+'on': push

@@ -1,7 +1,7 @@
 [files]
 extend-exclude = [
   ".sops.yaml",
-  "secrets.yaml"
+  "secrets.yaml",
 ]
 
 [default.extend-words]

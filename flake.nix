@@ -4,6 +4,8 @@
 
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
+    defaults.url = "github:bmrips/defaults.nix";
+    defaults.inputs.nixpkgs.follows = "nixpkgs";
     disko.url = "github:nix-community/disko/latest";
     disko.inputs.nixpkgs.follows = "nixpkgs";
     firefox-addons.url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
@@ -23,12 +25,8 @@
     plasma-manager.url = "github:bmrips/plasma-manager";
     plasma-manager.inputs.home-manager.follows = "home-manager";
     plasma-manager.inputs.nixpkgs.follows = "nixpkgs";
-    pre-commit.url = "github:cachix/git-hooks.nix";
-    pre-commit.inputs.nixpkgs.follows = "nixpkgs";
     sops.url = "github:Mic92/sops-nix";
     sops.inputs.nixpkgs.follows = "nixpkgs";
-    treefmt.url = "github:numtide/treefmt-nix";
-    treefmt.inputs.nixpkgs.follows = "nixpkgs";
   };
 
   outputs =
@@ -65,10 +63,7 @@
     in
     inputs.flake-parts.lib.mkFlake { inherit inputs; } {
 
-      imports = with inputs; [
-        pre-commit.flakeModule
-        treefmt.flakeModule
-      ];
+      imports = [ inputs.defaults.flakeModule ];
 
       systems = inputs.nixpkgs.lib.systems.flakeExposed;
 
@@ -105,22 +100,26 @@
       };
 
       perSystem =
+        { pkgs, system, ... }:
         {
-          config,
-          pkgs,
-          system,
-          ...
-        }:
-        {
-          devShells.default = pkgs.mkShell {
-            inputsFrom = [ config.pre-commit.devShell ];
-            packages = [
-              pkgs.age
-              pkgs.sops
+          ecosystems = {
+            github.enable = true;
+            lua.enable = true;
+            markdown.enable = true;
+            sops.enable = true;
+          };
+
+          ecosystems.github.workflows.nix-flake-check = {
+            arguments = [ "--impure" ];
+            preSteps = [
+              {
+                name = "Create passwords database stub for the installer image";
+                run = ''
+                  sudo mkdir -p /home/bmr/Documents
+                  sudo touch /home/bmr/Documents/passwords.kdbx
+                '';
+              }
             ];
-            shellHook = /* bash */ ''
-              git config diff.sops.textconv "sops decrypt"
-            '';
           };
 
           legacyPackages.installer =
@@ -131,69 +130,16 @@
               extraModules = [ ./hosts/installer.nix ];
             }).config.system.build.images;
 
+          make-shells.default.packages = [ pkgs.age ];
+
           packages = import ./nixpkgs/packages/default.nix pkgs;
 
-          pre-commit.settings = {
-            package = pkgs.prek;
-            hooks = {
-              actionlint.enable = true;
-              check-added-large-files.enable = true;
-              check-executables-have-shebangs.enable = true;
-              check-merge-conflicts.enable = true;
-              check-shebang-scripts-are-executable.enable = true;
-              check-symlinks.enable = true;
-              check-toml.enable = true;
-              check-vcs-permalinks.enable = true;
-              check-yaml.enable = true;
-              convco.enable = true;
-              deadnix.enable = true;
-              detect-private-keys.enable = true;
-              markdownlint.enable = true;
-              mixed-line-endings.enable = true;
-              selene.enable = true;
-              statix.enable = true;
-              statix.settings.format = "stderr";
-              treefmt.enable = true;
-              trim-trailing-whitespace.enable = true;
-              typos.enable = true;
-            };
-          };
-
-          treefmt.flakeCheck =
-            !config.pre-commit.settings.enable || !config.pre-commit.settings.hooks.treefmt.enable;
-
           treefmt.programs = {
-            mdformat = {
-              enable = true;
-              plugins = ps: [
-                ps.mdformat-gfm
-                ps.mdformat-gfm-alerts
-              ];
-              settings.wrap = "no";
-            };
-            nixf-diagnose = {
-              enable = true;
-              ignore = [ "sema-primop-overridden" ];
-            };
-            nixfmt.enable = true;
-            shfmt = {
-              enable = true;
-              indent_size = 4;
-            };
-            stylua = {
-              enable = true;
-              settings = {
-                call_parentheses = "None";
-                column_width = 100;
-                indent_type = "Spaces";
-                indent_width = 2;
-                quote_style = "AutoPreferSingle";
-              };
-            };
-            yamlfmt = {
-              enable = true;
-              includes = [ ".convco" ];
-            };
+            mdformat.plugins = ps: [
+              ps.mdformat-gfm
+              ps.mdformat-gfm-alerts
+            ];
+            shfmt.enable = true;
           };
         };
 

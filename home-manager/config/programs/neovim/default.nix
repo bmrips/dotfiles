@@ -10,7 +10,7 @@ let
 
   treesitter = pkgs.vimPlugins.nvim-treesitter.withAllGrammars;
 
-  nvim-prune-undodir = pkgs.writeShellApplication {
+  nvim-prune-undodir = pkgs.writeShellApplication' {
     name = "nvim-prune-undodir";
     runtimeInputs = [ pkgs.coreutils ];
     text = ''

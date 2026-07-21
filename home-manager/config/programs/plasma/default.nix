@@ -9,7 +9,7 @@
 let
   wallpaper = "${pkgs.kdePackages.breeze}/share/wallpapers/Next/";
 
-  plasma-dark-mode = pkgs.writeShellApplication {
+  plasma-dark-mode = pkgs.writeShellApplication' {
     name = "plasma-dark-mode";
     runtimeInputs = with pkgs; [
       gnugrep

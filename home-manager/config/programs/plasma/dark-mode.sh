@@ -1,5 +1,7 @@
 is_enabled() {
-    [[ $(plasma-apply-colorscheme --list-schemes | grep current) == *[dD]ark* ]]
+    schemes="$(plasma-apply-colorscheme --list-schemes || exit)"
+    current_scheme="$(grep current <<<"$schemes" || exit)"
+    [[ $current_scheme == *[dD]ark* ]]
 }
 
 disable() {
@@ -13,6 +15,7 @@ enable() {
 }
 
 toggle() {
+    # shellcheck disable=SC2310
     if is_enabled; then
         disable
     else

@@ -29,6 +29,10 @@
 
     programs.nitrile.enable = true;
 
+    # To set up printing over the network. The URL is:
+    #  smb://[url encoded email]:[url encoded password]@print.hosting.ru.nl/FollowMe
+    services.samba.enable = true;
+
     # Grant access to serial ports to communicate with Arduino boards.
     users.users.${user}.extraGroups = [ "dialout" ];
 

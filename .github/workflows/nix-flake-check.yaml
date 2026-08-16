@@ -6,11 +6,7 @@ jobs:
       - uses: actions/checkout@v7
       - uses: cachix/install-nix-action@v31
       - name: Create passwords database stub for the installer image
-        run: 'sudo mkdir -p /home/bmr/Documents
-
-          sudo touch /home/bmr/Documents/passwords.kdbx
-
-'
+        run: "sudo mkdir -p /home/bmr/Documents\nsudo touch /home/bmr/Documents/passwords.kdbx\n"
       - name: Check flake
         run: nix flake check --print-build-logs --impure
 name: Evaluate the flake and run its checks

@@ -47,9 +47,9 @@
     }
 
     (lib.mkIf config.programs.delta.enable {
-      git.pagers = [
-        { pager = "delta --paging=never --width=-1"; }
-        { pager = "delta --paging=never --width=-1 --side-by-side"; }
+      git.diffRenderers = [
+        { command = "delta --paging=never --width=-1"; }
+        { command = "delta --paging=never --width=-1 --side-by-side"; }
       ];
     })
 

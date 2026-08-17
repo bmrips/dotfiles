@@ -1,7 +1,7 @@
 ---@module 'lazy.types'
 ---@type LazyPluginSpec
 return {
-  'yorickpeterse/nvim-pqf',
-  event = 'VeryLazy',
+  'ashfinal/qfview.nvim',
+  event = 'UIEnter',
   config = true,
 }

@@ -25,6 +25,7 @@ return {
       'nil_ls',
       'texlab',
       'yamlls',
+      'zizmor',
     }
   end,
 }

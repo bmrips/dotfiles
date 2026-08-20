@@ -18,7 +18,7 @@ in
     { stylesheet }:
     targetFile:
     lib.concatMapStrings (sourceFile: ''
-      ${lib.getExe pkgs.saxon_12-he} \
+      ${lib.getExe pkgs.saxon-he} \
         -xsl:${stylesheet} \
         -s:${targetFile} \
         -o:${targetFile}.new \

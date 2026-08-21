@@ -19,6 +19,7 @@ let
       hash = "sha256-qxHvd91QOv4LATikWGaL4AqEM52volP8TCYXhpZKtsA=";
     };
 
+    __structuredAttrs = true;
     strictDeps = true;
 
     postInstall = ''

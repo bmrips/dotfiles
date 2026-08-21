@@ -16,6 +16,8 @@ rustPlatform.buildRustPackage {
     hash = "sha256-A8k3ciFyYqHwVo2AjfGfxpqvL+ej39Yqfw2Fizby5BM=";
   };
 
+  __structuredAttrs = true;
+
   cargoHash = "sha256-TFOlsWX9PJkOnsqU7JcLhzXX5tNgJUp5z8GKOT/kulU=";
 
   passthru.updateScript = nix-update-script {

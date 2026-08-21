@@ -20,6 +20,7 @@ lib.mkMerge [
       settings = {
         advice.detachedHead = false;
         advice.statusHints = false;
+        checkout.workers = -1;
         core.fsmonitor = true;
         core.whitespace = "tabwidth=4";
         commit.template = "${./commit_message_template}";

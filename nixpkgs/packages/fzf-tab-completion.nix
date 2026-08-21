@@ -10,13 +10,13 @@
 let
   drvArgs = {
     pname = "fzf-tab-completion";
-    version = "0-unstable-2025-01-20";
+    version = "0-unstable-2026-01-31";
 
     src = fetchFromGitHub {
       owner = "lincheney";
       repo = "fzf-tab-completion";
-      rev = "4850357beac6f8e37b66bd78ccf90008ea3de40b";
-      hash = "sha256-pgcrRRbZaLoChVPeOvw4jjdDCokUK1ew0Wfy42bXfQo=";
+      rev = "7014e0a7cd68fe3530e2f58c45740d17e98f05b8";
+      hash = "sha256-qxHvd91QOv4LATikWGaL4AqEM52volP8TCYXhpZKtsA=";
     };
 
     strictDeps = true;

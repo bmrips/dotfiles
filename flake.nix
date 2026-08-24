@@ -82,7 +82,7 @@
         );
 
       flake.overlays = {
-        konsole_with_full_font_hinting = import ./nixpkgs/konsole_with_full_font_hinting.nix;
+        konsole_with_full_font_hinting = import ./nixpkgs/konsole-with-full-font-hinting.nix;
         packages = import ./nixpkgs/packages/overlay.nix;
       };
 

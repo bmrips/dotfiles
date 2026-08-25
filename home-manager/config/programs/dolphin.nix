@@ -40,6 +40,7 @@ lib.mkMerge [
         "Ctrl+Shift+S"
         "Shift+F3"
       ];
+      focus_inactive_split_view = "Tab";
       copy_to_inactive_split_view = "Ctrl+Shift+C";
       move_to_inactive_split_view = "Ctrl+Shift+X";
       view_redisplay = [
@@ -140,7 +141,6 @@ lib.mkMerge [
         ShowStatusBar = "Disabled";
         ShowZoomSlider = false;
         SortingChoice = "CaseInsensitiveSorting";
-        UseTabForSwitchingSplitView = true;
       };
       PlacesPanel.IconSize = 16;
       "Shortcut Schemes"."Current Scheme" = "Custom";

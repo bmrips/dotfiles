@@ -15,7 +15,6 @@ return {
     )
   end,
   opts = {
-    bash = { 'checkbashisms' },
     editorconfig = { 'editorconfig-checker' },
     lua = { 'selene' },
     markdown = { 'markdownlint' },

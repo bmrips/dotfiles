@@ -31,6 +31,7 @@ in
         system
         utils
         ;
+      defaultsPkgs = inputs.defaults.packages.${system};
     };
     users.${user} = ./.;
   };

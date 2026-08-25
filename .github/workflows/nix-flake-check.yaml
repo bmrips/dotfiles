@@ -1,13 +1,19 @@
+concurrency:
+  cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
 jobs:
   nix-flake-check:
-    permissions: {}
+    name: Check Nix flake
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
-      - uses: cachix/install-nix-action@v31
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+        with:
+          persist-credentials: false
+      - uses: cachix/install-nix-action@13d8dd58da0234aa297dedd986986ccb8e7f3e24
       - name: Create passwords database stub for the installer image
         run: "sudo mkdir -p /home/bmr/Documents\nsudo touch /home/bmr/Documents/passwords.kdbx\n"
       - name: Check flake
         run: nix flake check --print-build-logs --impure
 name: Evaluate the flake and run its checks
-'on': push
+on: push
+permissions: {}

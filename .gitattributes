@@ -1,1 +1,4 @@
+* text=auto eol=lf
 **/secrets.yaml diff=sops
+*.markdown diff=markdown
+*.md diff=markdown

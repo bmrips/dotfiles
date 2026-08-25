@@ -122,6 +122,11 @@
             ];
           };
 
+          git = {
+            attributes = [ "**/secrets.yaml diff=sops" ];
+            upstream.repository = "dotfiles";
+          };
+
           legacyPackages.installer =
             (nixosSystem {
               inherit system;

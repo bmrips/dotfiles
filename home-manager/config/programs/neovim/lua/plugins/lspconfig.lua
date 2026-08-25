@@ -23,6 +23,7 @@ return {
       'jsonls',
       'ltex_plus',
       'nil_ls',
+      'taplo',
       'texlab',
       'yamlls',
       'zizmor',

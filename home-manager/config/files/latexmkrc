@@ -1,5 +1,3 @@
 $pdf_mode = 4; # Use LuaLaTeX
 
 $pdf_previewer = 'okular --unique %S';
-
-# vi: ft=perl

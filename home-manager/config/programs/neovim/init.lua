@@ -73,6 +73,13 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   end,
 })
 
+vim.filetype.add {
+  filename = {
+    ['.latexmkrc'] = 'perl',
+    ['latexmkrc'] = 'perl',
+  },
+}
+
 -- Set LaTeX as my preferred TeX flavour.
 vim.g.tex_flavor = 'latex'
 

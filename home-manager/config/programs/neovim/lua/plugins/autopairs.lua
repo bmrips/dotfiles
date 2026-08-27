@@ -15,6 +15,25 @@ return {
     local Rule = require 'nvim-autopairs.rule'
     local cond = require 'nvim-autopairs.conds'
 
+    local non_code_ts_nodes = {
+      haskell = {
+        'haddock',
+        'source', -- comments
+        'string',
+      },
+      nix = {
+        'indented_string_expression', -- two single quotes enclosing a multiline string
+        'program', -- shell scripts
+        'source', -- comments
+        'string_expression', -- double quotes enclosing a string
+        'string_fragment', -- string content
+      },
+    }
+
+    local is_code_ts_node = function(lang)
+      return ts_conds.is_not_ts_node(non_code_ts_nodes[lang])
+    end
+
     -- stylua: ignore
     autopairs.add_rules {
       Rule('= ', ',', 'lua')
@@ -47,9 +66,7 @@ return {
           local rest_of_line = info.line:sub(info.col)
           return prev_char:match('[^=<>!]') ~= nil
             and rest_of_line:match('^%s*$') ~= nil
-            -- 'source': comments
-            -- 'program': multiline strings representing Bash scripts
-            and ts_conds.is_not_ts_node{ 'source', 'string_fragment', 'program' }(info)
+            and is_code_ts_node 'nix' (info)
         end)
         :with_move(function(info)
           return info.char == ';'
@@ -58,9 +75,7 @@ return {
         :with_pair(function(info)
           local prev_char = info.line:sub(info.col - 5, info.col - 5)
           return prev_char:match('[^%w_-]') ~= nil
-            -- 'source': comments
-            -- 'program': multiline strings representing Bash scripts
-            and ts_conds.is_not_ts_node{ 'source', 'string_fragment', 'program' }(info)
+            and is_code_ts_node 'nix' (info)
         end)
         :with_move(function(info)
           return info.char == ';'
@@ -73,7 +88,7 @@ return {
               (preceding:match '%[[edtp]?$' ~= nil and trailing:match '^%]' ~= nil)
               or (preceding:match '%[e?|$' ~= nil and trailing:match '^|%]')
             )
-            and ts_conds.is_not_ts_node 'string'(info)
+            and is_code_ts_node 'haskell' (info)
         end)
         :with_del(function(info)
           local preceding = info.line:sub(1, info.col)
@@ -82,7 +97,7 @@ return {
               (preceding:match '%[[edtp]?|$' ~= nil and trailing:match '^|%]' ~= nil)
               or (preceding:match '%[e?||$' ~= nil and trailing:match '^||%]')
             )
-            and ts_conds.is_not_ts_node 'string'(info)
+            and is_code_ts_node 'haskell' (info)
         end),
     }
 

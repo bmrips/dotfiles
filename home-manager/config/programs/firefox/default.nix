@@ -143,8 +143,11 @@ lib.mkMerge [
           # Disable experiments.
           "messaging-system.rsexperimentloader.enabled" = false;
 
-          # Disable new tab page and the activity stream.
+          # Disable the Firefox homepage in new tab pages and new windows.
+          "browser.startup.homepage" = "chrome://browser/content/blanktab.html";
           "browser.newtabpage.enabled" = false;
+
+          # Disable the activity stream.
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
           "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" = false;
 

@@ -20,7 +20,6 @@
     nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs_23_05.url = "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";
-    nixpkgs_konsole.url = "github:nixos/nixpkgs/e5bdc4a41d4c072fe1e3787eaa0320a384741d44";
     nix-index-database.url = "github:nix-community/nix-index-database";
     nix-index-database.inputs.nixpkgs.follows = "nixpkgs";
     plasma-manager.url = "github:bmrips/plasma-manager";

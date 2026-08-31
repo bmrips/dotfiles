@@ -1,43 +1,35 @@
+{ config, pkgs, ... }:
+
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}:
+  imports = [ ../nixpkgs ];
 
-lib.mkMerge [
+  assertions = [
+    {
+      assertion = !config.submoduleSupport.enable;
+      message = "This profile only available on standalone installations.";
+    }
+  ];
 
-  (import ../nixpkgs)
+  home.shellAliases.hm = "home-manager";
 
-  {
-    assertions = [
-      {
-        assertion = !config.submoduleSupport.enable;
-        message = "This profile only available on standalone installations.";
-      }
+  i18n.glibcLocales = pkgs.glibcLocales.override {
+    allLocales = false;
+    locales = [
+      "C.UTF-8/UTF-8"
+      "de_DE.UTF-8/UTF-8"
+      "en_US.UTF-8/UTF-8"
     ];
+  };
 
-    home.shellAliases.hm = "home-manager";
+  nix.package = pkgs.nix;
 
-    i18n.glibcLocales = pkgs.glibcLocales.override {
-      allLocales = false;
-      locales = [
-        "C.UTF-8/UTF-8"
-        "de_DE.UTF-8/UTF-8"
-        "en_US.UTF-8/UTF-8"
-      ];
-    };
+  programs.home-manager.enable = true;
 
-    nix.package = pkgs.nix;
-
-    programs.home-manager.enable = true;
-
-    services.home-manager.autoExpire = {
-      enable = true;
-      frequency = "weekly";
-      timestamp = "-30 days";
-      store.cleanup = true;
-      store.options = "--delete-older-than 30d";
-    };
-  }
-]
+  services.home-manager.autoExpire = {
+    enable = true;
+    frequency = "weekly";
+    timestamp = "-30 days";
+    store.cleanup = true;
+    store.options = "--delete-older-than 30d";
+  };
+}

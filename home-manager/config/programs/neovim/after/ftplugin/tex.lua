@@ -28,8 +28,15 @@ vim.b.undo_ftplugin = vim.b.undo_ftplugin
 
 local augroup = vim.api.nvim_create_augroup('tex', { clear = true })
 
+---@diagnostic disable-next-line: undefined-field
+local texlab_cmd = vim.lsp.config.texlab.cmd
+texlab_cmd = texlab_cmd and texlab_cmd[1] or 'texlab'
+
+local has_texlab = vim.fn.executable(texlab_cmd) == 1
+local has_make = vim.fn.executable 'make' == 1
+
 -- Compile documents on save
-if tex.bufIsDocument(0) then
+if tex.bufIsDocument(0) and not has_texlab and has_make then
   vim.api.nvim_create_autocmd('BufWritePost', {
     desc = 'Compile the document on save',
     group = augroup,
@@ -38,11 +45,7 @@ if tex.bufIsDocument(0) then
       vim.api.nvim_exec_autocmds('QuickFixCmdPre', {
         pattern = vim.api.nvim_buf_get_name(0),
       })
-      if vim.cmd.LspTexlabBuild then
-        vim.cmd.LspTexlabBuild()
-      else
-        vim.cmd.make { bang = true }
-      end
+      vim.cmd.make { bang = true }
     end,
   })
 end
@@ -65,10 +68,12 @@ require('nest').applyKeymaps {
       { '<C-e>',
         '<Cmd>LspTexlabChangeEnvironment<CR>',
         desc = 'Change environment',
+        cond = has_texlab,
       },
       { 'v',
         '<Cmd>LspTexlabForward<CR>',
         desc = 'View generated PDF document',
+        cond = has_texlab,
       },
     }},
     { '<C-e>',

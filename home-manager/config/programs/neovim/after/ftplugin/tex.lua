@@ -19,7 +19,7 @@ opt.define:append [[
 \\DeclarePairedDelimiter(X(PP)=)=\s*\{=\s*
 |\\(re)=new(operator|mathbb)\*=\s*\{=\s*
 ]]
-opt.include:append [[
+opt.include = [[
 \v\\(input|usepackage|documentclass|(RequirePackage|Load(Package|Class))(WithOptions)=)\s*\{
 ]]
 

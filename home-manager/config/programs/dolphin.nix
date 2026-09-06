@@ -36,7 +36,10 @@ lib.mkMerge [
         "Ctrl+S"
         "F3"
       ];
-      popout_split_view = "Shift+F3";
+      popout_split_view = [
+        "Ctrl+Shift+S"
+        "Shift+F3"
+      ];
       copy_to_inactive_split_view = "Ctrl+Shift+C";
       move_to_inactive_split_view = "Ctrl+Shift+X";
       view_redisplay = [

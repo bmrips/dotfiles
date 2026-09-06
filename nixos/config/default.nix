@@ -107,16 +107,14 @@ in
     auto-allocate-uids = true;
     auto-optimise-store = true;
     download-buffer-size = "512M";
-    experimental-features = lib.concatStringsSep " " (
-      [
-        "flakes"
-        "nix-command"
-      ]
-      ++ lib.optionals auto-allocate-uids [
-        "auto-allocate-uids"
-        "cgroups"
-      ]
-    );
+    experimental-features = [
+      "flakes"
+      "nix-command"
+    ]
+    ++ lib.optionals auto-allocate-uids [
+      "auto-allocate-uids"
+      "cgroups"
+    ];
     system-features = lib.optional auto-allocate-uids "uid-range";
     trusted-users = [ user ];
   };

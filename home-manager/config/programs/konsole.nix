@@ -33,7 +33,7 @@ let
 
   mkColorScheme =
     darkness:
-    lib.base16.asRgbCodes (lib.gruvbox_material.scheme darkness) rec {
+    pkgs.base16.asRgbCodes (pkgs.gruvbox_material.scheme darkness) rec {
       background = "base00";
       foreground = "base05";
       black.normal = background;

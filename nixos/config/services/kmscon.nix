@@ -15,7 +15,7 @@
       multi-monitor = "largest";
       palette = "custom";
     }
-    // lib.base16.asRgbCodes (lib.gruvbox_material.scheme "dark") rec {
+    // pkgs.base16.asRgbCodes (pkgs.gruvbox_material.scheme "dark") rec {
       palette-foreground = "base05";
       palette-background = "base00";
       palette-black = palette-background;

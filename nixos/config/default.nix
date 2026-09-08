@@ -33,7 +33,7 @@ in
 
   console = {
     earlySetup = true;
-    colors = with lib.gruvbox_material.scheme "dark"; [
+    colors = with pkgs.gruvbox_material.scheme "dark"; [
       base00 # background
       red
       yellow

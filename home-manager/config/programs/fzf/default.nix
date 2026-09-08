@@ -69,7 +69,7 @@ let
     let
       colors =
         darkness:
-        with (lib.gruvbox_material.scheme darkness).withHashtag;
+        with (pkgs.gruvbox_material.scheme darkness).withHashtag;
         lib.concatStringsSep "," [
           "border:${base03}"
           "current-bg:${base01}"

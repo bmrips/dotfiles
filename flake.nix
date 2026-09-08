@@ -50,7 +50,7 @@
               user
               ;
           };
-          lib = inputs.self.lib system;
+          lib = inputs.self.lib;
           modules = [
             ./nixos
             ./home-manager/submodule.nix
@@ -68,23 +68,30 @@
 
       systems = inputs.nixpkgs.lib.systems.flakeExposed;
 
-      flake.lib =
-        system:
-        inputs.nixpkgs.lib.extend (
-          final: prev:
-          inputs.haumea.lib.load {
-            src = ./lib;
-            inputs = {
-              inherit final inputs prev;
-              lib = final;
-              pkgs = inputs.nixpkgs.legacyPackages.${system};
-            };
-          }
-        );
+      flake.lib = inputs.nixpkgs.lib.extend (
+        final: prev:
+        inputs.haumea.lib.load {
+          src = ./lib;
+          inputs = {
+            inherit final inputs prev;
+            lib = final;
+          };
+        }
+      );
 
       flake.overlays = {
         konsole-with-split-view-shortcuts = import ./nixpkgs/konsole-with-split-view-shortcuts.nix;
         packages = import ./nixpkgs/packages/overlay.nix;
+        pkgs-lib =
+          self: _super:
+          inputs.haumea.lib.load {
+            src = ./nixpkgs/lib;
+            inputs = rec {
+              pkgs = self;
+              inherit inputs;
+              inherit (pkgs) lib;
+            };
+          };
       };
 
       flake.nixosConfigurations = {

@@ -32,7 +32,7 @@ let
           The type of the file. It determines how the sources are merged into
           the target.
         '';
-        type = lib.types.enum (lib.attrNames lib.merge);
+        type = lib.types.enum (lib.attrNames pkgs.merge);
       };
       mergeParams = lib.mkOption {
         description = "Parameters for the merging function.";
@@ -119,7 +119,7 @@ in
                   mkdir -p "${dirOf targetFile}"
                   touch '${targetFile}'
                 ''
-                + lib.merge.${spec.type} spec.mergeParams targetFile sources
+                + pkgs.merge.${spec.type} spec.mergeParams targetFile sources
                 + lib.optionalString (spec.mode != null) /* bash */ ''
                   chmod ${spec.mode} ${targetFile}
                 '';

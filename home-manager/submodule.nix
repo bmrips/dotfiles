@@ -1,5 +1,6 @@
 {
   config,
+  defaultsPkgs,
   host,
   inputs,
   lib,
@@ -26,12 +27,12 @@ in
     useUserPackages = true;
     extraSpecialArgs = {
       inherit
+        defaultsPkgs
         host
         inputs
         system
         utils
         ;
-      defaultsPkgs = inputs.defaults.packages.${system};
     };
     users.${user} = ./.;
   };

@@ -49,6 +49,7 @@
               system
               user
               ;
+            defaultsPkgs = inputs.defaults.packages.${system};
           };
           lib = inputs.self.lib system;
           modules = [

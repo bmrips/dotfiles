@@ -17,11 +17,11 @@ let
           fd
           ripgrep
         ];
+        text = builtins.readFile ./state.sh;
         bashOptions = [
           "errexit"
           "pipefail"
         ];
-        text = lib.readFile ./state.sh;
       };
     in
     lib.getExe drv;

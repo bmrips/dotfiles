@@ -3,14 +3,14 @@ final: _prev:
 let
   optionalChecks = [
     "add-default-case"
-    # "avoid-negated-conditions"
+    "avoid-negated-conditions"
     "avoid-nullary-conditions"
     "check-deprecate-which"
-    # "check-extra-masked-returns"
+    "check-extra-masked-returns"
     "check-set-e-suppressed"
     "deprecate-which"
     "require-double-brackets"
-    # "useless-use-of-cat"
+    "useless-use-of-cat"
   ];
 in
 {

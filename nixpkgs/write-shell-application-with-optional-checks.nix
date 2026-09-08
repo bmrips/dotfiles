@@ -14,7 +14,7 @@ let
   ];
 in
 {
-  writeShellApplication' =
+  writeShellApplicationStrict =
     args:
     final.writeShellApplication (
       args

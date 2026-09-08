@@ -10,7 +10,7 @@ let
 
   fzf-state =
     let
-      drv = pkgs.writeShellApplicationStrict {
+      drv = pkgs.defaults.writeShellApplication {
         name = "fzf-state";
         runtimeInputs = with pkgs; [
           coreutils

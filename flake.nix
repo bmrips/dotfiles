@@ -49,12 +49,12 @@
               system
               user
               ;
-            defaultsPkgs = inputs.defaults.packages.${system};
           };
           lib = inputs.self.lib system;
           modules = [
             ./nixos
             ./home-manager/submodule.nix
+            { nixpkgs.overlays = [ inputs.defaults.overlays.default ]; }
             inputs.disko.nixosModules.default
             { nixpkgs.overlays = [ inputs.firefox-addons.overlays.default ]; }
             inputs.lanzaboote.nixosModules.default

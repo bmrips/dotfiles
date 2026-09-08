@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  defaultsPkgs,
   ...
 }:
 
@@ -14,7 +13,7 @@
       pkgs.yaml-language-server
       pkgs.yamlfmt
       pkgs.yq-go
-      defaultsPkgs.yamllint
+      pkgs.defaults.yamllint
     ];
   };
 }

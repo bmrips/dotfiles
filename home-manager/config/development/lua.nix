@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  defaultsPkgs,
   ...
 }:
 
@@ -13,7 +12,7 @@
     home.packages = [
       pkgs.emmylua-ls
       pkgs.selene
-      defaultsPkgs.stylua
+      pkgs.defaults.stylua
     ];
   };
 }

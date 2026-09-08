@@ -8,7 +8,7 @@
 }:
 
 let
-  print-colors = pkgs.writeShellApplicationStrict {
+  print-colors = pkgs.defaults.writeShellApplication {
     name = "print-colors";
     text = ''
       for C in {40..47}; do

@@ -13,7 +13,7 @@ let
       konsole = lib.getExe pkgs.kdePackages.konsole;
       kscreen-console = lib.getExe pkgs.kdePackages.kscreen;
     in
-    pkgs.writeShellApplicationStrict {
+    pkgs.defaults.writeShellApplication {
       name = "smartly-sized-konsole";
       text = ''
         background=''${1-Dark}

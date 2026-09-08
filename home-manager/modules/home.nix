@@ -111,7 +111,7 @@ in
         script =
           let
             name = "merge_${path}.sh";
-            drv = pkgs.writeShellApplicationStrict {
+            drv = pkgs.defaults.writeShellApplication {
               inherit name;
               runtimeInputs = [ pkgs.coreutils ];
               text =

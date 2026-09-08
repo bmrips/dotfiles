@@ -2,7 +2,6 @@
   config,
   lib,
   pkgs,
-  defaultsPkgs,
   ...
 }:
 
@@ -12,8 +11,8 @@
   config = lib.mkIf config.development.bash.enable {
     home.packages = [
       pkgs.bash-language-server
-      defaultsPkgs.shellcheck
-      defaultsPkgs.shfmt
+      pkgs.defaults.shellcheck
+      pkgs.defaults.shfmt
     ];
 
     programs.bash.enable = true;

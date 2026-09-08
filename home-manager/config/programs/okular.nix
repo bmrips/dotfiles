@@ -146,7 +146,7 @@ lib.mkMerge [
       let
         # Rewrite the specified PDF with ghostscript to remedy a bug in Okular's forms
         # editor.
-        copy-forms = pkgs.writeShellApplicationStrict {
+        copy-forms = pkgs.defaults.writeShellApplication {
           name = "copy-forms";
           runtimeInputs = [ pkgs.ghostscript_headless ];
           text = ''

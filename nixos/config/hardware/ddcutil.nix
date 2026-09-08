@@ -7,7 +7,7 @@
 }:
 
 let
-  brightness = pkgs.writeShellApplicationStrict {
+  brightness = pkgs.defaults.writeShellApplication {
     name = "brightness";
     runtimeInputs = with pkgs; [
       coreutils

@@ -9,7 +9,7 @@
 }:
 
 let
-  kmod-params = pkgs.writeShellApplicationStrict {
+  kmod-params = pkgs.defaults.writeShellApplication {
     name = "kmod-params";
     runtimeInputs = with pkgs; [
       coreutils

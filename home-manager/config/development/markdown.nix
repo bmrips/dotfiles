@@ -1,7 +1,7 @@
 {
   config,
   lib,
-  defaultsPkgs,
+  pkgs,
   ...
 }:
 
@@ -9,7 +9,7 @@
   options.development.markdown.enable = lib.mkEnableOption "Markdown development tools";
 
   config = lib.mkIf config.development.markdown.enable {
-    home.packages = with defaultsPkgs; [
+    home.packages = with pkgs.defaults; [
       markdownlint-cli
       (mdformat.withPlugins (
         ps: with ps; [

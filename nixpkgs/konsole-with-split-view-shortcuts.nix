@@ -3,14 +3,14 @@
 # (https://invent.kde.org/utilities/konsole/-/merge_requests/1305) fixes the bug
 # and is applied here.
 
-final: prev:
+self: super:
 
 {
-  kdePackages = prev.kdePackages.overrideScope (
-    _kFinal: kPrev: {
-      konsole = kPrev.konsole.overrideAttrs (old: {
+  kdePackages = super.kdePackages.overrideScope (
+    _kSelf: kSuper: {
+      konsole = kSuper.konsole.overrideAttrs (old: {
         patches = old.patches or [ ] ++ [
-          (final.fetchpatch {
+          (self.fetchpatch {
             name = "fix-split-view-shortcuts.patch";
             url = "https://invent.kde.org/utilities/konsole/-/merge_requests/1305.patch";
             hash = "sha256-xW0Dq5AIGx/jdKqSfKq+85vByKSSaLizp9Dhq82HhWs=";

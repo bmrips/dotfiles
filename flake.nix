@@ -100,9 +100,15 @@
       };
 
       perSystem =
-        { pkgs, system, ... }:
+        {
+          lib,
+          pkgs,
+          system,
+          ...
+        }:
         {
           ecosystems = {
+            bash.enable = true;
             github.enable = true;
             lua.enable = true;
             markdown.enable = true;
@@ -136,13 +142,13 @@
 
           packages = import ./nixpkgs/packages/default.nix pkgs;
 
-          treefmt.programs = {
-            mdformat.plugins = ps: [
-              ps.mdformat-gfm
-              ps.mdformat-gfm-alerts
-            ];
-            shfmt.enable = true;
-          };
+          # We use `writeShellApplication` instead.
+          pre-commit.settings.hooks.shellcheck.enable = lib.mkForce false;
+
+          treefmt.programs.mdformat.plugins = ps: [
+            ps.mdformat-gfm
+            ps.mdformat-gfm-alerts
+          ];
         };
 
     };

@@ -47,7 +47,7 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 1. Clone the repository:
 
    ```sh
-   git clone https://github.com/bmrips/dotfiles [~/projects/dotfiles]
+   git clone https://github.com/bmrips/dotfiles [~/projects/infra/dotfiles]
    ```
 
 1. Roll-out the secrets contained in this repo to this machine:
@@ -130,8 +130,8 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
    ```sh
    mkdir -p /mnt/home/bmr/projects
-   cp -R ~/dotfiles /mnt/home/bmr/projects/dotfiles
-   chown -R 1000:users /mnt/home/bmr/projects/dotfiles
+   cp -R ~/dotfiles /mnt/home/bmr/projects/infra/dotfiles
+   chown -R 1000:users /mnt/home/bmr/projects/infra/dotfiles
    ```
 
 1. Enable TPM-backed LUKS volume unlocking by enrolling a TPM-guarded token for the LUKS2 encrypted volume:
@@ -160,7 +160,7 @@ nix shell nixpkgs#qemu -c qemu-system-x86_64 -enable-kvm -nic user,model=virtio 
 
 ## Remaining Configuration
 
-1. Enable the development shell through direnv: `direnv allow ~/projects/dotfiles`.
+1. Enable the development shell through direnv: `direnv allow ~/projects/infra/dotfiles`.
 
 1. Import my GPG subkeys from the KeePassXC database.
 

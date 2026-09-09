@@ -49,5 +49,5 @@ in
     ];
 
   systemd.tmpfiles.settings.nixos."/etc/nixos"."L+".argument =
-    "${userCfg.home.homeDirectory}/projects/dotfiles";
+    "${userCfg.home.homeDirectory}/projects/infra/dotfiles";
 }

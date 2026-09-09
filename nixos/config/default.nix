@@ -11,6 +11,10 @@
 let
   kmod-params = pkgs.defaults.writeShellApplication {
     name = "kmod-params";
+    derivationArgs = {
+      allowSubstitutes = false;
+      preferLocalBuild = true;
+    };
     runtimeInputs = with pkgs; [
       coreutils
       fd

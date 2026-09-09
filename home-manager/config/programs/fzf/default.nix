@@ -12,6 +12,10 @@ let
     let
       drv = pkgs.defaults.writeShellApplication {
         name = "fzf-state";
+        derivationArgs = {
+          allowSubstitutes = false;
+          preferLocalBuild = true;
+        };
         runtimeInputs = with pkgs; [
           coreutils
           fd

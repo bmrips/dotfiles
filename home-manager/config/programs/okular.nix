@@ -148,6 +148,10 @@ lib.mkMerge [
         # editor.
         copy-forms = pkgs.defaults.writeShellApplication {
           name = "copy-forms";
+          derivationArgs = {
+            allowSubstitutes = false;
+            preferLocalBuild = true;
+          };
           runtimeInputs = [ pkgs.ghostscript_headless ];
           text = ''
             if [[ -z $1 ]]; then

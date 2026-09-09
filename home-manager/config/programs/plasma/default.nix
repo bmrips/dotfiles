@@ -11,6 +11,10 @@ let
 
   plasma-dark-mode = pkgs.defaults.writeShellApplication {
     name = "plasma-dark-mode";
+    derivationArgs = {
+      allowSubstitutes = false;
+      preferLocalBuild = true;
+    };
     runtimeInputs = with pkgs; [
       gnugrep
       kdePackages.plasma-workspace

@@ -10,6 +10,10 @@
 let
   print-colors = pkgs.defaults.writeShellApplication {
     name = "print-colors";
+    derivationArgs = {
+      allowSubstitutes = false;
+      preferLocalBuild = true;
+    };
     text = ''
       for C in {40..47}; do
         printf "\e[''${C}m%3s" "$C"

@@ -114,6 +114,10 @@ in
             drv = pkgs.defaults.writeShellApplication {
               inherit name;
               runtimeInputs = [ pkgs.coreutils ];
+              derivationArgs = {
+                allowSubstitutes = false;
+                preferLocalBuild = true;
+              };
               text =
                 /* bash */ ''
                   mkdir -p "${dirOf targetFile}"

@@ -15,6 +15,10 @@ let
     in
     pkgs.defaults.writeShellApplication {
       name = "smartly-sized-konsole";
+      derivationArgs = {
+        allowSubstitutes = false;
+        preferLocalBuild = true;
+      };
       text = ''
         background=''${1-Dark}
         kscreen_output="$(${kscreen-console} json | ${grep} '^[ {}]')"

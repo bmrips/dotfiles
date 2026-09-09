@@ -9,6 +9,10 @@
 let
   brightness = pkgs.defaults.writeShellApplication {
     name = "brightness";
+    derivationArgs = {
+      allowSubstitutes = false;
+      preferLocalBuild = true;
+    };
     runtimeInputs = with pkgs; [
       coreutils
       ddcutil

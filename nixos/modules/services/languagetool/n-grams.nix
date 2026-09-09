@@ -64,5 +64,5 @@
         [ "mkdir $out" ] ++ lib.mapAttrsToList (n: v: "ln -s ${v.package} $out/${n}") enabledNGrams
       );
     in
-    lib.mkIf (enabledNGrams != { }) (pkgs.runCommand "languagetool_n-grams" { } buildCommand);
+    lib.mkIf (enabledNGrams != { }) (pkgs.runCommandLocal "languagetool_n-grams" { } buildCommand);
 }

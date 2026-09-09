@@ -17,7 +17,7 @@ let
       recipe="$multiple_secrets_recipe"
     fi
 
-    ${lib.getExe pkgs.kubectl} get --output=yaml secret "$@" | ${pkgs.yq-go}/bin/yq "$recipe"
+    ${lib.getExe pkgs.kubectl} get --output=yaml secret "$@" | ${lib.getExe pkgs.yq-go} "$recipe"
   '';
 
   kubectl-wrapper = /* bash */ ''

@@ -110,9 +110,8 @@ in
         dependencies = lib.unique (lib.concatMap (s: s.dependsOn or [ ]) spec.sources);
         script =
           let
-            name = "merge_${path}.sh";
             drv = pkgs.defaults.writeShellApplication {
-              inherit name;
+              name = "merge_${builtins.replaceStrings [ "/" ] [ "#" ] path}.sh";
               runtimeInputs = [ pkgs.coreutils ];
               derivationArgs = {
                 allowSubstitutes = false;
@@ -129,7 +128,7 @@ in
                 '';
             };
           in
-          "${drv}/bin/${name}";
+          lib.getExe drv;
       in
       lib.nameValuePair (serviceName path) {
         Unit = {

@@ -16,8 +16,8 @@ let
       substitute \
         ${cfg.package}/share/applications/${desktopFile} $out \
         --replace-fail \
-        'Exec=${cfg.package}/bin/slack -s %U' \
-        'Exec=${cfg.package}/bin/slack --silent --startup %U'
+        'Exec=${lib.getExe cfg.package} -s %U' \
+        'Exec=${lib.getExe cfg.package} --silent --startup %U'
     '';
 in
 {

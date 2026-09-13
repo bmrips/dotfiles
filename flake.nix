@@ -78,7 +78,6 @@
       );
 
       flake.overlays = {
-        konsole-with-split-view-shortcuts = import ./nixpkgs/konsole-with-split-view-shortcuts.nix;
         packages = import ./nixpkgs/packages/overlay.nix;
         pkgs-lib =
           self: _super:

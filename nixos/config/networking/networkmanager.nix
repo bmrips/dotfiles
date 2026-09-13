@@ -31,6 +31,6 @@
     };
   };
 
-  sops.secrets.networks = { };
+  sops.secrets.networks = lib.mkIf config.networking.networkmanager.enable { };
   networking.networkmanager.ensureProfiles.environmentFiles = config.lib.sops.pathOptional "networks";
 }

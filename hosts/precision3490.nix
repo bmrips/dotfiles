@@ -22,6 +22,7 @@
           priority = 200;
           size = "1493M";
         };
+        "Microsoft basic data".size = "200G";
         Swap.size = "32G";
         LUKS.content.content.mountOptions = [ "ssd" ];
       };
@@ -33,6 +34,8 @@
     kernelParams = [ "retbleed=stuff" ];
     lanzaboote.enable = true;
   };
+
+  dualboot.windows.enable = true;
 
   hardware.bluetooth.enable = true;
   hardware.devices.lacie_drive.enable = true;

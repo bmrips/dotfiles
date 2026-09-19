@@ -30,10 +30,10 @@ in
         type = "0700";
         priority = 300;
       };
-      "Windows recovery" = {
+      "Microsoft recovery" = {
         type = "2700";
         priority = 310;
-        size = "781M";
+        size = "888M";
       };
     };
 

@@ -112,14 +112,6 @@
           ...
         }:
         {
-          ecosystems = {
-            bash.enable = true;
-            github.enable = true;
-            lua.enable = true;
-            markdown.enable = true;
-            sops.enable = true;
-          };
-
           ecosystems.github.workflows.nix-flake-check = {
             arguments = [ "--impure" ];
             preSteps = [

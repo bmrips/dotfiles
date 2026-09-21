@@ -47,11 +47,11 @@
         "wrappers": "wrappers"
       },
       "locked": {
-        "lastModified": 1789553634,
-        "narHash": "sha256-zIR7oMuC5ThkdrvOv7yMUW/0uH5yn7lwHI/BpgM0MVE=",
+        "lastModified": 1790076793,
+        "narHash": "sha256-8sCZdax/zavqwIyICTUUO4ua1OExTK+XF662I1kzqmY=",
         "owner": "bmrips",
         "repo": "defaults.nix",
-        "rev": "4a890eeef19b15b6deff9efbe18c31aaa9371452",
+        "rev": "4071677c94a0a7c9cfe672f6282a79c4e6eecd2d",
         "type": "github"
       },
       "original": {

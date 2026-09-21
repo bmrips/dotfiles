@@ -51,6 +51,14 @@ lib.mkMerge [
           type = "RSS";
           url = "https://www.leftfold.tech/feed.xml";
         };
+        "Neil Mitchell's Blog" = {
+          comment = "Neil Michell";
+          description = "Build systems and Haskell";
+          homepage = "https://neilmitchell.blogspot.com/";
+          loadFullWebsite = true;
+          type = "RSS";
+          url = "https://neilmitchell.blogspot.com/feeds/posts/default";
+        };
         "Patterns in Functional Programming" = {
           comment = "Jeremy Gibbons";
           description = "Exploiting the relationship between data structure and program structure";

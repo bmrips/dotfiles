@@ -15,6 +15,10 @@ return {
       lsp_format = 'fallback',
     },
     formatters = {
+      jaq = {
+        command = 'jaq',
+        args = { '--sort-keys', '.' },
+      },
       treefmt = {
         -- Disable treefmt for Haskell files since fourmolu requires the
         -- original path to determine the active language extensions but only
@@ -30,7 +34,7 @@ return {
       bash = { 'shfmt' },
       dart = { 'dart_format' },
       haskell = { 'fourmolu' },
-      json = { 'jq' },
+      json = { 'jaq' },
       lua = { 'stylua' },
       markdown = { 'markdownlint', 'mdformat' },
       nix = { 'nixfmt' },

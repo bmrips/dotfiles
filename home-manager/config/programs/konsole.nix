@@ -9,7 +9,7 @@ let
   smartly-sized-konsole =
     let
       grep = lib.getExe pkgs.gnugrep;
-      jq = lib.getExe pkgs.jq;
+      jaq = lib.getExe pkgs.jaq;
       konsole = lib.getExe pkgs.kdePackages.konsole;
       kscreen-console = lib.getExe pkgs.kdePackages.kscreen;
     in
@@ -22,8 +22,8 @@ let
       text = ''
         background=''${1-Dark}
         kscreen_output="$(${kscreen-console} json | ${grep} '^[ {}]')"
-        screen_width="$(${jq} .screen.currentSize.width <<<"$kscreen_output")"
-        screen_name="$(${jq} --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
+        screen_width="$(${jaq} .screen.currentSize.width <<<"$kscreen_output")"
+        screen_name="$(${jaq} --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
 
         if (( screen_width != 1920 )) ||
               [[ $screen_name = eDP-* ]] ||

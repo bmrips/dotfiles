@@ -20,12 +20,6 @@ return {
         args = { '--sort-keys', '.' },
       },
       treefmt = {
-        -- Disable treefmt for Haskell files since fourmolu requires the
-        -- original path to determine the active language extensions but only
-        -- gets conform's temporary path.
-        condition = function(_self, ctx)
-          return not vim.endswith(ctx.filename, '.hs')
-        end,
         require_cwd = false,
       },
     },

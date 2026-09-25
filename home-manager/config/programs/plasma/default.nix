@@ -161,6 +161,7 @@ lib.mkMerge [
               };
             }
             "org.kde.plasma.marginsseparator"
+            { name = "org.dv.fokus"; }
             {
               systemTray = {
                 icons.scaleToFit = true;

@@ -1,4 +1,33 @@
 return {
+  filetypes = { -- omit TeX
+    'asciidoc',
+    'c',
+    'clojure',
+    'cmake',
+    'cpp',
+    'cs',
+    'dart',
+    'gitcommit',
+    'go',
+    'haskell',
+    'html',
+    'java',
+    'javascript',
+    'jjdescription',
+    'lua',
+    'markdown',
+    'nix',
+    'php',
+    'python',
+    'ruby',
+    'rust',
+    'sh',
+    'swift',
+    'toml',
+    'typescript',
+    'typescriptreact',
+    'typst',
+  },
   settings = {
     ['harper-ls'] = {
       linters = {

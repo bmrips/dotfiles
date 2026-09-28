@@ -54,9 +54,6 @@
           modules = [
             ./nixos
             ./home-manager/submodule.nix
-            inputs.disko.nixosModules.default
-            inputs.lanzaboote.nixosModules.default
-            inputs.sops.nixosModules.default
           ];
         };
     in

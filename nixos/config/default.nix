@@ -27,6 +27,8 @@ let
 
 in
 {
+  imports = [ inputs.lanzaboote.nixosModules.default ];
+
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     kernelParams = [ "video=efifb:nobgrt" ]; # hide the UEFI vendor logo

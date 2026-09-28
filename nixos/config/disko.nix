@@ -1,11 +1,14 @@
 {
   config,
   host,
+  inputs,
   lib,
   ...
 }:
 
 {
+  imports = [ inputs.disko.nixosModules.default ];
+
   options.disko.enable = lib.mkEnableOption "disko";
 
   config = lib.mkIf config.disko.enable {

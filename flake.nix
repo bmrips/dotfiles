@@ -102,12 +102,7 @@
       };
 
       perSystem =
-        {
-          lib,
-          pkgs,
-          system,
-          ...
-        }:
+        { pkgs, system, ... }:
         {
           ecosystems.github.workflows.nix-flake-check = {
             arguments = [ "--impure" ];
@@ -137,7 +132,7 @@
           packages = import ./nixpkgs/packages/default.nix pkgs;
 
           # We use `writeShellApplication` instead.
-          pre-commit.settings.hooks.shellcheck.enable = lib.mkForce false;
+          pre-commit.settings.hooks.shellcheck.enable = false;
 
           treefmt.programs.mdformat.plugins = ps: [
             ps.mdformat-gfm

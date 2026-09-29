@@ -59,7 +59,7 @@ lib.mkMerge [
           name = "SONiX Evoluent VerticalMouse D";
           vendorId = "1a7c";
           productId = "0197";
-          acceleration = -1.0;
+          acceleration = -0.6;
           accelerationProfile = "default";
           naturalScroll = false;
           scrollSpeed = 1.0;

@@ -42,11 +42,6 @@
 
   profiles.radboud.enable = true;
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-  };
-
   services.hardware.bolt.enable = true;
   services.languagetool.enable = true;
 

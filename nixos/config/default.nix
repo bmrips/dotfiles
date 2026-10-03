@@ -141,6 +141,7 @@ in
   services.pipewire.enable = true;
   services.printing.enable = true;
   services.resolved.enable = true;
+  services.thermald.enable = true;
   services.tlp.enable = true;
   services.tzupdate.enable = true;
 

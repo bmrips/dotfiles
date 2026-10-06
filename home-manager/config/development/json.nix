@@ -10,7 +10,7 @@
 
   config = lib.mkIf config.development.json.enable {
     home.packages = with pkgs; [
-      jaq
+      defaults.jaq
       vscode-json-languageserver
     ];
   };

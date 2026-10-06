@@ -86,7 +86,6 @@ in
     file
     findutils
     gnused
-    jq
     man-db
     ncdu
     nerd-fonts.jetbrains-mono

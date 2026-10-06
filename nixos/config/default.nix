@@ -9,6 +9,8 @@
 }:
 
 let
+  nixConfig = config.nix.settings;
+
   kmod-params = pkgs.defaults.writeShellApplication {
     name = "kmod-params";
     derivationArgs = {
@@ -109,7 +111,7 @@ in
 
   nix.channel.enable = false;
 
-  nix.settings = rec {
+  nix.settings = {
     auto-allocate-uids = true;
     auto-optimise-store = true;
     download-buffer-size = "512M";
@@ -117,11 +119,11 @@ in
       "flakes"
       "nix-command"
     ]
-    ++ lib.optionals auto-allocate-uids [
+    ++ lib.optionals nixConfig.auto-allocate-uids [
       "auto-allocate-uids"
       "cgroups"
     ];
-    system-features = lib.optional auto-allocate-uids "uid-range";
+    system-features = lib.optional nixConfig.auto-allocate-uids "uid-range";
     trusted-users = [ user ];
   };
 

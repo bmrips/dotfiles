@@ -7,7 +7,7 @@
 }:
 
 {
-  imports = [ inputs.disko.nixosModules.default ];
+  imports = [ "${inputs.disko}/module.nix" ];
 
   options.disko.enable = lib.mkEnableOption "disko";
 

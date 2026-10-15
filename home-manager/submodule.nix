@@ -14,7 +14,7 @@ let
   userCfg = hm.users.${user};
 in
 {
-  imports = [ inputs.home-manager.nixosModules.home-manager ];
+  imports = [ "${inputs.home-manager}/nixos" ];
 
   environment.pathsToLink = lib.mkIf (hm.useUserPackages && userCfg.xdg.portal.enable) [
     "/share/applications"

@@ -9,8 +9,8 @@
 
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.nixos-hardware.nixosModules.dell-precision-3490-nvidia
-    inputs.nixos-hardware.nixosModules.common-gpu-nvidia
+    "${inputs.nixos-hardware}/dell/precision/3490/nvidia"
+    "${inputs.nixos-hardware}/common/gpu/nvidia/prime.nix"
   ];
 
   disko = {

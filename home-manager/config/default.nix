@@ -27,7 +27,7 @@ let
 
 in
 {
-  imports = [ inputs.nix-index-database.homeModules.default ];
+  imports = [ "${inputs.nix-index-database}/home-manager-module.nix" ];
 
   development.bash.enable = true;
   development.json.enable = true;

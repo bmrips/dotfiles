@@ -8,7 +8,7 @@
 {
   imports = [
     (modulesPath + "/installer/scan/not-detected.nix")
-    inputs.nixos-hardware.nixosModules.dell-xps-13-9360
+    "${inputs.nixos-hardware}/dell/xps/13-9360"
   ];
 
   disko = {

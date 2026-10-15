@@ -2,8 +2,8 @@
 
 {
   imports = [
-    inputs.plasma-manager.homeModules.plasma-manager
-    inputs.sops.homeModules.sops
+    "${inputs.plasma-manager}/modules"
+    "${inputs.sops}/modules/home-manager/sops.nix"
   ]
   ++ lib.haumea.collectModules ./modules
   ++ lib.haumea.collectModules ./config;

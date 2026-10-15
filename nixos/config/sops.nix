@@ -10,7 +10,7 @@ let
   path = f: secret: f (cfg.secrets ? ${secret}) cfg.secrets.${secret}.path;
 in
 {
-  imports = [ inputs.sops.nixosModules.default ];
+  imports = [ "${inputs.sops}/modules/sops" ];
 
   sops = {
     defaultSopsFile = ./secrets.yaml;

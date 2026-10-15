@@ -16,7 +16,7 @@
     home-manager.flake = false;
     lanzaboote.url = "github:nix-community/lanzaboote";
     lanzaboote.inputs.nixpkgs.follows = "nixpkgs";
-    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
     nixos-hardware.flake = false;
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs_23_05.url = "github:nixos/nixpkgs/2c9c58e98243930f8cb70387934daa4bc8b00373";

@@ -33,23 +33,23 @@
       ];
       git.overrideGpg = true;
       gui = {
-        authorColors = {
-          "Benedikt Rips" = "cyan";
-          "Rips, Benedikt" = "cyan";
-        };
         nerdFontsVersion = "3";
         skipAmendWarning = true;
         skipDiscardChangeWarning = true;
         skipStashWarning = true;
         skipRewordInEditorWarning = true;
+        theme.authorColors = {
+          "Benedikt Rips" = "cyan";
+          "Rips, Benedikt" = "cyan";
+        };
       };
       promptToReturnFromSubprocess = false;
     }
 
     (lib.mkIf config.programs.delta.enable {
       git.diffRenderers = [
-        { command = "delta --paging=never --width=-1"; }
-        { command = "delta --paging=never --width=-1 --side-by-side"; }
+        { command = "delta --{{colorScheme}} --paging=never --width=-1"; }
+        { command = "delta --{{colorScheme}} --paging=never --width=-1 --side-by-side"; }
       ];
     })
 

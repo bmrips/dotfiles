@@ -4,6 +4,7 @@
 
   inputs = {
     base16.url = "github:SenchoPens/base16.nix";
+    base16.inputs.nixpkgs.follows = "nixpkgs";
     defaults.url = "github:bmrips/defaults.nix";
     defaults.inputs.nixpkgs.follows = "nixpkgs";
     disko.url = "github:nix-community/disko/latest";

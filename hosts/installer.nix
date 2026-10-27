@@ -64,11 +64,13 @@
 
   sops.secrets = lib.mkForce { };
 
-  system.extraDependencies = lib.attrValues inputs ++ [
-    inputs.self.devShells.${system}.default
-  ];
-
-  system.stateVersion = lib.trivial.release;
+  system = {
+    extraDependencies = lib.attrValues inputs ++ [
+      inputs.self.devShells.${system}.default
+    ];
+    nixos.variantName = "Installer";
+    stateVersion = lib.trivial.release;
+  };
 
   virtualisation.podman.enable = lib.mkForce false;
 

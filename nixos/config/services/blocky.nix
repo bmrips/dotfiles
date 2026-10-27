@@ -49,13 +49,6 @@ lib.mkMerge [
         "1.1.1.1"
         "1.0.0.1"
       ];
-      bootstrapDns = {
-        upstream = "https://one.one.one.one/dns-query";
-        ips = [
-          "1.1.1.1"
-          "1.0.0.1"
-        ];
-      };
       blocking = {
         blackLists.default = [
           stevenBlackBlocklist

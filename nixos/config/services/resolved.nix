@@ -8,7 +8,7 @@
 lib.mkIf config.services.resolved.enable {
   # Disable Firefox' DNS cache and DNS over HTTPS.
   home-manager.users.${user}.programs.firefox.profiles.default.settings = {
-    "network.dnsCacheExpiration" = lib.mkForce 0;
+    "network.dnsCacheEntries" = lib.mkForce 0;
     "network.trr.mode" = lib.mkForce 5;
   };
 }

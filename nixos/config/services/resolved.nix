@@ -7,7 +7,10 @@
 
 lib.mkMerge [
   {
-    services.resolved.settings.Resolve.LLMNR = false; # LLMNR is deprecated and unsafe
+    services.resolved.settings.Resolve = {
+      LLMNR = false; # LLMNR is deprecated and unsafe
+      MulticastDNS = !config.services.avahi.enable;
+    };
   }
 
   (lib.mkIf config.services.resolved.enable {

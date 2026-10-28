@@ -16,7 +16,6 @@ lib.mkMerge [
     services.avahi = {
       enable = true;
       nssmdns4 = true;
-      openFirewall = true;
     };
 
     users.users.${user}.extraGroups = [ "lp" ];

@@ -484,6 +484,7 @@ lib.mkMerge [
                 "ublock-unbreak"
                 "easylist"
                 "easyprivacy"
+                "adguard-spyware-url"
                 "urlhaus-1"
                 "plowe-0"
                 "fanboy-cookiemonster"

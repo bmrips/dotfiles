@@ -10,7 +10,7 @@ let
     let
       whitelist = [
         "reddit"
-        "redd\.it"
+        "redd.it"
         "whatsapp"
       ];
       pattern = "[^ ]*(${lib.escape [ "." ] (lib.concatStringsSep "|" whitelist)})[^ ]*";

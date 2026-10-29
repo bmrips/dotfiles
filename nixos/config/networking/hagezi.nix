@@ -29,6 +29,7 @@ let
         domains = [
           # Twitch
           "twitch.com"
+          "twitch.tv"
 
           # YouTube
           "googlevideo.com"

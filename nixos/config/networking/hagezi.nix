@@ -33,9 +33,6 @@ let
 
           # YouTube
           "googlevideo.com"
-          "m.youtube.com"
-          "music.youtube.com"
-          "www.youtube.com"
           "youtu.be"
           "youtube-nocookie.com"
           "youtube.com"

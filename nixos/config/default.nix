@@ -98,9 +98,9 @@ in
     };
 
   networking = {
+    hagezi.enable = true;
     hostName = host;
     networkmanager.enable = true;
-    stevenblack.enable = true;
   };
 
   nix.gc = {

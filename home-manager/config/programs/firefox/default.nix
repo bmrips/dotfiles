@@ -499,6 +499,7 @@ lib.mkMerge [
                 "ublock-annoyances"
                 "DEU-0"
                 "NLD-0"
+                "https://github.com/DandelionSprout/adfilt/blob/master/BrowseWebsitesWithoutLoggingIn.txt"
               ];
             };
           };

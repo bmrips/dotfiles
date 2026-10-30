@@ -10,17 +10,21 @@ let
     {
       name,
       hash ? lib.fakeHash,
-      processing ? [ ],
+      whitelist ? [ ],
     }:
     let
-      src = pkgs.fetchurl {
+      orig = pkgs.fetchurl {
         url = "https://hagezi-mirror.dnsbunker.org/dnsmasq/${name}.txt";
         inherit hash;
       };
+      pattern = lib.escape [ "." ] (lib.concatStringsSep "|" whitelist);
     in
-    pkgs.runCommandLocal "HaGeZi-${name}.txt" { inherit src; } ''
-      <$src ${lib.concatStringsSep " | " (lib.toList processing)} >$out
-    '';
+    if whitelist == [ ] then
+      orig
+    else
+      pkgs.runCommandLocal "HaGeZi-${name}.txt" { } ''
+        grep -vE '${pattern}' <${orig} >$out
+      '';
 
   blocklists = {
     custom-blocklist =
@@ -57,7 +61,10 @@ let
     HaGeZi-social = fetchHageziList {
       name = "social";
       hash = "sha256-OZ9Ern5qwlNva/KRuffMurMrOFVyULpFHu43Lta3xxA=";
-      processing = "grep -vE 'reddit|redd\\.it'";
+      whitelist = [
+        "reddit"
+        "redd.it"
+      ];
     };
     HaGeZi-NSFW = fetchHageziList {
       name = "nsfw";

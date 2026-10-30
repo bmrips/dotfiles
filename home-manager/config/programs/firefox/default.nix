@@ -7,6 +7,10 @@
 }:
 
 let
+  cfg = config.programs.firefox;
+
+  hasExtensions = lib.filterAttrs (_: e: e.enable) cfg.profiles.default.extensions' != { };
+
   toAction =
     addon:
     let
@@ -263,6 +267,10 @@ lib.mkMerge [
             currentVersion = 21;
             newElementCount = 7;
           };
+        }
+        // lib.optionalAttrs hasExtensions {
+          "extensions.autoDisableScopes" = 0; # automatically enable installed extensions
+          "extensions.update.autoUpdateDefault" = false; # disable automatic extension updates
         };
 
         search = {
@@ -365,8 +373,6 @@ lib.mkMerge [
             };
         };
 
-        settings."extensions.autoDisableScopes" = 0; # automatically enable extensions
-        settings."extensions.update.autoUpdateDefault" = false;
         extensions' = {
           auto-sort-bookmarks = {
             package = pkgs.firefox-addons.auto-sort-bookmarks;
@@ -508,7 +514,7 @@ lib.mkMerge [
     };
   }
 
-  (lib.mkIf config.programs.firefox.enable {
+  (lib.mkIf cfg.enable {
     sops.secrets = {
       "firefox_extensions/simple-translate" = { };
       "firefox_extensions/tab-session-manager" = { };

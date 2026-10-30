@@ -110,12 +110,6 @@ lib.mkMerge [
           "network.buffer.cache.size" = 262144;
           "network.buffer.cache.count" = 128;
 
-          # Increase SSL and DNS caches
-          "network.ssl_tokens_cache_capacity" = 32768;
-          "network.dnsCacheEntries" = 2000;
-          "network.dnsCacheExpiration" = 7200; # 2 hours
-          "network.dnsCacheExpirationGracePeriod" = 3600; # 1 hour
-
           # Use the XDG desktop portal.
           "widget.use-xdg-desktop-portal.file-picker" = 1;
           "widget.use-xdg-desktop-portal.open-uri" = 1;

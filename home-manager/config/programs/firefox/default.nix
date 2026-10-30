@@ -2,12 +2,21 @@
   config,
   host,
   lib,
+  nixosConfig,
   pkgs,
   ...
 }:
 
 let
   cfg = config.programs.firefox;
+
+  systemHasLocalDnsResolver =
+    let
+      nmCfg = nixosConfig.networking.networkmanager;
+      networkmanager-dnsmasq = nmCfg.enable && nmCfg.dns == "dnsmasq";
+      systemd-resolved = nixosConfig.services.systemd-resolved.enable;
+    in
+    nixosConfig != { } && (networkmanager-dnsmasq || systemd-resolved);
 
   hasExtensions = lib.filterAttrs (_: e: e.enable) cfg.profiles.default.extensions' != { };
 
@@ -267,6 +276,10 @@ lib.mkMerge [
             currentVersion = 21;
             newElementCount = 7;
           };
+        }
+        // lib.optionalAttrs systemHasLocalDnsResolver {
+          "network.dnsCacheEntries" = 0; # disable DNS cache
+          "network.trr.mode" = 5; # disable DoT and DoH
         }
         // lib.optionalAttrs hasExtensions {
           "extensions.autoDisableScopes" = 0; # automatically enable installed extensions

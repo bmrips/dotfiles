@@ -17,10 +17,9 @@ let
         url = "https://hagezi-mirror.dnsbunker.org/dnsmasq/${name}.txt";
         inherit hash;
       };
-      pipeline = lib.toList processing ++ [ "sed -E 's@^local=/(.*)/$@address=/\\1/#@'" ];
     in
     pkgs.runCommandLocal "HaGeZi-${name}.txt" { inherit src; } ''
-      <$src ${lib.concatStringsSep " | " pipeline} >$out
+      <$src ${lib.concatStringsSep " | " (lib.toList processing)} >$out
     '';
 
   blocklists = {
@@ -40,7 +39,7 @@ let
         ];
       in
       lib.pipe domains [
-        (lib.concatMapStringsSep "\n" (d: "address=/${d}/#"))
+        (lib.concatMapStringsSep "\n" (d: "local=/${d}/"))
         (pkgs.writeText "custom-blocklist")
       ];
     HaGeZi-pro-plus = fetchHageziList {

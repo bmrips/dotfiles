@@ -3,18 +3,18 @@
 lib.mkMerge [
   {
     networking.hagezi.blocklists = {
-      "pro.plus".hash = "sha256-RzBApKTbC3dMVljws50Jgqt5ZdUyolS9c4RUf7A5VYE=";
-      "tif.mini".hash = "sha256-SxaE81cGjpFJeZnGUpQ/jmGCORFTgYhhDpxH31wRPzI=";
-      "anti.piracy".hash = "sha256-fn9eB3pxhlf1LWIzqxxPuUIUFCPDV7xwhMuaHl+RAUE=";
+      "pro.plus".enable = true;
+      "tif.mini".enable = true;
+      "anti.piracy".enable = true;
       social = {
-        hash = "sha256-OZ9Ern5qwlNva/KRuffMurMrOFVyULpFHu43Lta3xxA=";
+        enable = true;
         whitelist = [
           "reddit"
           "redd.it"
         ];
       };
-      nsfw.hash = "sha256-tA3VPNX9f2EtZCRCkZWw7p/ev/N75MK/5Q784lUzqEo=";
-      gambling.hash = "sha256-T50ryHMtAeL6Jwulm5O8K9b+O/AJLL3cSgv5rZgcyAg=";
+      nsfw.enable = true;
+      gambling.enable = true;
     };
   }
 

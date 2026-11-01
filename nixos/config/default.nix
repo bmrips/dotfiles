@@ -169,6 +169,8 @@ in
       ]
     );
 
+  systemd.enableStrictShellChecks = true;
+
   systemd.tmpfiles.settings.nixos = {
     "%C".v.age = "4 weeks"; # put the cache into a subvolume and clean it
     "/mnt".d = { };

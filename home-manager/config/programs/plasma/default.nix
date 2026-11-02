@@ -382,9 +382,10 @@ lib.mkMerge [
           "toggle do not disturb" = "Meta+Ctrl+N";
         };
         "services/firefox.desktop" = {
-          _launch = "Launch (5)";
-          new-private-window = "Shift+Launch (5)";
-          profile-manager-window = "Ctrl+Launch (5)";
+          launch = "Favorites";
+          new-private-window = "Ctrl+Shift+Favorites";
+          new-window = "Ctrl+Favorites";
+          profile-manager-window = "Shift+Favorites";
         };
         "services/org.kde.akregator.desktop"._launch = "Launch (8)";
         "services/org.kde.kmail2.desktop" = {

@@ -386,6 +386,7 @@ lib.mkMerge [
           new-private-window = "Shift+Launch (5)";
           profile-manager-window = "Ctrl+Launch (5)";
         };
+        "services/org.kde.akregator.desktop"._launch = "Launch (8)";
         "services/org.kde.kmail2.desktop" = {
           _launch = "Launch Mail";
           Composer = "Shift+Launch Mail";

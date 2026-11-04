@@ -22,6 +22,7 @@ return {
           ['\\Citep{}'] = 'dummy',
           ['\\citet{}'] = 'dummy',
           ['\\Citet{}'] = 'dummy',
+          ['\\footref{}'] = 'ignore',
           ['\\slash{}'] = 'dummy',
         },
       },

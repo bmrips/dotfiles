@@ -26,6 +26,11 @@ return {
           '%p',
         },
       },
+      experimental = {
+        labelReferenceCommands = {
+          'footref',
+        },
+      },
     },
   },
 }

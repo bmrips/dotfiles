@@ -104,17 +104,20 @@
       perSystem =
         { pkgs, system, ... }:
         {
-          ecosystems.github.workflows.nix-flake-check = {
-            arguments = [ "--impure" ];
-            preSteps = [
-              {
-                name = "Create passwords database stub for the installer image";
-                run = ''
-                  sudo mkdir -p /home/bmr/Documents
-                  sudo touch /home/bmr/Documents/passwords.kdbx
-                '';
-              }
-            ];
+          ecosystems = {
+            github.workflows.nix-flake-check = {
+              arguments = [ "--impure" ];
+              preSteps = [
+                {
+                  name = "Create passwords database stub for the installer image";
+                  run = ''
+                    sudo mkdir -p /home/bmr/Documents
+                    sudo touch /home/bmr/Documents/passwords.kdbx
+                  '';
+                }
+              ];
+            };
+            neovim.enable = true;
           };
 
           git.attributes = [ "**/secrets.yaml diff=sops" ];

@@ -28,6 +28,7 @@ return {
       },
       experimental = {
         labelReferenceCommands = {
+          -- https://github.com/latex-lsp/texlab/pull/1633
           'footref',
         },
       },

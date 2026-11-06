@@ -18,7 +18,9 @@ return {
       languageToolHttpServerUri = 'http://localhost:8081',
       latex = {
         commands = {
+          -- https://github.com/ltex-plus/ltex-ls-plus/pull/224/changes
           ['\\footref{}'] = 'ignore',
+          -- https://github.com/ltex-plus/ltex-ls-plus/pull/225
           ['\\slash{}'] = 'dummy',
         },
       },

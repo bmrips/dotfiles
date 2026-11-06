@@ -18,10 +18,6 @@ return {
       languageToolHttpServerUri = 'http://localhost:8081',
       latex = {
         commands = {
-          ['\\citep{}'] = 'dummy',
-          ['\\Citep{}'] = 'dummy',
-          ['\\citet{}'] = 'dummy',
-          ['\\Citet{}'] = 'dummy',
           ['\\footref{}'] = 'ignore',
           ['\\slash{}'] = 'dummy',
         },

@@ -67,6 +67,14 @@ lib.mkMerge [
           type = "RSS";
           url = "https://patternsinfp.wordpress.com/feed/";
         };
+        "The Comonad Reader" = {
+          comment = "Edward Kmett";
+          description = "Writing, talks, live coding, and papers: types, (co)monads, substructural logic";
+          homepage = "https://comonad.com";
+          loadFullWebsite = true;
+          type = "RSS";
+          url = "https://comonad.com/feed.xml";
+        };
         "The Haskell Cast" = {
           copyright = "Copyright 2013";
           description = "Listen to regular interviews with the Haskell community. The podcast covers news, libraries, and whatever other topics we wander onto with our guests.";

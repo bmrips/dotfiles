@@ -29,6 +29,7 @@ in
     crystal.symbol = " ";
     dart.symbol = " ";
     directory.read_only = " 󰌾";
+    directory.repo_root_style = "bold cyan";
     directory.style = "bold blue";
     directory.truncation_length = 10;
     directory.truncate_to_repo = false;

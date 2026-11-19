@@ -606,6 +606,7 @@ lib.mkMerge [
         MouseBindings.CommandAllKey = "Meta";
         MouseBindings.CommandInactiveTitlebar2 = "Close";
         TabBox.HighlightWindows = false; # do not show the selected window
+        Windows.PerOutputVirtualDesktops = true;
         Windows.Placement = "Smart";
         Windows.RollOverDesktops = true; # desktop navigation wrap around
       };

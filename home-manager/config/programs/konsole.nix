@@ -24,13 +24,16 @@ let
       screen_width="$(jaq .screen.currentSize.width <<<"$kscreen_output")"
       screen_name="$(jaq --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
 
+      declare profile
       if (( screen_width != 1920 )) ||
             [[ $screen_name = eDP-* ]] ||
             [[ $screen_name = Unknown-* ]]; then
-          konsole --profile "$background"
+          profile="$background"
       else
-          konsole --profile "$background-10pt"
+          profile="$background-10pt"
       fi
+
+      exec -a "$0" konsole --profile "$profile"
     '';
   };
 

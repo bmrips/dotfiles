@@ -17,7 +17,7 @@ let
       preferLocalBuild = true;
     };
     runtimeInputs = [ pkgs.coreutils ];
-    text = ''
+    text = /* bash */ ''
       IFS=$'\n'
       for file in ${config.xdg.stateHome}/nvim/undo/*; do
         name="$(basename "$file")"

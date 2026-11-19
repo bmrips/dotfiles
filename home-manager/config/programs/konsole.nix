@@ -18,7 +18,7 @@ let
       kdePackages.konsole
       kdePackages.kscreen
     ];
-    text = ''
+    text = /* bash */ ''
       background=''${1-Dark}
       kscreen_output="$(kscreen-console json | grep '^[ {}]')"
       screen_width="$(jaq .screen.currentSize.width <<<"$kscreen_output")"

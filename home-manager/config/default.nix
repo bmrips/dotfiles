@@ -14,7 +14,7 @@ let
       allowSubstitutes = false;
       preferLocalBuild = true;
     };
-    text = ''
+    text = /* bash */ ''
       for C in {40..47}; do
         printf "\e[''${C}m%3s" "$C"
       done

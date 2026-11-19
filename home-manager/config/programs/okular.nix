@@ -153,7 +153,7 @@ lib.mkMerge [
             preferLocalBuild = true;
           };
           runtimeInputs = [ pkgs.ghostscript_headless ];
-          text = ''
+          text = /* bash */ ''
             if [[ -z $1 ]]; then
                 echo "Error: no argument given!" >&2
                 exit 1

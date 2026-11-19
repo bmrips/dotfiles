@@ -20,20 +20,23 @@ let
     ];
     text = /* bash */ ''
       background=''${1-Dark}
-      kscreen_output="$(kscreen-console json | grep '^[ {}]')"
-      screen_width="$(jaq .screen.currentSize.width <<<"$kscreen_output")"
-      screen_name="$(jaq --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
+      active_screen="$(kscreenctl active-output get-name)"
 
-      declare profile
-      if (( screen_width != 1920 )) ||
-            [[ $screen_name = eDP-* ]] ||
-            [[ $screen_name = Unknown-* ]]; then
-          profile="$background"
-      else
-          profile="$background-10pt"
-      fi
+      # shellcheck disable=SC2016
+      compute_suffix='
+        .outputs[]
+        | select(.name == $screen)
+        | .size.height / .sizeMM.height # compute the DPI
+        | if . <= 4 then "-10pt" else "" end
+      '
 
-      exec -a "$0" konsole --profile "$profile"
+      suffix="$(
+        kscreen-console json |
+          grep '^[ {}]' |
+          jaq -r "$compute_suffix" --arg screen "$active_screen"
+      )"
+
+      exec -a "$0" konsole --profile "$background$suffix"
     '';
   };
 

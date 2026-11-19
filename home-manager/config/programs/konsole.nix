@@ -13,7 +13,7 @@ let
       preferLocalBuild = true;
     };
     runtimeInputs = with pkgs; [
-      gnugrep
+      gnused
       jaq
       kdePackages.konsole
       kdePackages.kscreen
@@ -32,7 +32,7 @@ let
 
       suffix="$(
         kscreen-console json |
-          grep '^[ {}]' |
+          sed -n '/^{/,$p' | # skip everything before the JSON document
           jaq -r "$compute_suffix" --arg screen "$active_screen"
       )"
 

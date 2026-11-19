@@ -6,34 +6,33 @@
 }:
 
 let
-  smartly-sized-konsole =
-    let
-      grep = lib.getExe pkgs.gnugrep;
-      jaq = lib.getExe pkgs.jaq;
-      konsole = lib.getExe pkgs.kdePackages.konsole;
-      kscreen-console = lib.getExe pkgs.kdePackages.kscreen;
-    in
-    pkgs.defaults.writeShellApplication {
-      name = "smartly-sized-konsole";
-      derivationArgs = {
-        allowSubstitutes = false;
-        preferLocalBuild = true;
-      };
-      text = ''
-        background=''${1-Dark}
-        kscreen_output="$(${kscreen-console} json | ${grep} '^[ {}]')"
-        screen_width="$(${jaq} .screen.currentSize.width <<<"$kscreen_output")"
-        screen_name="$(${jaq} --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
-
-        if (( screen_width != 1920 )) ||
-              [[ $screen_name = eDP-* ]] ||
-              [[ $screen_name = Unknown-* ]]; then
-            ${konsole} --profile "$background"
-        else
-            ${konsole} --profile "$background-10pt"
-        fi
-      '';
+  smartly-sized-konsole = pkgs.defaults.writeShellApplication {
+    name = "smartly-sized-konsole";
+    derivationArgs = {
+      allowSubstitutes = false;
+      preferLocalBuild = true;
     };
+    runtimeInputs = with pkgs; [
+      gnugrep
+      jaq
+      kdePackages.konsole
+      kdePackages.kscreen
+    ];
+    text = ''
+      background=''${1-Dark}
+      kscreen_output="$(kscreen-console json | grep '^[ {}]')"
+      screen_width="$(jaq .screen.currentSize.width <<<"$kscreen_output")"
+      screen_name="$(jaq --raw-output '.outputs.[] | select(.enabled) | .name' <<<"$kscreen_output")"
+
+      if (( screen_width != 1920 )) ||
+            [[ $screen_name = eDP-* ]] ||
+            [[ $screen_name = Unknown-* ]]; then
+          konsole --profile "$background"
+      else
+          konsole --profile "$background-10pt"
+      fi
+    '';
+  };
 
   mkColorScheme =
     darkness:
